@@ -5,7 +5,7 @@ type GeneralObjectType = {
     startX: number,
     startY: number,
     borderStyle: 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset',
-    borderWidth: string,
+    borderWidth: number,
     borderColor: string,
 }
 
@@ -23,25 +23,21 @@ type ObjectTextType = GeneralObjectType & {
     bold: boolean,
     italic: boolean,
     underlined: boolean,
-    fillColor: string,
+    highlighter: string,
     underlineColor: string,
+    value: string,
 }
 
 type ObjectImageType = GeneralObjectType & {
-    alt: string,
+    caption: string,
     imageSrcType: 'imageLink' | 'imageBase64',
     imageSrc: string,
 }
 
-type BGImageType = BGFillColorType
-
-type BGFillColorType = {
-    value: string,
-}
-
 type SlideType = {
     id: number,
-    background: BGFillColorType | BGImageType,
+    background: 'color' | 'imageLink' | 'imageBase64',
+    bgValue: string,
     objects: Array<ObjectImageType | ObjectTextType | ObjectShapeType>,
 }
 
@@ -50,13 +46,9 @@ type Doc = {
     slides: Array<SlideType>,
 }
 
-type ChosenSlide = {
-    slideId: number,
-}
-
 type Selected = {
-    slides: Array<SlideType>,
-    objects: Array<ObjectImageType | ObjectTextType | ObjectShapeType>,
+    slides: Array<number>,
+    objects: Array<number>,
 }
 
 // type Cached = {
@@ -67,7 +59,6 @@ type Selected = {
 type Editor = {
     document: Doc,
     selected: Selected,
-    chosenSlide: ChosenSlide,
     // cached: Cached,
 }
 
