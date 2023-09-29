@@ -37,7 +37,7 @@ type ObjectImageType = GeneralObjectType & {
 type SlideType = {
     id: number,
     background: 'color' | 'imageLink' | 'imageBase64',
-    bgValue: string,
+    backgroundValue: string,
     objects: Array<ObjectImageType | ObjectTextType | ObjectShapeType>,
 }
 
