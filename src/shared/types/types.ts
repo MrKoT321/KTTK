@@ -5,7 +5,7 @@ type GeneralObjectType = {
   startX: number
   startY: number
   borderStyle:
-    'none'
+    | 'none'
     | 'hidden'
     | 'dotted'
     | 'dashed'

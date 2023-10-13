@@ -1,9 +1,3 @@
-const TestPage = () => (
-    <div>
-        rferfferverf
-    </div>
-)
+const TestPage = () => <div>rferfferverf</div>
 
-export {
-    TestPage,
-}
+export { TestPage }

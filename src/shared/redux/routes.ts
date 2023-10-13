@@ -4,6 +4,5 @@
 //     // goto: () => redirect('/test'),
 // }
 
-export {
-    // testRoute,
-}
+export // testRoute,
+ {}
