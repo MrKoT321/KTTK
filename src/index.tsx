@@ -9,5 +9,3 @@ root.render(
         <App />
     </React.StrictMode>,
 )
-
-// TODO: add tabulation with 2 spaces in **.css files
