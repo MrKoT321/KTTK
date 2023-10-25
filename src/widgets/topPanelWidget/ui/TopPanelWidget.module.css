@@ -1,6 +1,5 @@
 .topPanel {
-    display: block;
-    width: 100px;
-    height: 100px;
+    width: 2000px;
+    height: 300px;
     background-color: #000000;
 }
