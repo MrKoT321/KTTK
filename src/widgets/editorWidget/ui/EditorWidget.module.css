@@ -1,3 +1,9 @@
+.topPanel {
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+}
+
 .slides {
     display: flex;
     flex-direction: row;
