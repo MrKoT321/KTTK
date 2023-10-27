@@ -6,7 +6,7 @@ import { Line } from '../../../features/line/ui/line'
 import { ContinueStory } from '../../../features/continueStory/ui/ContinueStory'
 import { ReturnStory } from '../../../features/returnStory/ui/ReturnStory'
 import styles from './TopPanelWidget.module.css'
-// ? Сделать две линии:первая - навигация, вторая - редактор, тогда поменять на flex-direction: colum
+// ? Сделать две линии:первая - навигация, вторая - редактор, тогда поменять на flex-direction: column
 const TopPanelWidget = () => (
     <div className={styles.topPanel}>
         <ReturnStory />

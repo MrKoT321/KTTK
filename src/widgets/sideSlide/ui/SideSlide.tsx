@@ -1,5 +1,6 @@
 import styles from './SideSlide.module.css'
+import { SlideType } from '../../../shared/types/types'
 
-const SideSlide = () => <div className={styles.sideSlide}>1.</div>
+const SideSlide = (props: SlideType) => <div className={styles.sideSlide}></div>
 
 export { SideSlide }
