@@ -1,10 +1,5 @@
 import { Editor } from './types'
 
-const x = 12
-if (x === x) {
-  const y = 222
-}
-
 const minEditor: Editor = {
   document: {
     name: 'Name',
