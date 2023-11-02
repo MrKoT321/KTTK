@@ -1,8 +1,12 @@
 import { EditorWidget } from '../../../widgets/editorWidget'
-import { minEditor } from '../../../shared/testData'
+import {
+    minEditor,
+    mediumEditor,
+    maxEditor,
+} from '../../../shared/types/testData'
 
 const PresentationMaker = () => (
-    <EditorWidget document={minEditor.document} selected={minEditor.selected} />
+    <EditorWidget document={maxEditor.document} selected={maxEditor.selected} />
 )
 
 export { PresentationMaker }

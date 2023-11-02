@@ -1,5 +1,8 @@
 .workSpace {
-    width: 1500px;
-    height: 600px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
     background-color: #00ff99;
 }

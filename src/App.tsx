@@ -1,8 +1,5 @@
-import { EditorWidget } from './widgets/editorWidget'
-import { minEditor, maxEditor } from '../src/shared/testData'
+import { PresentationMaker } from './pages/presentationMaker'
 
-const App = () => (
-    <EditorWidget document={maxEditor.document} selected={maxEditor.selected} />
-)
+const App = () => <PresentationMaker />
 
 export default App
