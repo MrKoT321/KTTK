@@ -1,6 +1,8 @@
-import { TextObject } from './objects/TextObject'
-import { ShapeObject } from './objects/ShapeObject'
-import { ImageObject } from './objects/ImageObject'
+import {
+    TextObject,
+    ShapeObject,
+    ImageObject
+} from './objects'
 import {
     ObjectImageType,
     ObjectShapeType,

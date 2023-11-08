@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-    ObjectImageType,
-    ObjectShapeType,
-    ObjectTextType,
-    SlideType,
-} from '../../../../shared/types/types'
+import {SlideType} from '../../../../shared/types/types'
 import { useDraggableList } from '../../../../shared/hooks/useDraggableList'
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
