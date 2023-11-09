@@ -7,10 +7,21 @@
     box-shadow: 0 0 5px #212121;
 }
 
-.sideSlideContent {
+.container {
     width: 240px;
     height: 150px;
     background-color: #f68c4a;
     border-radius: 30px;
     border: solid #ffffff 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    width: 220px;
+    height: 130px;
+    background-color: #f68c4a;
+    position: relative;
+    overflow: hidden;
 }

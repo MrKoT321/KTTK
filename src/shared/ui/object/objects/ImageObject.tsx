@@ -1,13 +1,12 @@
 import { ObjectImageType } from '../../../types/types'
+import styles from '../Object.module.css'
 
 const ImageObject = (props: ObjectImageType) => {
     const styleParentObj = {
         width: props.width,
         height: props.height,
-        //TODO: position
-        marginLeft: props.startX,
-        marginTop: props.startY,
-        //
+        left: props.startX,
+        top: props.startY,
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
@@ -17,7 +16,7 @@ const ImageObject = (props: ObjectImageType) => {
         height: props.height,
     }
     return (
-        <div style={styleParentObj}>
+        <div style={styleParentObj} className={styles.object}>
             <img
                 style={styleChildObj}
                 alt={props.caption}

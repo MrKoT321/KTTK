@@ -1,13 +1,12 @@
 import { ObjectTextType } from '../../../types/types'
+import styles from '../Object.module.css'
 
 const TextObject = (props: ObjectTextType) => {
     const styleObj = {
         width: props.width,
         height: props.height,
-        //TODO: position
-        marginLeft: props.startX,
-        marginTop: props.startY,
-        //
+        left: props.startX,
+        top: props.startY,
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
@@ -22,7 +21,7 @@ const TextObject = (props: ObjectTextType) => {
         underlineColor: props.underlineColor,
     }
     return (
-        <div style={styleObj}>
+        <div style={styleObj} className={styles.object}>
             <span>{props.value}</span>
         </div>
     )

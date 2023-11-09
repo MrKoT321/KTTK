@@ -1,13 +1,12 @@
 import { ObjectShapeType } from '../../../types/types'
+import styles from '../Object.module.css'
 
 const ShapeObject = (props: ObjectShapeType) => {
     const styleParentObj = {
         width: props.endX - props.startX,
         height: props.endY - props.startY,
-        //TODO: position
-        marginLeft: props.startX,
-        marginTop: props.startY,
-        //
+        left: props.startX,
+        top: props.startY,
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
@@ -18,7 +17,7 @@ const ShapeObject = (props: ObjectShapeType) => {
         height: props.endY - props.startY,
     }
     return (
-        <div style={styleParentObj}>
+        <div style={styleParentObj} className={styles.object}>
             <div style={styleChildObj}></div>
         </div>
     )
