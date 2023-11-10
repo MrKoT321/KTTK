@@ -11,7 +11,7 @@ const PresentationName = (props: PresentationNameProps) => {
         <div className={styles.presentationName}>
             <input
                 className={styles.presentationNameInput}
-                placeholder={'Новая презентация'}
+                placeholder={'Назавание презентации'}
                 value={presentationName}
                 type={'text'}
                 onChange={(event) => {
