@@ -83,7 +83,7 @@ const maxEditor: Editor = {
             {
                 id: 1,
                 background: 'color',
-                backgroundValue: '#FFFFFF',
+                backgroundValue: '#fc6969',
                 objects: [
                     {
                         id: 1,

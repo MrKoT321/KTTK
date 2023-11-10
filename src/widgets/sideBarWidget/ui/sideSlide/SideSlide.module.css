@@ -10,7 +10,7 @@
 .container {
   width: 240px;
   height: 150px;
-  background-color: #F68C4A;
+  background: #FFFFFF;
   border-radius: 30px;
   border: solid #FFFFFF 5px;
   display: flex;
@@ -21,7 +21,7 @@
 .content {
   width: 220px;
   height: 130px;
-  background-color: #F68C4A;
+  background: #FFFFFF;
   position: relative;
   overflow: hidden;
 }
