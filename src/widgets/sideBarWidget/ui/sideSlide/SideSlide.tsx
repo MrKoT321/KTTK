@@ -3,7 +3,6 @@ import { SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 
 const SideSlide = ({ objects }: SlideType) => {
-    console.log(objects)
     return (
         <div className={styles.sideSlide}>
             <div className={styles.container}>

@@ -4,5 +4,7 @@
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    background-color: #00ff99;
+    background-color: #E4E2E2;
+    border-left: solid #000000 3px;
+    border-top: solid #000000 3px;
 }
