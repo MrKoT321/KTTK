@@ -1,4 +1,4 @@
-import { Editor } from '../../../shared/types/types'
+import { Editor } from './types/types'
 
 const minEditor: Editor = {
     document: {
