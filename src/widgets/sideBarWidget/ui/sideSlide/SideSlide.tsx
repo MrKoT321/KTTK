@@ -9,7 +9,11 @@ const SideSlide = ({ objects }: SlideType) => {
             <div className={styles.container}>
                 <div className={styles.content}>
                     {objects.map((object, index) => (
-                        <Object key={index} object={object} />
+                        <Object
+                            key={index}
+                            object={object}
+                            isSideSlide={true}
+                        />
                     ))}
                 </div>
             </div>

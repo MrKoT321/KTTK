@@ -14,11 +14,20 @@ const TextObject = (props: ObjectTextType) => {
         color: props.fontColor,
         fontFamily: props.fontFamily,
         //TODO: bold, italic... тут ниже ничего не работает
-        bold: props.bold,
-        italic: props.italic,
-        underline: props.underlined,
-        highlighter: props.highlighter,
-        underlineColor: props.underlineColor,
+        fontWeight: 'normal',
+        fontStyle: 'normal',
+        textDecoration: 'none',
+        background: props.highlighter,
+        textDecorationColor: props.underlineColor,
+    }
+    if (props.italic) {
+        styleObj.fontStyle = 'italic'
+    }
+    if (props.bold) {
+        styleObj.fontWeight = 'bold'
+    }
+    if (props.underlined) {
+        styleObj.textDecoration = 'underline'
     }
     return (
         <div style={styleObj} className={styles.object}>
