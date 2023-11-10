@@ -1,12 +1,12 @@
 .presentationName {
-    width: 242px;
-    height: 40px;
-    background-color: #e9bf01;
+  width: 242px;
+  height: 40px;
+  background-color: #E9BF01;
 }
 
 .presentationNameInput {
-    border-radius: 4px!important;
-    width: 100%;
-    height: 100%;
-    font-size: 18px;
+  border-radius: 4px !important;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
 }
