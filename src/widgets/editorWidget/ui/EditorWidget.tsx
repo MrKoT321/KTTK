@@ -1,17 +1,19 @@
-import { PresentationName } from '../../presentationNameWidget'
 import { TopPanelWidget } from '../../topPanelWidget'
 import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
-import { minEditor } from '../../../page/testPage/ui/testData'
+import { Editor } from '../../../shared/types/types'
+import { PresentationName } from '../../presentationNameWidget'
 
-const EditorWidget = () => (
-    <div className={styles.topPanel}>
-        <PresentationName name={minEditor.document.name} />
-        <TopPanelWidget />
-        <div className={styles.slides}>
-            <SideBarWidget />
-            <WorkSpaceWidget />
+const EditorWidget = ({ document, selected }: Editor) => (
+    <div>
+        <PresentationName name={''} />
+        <div>
+            <TopPanelWidget />
+            <div className={styles.mainContent}>
+                <SideBarWidget slides={document.slides} />
+                <WorkSpaceWidget slides={document.slides} selected={selected} />
+            </div>
         </div>
     </div>
 )

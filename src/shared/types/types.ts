@@ -24,6 +24,7 @@ type ObjectShapeType = GeneralObjectType & {
     endX: number
     endY: number
     shapeBgColor: string
+    oType: 'ObjectShapeType'
 }
 
 type ObjectTextType = GeneralObjectType & {
@@ -36,12 +37,14 @@ type ObjectTextType = GeneralObjectType & {
     highlighter: string
     underlineColor: string
     value: string
+    oType: 'ObjectTextType'
 }
 
 type ObjectImageType = GeneralObjectType & {
     caption: string
     imageSrcType: 'imageLink' | 'imageBase64'
     imageSrc: string
+    oType: 'ObjectImageType'
 }
 
 type SlideType = {
@@ -57,8 +60,8 @@ type Doc = {
 }
 
 type Selected = {
-    slides: Array<number>
-    objects: Array<number>
+    slidesIds: Array<number>
+    objectsIds: Array<number>
 }
 
 // type Cached = {
@@ -68,7 +71,7 @@ type Selected = {
 
 type Editor = {
     document: Doc
-    selected?: Selected
+    selected: Selected
     // cached: Cached,
 }
 

@@ -1,9 +1,22 @@
-import { SideSlide } from '../../sideSlide/ui/SideSlide'
+import { SlideType } from '../../../shared/types/types'
 import styles from './SideBarWidget.module.css'
+import { SideSlide } from './sideSlide/SideSlide'
 
-const SideBarWidget = () => (
-    <div className={styles.sidePanel}>
-        <SideSlide />
+type SlideBarProps = {
+    slides: SlideType[]
+}
+
+const SideBarWidget = ({ slides }: SlideBarProps) => (
+    <div className={styles.sideBar}>
+        {slides.map((slide) => (
+            <SideSlide
+                key={slide.id}
+                id={slide.id}
+                objects={slide.objects}
+                background={slide.background}
+                backgroundValue={slide.backgroundValue}
+            />
+        ))}
     </div>
 )
 export { SideBarWidget }

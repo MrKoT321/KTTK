@@ -1,10 +1,4 @@
-.topPanel {
-  display: flex;
-  flex-direction: column;
-  background-color: #000000;
-}
-
-.slides {
-  display: flex;
-  flex-direction: row;
+.mainContent {
+    display: flex;
+    height: 85vh;
 }
