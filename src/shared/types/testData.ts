@@ -298,6 +298,28 @@ const maxEditor: Editor = {
                     },
                 ],
             },
+            {
+                id: 3,
+                background: 'color',
+                backgroundValue: '#57bbff',
+                objects: [
+                    {
+                        id: 13,
+                        width: 300,
+                        height: 200,
+                        startX: 0,
+                        startY: 0,
+                        borderStyle: 'solid',
+                        borderWidth: 5,
+                        borderColor: '#ff0000',
+                        caption: 'table',
+                        imageSrcType: 'imageLink',
+                        imageSrc:
+                            'https://www.fonstola.ru/images/201305/fonstola.ru_96099.jpg',
+                        oType: 'ObjectImageType',
+                    },
+                ],
+            },
         ],
     },
     selected: {
