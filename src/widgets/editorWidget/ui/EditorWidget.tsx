@@ -3,13 +3,17 @@ import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
 import { Editor } from '../../../shared/types/types'
+import { PresentationName } from '../../presentationNameWidget'
 
 const EditorWidget = ({ document, selected }: Editor) => (
     <div>
-        <TopPanelWidget />
-        <div className={styles.mainContent}>
-            <SideBarWidget slides={document.slides} />
-            <WorkSpaceWidget slides={document.slides} selected={selected} />
+        <PresentationName name={''} />
+        <div>
+            <TopPanelWidget />
+            <div className={styles.mainContent}>
+                <SideBarWidget slides={document.slides} />
+                <WorkSpaceWidget slides={document.slides} selected={selected} />
+            </div>
         </div>
     </div>
 )
