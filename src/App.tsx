@@ -1,5 +1,5 @@
 import { EditorWidget } from './widgets/editorWidget'
-import { minEditor, maxEditor } from '../src/shared/testData'
+import { maxEditor } from './shared/types/testData'
 
 const App = () => (
     <EditorWidget document={maxEditor.document} selected={maxEditor.selected} />

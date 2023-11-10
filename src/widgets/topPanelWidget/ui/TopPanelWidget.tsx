@@ -1,21 +1,21 @@
-import { ContinueStory } from '../../continueStory'
-// import { GetArrow } from '../../getArrow'
-// import { GetImage } from '../../getImage/'
-// import { GetLine } from '../../getLine/'
-// import { GetShape } from '../../shape'
-// import { GetText } from '../../getText/'
-import { ReturnStory } from '../../returnStory'
+import { Arrow } from '../../../features/arrow'
+import { Text } from '../../../features/text'
+import { Image } from '../../../features/image'
+import { Shape } from '../../../features/shape'
+import { Line } from '../../../features/line'
+import { ContinueStory } from '../../../features/continueStory'
+import { ReturnStory } from '../../../features/returnStory'
 import styles from './TopPanelWidget.module.css'
-// ? Сделать две линии:первая - навигация, вторая - редактор, тогда поменять на flex-direction: colum
+// ? Сделать две линии:первая - навигация, вторая - редактор, тогда поменять на flex-direction: column
 const TopPanelWidget = () => (
     <div className={styles.topPanel}>
         <ReturnStory />
         <ContinueStory />
-        {/*<GetArrow />*/}
-        {/*<GetText />*/}
-        {/*<GetImage />*/}
-        {/*<GetShape />*/}
-        {/*<GetLine />*/}
+        <Arrow />
+        <Text />
+        <Image />
+        <Shape />
+        <Line />
     </div>
 )
 

@@ -1,7 +1,9 @@
 .topPanel {
+    width: 100vw;
+    height: 15vh;
+    padding-left: 250px;
+    box-sizing: border-box;
     display: flex;
-    flex-direction: row;
-    width: 1800px;
-    height: 300px;
-    background-color: #000000;
+    align-items: flex-end;
+    background-color: #ff5353;
 }

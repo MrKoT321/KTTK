@@ -1,0 +1,28 @@
+.sideSlide {
+  border-radius: 30px;
+  border: solid #A9A9A9 1px;
+}
+
+.sideSlide:hover {
+  box-shadow: 0 0 5px #212121;
+}
+
+.container {
+  width: 240px;
+  height: 150px;
+  background-color: #F68C4A;
+  border-radius: 30px;
+  border: solid #FFFFFF 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 220px;
+  height: 130px;
+  background-color: #F68C4A;
+  position: relative;
+  overflow: hidden;
+  scale: 0.4;
+}
