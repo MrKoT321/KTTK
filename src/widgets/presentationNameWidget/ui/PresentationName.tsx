@@ -13,7 +13,7 @@ const PresentationName = (props: PresentationNameProps) => {
                 className={styles.presentationNameInput}
                 placeholder={'Новая презентация'}
                 value={presentationName}
-                type={"text"}
+                type={'text'}
                 onChange={(event) => {
                     setPresentationName(event.target.value)
                 }}
