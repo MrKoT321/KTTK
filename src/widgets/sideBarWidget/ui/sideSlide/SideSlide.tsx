@@ -1,7 +1,7 @@
 import styles from './SideSlide.module.css'
 import { Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
-import { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 type SlideProps = {
     slide: SlideType
@@ -24,15 +24,22 @@ const SideSlide = ({
         objectsIds: [...selected.objectsIds],
     }
     const [isHovered, setIsHovered] = useState(false)
+    const slideRef = useRef<HTMLLabelElement>(null)
 
-    const changeSelected = () => {
-        // sel.slidesIds = sel.slidesIds.filter(
-        //     (selectedId) => selectedId !== slide.id,
-        // )
-        // sel.slidesIds.push(slide.id)
-        //TODO: это нужно для выделения через Ctrl
-        sel.slidesIds = [slide.id]
+    const handleClick = (e: React.MouseEvent<HTMLLabelElement>) => {
+        if (e.ctrlKey) {
+            console.log(11111)
+            sel.slidesIds = sel.slidesIds.filter(
+                (selectedId) => selectedId !== slide.id,
+            )
+            sel.slidesIds.push(slide.id)
+            console.log('ctrl press')
+        } else {
+            console.log(22222)
+            sel.slidesIds = [slide.id]
+        }
         setSelected(sel)
+        console.log(sel.slidesIds)
     }
 
     return (
@@ -48,11 +55,9 @@ const SideSlide = ({
                     ? styles.sideSlideBorderHovered
                     : styles.sideSlideBorder
             }`}
-            onClick={() => {
-                changeSelected()
-            }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={(e) => handleClick(e)}
         >
             <div className={styles.container} style={styleObj}>
                 <div className={styles.content} style={styleObj}>
