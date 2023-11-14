@@ -7,17 +7,22 @@ import { useState } from 'react'
 
 const EditorWidget = ({ document, selected }: Editor) => {
     const [sel, setSel] = useState(selected)
+    const [slides, setSlides] = useState(document.slides)
 
     return (
         <div>
-            <TopPanelWidget />
+            <TopPanelWidget
+                setSlides={setSlides}
+                slides={slides}
+                selected={sel}
+            />
             <div className={styles.mainContent}>
                 <SideBarWidget
-                    slides={document.slides}
+                    slides={slides}
                     selected={sel}
                     setSelected={setSel}
                 />
-                <WorkSpaceWidget slides={document.slides} selected={sel} />
+                <WorkSpaceWidget slides={slides} selected={sel} />
             </div>
         </div>
     )

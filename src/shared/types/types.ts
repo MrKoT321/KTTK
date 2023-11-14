@@ -1,3 +1,7 @@
+type BackgroundType = 'color' | 'imageLink' | 'imageBase64'
+
+type ObjectType = ObjectImageType | ObjectTextType | ObjectShapeType
+
 type GeneralObjectType = {
     id: number
     width: number
@@ -49,9 +53,9 @@ type ObjectImageType = GeneralObjectType & {
 
 type SlideType = {
     id: number
-    background: 'color' | 'imageLink' | 'imageBase64'
+    background: BackgroundType
     backgroundValue: string
-    objects: Array<ObjectImageType | ObjectTextType | ObjectShapeType>
+    objects: Array<ObjectType>
 }
 
 type Doc = {
@@ -83,4 +87,6 @@ export type {
     ObjectImageType,
     ObjectShapeType,
     ObjectTextType,
+    BackgroundType,
+    ObjectType,
 }
