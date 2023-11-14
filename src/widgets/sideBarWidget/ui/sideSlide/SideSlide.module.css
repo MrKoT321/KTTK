@@ -1,10 +1,20 @@
 .sideSlide {
     border-radius: 30px;
-    border: solid #a9a9a9 1px;
 }
 
-.sideSlide:hover {
-    box-shadow: 0 0 5px #212121;
+.sideSlideBorder {
+    box-shadow: 0 0 3px #e4e2e2;
+    border: solid 1px #737373;
+}
+
+.sideSlideBorderHovered {
+    box-shadow: 0 0 0 3px #737373;
+    border: solid 1px #737373;
+}
+
+.sideSlideBorderSelected {
+    box-shadow: 0 0 0 3px #2055ff;
+    border: solid 1px #2055ff;
 }
 
 .container {
@@ -12,10 +22,10 @@
     height: 150px;
     background: #ffffff;
     border-radius: 30px;
-    border: solid #ffffff 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: solid #ffffff 5px;
 }
 
 .content {
