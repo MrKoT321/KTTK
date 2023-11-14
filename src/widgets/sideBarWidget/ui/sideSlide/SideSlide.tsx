@@ -1,16 +1,40 @@
 import styles from './SideSlide.module.css'
-import { SlideType } from '../../../../shared/types/types'
+import { Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 
-const SideSlide = ({ objects, backgroundValue }: SlideType) => {
+type SlideProps = {
+    slide: SlideType
+    selected: Selected
+    setSelected(sel: Selected): void
+}
+
+const SideSlide = ({ slide, selected, setSelected }: SlideProps) => {
     const styleObj = {
-        background: backgroundValue,
+        background: slide.backgroundValue,
     }
+    const sel: Selected = {
+        slidesIds: [...selected.slidesIds],
+        objectsIds: [...selected.objectsIds],
+    }
+
+    const changeSelected = () => {
+        sel.slidesIds = sel.slidesIds.filter(
+            (selectedId) => selectedId !== slide.id,
+        )
+        sel.slidesIds.push(slide.id)
+        setSelected(sel)
+    }
+
     return (
-        <div className={styles.sideSlide}>
+        <label
+            className={styles.sideSlide}
+            onClick={() => {
+                changeSelected()
+            }}
+        >
             <div className={styles.container} style={styleObj}>
                 <div className={styles.content} style={styleObj}>
-                    {objects.map((object, index) => (
+                    {slide.objects.map((object, index) => (
                         <Object
                             key={index}
                             object={object}
@@ -19,7 +43,7 @@ const SideSlide = ({ objects, backgroundValue }: SlideType) => {
                     ))}
                 </div>
             </div>
-        </div>
+        </label>
     )
 }
 
