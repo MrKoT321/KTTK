@@ -1,5 +1,5 @@
-import { EditorWidget } from './widgets/editorWidget'
+import { PresentationMaker } from './pages/presentationMaker'
 
-const App = () => <EditorWidget />
+const App = () => <PresentationMaker />
 
 export default App
