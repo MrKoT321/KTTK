@@ -24,6 +24,11 @@
     "no-self-compare": "error",
     "no-use-before-define": "error",
     "comma-dangle": ["error", "always-multiline"],
-    "prettier/prettier": "error"
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }

@@ -1,6 +1,6 @@
 import styles from './TopPanelWidget.module.css'
 import { PresentationName } from '../../presentationNameWidget'
-import { AddElementButton } from '../../../shared/ui/object/AddElementButton'
+import { AddElementButton } from '../../../shared/ui/object'
 import { ObjectType, Selected, SlideType } from '../../../shared/types/types'
 
 type TopPanelWidgetProps = {
@@ -46,7 +46,6 @@ const TopPanelWidget = ({
 
     function addObject(type: 'text' | 'image' | 'shape') {
         let object: ObjectType
-        console.log(allSlides)
         switch (type) {
             case 'text':
                 object = {
@@ -113,7 +112,6 @@ const TopPanelWidget = ({
             }
         })
         setSlides(allSlides)
-        console.log(allSlides)
     }
 
     return (

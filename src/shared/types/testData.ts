@@ -301,7 +301,7 @@ const maxEditor: Editor = {
         ],
     },
     selected: {
-        slidesIds: [1, 2],
+        slidesIds: [2],
         objectsIds: [1, 2, 3],
     },
 }
