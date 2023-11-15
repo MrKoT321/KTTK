@@ -3,19 +3,24 @@ import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
 import { Editor } from '../../../shared/types/types'
-import { PresentationName } from '../../presentationNameWidget'
+import { useState } from 'react'
 
-const EditorWidget = ({ document, selected }: Editor) => (
-    <div>
-        <PresentationName name={''} />
+const EditorWidget = ({ document, selected }: Editor) => {
+    const [sel, setSel] = useState(selected)
+
+    return (
         <div>
             <TopPanelWidget />
             <div className={styles.mainContent}>
-                <SideBarWidget slides={document.slides} />
-                <WorkSpaceWidget slides={document.slides} selected={selected} />
+                <SideBarWidget
+                    slides={document.slides}
+                    selected={sel}
+                    setSelected={setSel}
+                />
+                <WorkSpaceWidget slides={document.slides} selected={sel} />
             </div>
         </div>
-    </div>
-)
+    )
+}
 
 export { EditorWidget }

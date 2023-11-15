@@ -1,8 +1,10 @@
 .workSpace {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
-    background-color: #00ff99;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: #E4E2E2;
+  border-left: solid #000000 3px;
+  border-top: solid #000000 3px;
 }

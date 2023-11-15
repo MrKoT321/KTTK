@@ -6,17 +6,21 @@ import { Line } from '../../../features/line'
 import { ContinueStory } from '../../../features/continueStory'
 import { ReturnStory } from '../../../features/returnStory'
 import styles from './TopPanelWidget.module.css'
-// ? Сделать две линии:первая - навигация, вторая - редактор, тогда поменять на flex-direction: column
+import { PresentationName } from '../../presentationNameWidget'
+
 const TopPanelWidget = () => (
-    <div className={styles.topPanel}>
-        <ReturnStory />
-        <ContinueStory />
-        <Arrow />
-        <Text />
-        <Image />
-        <Shape />
-        <Line />
-    </div>
+    <>
+        <PresentationName name={''} />
+        <div className={styles.topPanel}>
+            <ReturnStory />
+            <ContinueStory />
+            <Arrow />
+            <Text />
+            <Image />
+            <Shape />
+            <Line />
+        </div>
+    </>
 )
 
 export { TopPanelWidget }

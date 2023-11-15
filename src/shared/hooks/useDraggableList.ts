@@ -5,8 +5,8 @@ const useDraggableList = () => {
     const itemRef = useRef<HTMLDivElement[]>([])
 
     useEffect(() => {
-        console.log(containerRef)
-        console.log(itemRef)
+        // console.log(containerRef)
+        // console.log(itemRef)
     }, [])
 
     return {

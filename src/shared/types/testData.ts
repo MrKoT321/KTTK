@@ -83,7 +83,7 @@ const maxEditor: Editor = {
             {
                 id: 1,
                 background: 'color',
-                backgroundValue: '#FFFFFF',
+                backgroundValue: '#fc6969',
                 objects: [
                     {
                         id: 1,
@@ -301,7 +301,7 @@ const maxEditor: Editor = {
         ],
     },
     selected: {
-        slidesIds: [1, 2],
+        slidesIds: [2],
         objectsIds: [1, 2, 3],
     },
 }

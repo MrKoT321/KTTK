@@ -10,7 +10,7 @@ type ObjectProps = {
     isSideSlide?: boolean
 }
 
-const scaleSideSlide = 0.3
+const scaleSideSlide = 220 / 1080
 
 const Object = ({ object, isSideSlide }: ObjectProps) => {
     if (object.oType === 'ObjectTextType') {
