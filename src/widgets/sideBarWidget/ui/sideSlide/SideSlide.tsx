@@ -24,7 +24,6 @@ const SideSlide = ({
         objectsIds: [...selected.objectsIds],
     }
     const [isHovered, setIsHovered] = useState(false)
-    const slideRef = useRef<HTMLLabelElement>(null)
 
     const handleClick = (e: React.MouseEvent<HTMLLabelElement>) => {
         if (e.ctrlKey) {

@@ -1,6 +1,6 @@
 import styles from './TopPanelWidget.module.css'
 import { PresentationName } from '../../presentationNameWidget'
-import { AddElementButton } from '../../../shared/ui/object/AddElementButton'
+import { AddElementButton } from '../../../shared/ui/object'
 import { ObjectType, Selected, SlideType } from '../../../shared/types/types'
 
 type TopPanelWidgetProps = {
