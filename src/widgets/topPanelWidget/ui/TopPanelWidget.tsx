@@ -15,6 +15,7 @@ const TopPanelWidget = ({
     selected,
 }: TopPanelWidgetProps) => {
     const allSlides = [...slides]
+
     function addSlide() {
         const newSlide: SlideType = {
             id: slides[slides.length - 1].id + 1,
@@ -25,13 +26,31 @@ const TopPanelWidget = ({
         allSlides.push(newSlide)
         setSlides(allSlides)
     }
+
+    function createIdObject() {
+        if (
+            slides[selected.slidesIds[selected.slidesIds.length - 1] - 1]
+                .objects.length != 0
+        ) {
+            return (
+                slides[selected.slidesIds[selected.slidesIds.length - 1] - 1]
+                    .objects[
+                    slides[
+                        selected.slidesIds[selected.slidesIds.length - 1] - 1
+                    ].objects.length - 1
+                ].id + 1
+            )
+        }
+        return 1
+    }
+
     function addObject(type: 'text' | 'image' | 'shape') {
         let object: ObjectType
         console.log(allSlides)
         switch (type) {
             case 'text':
                 object = {
-                    id: 1,
+                    id: createIdObject(),
                     width: 60,
                     height: 30,
                     startX: 200,
@@ -53,7 +72,7 @@ const TopPanelWidget = ({
                 break
             case 'image':
                 object = {
-                    id: 1,
+                    id: createIdObject(),
                     width: 50,
                     height: 70,
                     startX: 20,
@@ -70,7 +89,7 @@ const TopPanelWidget = ({
                 break
             case 'shape':
                 object = {
-                    id: 1,
+                    id: createIdObject(),
                     width: 20,
                     height: 30,
                     startX: 180,

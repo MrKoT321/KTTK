@@ -1,8 +1,29 @@
+import { Editor } from '../../../shared/types/types'
 import { EditorWidget } from '../../../widgets/editorWidget'
-import { minEditor } from '../../../shared/types/testData'
+
+const defaultEditor: Editor = {
+    document: {
+        name: 'Name',
+        slides: [
+            {
+                id: 1,
+                background: 'color',
+                backgroundValue: '#FFFFFF',
+                objects: [],
+            },
+        ],
+    },
+    selected: {
+        slidesIds: [1],
+        objectsIds: [],
+    },
+}
 
 const PresentationMaker = () => (
-    <EditorWidget document={minEditor.document} selected={minEditor.selected} />
+    <EditorWidget
+        document={defaultEditor.document}
+        selected={defaultEditor.selected}
+    />
 )
 
 export { PresentationMaker }
