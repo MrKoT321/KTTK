@@ -1,5 +1,6 @@
 import styles from './TopPanelWidget.module.css'
 import { PresentationName } from '../../presentationNameWidget'
+import { ToolBar } from '../../toolBar/ui/ToolBar'
 import { AddElementButton } from '../../../shared/ui/object/AddElementButton'
 import { ObjectType, Selected, SlideType } from '../../../shared/types/types'
 
@@ -100,6 +101,7 @@ const TopPanelWidget = ({
     return (
         <>
             <PresentationName name={''} />
+            <ToolBar />
             <div className={styles.topPanel}>
                 <AddElementButton
                     icon="./shared/icons/image_1.svg"
