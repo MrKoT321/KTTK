@@ -2,6 +2,14 @@ import styles from './TopPanelWidget.module.css'
 import { PresentationName } from '../../presentationNameWidget'
 import { AddElementButton } from '../../../shared/ui/object'
 import { ObjectType, Selected, SlideType } from '../../../shared/types/types'
+import addSlideIcon from '../../../shared/icons/addSlideIcon.svg'
+import addImageIcon from '../../../shared/icons/addImageIcon.svg'
+import addTextIcon from '../../../shared/icons/addTextIcon.svg'
+import cancelIcon from '../../../shared/icons/cancelIcon.svg'
+import chooseTemplateIcon from '../../../shared/icons/chooseTemplateIcon.svg'
+import returnIcon from '../../../shared/icons/returnIcon.svg'
+import pointerIcon from '../../../shared/icons/pointerIcon.svg'
+import addShapeIcon from '../../../shared/icons/addShapeIcon.svg'
 
 type TopPanelWidgetProps = {
     slides: SlideType[]
@@ -102,13 +110,13 @@ const TopPanelWidget = ({
             <PresentationName name={''} />
             <div className={styles.topPanel}>
                 <AddElementButton
-                    icon="/shared/icons/image 1.svg"
+                    icon={addSlideIcon}
                     onClickChange={() => {
                         addSlide()
                     }}
                 />
                 <AddElementButton
-                    icon="/shared/icons/image 2.svg"
+                    icon={chooseTemplateIcon}
                     onClickChange={() => {
                         console.log(
                             'Открытие панельки с готовой заготовкой слайдов',
@@ -116,39 +124,39 @@ const TopPanelWidget = ({
                     }}
                 />
                 <AddElementButton
-                    icon="/shared/icons/image 3.svg"
+                    icon={cancelIcon}
                     onClickChange={() => {
                         console.log(1)
                     }}
                 />
                 <AddElementButton
-                    icon="/shared/icons/image 4.svg"
+                    icon={returnIcon}
                     onClickChange={() => {
                         console.log(1)
                     }}
                 />
                 <AddElementButton
-                    icon="/shared/icons/image 5.svg"
+                    icon={pointerIcon}
+                    onClickChange={() => {
+                        console.log(4)
+                    }}
+                />
+                <AddElementButton
+                    icon={addTextIcon}
                     onClickChange={() => {
                         addObject('text')
                     }}
                 />
                 <AddElementButton
-                    icon="/shared/icons/image 6.svg"
+                    icon={addImageIcon}
                     onClickChange={() => {
                         addObject('image')
                     }}
                 />
                 <AddElementButton
-                    icon="/shared/icons/image 7.svg"
+                    icon={addShapeIcon}
                     onClickChange={() => {
                         addObject('shape')
-                    }}
-                />
-                <AddElementButton
-                    icon="/shared/icons/image 11.svg"
-                    onClickChange={() => {
-                        console.log(1)
                     }}
                 />
             </div>
