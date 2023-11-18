@@ -1,24 +1,21 @@
 import styles from './PresentationName.module.css'
-import { Doc } from '../../../shared/types/types'
-import { useState } from 'react'
+
 type PresentationNameProps = {
+    setName(name: string): void
     name: string
 }
 
-const PresentationName = (props: PresentationNameProps) => {
-    const [presentationName, setPresentationName] = useState('')
+const PresentationName = ({ setName, name }: PresentationNameProps) => {
     return (
-        <div className={styles.presentationName}>
-            <input
-                className={styles.presentationNameInput}
-                placeholder={'Новая презентация'}
-                value={presentationName}
-                type={'text'}
-                onChange={(event) => {
-                    setPresentationName(event.target.value)
-                }}
-            />
-        </div>
+        <input
+            className={styles.presentationNameInput}
+            placeholder={'Назавание презентации'}
+            value={name}
+            type={'text'}
+            onChange={(event) => {
+                setName(event.target.value)
+            }}
+        />
     )
 }
 

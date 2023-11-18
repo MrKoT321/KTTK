@@ -78,7 +78,7 @@ const mediumEditor: Editor = {
 
 const maxEditor: Editor = {
     document: {
-        name: 'Name',
+        name: '',
         slides: [
             {
                 id: 1,
