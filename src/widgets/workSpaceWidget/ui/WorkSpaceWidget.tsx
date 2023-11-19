@@ -23,7 +23,7 @@ const WorkSpaceWidget = ({
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId)
 
-    const [currenstMouseX, setCurrentMouseX] = useState(0)
+    const [currentMouseX, setCurrentMouseX] = useState(0)
     const [currentMouseY, setCurrentMouseY] = useState(0)
     const [startMouseX, setStartMouseX] = useState(0)
     const [startMouseY, setStartMouseY] = useState(0)
@@ -44,7 +44,7 @@ const WorkSpaceWidget = ({
         borderStyle: 'solid',
     })
 
-    function createIdObjectId() {
+    const createIdObjectId = () => {
         if (
             slides[selected.slidesIds[selected.slidesIds.length - 1] - 1]
                 .objects.length != 0
@@ -61,17 +61,23 @@ const WorkSpaceWidget = ({
         return 1
     }
 
-    function addObject(mouseState: MouseStates) {
+    const addObject = (
+        mouseState: MouseStates,
+        startX: number,
+        startY: number,
+        width: number,
+        height: number,
+    ) => {
         let object: ObjectType
         console.log(allSlides)
         switch (mouseState) {
             case 'creatingText':
                 object = {
                     id: createIdObjectId(),
-                    width: 60,
-                    height: 30,
-                    startX: 200,
-                    startY: 3,
+                    width: width,
+                    height: height,
+                    startX: startX,
+                    startY: startY,
                     borderStyle: 'none',
                     borderWidth: 2,
                     borderColor: '#000000',
@@ -134,15 +140,23 @@ const WorkSpaceWidget = ({
         setSlides(allSlides)
     }
 
-    function drawPotentialObject(mouseState: MouseStates) {
+    const createPosition = (startMousePos: number, currentMousePos: number) => {
+        if (startMousePos >= currentMousePos) {
+            return currentMousePos
+        } else {
+            return startMousePos
+        }
+    }
+
+    const drawPotentialObject = (mouseState: MouseStates) => {
         switch (mouseState) {
             case 'creatingText':
             case 'creatingRect':
                 setStyleObj({
                     opacity: 100,
-                    top: currentMouseY,
-                    left: currenstMouseX,
-                    width: Math.abs(currenstMouseX - startMouseX),
+                    top: createPosition(startMouseY, currentMouseY),
+                    left: createPosition(startMouseX, currentMouseX),
+                    width: Math.abs(currentMouseX - startMouseX),
                     height: Math.abs(currentMouseY - startMouseY),
                     borderColor: 'gray',
                     borderRadius: 0,
@@ -154,11 +168,11 @@ const WorkSpaceWidget = ({
                 setStyleObj({
                     opacity: 100,
                     top: currentMouseY,
-                    left: currenstMouseX,
-                    width: Math.abs(currenstMouseX - startMouseX),
+                    left: currentMouseX,
+                    width: Math.abs(currentMouseX - startMouseX),
                     height: Math.abs(currentMouseY - startMouseY),
                     borderColor: 'gray',
-                    borderRadius: Math.abs(currenstMouseX - startMouseX / 2),
+                    borderRadius: Math.abs(currentMouseX - startMouseX / 2),
                     borderWidth: 2,
                     borderStyle: 'solid',
                 })
@@ -167,33 +181,6 @@ const WorkSpaceWidget = ({
                 break
         }
     }
-
-    // addEventListener('mousedown', (e: MouseEvent) => {
-    //     if (mouseState != 'cursor') {
-    //         setStartMouseX(e.clientX)
-    //         setStartMouseY(e.clientY)
-    //         console.log(e.clientX, e.clientY, '1')
-    //     }
-    // })
-
-    // addEventListener('mousemove', (e: MouseEvent) => {
-    //     if (mouseState != 'cursor') {
-    //         setCurrentMouseX(e.clientX)
-    //         setCurrentMouseY(e.clientY)
-    //         addObject('creatingText')
-    //         console.log(e.clientX, e.clientY, '2')
-    //     }
-    // })
-
-    // addEventListener('mouseup', (e: MouseEvent) => {
-    //    if (mouseState != 'cursor') {
-    //         setCurrentMouseX(e.clientX)
-    //         setCurrentMouseY(e.clientY)
-    //         drawPotentialObject(mouseState)
-    //         setMouseState('cursor')
-    //         console.log(e.clientX, e.clientY, '3')
-    //     }
-    // })
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (mouseState != 'cursor') {
@@ -206,8 +193,25 @@ const WorkSpaceWidget = ({
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
         if (mouseState != 'cursor') {
             setIsDraw(false)
-            addObject('creatingText')
+            addObject(
+                mouseState,
+                currentMouseX - 240,
+                currentMouseY - 80,
+                Math.abs(currentMouseX - startMouseX),
+                Math.abs(currentMouseY - startMouseY),
+            )
             setMouseState('cursor')
+            setStyleObj({
+                opacity: 0,
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+                borderColor: 'black',
+                borderRadius: 10,
+                borderWidth: 2,
+                borderStyle: 'solid',
+            })
         }
     }
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -217,14 +221,6 @@ const WorkSpaceWidget = ({
             drawPotentialObject(mouseState)
         }
     }
-
-    // function creatingObject(mouseState: MouseStates) {
-
-    // }
-
-    // useEffect(() => {
-    //     creatingObject(mouseState)
-    // }, [mouseState])
 
     return (
         <>
