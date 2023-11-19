@@ -1,10 +1,11 @@
+import styles from './PresentationMaker.module.css'
 import { Editor } from '../../../shared/types/types'
 import { EditorWidget } from '../../../widgets/editorWidget'
 import { useState } from 'react'
 
 const defaultEditor: Editor = {
     document: {
-        name: 'Name',
+        name: '',
         slides: [
             {
                 id: 1,
@@ -25,10 +26,12 @@ const PresentationMaker = () => {
     //TODO: нужно доделать передачу в пропсах из PresentationMaker в конечные компоненты меню
 
     return (
-        <EditorWidget
-            document={defaultEditor.document}
-            selected={defaultEditor.selected}
-        />
+        <div className={styles.editor}>
+            <EditorWidget
+                document={defaultEditor.document}
+                selected={defaultEditor.selected}
+            />
+        </div>
     )
 }
 
