@@ -195,8 +195,8 @@ const WorkSpaceWidget = ({
             setIsDraw(false)
             addObject(
                 mouseState,
-                currentMouseX - 240,
-                currentMouseY - 80,
+                createPosition(startMouseX, currentMouseX) - 240,
+                createPosition(startMouseY, currentMouseY) - 80,
                 Math.abs(currentMouseX - startMouseX),
                 Math.abs(currentMouseY - startMouseY),
             )
