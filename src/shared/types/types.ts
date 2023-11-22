@@ -1,7 +1,5 @@
 type BackgroundType = 'color' | 'imageLink' | 'imageBase64'
 
-type ObjectType = ObjectImageType | ObjectTextType | ObjectShapeType
-
 type GeneralObjectType = {
     id: number
     width: number
@@ -50,6 +48,8 @@ type ObjectImageType = GeneralObjectType & {
     imageSrc: string
     oType: 'ObjectImageType'
 }
+
+type ObjectType = ObjectImageType | ObjectTextType | ObjectShapeType
 
 type SlideType = {
     id: number

@@ -7,7 +7,7 @@
     "color-hex-case": "upper",
     "color-hex-length": "long",
     "color-no-invalid-hex": true,
-    "indentation": 2,
+    "indentation": 4,
     "prettier/prettier": true
   },
   "prettier/prettier": true

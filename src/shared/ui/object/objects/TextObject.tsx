@@ -13,7 +13,6 @@ const TextObject = (props: ObjectTextType) => {
         fontSize: props.fontSize,
         color: props.fontColor,
         fontFamily: props.fontFamily,
-        //TODO: bold, italic... тут ниже ничего не работает
         fontWeight: 'normal',
         fontStyle: 'normal',
         textDecoration: 'none',

@@ -1,9 +1,14 @@
 .topPanel {
-  width: 100vw;
-  height: 15vh;
-  padding-left: 250px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-end;
-  background-color: #E4E2E2;
+    width: 100vw;
+    padding: 50px 100px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #E4E2E2;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }

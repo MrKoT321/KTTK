@@ -24,22 +24,17 @@ const SideSlide = ({
         objectsIds: [...selected.objectsIds],
     }
     const [isHovered, setIsHovered] = useState(false)
-    const slideRef = useRef<HTMLLabelElement>(null)
 
     const handleClick = (e: React.MouseEvent<HTMLLabelElement>) => {
         if (e.ctrlKey) {
-            console.log(11111)
             sel.slidesIds = sel.slidesIds.filter(
                 (selectedId) => selectedId !== slide.id,
             )
             sel.slidesIds.push(slide.id)
-            console.log('ctrl press')
         } else {
-            console.log(22222)
             sel.slidesIds = [slide.id]
         }
         setSelected(sel)
-        console.log(sel.slidesIds)
     }
 
     return (

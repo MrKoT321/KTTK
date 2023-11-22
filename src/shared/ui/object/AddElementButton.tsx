@@ -17,7 +17,7 @@ const AddElementButton = ({ icon, onClickChange }: AddElementButtonProps) => {
                 onClickChange()
             }}
         >
-            <img src={icon} />
+            <img src={icon} className={styles.image} />
         </button>
     )
 }

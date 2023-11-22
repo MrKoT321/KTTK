@@ -2,33 +2,49 @@ import { TopPanelWidget } from '../../topPanelWidget'
 import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
-import { Editor } from '../../../shared/types/types'
-import { useState, createElement } from 'react'
+import { Doc, Selected } from '../../../shared/types/types'
+import { useState } from 'react'
 
-const EditorWidget = ({ document, selected }: Editor) => {
+// type EditorProps = {
+//     presentation: Editor
+//     setPresentation: (presentation: Editor) => void
+// }
+
+type EditorProps = {
+    document: Doc
+    selected: Selected
+}
+
+type MouseStates =
+    | 'cursor'
+    | 'creatingText'
+    | 'creatingRect'
+    | 'creatingCircle'
+    | 'creatingTriangle'
+
+const EditorWidget = ({ document, selected }: EditorProps) => {
     const [sel, setSel] = useState(selected)
     const [slides, setSlides] = useState(document.slides)
-    const save = () => {
-        const editor: Editor = { document: document, selected: sel }
-        const file = new Blob([JSON.stringify(editor)], {
-            type: 'application/json',
-        })
+    const [presentationName, setPresentationName] = useState(document.name)
+    const [mouseState, setMouseState] = useState<MouseStates>('cursor')
 
-        // create element means how block should be changed
-        createElement('a', {
-            id: 'save',
-            className: 'hidden',
-            href: URL.createObjectURL(file),
-            download: document.name,
-        })
+    const toolMenuTools = {
+        //TODO: разобраться че передавать
+        setSlides: setSlides,
+        slides: slides,
+        selected: sel,
+    }
+    const presentationNameTools = {
+        setName: setPresentationName,
+        name: presentationName,
     }
 
     return (
         <div>
             <TopPanelWidget
-                setSlides={setSlides}
-                slides={slides}
-                selected={sel}
+                toolMenuTools={toolMenuTools}
+                presentationNameTools={presentationNameTools}
+                setMouseState={setMouseState}
             />
             <div className={styles.mainContent}>
                 <SideBarWidget
@@ -36,10 +52,17 @@ const EditorWidget = ({ document, selected }: Editor) => {
                     selected={sel}
                     setSelected={setSel}
                 />
-                <WorkSpaceWidget slides={slides} selected={sel} />
+                <WorkSpaceWidget
+                    slides={slides}
+                    selected={sel}
+                    setSlides={setSlides}
+                    mouseState={mouseState}
+                    setMouseState={setMouseState}
+                />
             </div>
         </div>
     )
 }
 
 export { EditorWidget }
+export type { MouseStates }
