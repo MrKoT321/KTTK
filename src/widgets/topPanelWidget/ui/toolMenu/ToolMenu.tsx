@@ -11,6 +11,7 @@ import addShapeIcon from '../../../../shared/icons/addShapeIcon.svg'
 import { ObjectType, Selected, SlideType } from '../../../../shared/types/types'
 import { useState } from 'react'
 import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
+import { SelectImagePopUp } from '../../../selectImagePopUpWidget'
 
 type ToolMenuProps = {
     slides: SlideType[]
@@ -20,6 +21,15 @@ type ToolMenuProps = {
 
 const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
     const allSlides = [...slides]
+    const [isPopUpOpen, setPopUpState] = useState(false)
+
+    const openSelectImagePopUp = () => {
+        setPopUpState(() => true)
+    }
+
+    const closeSelectImagePopUp = () => {
+        setPopUpState(() => false)
+    }
 
     function addSlide() {
         const newSlide: SlideType = {
@@ -75,7 +85,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
             <AddElementButton
                 icon={addImageIcon}
                 onClickChange={() => {
-                    console.log('image')
+                    openSelectImagePopUp()
                 }}
             />
             <AddElementButton
@@ -83,6 +93,10 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
                 onClickChange={() => {
                     console.log('shape')
                 }}
+            />
+            <SelectImagePopUp
+                isPopUpOpen={isPopUpOpen}
+                closePopUp={closeSelectImagePopUp}
             />
         </div>
     )

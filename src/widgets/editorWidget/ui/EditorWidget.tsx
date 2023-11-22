@@ -4,6 +4,7 @@ import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
 import { Doc, Selected } from '../../../shared/types/types'
 import { useState } from 'react'
+import { SelectImagePopUp } from '../../selectImagePopUpWidget'
 
 // type EditorProps = {
 //     presentation: Editor
