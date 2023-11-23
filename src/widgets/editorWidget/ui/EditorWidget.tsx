@@ -2,18 +2,10 @@ import { TopPanelWidget } from '../../topPanelWidget'
 import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
-import { Doc, Selected } from '../../../shared/types/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Editor } from '../../../shared/types/types'
+import { minEditor } from '../../../shared/types/testData'
 
-// type EditorProps = {
-//     presentation: Editor
-//     setPresentation: (presentation: Editor) => void
-// }
-
-type EditorProps = {
-    document: Doc
-    selected: Selected
-}
 
 type MouseStates =
     | 'cursor'
@@ -22,10 +14,13 @@ type MouseStates =
     | 'creatingCircle'
     | 'creatingTriangle'
 
-const EditorWidget = ({ document, selected }: EditorProps) => {
-    const [sel, setSel] = useState(selected)
-    const [slides, setSlides] = useState(document.slides)
-    const [presentationName, setPresentationName] = useState(document.name)
+const EditorWidget = () => {
+    const [presentation, setPresentation] = useState<Editor>(minEditor)
+    const [sel, setSel] = useState(presentation.selected)
+    const [slides, setSlides] = useState(presentation.document.slides)
+    const [presentationName, setPresentationName] = useState(
+        presentation.document.name,
+    )
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
 
     const toolMenuTools = {
@@ -38,6 +33,16 @@ const EditorWidget = ({ document, selected }: EditorProps) => {
         setName: setPresentationName,
         name: presentationName,
     }
+    const presentationsObjTools = {
+        setPresentation: setPresentation,
+        presentation: presentation,
+    }
+
+    useEffect(() => {
+        setSel(presentation.selected)
+        setSlides(presentation.document.slides)
+        setPresentationName(presentation.document.name)
+    }, [presentation])
 
     return (
         <div>
@@ -45,6 +50,7 @@ const EditorWidget = ({ document, selected }: EditorProps) => {
                 toolMenuTools={toolMenuTools}
                 presentationNameTools={presentationNameTools}
                 setMouseState={setMouseState}
+                presentationsObjTools={presentationsObjTools}
             />
             <div className={styles.mainContent}>
                 <SideBarWidget

@@ -1,7 +1,7 @@
 import styles from './TopPanelWidget.module.css'
 import { PresentationName } from '../../presentationNameWidget'
 import { ToolBar } from '../../toolBar/ui/ToolBar'
-import { Selected, SlideType } from '../../../shared/types/types'
+import { Editor, Selected, SlideType } from '../../../shared/types/types'
 import { ToolMenu } from './toolMenu/ToolMenu'
 import { MouseStates } from '../../editorWidget/ui/EditorWidget'
 
@@ -16,12 +16,17 @@ type TopPanelWidgetProps = {
         name: string
     }
     setMouseState: (mouseState: MouseStates) => void
+    presentationsObjTools: {
+        setPresentation: (presentation: Editor) => void
+        presentation: Editor
+    }
 }
 
 const TopPanelWidget = ({
     toolMenuTools,
     presentationNameTools,
     setMouseState,
+    presentationsObjTools,
 }: TopPanelWidgetProps) => (
     <div className={styles.topPanel}>
         <div className={styles.container}>
@@ -32,6 +37,7 @@ const TopPanelWidget = ({
             <ToolBar
                 toolMenuTools={toolMenuTools}
                 presentationNameTools={presentationNameTools}
+                presentationsObjTools={presentationsObjTools}
             />
         </div>
         <ToolMenu

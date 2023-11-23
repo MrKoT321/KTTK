@@ -12,23 +12,29 @@ type ToolBarProps = {
         setName: (name: string) => void
         name: string
     }
+    presentationsObjTools: {
+        setPresentation(presentation: Editor): void
+        presentation: Editor
+    }
 }
 
-const ToolBar = ({ toolMenuTools, presentationNameTools }: ToolBarProps) => {
-    const editor: Editor = {
-        document: {
-            name: presentationNameTools.name,
-            slides: toolMenuTools.slides,
-        },
-        selected: {
-            objectsIds: toolMenuTools.selected.objectsIds,
-            slidesIds: toolMenuTools.selected.slidesIds,
-        },
-    }
-
-    console.log('editor = ', editor)
-
+const ToolBar = ({
+    toolMenuTools,
+    presentationNameTools,
+    presentationsObjTools,
+}: ToolBarProps) => {
     const saveFile = () => {
+        const editor: Editor = {
+            document: {
+                name: presentationNameTools.name,
+                slides: toolMenuTools.slides,
+            },
+            selected: {
+                objectsIds: toolMenuTools.selected.objectsIds,
+                slidesIds: toolMenuTools.selected.slidesIds,
+            },
+        }
+        console.log('editor = ', editor)
         const text = JSON.stringify(editor)
         const a = document.createElement('a')
         const file = new Blob([text], { type: 'application/json' })
@@ -51,6 +57,7 @@ const ToolBar = ({ toolMenuTools, presentationNameTools }: ToolBarProps) => {
                 if (typeof result === 'string') {
                     const parsedResult = JSON.parse(result)
                     console.log('parsedResult = ', parsedResult)
+                    presentationsObjTools.setPresentation(parsedResult)
                 } else {
                     console.log('Ошибка декодирования')
                 }
