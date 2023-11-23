@@ -1,14 +1,17 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import { ObjectImageType, ObjectShapeType, ObjectTextType } from '../../types/types'
+import { ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
     isSideSlide?: boolean
+    selected: Selected
+    setSelected: (selected: Selected) => void
+    isSelected?: boolean
 }
 
 const scaleSideSlide = 220 / 1080
 
-const Object = ({ object, isSideSlide }: ObjectProps) => {
+const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: ObjectProps) => {
     if (object.oType === 'ObjectTextType') {
         if (isSideSlide) {
             return (
@@ -31,6 +34,9 @@ const Object = ({ object, isSideSlide }: ObjectProps) => {
                     underlineColor={object.underlineColor}
                     value={object.value}
                     oType={object.oType}
+                    selected={selected}
+                    setSelected={setSelected}
+                    isSelected={isSelected}
                 />
             )
         }
@@ -54,6 +60,9 @@ const Object = ({ object, isSideSlide }: ObjectProps) => {
                 underlineColor={object.underlineColor}
                 value={object.value}
                 oType={object.oType}
+                selected={selected}
+                setSelected={setSelected}
+                isSelected={isSelected}
             />
         )
     }

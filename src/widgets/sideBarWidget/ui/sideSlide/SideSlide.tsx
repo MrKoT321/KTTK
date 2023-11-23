@@ -42,7 +42,13 @@ const SideSlide = ({ slide, selected, setSelected, isSelected }: SlideProps) => 
             <div className={styles.container} style={styleObj}>
                 <div className={styles.content} style={styleObj}>
                     {slide.objects.map((object, index) => (
-                        <Object key={index} object={object} isSideSlide={true} />
+                        <Object
+                            key={index}
+                            object={object}
+                            isSideSlide={true}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
                     ))}
                 </div>
             </div>

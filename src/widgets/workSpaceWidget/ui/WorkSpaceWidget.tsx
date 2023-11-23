@@ -2,17 +2,25 @@ import styles from './WorkSpaceWidget.module.css'
 import { ObjectType, Selected, SlideType } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
 import { MouseStates } from '../../editorWidget/ui/EditorWidget'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type WorkSpaceWidgetProps = {
     slides: SlideType[]
     selected: Selected
+    setSelected: (selected: Selected) => void
     setSlides: (slides: SlideType[]) => void
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
 }
 
-const WorkSpaceWidget = ({ slides, selected, setSlides, mouseState, setMouseState }: WorkSpaceWidgetProps) => {
+const WorkSpaceWidget = ({
+    slides,
+    selected,
+    setSelected,
+    setSlides,
+    mouseState,
+    setMouseState,
+}: WorkSpaceWidgetProps) => {
     console.log('WorkSpace')
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId)
@@ -203,19 +211,17 @@ const WorkSpaceWidget = ({ slides, selected, setSlides, mouseState, setMouseStat
     }
 
     return (
-        <>
-            <div
-                className={styles.workSpace}
-                onMouseDown={(e) => handleMouseDown(e)}
-                onMouseMove={(e) => handleMouseMove(e)}
-                onMouseUp={(e) => handleMouseUp(e)}
-            >
-                <CurrentSlide slide={currentSlide ?? slides[0]} selected={selected} />
-                <div style={styleObj} className={styles.drawPotentialObject}>
-                    {' '}
-                </div>
+        <div
+            className={styles.workSpace}
+            onMouseDown={(e) => handleMouseDown(e)}
+            onMouseMove={(e) => handleMouseMove(e)}
+            onMouseUp={(e) => handleMouseUp(e)}
+        >
+            <CurrentSlide slide={currentSlide ?? slides[0]} selected={selected} setSelected={setSelected} />
+            <div style={styleObj} className={styles.drawPotentialObject}>
+                {' '}
             </div>
-        </>
+        </div>
     )
 }
 

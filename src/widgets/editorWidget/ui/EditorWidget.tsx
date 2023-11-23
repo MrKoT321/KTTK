@@ -36,6 +36,8 @@ const EditorWidget = () => {
         setPresentationName(presentation.document.name)
     }, [presentation])
 
+    console.log('sel = ', sel)
+
     return (
         <div>
             <TopPanelWidget
@@ -49,6 +51,7 @@ const EditorWidget = () => {
                 <WorkSpaceWidget
                     slides={slides}
                     selected={sel}
+                    setSelected={setSel}
                     setSlides={setSlides}
                     mouseState={mouseState}
                     setMouseState={setMouseState}

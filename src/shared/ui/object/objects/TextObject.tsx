@@ -1,15 +1,21 @@
-import { ObjectTextType } from '../../../types/types'
+import { ObjectTextType, Selected } from '../../../types/types'
 import styles from '../Object.module.css'
 
-const TextObject = (props: ObjectTextType) => {
+type TextObjProps = ObjectTextType & {
+    selected: Selected
+    setSelected(selected: Selected): void
+    isSelected?: boolean
+}
+
+const TextObject = (props: TextObjProps) => {
     const styleObj = {
         width: props.width,
         height: props.height,
         left: props.startX,
         top: props.startY,
         borderStyle: props.borderStyle,
-        borderWidth: props.borderWidth,
-        borderColor: props.borderColor,
+        borderWidth: props.isSelected ? 10 : props.borderWidth,
+        borderColor: props.isSelected ? 'green' : props.borderColor,
         fontSize: props.fontSize,
         color: props.fontColor,
         fontFamily: props.fontFamily,
@@ -28,8 +34,19 @@ const TextObject = (props: ObjectTextType) => {
     if (props.underlined) {
         styleObj.textDecoration = 'underline'
     }
+
     return (
-        <div style={styleObj} className={styles.object}>
+        <div
+            style={styleObj}
+            className={styles.object}
+            onClick={() => {
+                const sel: Selected = {
+                    slidesIds: [...props.selected.slidesIds],
+                    objectsIds: [props.id],
+                }
+                props.setSelected(sel)
+            }}
+        >
             <span>{props.value}</span>
         </div>
     )

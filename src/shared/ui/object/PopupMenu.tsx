@@ -1,4 +1,4 @@
-import { AddElementButton } from "./AddElementButton"
+import { AddElementButton } from './AddElementButton'
 
 type PopupMenuProps = {
     icons: string[]
@@ -7,7 +7,7 @@ type PopupMenuProps = {
 }
 
 const PopupMenu = ({ icons, onClicks, labels }: PopupMenuProps) => {
-    return(
+    return (
         <div>
             {icons.map((icon, index) => (
                 <div>
