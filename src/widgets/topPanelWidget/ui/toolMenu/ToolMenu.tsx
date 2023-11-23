@@ -1,5 +1,5 @@
 import styles from './ToolMenu.module.css'
-import { AddElementButton } from '../../../../shared/ui/object'
+import { AddElementButton, PopupMenu } from '../../../../shared/ui/object'
 import addSlideIcon from '../../../../shared/icons/addSlideIcon.svg'
 import chooseTemplateIcon from '../../../../shared/icons/chooseTemplateIcon.svg'
 import cancelIcon from '../../../../shared/icons/cancelIcon.svg'
@@ -21,7 +21,7 @@ type ToolMenuProps = {
 const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
     const allSlides = [...slides]
 
-    function addSlide() {
+    const addSlide = () => {
         const newSlide: SlideType = {
             id: slides[slides.length - 1].id + 1,
             background: 'color',
@@ -79,9 +79,11 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
             <AddElementButton
                 icon={addShapeIcon}
                 onClick={() => {
-                    console.log('shape')
                 }}
             />
+            <div>
+                <PopupMenu icons={['ss']} labels={['ss']} onClicks={[addSlide]}> </PopupMenu>
+            </div>
         </div>
     )
 }
