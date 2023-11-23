@@ -65,6 +65,8 @@ const SideSlide = ({
                             key={index}
                             object={object}
                             isSideSlide={true}
+                            selected={selected}
+                            setSelected={setSelected}
                         />
                     ))}
                 </div>
