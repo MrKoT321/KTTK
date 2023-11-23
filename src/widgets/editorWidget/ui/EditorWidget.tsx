@@ -6,21 +6,13 @@ import { useEffect, useState } from 'react'
 import { Editor } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/types/testData'
 
-
-type MouseStates =
-    | 'cursor'
-    | 'creatingText'
-    | 'creatingRect'
-    | 'creatingCircle'
-    | 'creatingTriangle'
+type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle'
 
 const EditorWidget = () => {
     const [presentation, setPresentation] = useState<Editor>(minEditor)
     const [sel, setSel] = useState(presentation.selected)
     const [slides, setSlides] = useState(presentation.document.slides)
-    const [presentationName, setPresentationName] = useState(
-        presentation.document.name,
-    )
+    const [presentationName, setPresentationName] = useState(presentation.document.name)
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
 
     const toolMenuTools = {
@@ -53,11 +45,7 @@ const EditorWidget = () => {
                 presentationsObjTools={presentationsObjTools}
             />
             <div className={styles.mainContent}>
-                <SideBarWidget
-                    slides={slides}
-                    selected={sel}
-                    setSelected={setSel}
-                />
+                <SideBarWidget slides={slides} selected={sel} setSelected={setSel} />
                 <WorkSpaceWidget
                     slides={slides}
                     selected={sel}

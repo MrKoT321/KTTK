@@ -10,12 +10,7 @@ type SlideProps = {
     isSelected: boolean
 }
 
-const SideSlide = ({
-    slide,
-    selected,
-    setSelected,
-    isSelected,
-}: SlideProps) => {
+const SideSlide = ({ slide, selected, setSelected, isSelected }: SlideProps) => {
     const styleObj = {
         background: slide.backgroundValue,
     }
@@ -27,9 +22,7 @@ const SideSlide = ({
 
     const handleClick = (e: React.MouseEvent<HTMLLabelElement>) => {
         if (e.ctrlKey) {
-            sel.slidesIds = sel.slidesIds.filter(
-                (selectedId) => selectedId !== slide.id,
-            )
+            sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
             sel.slidesIds.push(slide.id)
         } else {
             sel.slidesIds = [slide.id]
@@ -40,16 +33,8 @@ const SideSlide = ({
     return (
         <label
             className={`${styles.sideSlide}
-            ${
-                isSelected
-                    ? styles.sideSlideBorderSelected
-                    : styles.sideSlideBorder
-            }
-            ${
-                isHovered
-                    ? styles.sideSlideBorderHovered
-                    : styles.sideSlideBorder
-            }`}
+            ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
+            ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={(e) => handleClick(e)}
@@ -57,11 +42,7 @@ const SideSlide = ({
             <div className={styles.container} style={styleObj}>
                 <div className={styles.content} style={styleObj}>
                     {slide.objects.map((object, index) => (
-                        <Object
-                            key={index}
-                            object={object}
-                            isSideSlide={true}
-                        />
+                        <Object key={index} object={object} isSideSlide={true} />
                     ))}
                 </div>
             </div>

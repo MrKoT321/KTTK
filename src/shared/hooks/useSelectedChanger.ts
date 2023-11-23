@@ -15,9 +15,7 @@ const useSelectedChanger = (props: ChangerProps) => {
 
         const handleClick = (e: MouseEvent) => {
             if (e.ctrlKey) {
-                props.sel.slidesIds = props.sel.slidesIds.filter(
-                    (selectedId) => selectedId !== props.slide.id,
-                )
+                props.sel.slidesIds = props.sel.slidesIds.filter((selectedId) => selectedId !== props.slide.id)
                 props.sel.slidesIds.push(props.slide.id)
             } else {
                 props.sel.slidesIds = [props.slide.id]

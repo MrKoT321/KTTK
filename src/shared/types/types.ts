@@ -6,17 +6,7 @@ type GeneralObjectType = {
     height: number
     startX: number
     startY: number
-    borderStyle:
-        | 'none'
-        | 'hidden'
-        | 'dotted'
-        | 'dashed'
-        | 'solid'
-        | 'double'
-        | 'groove'
-        | 'ridge'
-        | 'inset'
-        | 'outset'
+    borderStyle: 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset'
     borderWidth: number
     borderColor: string
 }

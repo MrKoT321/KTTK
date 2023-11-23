@@ -12,13 +12,7 @@ type WorkSpaceWidgetProps = {
     setMouseState: (mouseState: MouseStates) => void
 }
 
-const WorkSpaceWidget = ({
-    slides,
-    selected,
-    setSlides,
-    mouseState,
-    setMouseState,
-}: WorkSpaceWidgetProps) => {
+const WorkSpaceWidget = ({ slides, selected, setSlides, mouseState, setMouseState }: WorkSpaceWidgetProps) => {
     console.log('WorkSpace')
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId)
@@ -45,29 +39,17 @@ const WorkSpaceWidget = ({
     })
 
     const createIdObjectId = () => {
-        if (
-            slides[selected.slidesIds[selected.slidesIds.length - 1] - 1]
-                .objects.length != 0
-        ) {
+        if (slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length != 0) {
             return (
-                slides[selected.slidesIds[selected.slidesIds.length - 1] - 1]
-                    .objects[
-                    slides[
-                        selected.slidesIds[selected.slidesIds.length - 1] - 1
-                    ].objects.length - 1
+                slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects[
+                    slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length - 1
                 ].id + 1
             )
         }
         return 1
     }
 
-    const addObject = (
-        mouseState: MouseStates,
-        startX: number,
-        startY: number,
-        width: number,
-        height: number,
-    ) => {
+    const addObject = (mouseState: MouseStates, startX: number, startY: number, width: number, height: number) => {
         let object: ObjectType
         console.log(allSlides)
         switch (mouseState) {
@@ -131,9 +113,7 @@ const WorkSpaceWidget = ({
                 break
         }
         allSlides.forEach((slide) => {
-            if (
-                slide.id === selected.slidesIds[selected.slidesIds.length - 1]
-            ) {
+            if (slide.id === selected.slidesIds[selected.slidesIds.length - 1]) {
                 slide.objects.push(object)
             }
         })
@@ -230,10 +210,7 @@ const WorkSpaceWidget = ({
                 onMouseMove={(e) => handleMouseMove(e)}
                 onMouseUp={(e) => handleMouseUp(e)}
             >
-                <CurrentSlide
-                    slide={currentSlide ?? slides[0]}
-                    selected={selected}
-                />
+                <CurrentSlide slide={currentSlide ?? slides[0]} selected={selected} />
                 <div style={styleObj} className={styles.drawPotentialObject}>
                     {' '}
                 </div>

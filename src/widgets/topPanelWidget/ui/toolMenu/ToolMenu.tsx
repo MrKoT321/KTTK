@@ -36,51 +36,49 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
         <div className={styles.toolMenu}>
             <AddElementButton
                 icon={addSlideIcon}
-                onClickChange={() => {
+                onClick={() => {
                     addSlide()
                 }}
             />
             <AddElementButton
                 icon={chooseTemplateIcon}
-                onClickChange={() => {
-                    console.log(
-                        'Открытие панельки с готовой заготовкой слайдов',
-                    )
+                onClick={() => {
+                    console.log('Открытие панельки с готовой заготовкой слайдов')
                 }}
             />
             <AddElementButton
                 icon={cancelIcon}
-                onClickChange={() => {
+                onClick={() => {
                     console.log('Отмена действия')
                 }}
             />
             <AddElementButton
                 icon={returnIcon}
-                onClickChange={() => {
+                onClick={() => {
                     console.log('Возвращение последнего действия')
                 }}
             />
             <AddElementButton
                 icon={pointerIcon}
-                onClickChange={() => {
+                onClick={() => {
                     setMouseState('cursor')
                 }}
             />
             <AddElementButton
                 icon={addTextIcon}
-                onClickChange={() => {
+                onClick={() => {
                     setMouseState('creatingText')
                 }}
             />
             <AddElementButton
                 icon={addImageIcon}
-                onClickChange={() => {
+                onClick={() => {
                     console.log('image')
                 }}
             />
             <AddElementButton
                 icon={addShapeIcon}
-                onClickChange={() => {
+                onClick={() => {
                     console.log('shape')
                 }}
             />

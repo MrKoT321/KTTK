@@ -30,21 +30,14 @@ const TopPanelWidget = ({
 }: TopPanelWidgetProps) => (
     <div className={styles.topPanel}>
         <div className={styles.container}>
-            <PresentationName
-                setName={presentationNameTools.setName}
-                name={presentationNameTools.name}
-            />
+            <PresentationName setName={presentationNameTools.setName} name={presentationNameTools.name} />
             <ToolBar
                 toolMenuTools={toolMenuTools}
                 presentationNameTools={presentationNameTools}
                 presentationsObjTools={presentationsObjTools}
             />
         </div>
-        <ToolMenu
-            slides={toolMenuTools.slides}
-            setSlides={toolMenuTools.setSlides}
-            setMouseState={setMouseState}
-        />
+        <ToolMenu slides={toolMenuTools.slides} setSlides={toolMenuTools.setSlides} setMouseState={setMouseState} />
     </div>
 )
 

@@ -17,11 +17,7 @@ const ImageObject = (props: ObjectImageType) => {
     }
     return (
         <div style={styleParentObj} className={styles.object}>
-            <img
-                style={styleChildObj}
-                alt={props.caption}
-                src={props.imageSrc}
-            />
+            <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />
         </div>
     )
 }

@@ -1,9 +1,5 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import {
-    ObjectImageType,
-    ObjectShapeType,
-    ObjectTextType,
-} from '../../types/types'
+import { ObjectImageType, ObjectShapeType, ObjectTextType } from '../../types/types'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType

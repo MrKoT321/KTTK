@@ -2,10 +2,10 @@ import styles from './AddElementButton.module.css'
 
 type AddElementButtonProps = {
     icon: string
-    onClickChange(): void
+    onClick(): void
 }
 
-const AddElementButton = ({ icon, onClickChange }: AddElementButtonProps) => {
+const AddElementButton = ({ icon, onClick }: AddElementButtonProps) => {
     // const styleObj = {
     //     background: icon,
     // }
@@ -14,7 +14,7 @@ const AddElementButton = ({ icon, onClickChange }: AddElementButtonProps) => {
         <button
             // style={styleObj}
             onClick={() => {
-                onClickChange()
+                onClick()
             }}
         >
             <img src={icon} className={styles.image} />
