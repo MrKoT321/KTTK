@@ -30,6 +30,13 @@ const EditorWidget = () => {
         presentation: presentation,
     }
 
+    // const handleDelete = (e) => {
+    //     if (e.keyCode == 8) {
+    //         sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
+    //         sel.slidesIds.push(slide.id)
+    //     }
+    // }
+
     useEffect(() => {
         setSel(presentation.selected)
         setSlides(presentation.document.slides)

@@ -1,3 +1,4 @@
+import styles from './PopupMenu.module.css'
 import { AddElementButton } from './AddElementButton'
 
 type PopupMenuProps = {
@@ -8,11 +9,10 @@ type PopupMenuProps = {
 
 const PopupMenu = ({ icons, onClicks, labels }: PopupMenuProps) => {
     return (
-        <div>
+        <div className={styles.popupMenu}>
             {icons.map((icon, index) => (
-                <div>
-                    <AddElementButton icon={icon} onClick={onClicks[index]} />
-                    <label>{labels[index]}</label>
+                <div className={styles.line}>
+                    <AddElementButton icon={icon} onClick={onClicks[index]} label={labels[index]} />
                 </div>
             ))}
         </div>

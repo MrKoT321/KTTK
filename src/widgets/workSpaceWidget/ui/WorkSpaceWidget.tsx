@@ -101,21 +101,48 @@ const WorkSpaceWidget = ({
             //     }
             //     break
             case 'creatingRect':
+                object = {
+                    id: createIdObjectId(),
+                    width: width,
+                    height: height,
+                    startX: startX,
+                    startY: startY,
+                    borderStyle: 'solid',
+                    borderWidth: 15,
+                    borderColor: 'black',
+                    type: 'rect',
+                    shapeBgColor: 'yellow',
+                    oType: 'ObjectShapeType',
+                }
+                break
             case 'creatingCircle':
+                object = {
+                    id: createIdObjectId(),
+                    width: width,
+                    height: height,
+                    startX: startX,
+                    startY: startY,
+                    borderStyle: 'solid',
+                    borderWidth: 15,
+                    borderColor: 'blue',
+                    type: 'circle',
+                    radius: Math.abs(currentMouseX - startMouseX / 2),
+                    shapeBgColor: 'green',
+                    oType: 'ObjectShapeType',
+                }
+                break
             case 'creatingTriangle':
                 object = {
                     id: createIdObjectId(),
-                    width: 20,
-                    height: 30,
-                    startX: 180,
-                    startY: 20,
+                    width: width,
+                    height: height,
+                    startX: startX,
+                    startY: startY,
                     borderStyle: 'none',
-                    borderWidth: 2,
-                    borderColor: '#000000',
+                    borderWidth: 15,
+                    borderColor: 'black',
                     type: 'line',
-                    endX: 200,
-                    endY: 40,
-                    shapeBgColor: '#c22dd0',
+                    shapeBgColor: 'yellow',
                     oType: 'ObjectShapeType',
                 }
                 break
@@ -155,8 +182,8 @@ const WorkSpaceWidget = ({
             case 'creatingCircle':
                 setStyleObj({
                     opacity: 100,
-                    top: currentMouseY,
-                    left: currentMouseX,
+                    top: createPosition(startMouseY, currentMouseY),
+                    left: createPosition(startMouseX, currentMouseX),
                     width: Math.abs(currentMouseX - startMouseX),
                     height: Math.abs(currentMouseY - startMouseY),
                     borderColor: 'gray',

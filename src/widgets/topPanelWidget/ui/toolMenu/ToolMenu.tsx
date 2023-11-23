@@ -8,8 +8,10 @@ import pointerIcon from '../../../../shared/icons/pointerIcon.svg'
 import addTextIcon from '../../../../shared/icons/addTextIcon.svg'
 import addImageIcon from '../../../../shared/icons/addImageIcon.svg'
 import addShapeIcon from '../../../../shared/icons/addShapeIcon.svg'
-import { ObjectType, Selected, SlideType } from '../../../../shared/types/types'
-import { useState } from 'react'
+import addRectangleIcon from '../../../../shared/icons/addRectangleIcon.svg'
+import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
+import { SlideType } from '../../../../shared/types/types'
+import { useEffect, useState } from 'react'
 import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
 
 type ToolMenuProps = {
@@ -19,7 +21,14 @@ type ToolMenuProps = {
 }
 
 const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
+    const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
+
+    //TODO: сделать в зависимости от длины
+    const stylePopupMenu = {
+        marginLeft: 384,
+        marginTop: 40,
+    }
 
     const addSlide = () => {
         const newSlide: SlideType = {
@@ -30,6 +39,14 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
         }
         allSlides.push(newSlide)
         setSlides(allSlides)
+    }
+
+    const changePopupMenuShapesVisibility = () => {
+        if (isShowShapesPopupMenu) {
+            setIsShowShapesPopupMenu(false)
+        } else {
+            setIsShowShapesPopupMenu(true)
+        }
     }
 
     return (
@@ -79,10 +96,18 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
             <AddElementButton
                 icon={addShapeIcon}
                 onClick={() => {
+                    changePopupMenuShapesVisibility()
                 }}
             />
-            <div>
-                <PopupMenu icons={['ss']} labels={['ss']} onClicks={[addSlide]}> </PopupMenu>
+            <div
+                className={isShowShapesPopupMenu ? styles.shapePopupMenu_visible : styles.shapePopupMenu_hidden}
+                style={stylePopupMenu}
+            >
+                <PopupMenu
+                    icons={[addRectangleIcon, addCircleIcon]}
+                    labels={['Rectangle', 'Circle']}
+                    onClicks={[() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]}
+                />
             </div>
         </div>
     )
