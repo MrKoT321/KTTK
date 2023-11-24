@@ -21,6 +21,7 @@ const ToolMenu = ({ slides, setSlides, selected }: ToolMenuProps) => {
     function addSlide() {
         const newSlide: SlideType = {
             id: slides[slides.length - 1].id + 1,
+            order: slides.length,
             background: 'color',
             backgroundValue: '#FFFFFF',
             objects: [],
@@ -90,9 +91,7 @@ const ToolMenu = ({ slides, setSlides, selected }: ToolMenuProps) => {
                 break
         }
         allSlides.forEach((slide) => {
-            if (
-                slide.id === selected.slidesIds[selected.slidesIds.length - 1]
-            ) {
+            if (slide.id === selected.slidesIds[selected.slidesIds.length - 1]) {
                 slide.objects.push(object)
             }
         })
@@ -111,9 +110,7 @@ const ToolMenu = ({ slides, setSlides, selected }: ToolMenuProps) => {
             <AddElementButton
                 icon={chooseTemplateIcon}
                 onClickChange={() => {
-                    console.log(
-                        'Открытие панельки с готовой заготовкой слайдов',
-                    )
+                    console.log('Открытие панельки с готовой заготовкой слайдов')
                 }}
             />
             <AddElementButton

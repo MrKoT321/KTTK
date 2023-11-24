@@ -4,18 +4,29 @@ import { Object } from '../../../../shared/ui/object'
 import React, { useRef, useState } from 'react'
 
 type SlideProps = {
+    order: number
     slide: SlideType
     selected: Selected
     setSelected(sel: Selected): void
     isSelected: boolean
+    isDraggable: boolean
+    handleDrop(e: React.DragEvent<HTMLDivElement>, slide: SlideType): void
+    handleDragStart(e: React.DragEvent<HTMLDivElement>, slide: SlideType): void
+    handleDragOver(e: React.DragEvent<HTMLDivElement>): void
 }
 
 const SideSlide = ({
+    order,
     slide,
     selected,
     setSelected,
     isSelected,
+    isDraggable,
+    handleDragOver,
+    handleDragStart,
+    handleDrop,
 }: SlideProps) => {
+    slide.order = order
     const styleObj = {
         background: slide.backgroundValue,
     }
@@ -25,16 +36,12 @@ const SideSlide = ({
     }
     const [isHovered, setIsHovered] = useState(false)
 
-    const handleClick = (e: React.MouseEvent<HTMLLabelElement>) => {
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.ctrlKey) {
-            console.log(11111)
-            sel.slidesIds = sel.slidesIds.filter(
-                (selectedId) => selectedId !== slide.id,
-            )
+            sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
             sel.slidesIds.push(slide.id)
             console.log('ctrl press')
         } else {
-            console.log(22222)
             sel.slidesIds = [slide.id]
         }
         setSelected(sel)
@@ -42,21 +49,17 @@ const SideSlide = ({
     }
 
     return (
-        <label
+        <div
             className={`${styles.sideSlide}
-            ${
-                isSelected
-                    ? styles.sideSlideBorderSelected
-                    : styles.sideSlideBorder
-            }
-            ${
-                isHovered
-                    ? styles.sideSlideBorderHovered
-                    : styles.sideSlideBorder
-            }`}
+            ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
+            ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={(e) => handleClick(e)}
+            onDragStart={(e) => handleDragStart(e, slide)}
+            onDragOver={(e) => handleDragOver(e)}
+            onDrop={(e) => handleDrop(e, slide)}
+            draggable={isDraggable}
         >
             <div className={styles.container} style={styleObj}>
                 <div className={styles.content} style={styleObj}>
@@ -71,7 +74,7 @@ const SideSlide = ({
                     ))}
                 </div>
             </div>
-        </label>
+        </div>
     )
 }
 

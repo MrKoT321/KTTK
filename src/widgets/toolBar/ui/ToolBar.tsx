@@ -18,11 +18,7 @@ type ToolBarProps = {
     }
 }
 
-const ToolBar = ({
-    toolMenuTools,
-    presentationNameTools,
-    presentationsObjTools,
-}: ToolBarProps) => {
+const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }: ToolBarProps) => {
     const saveFile = () => {
         const editor: Editor = {
             document: {

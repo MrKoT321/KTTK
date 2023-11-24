@@ -6,17 +6,7 @@ type GeneralObjectType = {
     height: number
     startX: number
     startY: number
-    borderStyle:
-        | 'none'
-        | 'hidden'
-        | 'dotted'
-        | 'dashed'
-        | 'solid'
-        | 'double'
-        | 'groove'
-        | 'ridge'
-        | 'inset'
-        | 'outset'
+    borderStyle: 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset'
     borderWidth: number
     borderColor: string
 }
@@ -53,6 +43,7 @@ type ObjectType = ObjectImageType | ObjectTextType | ObjectShapeType
 
 type SlideType = {
     id: number
+    order: number
     background: BackgroundType
     backgroundValue: string
     objects: Array<ObjectType>

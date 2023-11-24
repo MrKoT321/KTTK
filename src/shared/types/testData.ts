@@ -6,6 +6,7 @@ const minEditor: Editor = {
         slides: [
             {
                 id: 1,
+                order: 1,
                 background: 'color',
                 backgroundValue: '#FFFFFF',
                 objects: [],
@@ -24,6 +25,7 @@ const mediumEditor: Editor = {
         slides: [
             {
                 id: 1,
+                order: 1,
                 background: 'color',
                 backgroundValue: '#FFFFFF',
                 objects: [
@@ -82,6 +84,7 @@ const maxEditor: Editor = {
         slides: [
             {
                 id: 1,
+                order: 1,
                 background: 'color',
                 backgroundValue: '#fc6969',
                 objects: [
@@ -243,6 +246,7 @@ const maxEditor: Editor = {
             },
             {
                 id: 2,
+                order: 2,
                 background: 'color',
                 backgroundValue: '#57bbff',
                 objects: [
@@ -257,8 +261,7 @@ const maxEditor: Editor = {
                         borderColor: '#ff0000',
                         caption: 'table',
                         imageSrcType: 'imageLink',
-                        imageSrc:
-                            'https://www.fonstola.ru/images/201305/fonstola.ru_96099.jpg',
+                        imageSrc: 'https://www.fonstola.ru/images/201305/fonstola.ru_96099.jpg',
                         oType: 'ObjectImageType',
                     },
                     {

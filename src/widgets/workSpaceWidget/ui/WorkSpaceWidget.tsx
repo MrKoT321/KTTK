@@ -8,21 +8,13 @@ type WorkSpaceWidgetProps = {
     setSelected: (sel: Selected) => void
 }
 
-const WorkSpaceWidget = ({
-    slides,
-    selected,
-    setSelected,
-}: WorkSpaceWidgetProps) => {
+const WorkSpaceWidget = ({ slides, selected, setSelected }: WorkSpaceWidgetProps) => {
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId)
 
     return (
         <div className={styles.workSpace}>
-            <CurrentSlide
-                slide={currentSlide ?? slides[0]}
-                selected={selected}
-                setSelected={setSelected}
-            />
+            <CurrentSlide slide={currentSlide ?? slides[0]} selected={selected} setSelected={setSelected} />
         </div>
     )
 }

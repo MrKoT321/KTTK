@@ -1,5 +1,6 @@
 .sideSlide {
     border-radius: 30px;
+    cursor: grab;
 }
 
 .sideSlideBorder {
