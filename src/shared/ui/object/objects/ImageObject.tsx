@@ -3,8 +3,8 @@ import styles from '../Object.module.css'
 
 const ImageObject = (props: ObjectImageType) => {
     const styleParentObj = {
-        width: props.width,
-        height: props.height,
+        width: props.width + props.borderWidth,
+        height: props.height + props.borderWidth,
         left: props.startX,
         top: props.startY,
         borderStyle: props.borderStyle,

@@ -1,7 +1,7 @@
 import styles from './SideSlide.module.css'
 import { Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 
 type SlideProps = {
     order: number
@@ -40,12 +40,10 @@ const SideSlide = ({
         if (e.ctrlKey) {
             sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
             sel.slidesIds.push(slide.id)
-            console.log('ctrl press')
         } else {
             sel.slidesIds = [slide.id]
         }
         setSelected(sel)
-        console.log(sel.slidesIds)
     }
 
     return (

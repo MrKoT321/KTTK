@@ -2,22 +2,20 @@ import styles from './AddElementButton.module.css'
 
 type AddElementButtonProps = {
     icon: string
-    onClickChange(): void
+    onClick(): void
+    label?: string
 }
 
-const AddElementButton = ({ icon, onClickChange }: AddElementButtonProps) => {
-    // const styleObj = {
-    //     background: icon,
-    // }
-
+const AddElementButton = ({ icon, onClick, label }: AddElementButtonProps) => {
     return (
         <button
-            // style={styleObj}
+            className={label === undefined ? styles.button_withoutText : styles.button_withText}
             onClick={() => {
-                onClickChange()
+                onClick()
             }}
         >
-            <img src={icon} />
+            <img src={icon} className={styles.image} />
+            <p className={label === undefined ? styles.hidden : styles.text}>{label}</p>
         </button>
     )
 }

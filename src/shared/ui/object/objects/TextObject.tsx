@@ -9,8 +9,8 @@ type TextObjProps = ObjectTextType & {
 
 const TextObject = (props: TextObjProps) => {
     const styleObj = {
-        width: props.width,
-        height: props.height,
+        width: props.width + props.borderWidth,
+        height: props.height + props.borderWidth,
         left: props.startX,
         top: props.startY,
         borderStyle: props.borderStyle,

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Selected, SlideType } from '../../../../shared/types/types'
 // import { useDraggableList1 } from '../../../../shared/hooks/useDraggableList1'
 import { Object } from '../../../../shared/ui/object'

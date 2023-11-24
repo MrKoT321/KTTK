@@ -5,4 +5,14 @@
     display: flex;
     gap: 10px;
     background-color: #e4e2e2;
+    z-index: 10000000;
+}
+
+.shapePopupMenu_hidden {
+    position: absolute;
+    visibility: hidden;
+}
+
+.shapePopupMenu_visible {
+    position: absolute;
 }

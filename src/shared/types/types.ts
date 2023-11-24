@@ -11,13 +11,30 @@ type GeneralObjectType = {
     borderColor: string
 }
 
-type ObjectShapeType = GeneralObjectType & {
-    type: 'rect' | 'triangle' | 'circle' | 'arrow' | 'line'
-    endX: number
-    endY: number
-    shapeBgColor: string
-    oType: 'ObjectShapeType'
+type ShapeRectType = {
+    type: 'rect'
 }
+
+type ShapeCircleType = {
+    type: 'circle'
+    radius: number
+}
+
+type ShapeTriangleType = {
+    type: 'triangle'
+}
+
+type ShapeLineType = {
+    type: 'line'
+}
+
+type ShapeType = ShapeRectType | ShapeCircleType | ShapeTriangleType | ShapeLineType
+
+type ObjectShapeType = GeneralObjectType &
+    ShapeType & {
+        shapeBgColor: string
+        oType: 'ObjectShapeType'
+    }
 
 type ObjectTextType = GeneralObjectType & {
     fontSize: number
