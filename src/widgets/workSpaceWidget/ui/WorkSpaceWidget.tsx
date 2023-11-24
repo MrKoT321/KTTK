@@ -71,6 +71,22 @@ const WorkSpaceWidget = ({
         let object: ObjectType
         console.log(allSlides)
         switch (mouseState) {
+            case 'creatingImg':
+                object = {
+                    id: createIdObjectId(),
+                    width: width,
+                    height: height,
+                    startX: startX,
+                    startY: startY,
+                    borderStyle: 'none',
+                    borderWidth: 2,
+                    borderColor: '#000000',
+                    caption: '',
+                    imageSrcType: 'imageLink',
+                    imageSrc: '',
+                    oType: 'ObjectImageType',
+                }
+                break
             case 'creatingText':
                 object = {
                     id: createIdObjectId(),

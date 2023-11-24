@@ -75,7 +75,6 @@
 }
 
 .popUpContent {
-    margin-top: 58px;
     position: relative;
     display: flex;
     width: 100%;
@@ -83,6 +82,7 @@
 }
 
 .popUpContentImageLabel {
+    margin-top: 20px;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -91,6 +91,108 @@
     text-align: center;
     background-color: #C0C0C0;
     cursor: pointer;
+}
+
+.popUpContentLinkBlock {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    width: 100%;
+    height: 100%;
+}
+
+.popUpContentLinkInputBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.popUpContentLinkInput {
+    width: 70.67%;
+    height: 60px;
+    background-color: white;
+    outline: none;
+    border: 0;
+    padding-left: 20px;
+    border-radius: 20px;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popUpContentLinkFindBtn {
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    background-color: white;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popUpContentLinkFindBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.popUpContentLinkImgBlock {
+    display: flex;
+    justify-content: center;
+    width: 70.67%;
+    height: 390px;
+    background-color: #BFBFBF;
+    border: 0;
+    border-radius: 20px;
+}
+
+.popUpContentLinkImgBtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 24px;
+}
+
+.popUpContentLinkImgDeleteBtn {
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    background-color: #800000;
+    color: white;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popUpContentLinkImgConfirmBtn {
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    background-color: #008000;
+    color: white;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .hidden {

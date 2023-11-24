@@ -11,14 +11,34 @@ const SelectImagePopUp = ({
     isPopUpOpen,
     closePopUp,
 }: SelectImagePopUpProps) => {
+    const [linkImgSrc, setLinkImgSrc] = useState('')
+    const [isLinkUsed, setIsLinkUsed] = useState(false)
     const [btnState, setBtnsState] = useState(true)
-
+    const [linkValue, setLinkValue] = useState('')
     const chooseCompBtn = () => {
         setBtnsState(() => true)
     }
 
     const chooseLinkBtn = () => {
         setBtnsState(() => false)
+    }
+
+    const linkUsed = () => {
+        setIsLinkUsed(true)
+    }
+
+    const linkNotUsed = () => {
+        setLinkValue('')
+        setIsLinkUsed(false)
+    }
+
+    const findImgFromLink = () => {
+        fetch(linkValue).then((res) => {
+            if (res.status != 404) {
+                linkUsed()
+                setLinkImgSrc(linkValue)
+            }
+        })
     }
 
     return (
@@ -69,7 +89,7 @@ const SelectImagePopUp = ({
                             htmlFor={'fileLoader'}
                             className={styles.popUpContentImageLabel}
                         >
-                            {/*<span>Загрузить</span>*/}
+                            <span>Загрузить</span>
                         </label>
                         <input
                             type={'file'}
@@ -77,9 +97,59 @@ const SelectImagePopUp = ({
                             className={styles.hidden}
                         />
                     </div>
-                    <div className={btnState ? styles.hidden : null}>
-                        <input type={'text'} placeholder={'Вставьте ссылку'} />
-                        <button id={'findByLink'}>Найти</button>
+                    <div
+                        className={
+                            btnState
+                                ? styles.hidden
+                                : styles.popUpContentLinkBlock
+                        }
+                    >
+                        <div className={styles.popUpContentLinkInputBlock}>
+                            <input
+                                type={'text'}
+                                value={linkValue}
+                                className={styles.popUpContentLinkInput}
+                                placeholder={'Вставьте ссылку на фотографию'}
+                                onChange={(event) => {
+                                    setLinkValue(event.target.value)
+                                }}
+                            />
+                            <button
+                                id={'findByLink'}
+                                className={styles.popUpContentLinkFindBtn}
+                                onClick={findImgFromLink}
+                            >
+                                Найти
+                            </button>
+                        </div>
+                        <div
+                            className={
+                                isLinkUsed
+                                    ? styles.popUpContentLinkFindBlock
+                                    : styles.hidden
+                            }
+                        >
+                            <div className={styles.popUpContentLinkImgBlock}>
+                                <img src={linkImgSrc} />
+                            </div>
+                            <div className={styles.popUpContentLinkImgBtns}>
+                                <button
+                                    className={
+                                        styles.popUpContentLinkImgDeleteBtn
+                                    }
+                                    onClick={linkNotUsed}
+                                >
+                                    Удалить
+                                </button>
+                                <button
+                                    className={
+                                        styles.popUpContentLinkImgConfirmBtn
+                                    }
+                                >
+                                    Подтвердить
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

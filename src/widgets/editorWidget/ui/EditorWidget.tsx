@@ -4,7 +4,6 @@ import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
 import { Doc, Selected } from '../../../shared/types/types'
 import { useState } from 'react'
-import { SelectImagePopUp } from '../../selectImagePopUpWidget'
 
 // type EditorProps = {
 //     presentation: Editor
@@ -22,6 +21,7 @@ type MouseStates =
     | 'creatingRect'
     | 'creatingCircle'
     | 'creatingTriangle'
+    | 'creatingImg'
 
 const EditorWidget = ({ document, selected }: EditorProps) => {
     const [sel, setSel] = useState(selected)
