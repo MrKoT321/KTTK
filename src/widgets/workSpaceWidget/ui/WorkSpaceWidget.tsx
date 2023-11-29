@@ -19,7 +19,6 @@ const WorkSpaceWidget = ({
     mouseState,
     setMouseState,
 }: WorkSpaceWidgetProps) => {
-    console.log('WorkSpace')
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId)
 
@@ -67,11 +66,13 @@ const WorkSpaceWidget = ({
         startY: number,
         width: number,
         height: number,
+        imageSrc?: string,
     ) => {
         let object: ObjectType
         console.log(allSlides)
         switch (mouseState) {
-            case 'creatingImg':
+            case 'creatingLinkImg':
+                if (!imageSrc) break
                 object = {
                     id: createIdObjectId(),
                     width: width,
@@ -79,11 +80,28 @@ const WorkSpaceWidget = ({
                     startX: startX,
                     startY: startY,
                     borderStyle: 'none',
-                    borderWidth: 2,
+                    borderWidth: 0,
                     borderColor: '#000000',
                     caption: '',
                     imageSrcType: 'imageLink',
-                    imageSrc: '',
+                    imageSrc: imageSrc,
+                    oType: 'ObjectImageType',
+                }
+                break
+            case 'creatingBase64Img':
+                if (!imageSrc) break
+                object = {
+                    id: createIdObjectId(),
+                    width: width,
+                    height: height,
+                    startX: startX,
+                    startY: startY,
+                    borderStyle: 'none',
+                    borderWidth: 0,
+                    borderColor: '#000000',
+                    caption: '',
+                    imageSrcType: 'imageBase64',
+                    imageSrc: imageSrc,
                     oType: 'ObjectImageType',
                 }
                 break

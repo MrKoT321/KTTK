@@ -21,7 +21,8 @@ type MouseStates =
     | 'creatingRect'
     | 'creatingCircle'
     | 'creatingTriangle'
-    | 'creatingImg'
+    | 'creatingLinkImg'
+    | 'creatingBase64Img'
 
 const EditorWidget = ({ document, selected }: EditorProps) => {
     const [sel, setSel] = useState(selected)

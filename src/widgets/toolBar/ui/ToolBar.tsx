@@ -26,8 +26,6 @@ const ToolBar = ({ toolMenuTools, presentationNameTools }: ToolBarProps) => {
         },
     }
 
-    console.log('editor = ', editor)
-
     const saveFile = () => {
         const text = JSON.stringify(editor)
         const a = document.createElement('a')
