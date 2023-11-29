@@ -7,10 +7,7 @@ type SelectImagePopUpProps = {
     closePopUp(): void
 }
 
-const SelectImagePopUp = ({
-    isPopUpOpen,
-    closePopUp,
-}: SelectImagePopUpProps) => {
+const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) => {
     const [linkImgSrc, setLinkImgSrc] = useState('')
     const [isLinkUsed, setIsLinkUsed] = useState(false)
     const [btnState, setBtnsState] = useState(true)
@@ -46,29 +43,17 @@ const SelectImagePopUp = ({
             <div className={styles.popUpBlock}>
                 <div className={styles.popUpHeader}>
                     <span>Вставка картинки</span>
-                    <img
-                        src={closeIcon}
-                        className={styles.popUpHeaderCloseBtn}
-                        onClick={closePopUp}
-                    />
+                    <img src={closeIcon} className={styles.popUpHeaderCloseBtn} onClick={closePopUp} />
                 </div>
                 <div className={styles.popupToolBar}>
                     <button
-                        className={
-                            btnState
-                                ? styles.popupToolBarChoiceSelected
-                                : styles.popupToolBarChoice
-                        }
+                        className={btnState ? styles.popupToolBarChoiceSelected : styles.popupToolBarChoice}
                         onClick={chooseCompBtn}
                     >
                         С компьютера
                     </button>
                     <button
-                        className={
-                            btnState
-                                ? styles.popupToolBarChoice
-                                : styles.popupToolBarChoiceSelected
-                        }
+                        className={btnState ? styles.popupToolBarChoice : styles.popupToolBarChoiceSelected}
                         onClick={chooseLinkBtn}
                     >
                         Ссылка
@@ -85,25 +70,12 @@ const SelectImagePopUp = ({
                 />
                 <div className={styles.popUpContent}>
                     <div className={btnState ? null : styles.hidden}>
-                        <label
-                            htmlFor={'fileLoader'}
-                            className={styles.popUpContentImageLabel}
-                        >
+                        <label htmlFor={'fileLoader'} className={styles.popUpContentImageLabel}>
                             <span>Загрузить</span>
                         </label>
-                        <input
-                            type={'file'}
-                            id={'fileLoader'}
-                            className={styles.hidden}
-                        />
+                        <input type={'file'} id={'fileLoader'} className={styles.hidden} />
                     </div>
-                    <div
-                        className={
-                            btnState
-                                ? styles.hidden
-                                : styles.popUpContentLinkBlock
-                        }
-                    >
+                    <div className={btnState ? styles.hidden : styles.popUpContentLinkBlock}>
                         <div className={styles.popUpContentLinkInputBlock}>
                             <input
                                 type={'text'}
@@ -122,32 +94,15 @@ const SelectImagePopUp = ({
                                 Найти
                             </button>
                         </div>
-                        <div
-                            className={
-                                isLinkUsed
-                                    ? styles.popUpContentLinkFindBlock
-                                    : styles.hidden
-                            }
-                        >
+                        <div className={isLinkUsed ? styles.popUpContentLinkFindBlock : styles.hidden}>
                             <div className={styles.popUpContentLinkImgBlock}>
                                 <img src={linkImgSrc} />
                             </div>
                             <div className={styles.popUpContentLinkImgBtns}>
-                                <button
-                                    className={
-                                        styles.popUpContentLinkImgDeleteBtn
-                                    }
-                                    onClick={linkNotUsed}
-                                >
+                                <button className={styles.popUpContentLinkImgDeleteBtn} onClick={linkNotUsed}>
                                     Удалить
                                 </button>
-                                <button
-                                    className={
-                                        styles.popUpContentLinkImgConfirmBtn
-                                    }
-                                >
-                                    Подтвердить
-                                </button>
+                                <button className={styles.popUpContentLinkImgConfirmBtn}>Подтвердить</button>
                             </div>
                         </div>
                     </div>

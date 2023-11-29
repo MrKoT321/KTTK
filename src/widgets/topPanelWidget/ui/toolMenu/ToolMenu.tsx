@@ -119,10 +119,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
                     onClicks={[() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]}
                 />
             </div>
-            <SelectImagePopUp
-                isPopUpOpen={isPopUpOpen}
-                closePopUp={closeSelectImagePopUp}
-            />
+            <SelectImagePopUp isPopUpOpen={isPopUpOpen} closePopUp={closeSelectImagePopUp} />
         </div>
     )
 }
