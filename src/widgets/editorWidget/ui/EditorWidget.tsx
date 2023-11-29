@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { Editor } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/types/testData'
 
-type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle'
+type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle' | 'creatingLinkImg' | 'creatingBase64Img'
 
 const EditorWidget = () => {
     const [presentation, setPresentation] = useState<Editor>(minEditor)

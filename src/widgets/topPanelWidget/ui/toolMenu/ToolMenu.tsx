@@ -13,6 +13,7 @@ import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
 import { SlideType } from '../../../../shared/types/types'
 import { useEffect, useState } from 'react'
 import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
+import { SelectImagePopUp } from '../../../selectImagePopUpWidget'
 
 type ToolMenuProps = {
     slides: SlideType[]
@@ -23,6 +24,15 @@ type ToolMenuProps = {
 const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
+    const [isPopUpOpen, setPopUpState] = useState(false)
+
+    const openSelectImagePopUp = () => {
+        setPopUpState(() => true)
+    }
+
+    const closeSelectImagePopUp = () => {
+        setPopUpState(() => false)
+    }
 
     //TODO: сделать в зависимости от длины
     const stylePopupMenu = {
@@ -90,7 +100,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
             <AddElementButton
                 icon={addImageIcon}
                 onClick={() => {
-                    console.log('image')
+                    openSelectImagePopUp()
                 }}
             />
             <AddElementButton
@@ -109,6 +119,10 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
                     onClicks={[() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]}
                 />
             </div>
+            <SelectImagePopUp
+                isPopUpOpen={isPopUpOpen}
+                closePopUp={closeSelectImagePopUp}
+            />
         </div>
     )
 }
