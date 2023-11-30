@@ -1,10 +1,5 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import {
-    ObjectImageType,
-    ObjectShapeType,
-    ObjectTextType,
-    Selected,
-} from '../../types/types'
+import { ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
@@ -16,13 +11,7 @@ type ObjectProps = {
 
 const scaleSideSlide = 220 / 1080
 
-const Object = ({
-    object,
-    isSideSlide,
-    selected,
-    setSelected,
-    isSelected,
-}: ObjectProps) => {
+const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: ObjectProps) => {
     switch (object.oType) {
         case 'ObjectTextType':
             if (isSideSlide) {

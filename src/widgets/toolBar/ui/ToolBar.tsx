@@ -1,5 +1,5 @@
 import styles from './ToolBar.module.css'
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { Editor, Selected, SlideType } from '../../../shared/types/types'
 
 type ToolBarProps = {
@@ -30,12 +30,11 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
                 slidesIds: toolMenuTools.selected.slidesIds,
             },
         }
-        console.log('editor = ', editor)
         const text = JSON.stringify(editor)
         const a = document.createElement('a')
         const file = new Blob([text], { type: 'application/json' })
         a.href = URL.createObjectURL(file)
-        a.download = 'PresentationMaker.json'
+        a.download = presentationNameTools.name + '.json'
         a.click()
     }
 
@@ -65,8 +64,6 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
 
     return (
         <div>
-            {/*TODO: здесть просто отправка данных из компонентов в главный <Editor>,*/}
-            {/*то есть мы задерживаем стейты в самих компонентах, после нажатия кнопки => отправляется в слайс*/}
             <button>Сохранить</button>
             <button
                 style={{
@@ -79,14 +76,7 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
                 Скачать
             </button>
             <label htmlFor={'open'}>Открыть</label>
-            <input
-                // in openResult result means json text
-                type={'file'}
-                accept={'.json'}
-                id={'open'}
-                className={styles.hidden}
-                onInput={openFile}
-            />
+            <input type={'file'} accept={'.json'} id={'open'} className={styles.hidden} onInput={openFile} />
         </div>
     )
 }

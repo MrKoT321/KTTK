@@ -21,7 +21,6 @@ const WorkSpaceWidget = ({
     mouseState,
     setMouseState,
 }: WorkSpaceWidgetProps) => {
-    console.log('WorkSpace')
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId)
 

@@ -35,8 +35,6 @@ const EditorWidget = () => {
         setPresentationName(presentation.document.name)
     }, [presentation])
 
-    console.log('sel = ', sel)
-
     return (
         <div>
             <TopPanelWidget
@@ -46,12 +44,7 @@ const EditorWidget = () => {
                 presentationsObjTools={presentationsObjTools}
             />
             <div className={styles.mainContent}>
-                <SideBarWidget
-                    slides={slides}
-                    setSlides={setSlides}
-                    selected={sel}
-                    setSelected={setSel}
-                />
+                <SideBarWidget slides={slides} setSlides={setSlides} selected={sel} setSelected={setSel} />
                 <WorkSpaceWidget
                     slides={slides}
                     selected={sel}

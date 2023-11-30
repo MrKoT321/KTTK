@@ -15,7 +15,7 @@ const AddElementButton = ({ icon, onClick, label }: AddElementButtonProps) => {
             }}
         >
             <img src={icon} className={styles.image} />
-            <p className={label === undefined ? styles.hidden : styles.text}>{label}</p>
+            <span className={label === undefined ? styles.hidden : styles.text}>{label}</span>
         </button>
     )
 }
