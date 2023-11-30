@@ -3,6 +3,8 @@ import { ObjectType, Selected, SlideType } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
 import { MouseStates } from '../../editorWidget/ui/EditorWidget'
 import { useState } from 'react'
+import { AddObject } from '../AddObject'
+import { DrawPotentialObject } from './DrawPotentialObject'
 
 type WorkSpaceWidgetProps = {
     slides: SlideType[]
@@ -46,137 +48,11 @@ const WorkSpaceWidget = ({
         borderStyle: 'solid',
     })
 
-    const createIdObjectId = () => {
-        if (slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length != 0) {
-            return (
-                slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects[
-                    slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length - 1
-                ].id + 1
-            )
-        }
-        return 1
-    }
-
-    const addObject = (mouseState: MouseStates, startX: number, startY: number, width: number, height: number) => {
-        let object: ObjectType
-        console.log(allSlides)
-        switch (mouseState) {
-            case 'creatingText':
-                object = {
-                    id: createIdObjectId(),
-                    width: width,
-                    height: height,
-                    startX: startX,
-                    startY: startY,
-                    borderStyle: 'none',
-                    borderWidth: 2,
-                    borderColor: '#000000',
-                    fontSize: 14,
-                    fontColor: 'green',
-                    fontFamily: 'FuturaPT',
-                    bold: true,
-                    italic: false,
-                    underlined: true,
-                    highlighter: 'blue',
-                    underlineColor: 'purple',
-                    value: `House of Tom's cat`,
-                    oType: 'ObjectTextType',
-                }
-                break
-            case 'creatingRect':
-                object = {
-                    id: createIdObjectId(),
-                    width: width,
-                    height: height,
-                    startX: startX,
-                    startY: startY,
-                    borderStyle: 'solid',
-                    borderWidth: 15,
-                    borderColor: 'black',
-                    type: 'rect',
-                    shapeBgColor: 'yellow',
-                    oType: 'ObjectShapeType',
-                }
-                break
-            case 'creatingCircle':
-                object = {
-                    id: createIdObjectId(),
-                    width: width,
-                    height: height,
-                    startX: startX,
-                    startY: startY,
-                    borderStyle: 'solid',
-                    borderWidth: 15,
-                    borderColor: 'blue',
-                    type: 'circle',
-                    radius: Math.abs(currentMouseX - startMouseX / 2),
-                    shapeBgColor: 'green',
-                    oType: 'ObjectShapeType',
-                }
-                break
-            case 'creatingTriangle':
-                object = {
-                    id: createIdObjectId(),
-                    width: width,
-                    height: height,
-                    startX: startX,
-                    startY: startY,
-                    borderStyle: 'none',
-                    borderWidth: 15,
-                    borderColor: 'black',
-                    type: 'line',
-                    shapeBgColor: 'yellow',
-                    oType: 'ObjectShapeType',
-                }
-                break
-        }
-        allSlides.forEach((slide) => {
-            if (slide.id === selected.slidesIds[selected.slidesIds.length - 1]) {
-                slide.objects.push(object)
-            }
-        })
-        setSlides(allSlides)
-    }
-
     const createPosition = (startMousePos: number, currentMousePos: number) => {
         if (startMousePos >= currentMousePos) {
             return currentMousePos
         } else {
             return startMousePos
-        }
-    }
-
-    const drawPotentialObject = (mouseState: MouseStates) => {
-        switch (mouseState) {
-            case 'creatingText':
-            case 'creatingRect':
-                setStyleObj({
-                    opacity: 100,
-                    top: createPosition(startMouseY, currentMouseY),
-                    left: createPosition(startMouseX, currentMouseX),
-                    width: Math.abs(currentMouseX - startMouseX),
-                    height: Math.abs(currentMouseY - startMouseY),
-                    borderColor: 'gray',
-                    borderRadius: 0,
-                    borderWidth: 2,
-                    borderStyle: 'solid',
-                })
-                break
-            case 'creatingCircle':
-                setStyleObj({
-                    opacity: 100,
-                    top: createPosition(startMouseY, currentMouseY),
-                    left: createPosition(startMouseX, currentMouseX),
-                    width: Math.abs(currentMouseX - startMouseX),
-                    height: Math.abs(currentMouseY - startMouseY),
-                    borderColor: 'gray',
-                    borderRadius: Math.abs(currentMouseX - startMouseX / 2),
-                    borderWidth: 2,
-                    borderStyle: 'solid',
-                })
-                break
-            case 'creatingTriangle':
-                break
         }
     }
 
@@ -191,13 +67,18 @@ const WorkSpaceWidget = ({
     const handleMouseUp = (e: React.MouseEvent<HTMLDivElement>) => {
         if (mouseState != 'cursor') {
             setIsDraw(false)
-            addObject(
+            AddObject({
                 mouseState,
-                createPosition(startMouseX, currentMouseX) - 240,
-                createPosition(startMouseY, currentMouseY) - 80,
-                Math.abs(currentMouseX - startMouseX),
-                Math.abs(currentMouseY - startMouseY),
-            )
+                currentMouseX,
+                startMouseX,
+                startMouseY,
+                currentMouseY,
+                slides,
+                selected,
+                allSlides,
+                setSlides,
+                createPosition,
+            })
             setMouseState('cursor')
             setStyleObj({
                 opacity: 0,
@@ -216,7 +97,15 @@ const WorkSpaceWidget = ({
         if (mouseState != 'cursor' && isDraw) {
             setCurrentMouseX(e.clientX - 275)
             setCurrentMouseY(e.clientY - 225)
-            drawPotentialObject(mouseState)
+            DrawPotentialObject({
+                mouseState,
+                currentMouseX,
+                startMouseX,
+                startMouseY,
+                currentMouseY,
+                setStyleObj,
+                createPosition,
+            })
         }
     }
 

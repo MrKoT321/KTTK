@@ -1,6 +1,8 @@
 import styles from './ToolBar.module.css'
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent } from 'react'
 import { Editor, Selected, SlideType } from '../../../shared/types/types'
+import { SaveFile } from './SaveFile'
+import { OpenFile } from './OpenFile'
 
 type ToolBarProps = {
     toolMenuTools: {
@@ -19,50 +21,6 @@ type ToolBarProps = {
 }
 
 const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }: ToolBarProps) => {
-    const saveFile = () => {
-        const editor: Editor = {
-            document: {
-                name: presentationNameTools.name,
-                slides: toolMenuTools.slides,
-            },
-            selected: {
-                objectsIds: toolMenuTools.selected.objectsIds,
-                slidesIds: toolMenuTools.selected.slidesIds,
-            },
-        }
-        console.log('editor = ', editor)
-        const text = JSON.stringify(editor)
-        const a = document.createElement('a')
-        const file = new Blob([text], { type: 'application/json' })
-        a.href = URL.createObjectURL(file)
-        a.download = 'PresentationMaker.json'
-        a.click()
-    }
-
-    const openFile = (event: ChangeEvent<HTMLInputElement>) => {
-        if (!event.target.files) {
-            return null
-        }
-        const file = event.target.files[0]
-        const reader = new FileReader()
-        reader.addEventListener(
-            'load',
-            () => {
-                const result = reader.result
-                console.log('result = ', result)
-                if (typeof result === 'string') {
-                    const parsedResult = JSON.parse(result)
-                    console.log('parsedResult = ', parsedResult)
-                    presentationsObjTools.setPresentation(parsedResult)
-                } else {
-                    console.log('Ошибка декодирования')
-                }
-            },
-            false,
-        )
-        reader.readAsText(file)
-    }
-
     return (
         <div>
             {/*TODO: здесть просто отправка данных из компонентов в главный <Editor>,*/}
@@ -74,7 +32,9 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
                     backgroundColor: '#FF603D',
                     marginLeft: 50,
                 }}
-                onClick={saveFile}
+                onClick={() => {
+                    SaveFile({ toolMenuTools, presentationNameTools })
+                }}
             >
                 Скачать
             </button>
@@ -85,7 +45,9 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
                 accept={'.json'}
                 id={'open'}
                 className={styles.hidden}
-                onInput={openFile}
+                onInput={(event: ChangeEvent<HTMLInputElement>) => {
+                    OpenFile({ event, presentationsObjTools })
+                }}
             />
         </div>
     )
