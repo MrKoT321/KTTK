@@ -16,7 +16,6 @@ const EditorWidget = () => {
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
 
     const toolMenuTools = {
-        //TODO: разобраться че передавать
         setSlides: setSlides,
         slides: slides,
         selected: sel,
@@ -43,8 +42,6 @@ const EditorWidget = () => {
         setPresentationName(presentation.document.name)
     }, [presentation])
 
-    console.log('sel = ', sel)
-
     return (
         <div>
             <TopPanelWidget
@@ -54,7 +51,7 @@ const EditorWidget = () => {
                 presentationsObjTools={presentationsObjTools}
             />
             <div className={styles.mainContent}>
-                <SideBarWidget slides={slides} selected={sel} setSelected={setSel} />
+                <SideBarWidget slides={slides} selected={sel} setSelected={setSel} setSlides={setSlides} />
                 <WorkSpaceWidget
                     slides={slides}
                     selected={sel}

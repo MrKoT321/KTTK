@@ -37,7 +37,12 @@ const TopPanelWidget = ({
                 presentationsObjTools={presentationsObjTools}
             />
         </div>
-        <ToolMenu slides={toolMenuTools.slides} setSlides={toolMenuTools.setSlides} setMouseState={setMouseState} />
+        <ToolMenu
+            slides={toolMenuTools.slides}
+            setSlides={toolMenuTools.setSlides}
+            setMouseState={setMouseState}
+            selected={toolMenuTools.selected}
+        />
     </div>
 )
 

@@ -10,7 +10,7 @@ import addImageIcon from '../../../../shared/icons/addImageIcon.svg'
 import addShapeIcon from '../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
-import { SlideType } from '../../../../shared/types/types'
+import { Selected, SlideType } from '../../../../shared/types/types'
 import { useEffect, useState } from 'react'
 import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
 
@@ -18,9 +18,10 @@ type ToolMenuProps = {
     slides: SlideType[]
     setSlides(slides: SlideType[]): void
     setMouseState: (mouseState: MouseStates) => void
+    selected: Selected
 }
 
-const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
+const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps) => {
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
 
@@ -33,6 +34,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
     const addSlide = () => {
         const newSlide: SlideType = {
             id: slides[slides.length - 1].id + 1,
+            order: slides.length,
             background: 'color',
             backgroundValue: '#FFFFFF',
             objects: [],

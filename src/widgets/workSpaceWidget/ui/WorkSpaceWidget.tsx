@@ -83,23 +83,6 @@ const WorkSpaceWidget = ({
                     oType: 'ObjectTextType',
                 }
                 break
-            // case 'image':
-            //     object = {
-            //         id: createIdObjectId(),
-            //         width: 50,
-            //         height: 70,
-            //         startX: 20,
-            //         startY: 0,
-            //         borderStyle: 'none',
-            //         borderWidth: 2,
-            //         borderColor: '#000000',
-            //         caption: 'table',
-            //         imageSrcType: 'imageLink',
-            //         imageSrc:
-            //             'https://yandex.ru/images/search?pos=2&from=tabbar&img_url=https%3A%2F%2Fsun9-43.userapi.com%2FiqwD9yUoXMZZGVcRP3Hg5bCfZYX8oJvAm7Obiw%2FQdTgOWe9YlE.jpg&text=rfhnbrf&rpt=simage&lr=41',
-            //         oType: 'ObjectImageType',
-            //     }
-            //     break
             case 'creatingRect':
                 object = {
                     id: createIdObjectId(),
