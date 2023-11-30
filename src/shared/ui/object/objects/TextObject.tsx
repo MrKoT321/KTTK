@@ -1,39 +1,10 @@
-import { ObjectTextType, Selected } from '../../../types/types'
+import { Selected } from '../../../types/types'
 import styles from '../Object.module.css'
-
-type TextObjProps = ObjectTextType & {
-    selected: Selected
-    setSelected(selected: Selected): void
-    isSelected?: boolean
-}
+import { TextObjProps } from '../../../types/TextObjProps'
+import { createTextObject } from '../../../tools/CreateTextObject'
 
 const TextObject = (props: TextObjProps) => {
-    const styleObj = {
-        width: props.width + props.borderWidth,
-        height: props.height + props.borderWidth,
-        left: props.startX,
-        top: props.startY,
-        borderStyle: props.borderStyle,
-        borderWidth: props.isSelected ? 10 : props.borderWidth,
-        borderColor: props.isSelected ? 'green' : props.borderColor,
-        fontSize: props.fontSize,
-        color: props.fontColor,
-        fontFamily: props.fontFamily,
-        fontWeight: 'normal',
-        fontStyle: 'normal',
-        textDecoration: 'none',
-        background: props.highlighter,
-        textDecorationColor: props.underlineColor,
-    }
-    if (props.italic) {
-        styleObj.fontStyle = 'italic'
-    }
-    if (props.bold) {
-        styleObj.fontWeight = 'bold'
-    }
-    if (props.underlined) {
-        styleObj.textDecoration = 'underline'
-    }
+    const styleObj = createTextObject(props)
 
     return (
         <div

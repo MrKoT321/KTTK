@@ -1,6 +1,6 @@
-import { SlideType } from '../../shared/types/types'
+import { SlideType } from '../types/types'
 
-type DropProps = {
+type DropParams = {
     e: React.DragEvent<HTMLDivElement>
     slide: SlideType
     slides: SlideType[]
@@ -8,7 +8,7 @@ type DropProps = {
     draggedSlide: SlideType | null
 }
 
-const Drop = ({ e, slide, slides, setSlides, draggedSlide }: DropProps) => {
+const drop = ({ e, slide, slides, setSlides, draggedSlide }: DropParams) => {
     e.preventDefault()
     const editedSlides = [...slides]
     setSlides(
@@ -38,4 +38,4 @@ const Drop = ({ e, slide, slides, setSlides, draggedSlide }: DropProps) => {
     )
 }
 
-export { Drop }
+export { drop }

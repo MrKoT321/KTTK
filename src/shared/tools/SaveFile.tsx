@@ -1,6 +1,6 @@
-import { Editor, Selected, SlideType } from '../../../shared/types/types'
+import { Editor, Selected, SlideType } from '../types/types'
 
-type SaveFileProps = {
+type SaveFilePatams = {
     toolMenuTools: {
         slides: SlideType[]
         setSlides(slides: SlideType[]): void
@@ -12,7 +12,7 @@ type SaveFileProps = {
     }
 }
 
-const SaveFile = ({ toolMenuTools, presentationNameTools }: SaveFileProps) => {
+const saveFile = ({ toolMenuTools, presentationNameTools }: SaveFilePatams) => {
     const editor: Editor = {
         document: {
             name: presentationNameTools.name,
@@ -32,4 +32,4 @@ const SaveFile = ({ toolMenuTools, presentationNameTools }: SaveFileProps) => {
     a.click()
 }
 
-export { SaveFile }
+export { saveFile }

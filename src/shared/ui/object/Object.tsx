@@ -143,7 +143,6 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                         />
                     )
             }
-            break
         case 'ObjectImageType':
             if (isSideSlide) {
                 return (

@@ -1,8 +1,8 @@
 import styles from './ToolBar.module.css'
 import { ChangeEvent } from 'react'
 import { Editor, Selected, SlideType } from '../../../shared/types/types'
-import { SaveFile } from './SaveFile'
-import { OpenFile } from './OpenFile'
+import { openFile } from '../../../shared/tools/OpenFile'
+import { saveFile } from '../../../shared/tools/SaveFile'
 
 type ToolBarProps = {
     toolMenuTools: {
@@ -33,7 +33,7 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
                     marginLeft: 50,
                 }}
                 onClick={() => {
-                    SaveFile({ toolMenuTools, presentationNameTools })
+                    saveFile({ toolMenuTools, presentationNameTools })
                 }}
             >
                 Скачать
@@ -46,7 +46,7 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
                 id={'open'}
                 className={styles.hidden}
                 onInput={(event: ChangeEvent<HTMLInputElement>) => {
-                    OpenFile({ event, presentationsObjTools })
+                    openFile({ event, presentationsObjTools })
                 }}
             />
         </div>

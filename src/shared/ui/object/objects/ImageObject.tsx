@@ -5,8 +5,6 @@ const ImageObject = (props: ObjectImageType) => {
     const styleParentObj = {
         width: props.width + props.borderWidth,
         height: props.height + props.borderWidth,
-        left: props.startX,
-        top: props.startY,
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
@@ -14,6 +12,8 @@ const ImageObject = (props: ObjectImageType) => {
     const styleChildObj = {
         width: props.width,
         height: props.height,
+        left: props.startX,
+        top: props.startY,
     }
     return (
         <div style={styleParentObj} className={styles.object}>

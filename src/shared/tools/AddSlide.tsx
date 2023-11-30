@@ -1,11 +1,11 @@
-import { SlideType } from '../../../../shared/types/types'
+import { SlideType } from '../types/types'
 
-type AddSlideProps = {
+type AddSlideParams = {
     allSlides: SlideType[]
     setSlides(slides: SlideType[]): void
 }
 
-const AddSlide = ({ allSlides, setSlides }: AddSlideProps) => {
+const addSlide = ({ allSlides, setSlides }: AddSlideParams) => {
     const newSlide: SlideType = {
         id: allSlides[allSlides.length - 1].id + 1,
         order: allSlides.length,
@@ -17,4 +17,4 @@ const AddSlide = ({ allSlides, setSlides }: AddSlideProps) => {
     setSlides(allSlides)
 }
 
-export { AddSlide }
+export { addSlide }

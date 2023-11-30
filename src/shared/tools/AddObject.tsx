@@ -1,7 +1,7 @@
-import { ObjectType, Selected, SlideType } from '../../shared/types/types'
-import { MouseStates } from '../editorWidget/ui/EditorWidget'
+import { ObjectType, Selected, SlideType } from '../types/types'
+import { MouseStates } from '../../widgets/editorWidget/ui/EditorWidget'
 
-type AddObjectProps = {
+type AddObjectParams = {
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
@@ -14,7 +14,7 @@ type AddObjectProps = {
     createPosition: (startMousePos: number, currentMousePos: number) => number
 }
 
-const AddObject = ({
+const addObject = ({
     mouseState,
     currentMouseX,
     startMouseX,
@@ -25,7 +25,7 @@ const AddObject = ({
     allSlides,
     setSlides,
     createPosition,
-}: AddObjectProps) => {
+}: AddObjectParams) => {
     let object: ObjectType
 
     const startX = createPosition(startMouseX, currentMouseX) - 240
@@ -122,4 +122,4 @@ const AddObject = ({
     setSlides(allSlides)
 }
 
-export { AddObject }
+export { addObject }

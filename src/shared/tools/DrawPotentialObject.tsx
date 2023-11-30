@@ -1,24 +1,13 @@
-import { MouseStates } from '../../editorWidget/ui/EditorWidget'
+import { MouseStates } from "../../widgets/editorWidget/ui/EditorWidget"
+import { DrawStyle } from "../types/DrawStyle"
 
-type StyleObj = {
-    opacity: number
-    left: number
-    top: number
-    width: number
-    height: number
-    borderColor: string
-    borderRadius: number
-    borderWidth: number
-    borderStyle: string
-}
-
-type DrawPotentialObjectProps = {
+type DrawPotentialObjectParams = {
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
     startMouseX: number
     startMouseY: number
-    setStyleObj: (styleObj: StyleObj) => void
+    setStyleObj: (styleObj: DrawStyle) => void
     createPosition: (startMousePos: number, currentMousePos: number) => number
 }
 
@@ -30,7 +19,7 @@ const DrawPotentialObject = ({
     currentMouseY,
     setStyleObj,
     createPosition,
-}: DrawPotentialObjectProps) => {
+}: DrawPotentialObjectParams) => {
     switch (mouseState) {
         case 'creatingText':
         case 'creatingRect':

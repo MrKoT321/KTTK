@@ -1,13 +1,13 @@
+import { AddElementButton } from '../addElementButton/AddElementButton'
 import styles from './PopupMenu.module.css'
-import { AddElementButton } from './AddElementButton'
 
-type PopupMenuProps = {
+type DropdownMenuProps = {
     icons: string[]
     labels: string[]
     onClicks: (() => void)[]
 }
 
-const PopupMenu = ({ icons, onClicks, labels }: PopupMenuProps) => {
+const DropdownMenu = ({ icons, onClicks, labels }: DropdownMenuProps) => {
     return (
         <div className={styles.popupMenu}>
             {icons.map((icon, index) => (
@@ -19,4 +19,4 @@ const PopupMenu = ({ icons, onClicks, labels }: PopupMenuProps) => {
     )
 }
 
-export { PopupMenu }
+export { DropdownMenu }

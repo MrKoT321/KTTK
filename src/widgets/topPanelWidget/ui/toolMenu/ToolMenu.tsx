@@ -1,5 +1,4 @@
 import styles from './ToolMenu.module.css'
-import { AddElementButton, PopupMenu } from '../../../../shared/ui/object'
 import addSlideIcon from '../../../../shared/icons/addSlideIcon.svg'
 import chooseTemplateIcon from '../../../../shared/icons/chooseTemplateIcon.svg'
 import cancelIcon from '../../../../shared/icons/cancelIcon.svg'
@@ -13,7 +12,9 @@ import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
 import { Selected, SlideType } from '../../../../shared/types/types'
 import { useState } from 'react'
 import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
-import { AddSlide } from './AddSlide'
+import { addSlide } from '../../../../shared/tools/AddSlide'
+import { AddElementButton } from '../../../../features/addElementButton/AddElementButton'
+import { DropdownMenu } from '../../../../features/dropdownMenu/DropdownMenu'
 
 type ToolMenuProps = {
     slides: SlideType[]
@@ -44,7 +45,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
             <AddElementButton
                 icon={addSlideIcon}
                 onClick={() => {
-                    AddSlide({ allSlides, setSlides })
+                    addSlide({ allSlides, setSlides })
                 }}
             />
             <AddElementButton
@@ -93,7 +94,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
                 className={isShowShapesPopupMenu ? styles.shapePopupMenu_visible : styles.shapePopupMenu_hidden}
                 style={stylePopupMenu}
             >
-                <PopupMenu
+                <DropdownMenu
                     icons={[addRectangleIcon, addCircleIcon]}
                     labels={['Rectangle', 'Circle']}
                     onClicks={[() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]}

@@ -2,7 +2,7 @@ import { Selected, SlideType } from '../../../shared/types/types'
 import styles from './SideBarWidget.module.css'
 import { SideSlide } from './sideSlide/SideSlide'
 import React, { useState } from 'react'
-import { Drop } from '../Drop'
+import { drop } from '../../../shared/tools/Drop'
 
 type SlideBarProps = {
     slides: SlideType[]
@@ -23,7 +23,7 @@ const SideBarWidget = ({ slides, setSlides, selected, setSelected }: SlideBarPro
     }
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
-        Drop({ e, slide, slides, setSlides, draggedSlide })
+        drop({ e, slide, slides, setSlides, draggedSlide })
     }
 
     return (
