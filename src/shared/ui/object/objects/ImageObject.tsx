@@ -1,12 +1,20 @@
-import { ObjectImageType } from '../../../types/types'
+import { ObjectImageType, Selected } from '../../../types/types'
 import styles from '../Object.module.css'
 
-const ImageObject = (props: ObjectImageType) => {
+type ImageObjProps = ObjectImageType & {
+    selected: Selected
+    setSelected(selected: Selected): void
+    isSelected: boolean
+}
+
+const ImageObject = (props: ImageObjProps) => {
+    const styleObj = {
+        left: props.startX,
+        top: props.startY,
+    }
     const styleParentObj = {
         width: props.width + props.borderWidth,
         height: props.height + props.borderWidth,
-        left: props.startX,
-        top: props.startY,
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
@@ -16,8 +24,10 @@ const ImageObject = (props: ObjectImageType) => {
         height: props.height,
     }
     return (
-        <div style={styleParentObj} className={styles.object}>
-            <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />
+        <div style={styleObj} className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}>
+            <div style={styleParentObj}>
+                <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />
+            </div>
         </div>
     )
 }

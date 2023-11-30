@@ -1,7 +1,13 @@
-import { ObjectShapeType } from '../../../types/types'
+import { ObjectShapeType, Selected } from '../../../types/types'
 import styles from '../Object.module.css'
 
-const ShapeObject = (props: ObjectShapeType) => {
+type ShapeObjProps = ObjectShapeType & {
+    selected: Selected
+    setSelected(selected: Selected): void
+    isSelected: boolean
+}
+
+const ShapeObject = (props: ShapeObjProps) => {
     let styleChildObj
     const styleParentObj = {
         width: props.width + props.borderWidth,
@@ -35,8 +41,21 @@ const ShapeObject = (props: ObjectShapeType) => {
         case 'line':
             break
     }
+
+    const handleClick = () => {
+        const sel: Selected = {
+            slidesIds: [...props.selected.slidesIds],
+            objectsIds: [props.id],
+        }
+        props.setSelected(sel)
+    }
+
     return (
-        <div style={styleParentObj} className={styles.object}>
+        <div
+            style={styleParentObj}
+            className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
+            onClick={handleClick}
+        >
             <div style={styleChildObj}></div>
         </div>
     )

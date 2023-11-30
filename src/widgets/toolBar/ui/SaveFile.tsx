@@ -1,6 +1,6 @@
 import { Editor, Selected, SlideType } from '../../../shared/types/types'
 
-type SaveFileProps = {
+type SaveFileParameters = {
     toolMenuTools: {
         slides: SlideType[]
         setSlides(slides: SlideType[]): void
@@ -12,7 +12,7 @@ type SaveFileProps = {
     }
 }
 
-const SaveFile = ({ toolMenuTools, presentationNameTools }: SaveFileProps) => {
+const saveFile = ({ toolMenuTools, presentationNameTools }: SaveFileParameters) => {
     const editor: Editor = {
         document: {
             name: presentationNameTools.name,
@@ -28,8 +28,8 @@ const SaveFile = ({ toolMenuTools, presentationNameTools }: SaveFileProps) => {
     const a = document.createElement('a')
     const file = new Blob([text], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = 'PresentationMaker.json'
+    a.download = presentationNameTools.name
     a.click()
 }
 
-export { SaveFile }
+export { saveFile }

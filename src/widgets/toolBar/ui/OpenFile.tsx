@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react'
 import { Editor } from '../../../shared/types/types'
 
-type OpenFileProps = {
+type OpenFileParameters = {
     event: ChangeEvent<HTMLInputElement>
     presentationsObjTools: {
         setPresentation(presentation: Editor): void
@@ -9,7 +9,7 @@ type OpenFileProps = {
     }
 }
 
-const OpenFile = ({ event, presentationsObjTools }: OpenFileProps) => {
+const openFile = ({ event, presentationsObjTools }: OpenFileParameters) => {
     if (!event.target.files) {
         return null
     }
@@ -33,4 +33,4 @@ const OpenFile = ({ event, presentationsObjTools }: OpenFileProps) => {
     reader.readAsText(file)
 }
 
-export { OpenFile }
+export { openFile }

@@ -42,6 +42,8 @@ const EditorWidget = () => {
         setPresentationName(presentation.document.name)
     }, [presentation])
 
+    console.log('Selected in TextObj: sel = ', sel)
+
     return (
         <div>
             <TopPanelWidget

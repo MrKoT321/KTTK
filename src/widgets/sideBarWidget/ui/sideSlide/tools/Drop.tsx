@@ -1,4 +1,4 @@
-import { SlideType } from '../../shared/types/types'
+import { SlideType } from '../../../../../shared/types/types'
 
 type DropProps = {
     e: React.DragEvent<HTMLDivElement>

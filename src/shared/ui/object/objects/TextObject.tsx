@@ -4,18 +4,20 @@ import styles from '../Object.module.css'
 type TextObjProps = ObjectTextType & {
     selected: Selected
     setSelected(selected: Selected): void
-    isSelected?: boolean
+    isSelected: boolean
 }
 
 const TextObject = (props: TextObjProps) => {
-    const styleObj = {
-        width: props.width + props.borderWidth,
-        height: props.height + props.borderWidth,
+    const parentObj = {
         left: props.startX,
         top: props.startY,
+    }
+    const childObj = {
+        width: props.width + props.borderWidth,
+        height: props.height + props.borderWidth,
         borderStyle: props.borderStyle,
-        borderWidth: props.isSelected ? 10 : props.borderWidth,
-        borderColor: props.isSelected ? 'green' : props.borderColor,
+        borderWidth: props.borderWidth,
+        borderColor: props.borderColor,
         fontSize: props.fontSize,
         color: props.fontColor,
         fontFamily: props.fontFamily,
@@ -26,28 +28,32 @@ const TextObject = (props: TextObjProps) => {
         textDecorationColor: props.underlineColor,
     }
     if (props.italic) {
-        styleObj.fontStyle = 'italic'
+        childObj.fontStyle = 'italic'
     }
     if (props.bold) {
-        styleObj.fontWeight = 'bold'
+        childObj.fontWeight = 'bold'
     }
     if (props.underlined) {
-        styleObj.textDecoration = 'underline'
+        childObj.textDecoration = 'underline'
+    }
+
+    const handleClick = () => {
+        const sel: Selected = {
+            slidesIds: [...props.selected.slidesIds],
+            objectsIds: [props.id],
+        }
+        props.setSelected(sel)
     }
 
     return (
         <div
-            style={styleObj}
-            className={styles.object}
-            onClick={() => {
-                const sel: Selected = {
-                    slidesIds: [...props.selected.slidesIds],
-                    objectsIds: [props.id],
-                }
-                props.setSelected(sel)
-            }}
+            className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
+            style={parentObj}
+            onClick={handleClick}
         >
-            <span>{props.value}</span>
+            <div style={childObj}>
+                <span>{props.value}</span>
+            </div>
         </div>
     )
 }

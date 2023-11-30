@@ -1,8 +1,8 @@
 import styles from './ToolBar.module.css'
 import { ChangeEvent } from 'react'
 import { Editor, Selected, SlideType } from '../../../shared/types/types'
-import { SaveFile } from './SaveFile'
-import { OpenFile } from './OpenFile'
+import { saveFile } from './SaveFile'
+import { openFile } from './OpenFile'
 
 type ToolBarProps = {
     toolMenuTools: {
@@ -33,20 +33,19 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
                     marginLeft: 50,
                 }}
                 onClick={() => {
-                    SaveFile({ toolMenuTools, presentationNameTools })
+                    saveFile({ toolMenuTools, presentationNameTools })
                 }}
             >
                 Скачать
             </button>
             <label htmlFor={'open'}>Открыть</label>
             <input
-                // in openResult result means json text
                 type={'file'}
                 accept={'.json'}
                 id={'open'}
                 className={styles.hidden}
                 onInput={(event: ChangeEvent<HTMLInputElement>) => {
-                    OpenFile({ event, presentationsObjTools })
+                    openFile({ event, presentationsObjTools })
                 }}
             />
         </div>

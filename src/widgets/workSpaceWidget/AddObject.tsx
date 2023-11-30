@@ -28,9 +28,10 @@ const AddObject = ({
 }: AddObjectProps) => {
     let object: ObjectType
 
+    const borderWidth = 15
     const startX = createPosition(startMouseX, currentMouseX) - 240
     const startY = createPosition(startMouseY, currentMouseY) - 80
-    const width = Math.abs(currentMouseX - startMouseX)
+    const width = Math.abs(currentMouseX - startMouseX) + borderWidth
     const height = Math.abs(currentMouseY - startMouseY)
 
     const createObjectId = () => {
@@ -53,7 +54,8 @@ const AddObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 2,
+                borderWidth: 15,
+                //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
                 fontSize: 14,
                 fontColor: 'green',

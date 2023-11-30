@@ -1,5 +1,5 @@
 import styles from './WorkSpaceWidget.module.css'
-import { ObjectType, Selected, SlideType } from '../../../shared/types/types'
+import { Selected, SlideType } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
 import { MouseStates } from '../../editorWidget/ui/EditorWidget'
 import { useState } from 'react'
@@ -23,18 +23,15 @@ const WorkSpaceWidget = ({
     mouseState,
     setMouseState,
 }: WorkSpaceWidgetProps) => {
-    console.log('WorkSpace')
-    const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
-    const currentSlide = slides.find((slide) => slide.id === lastSlideId)
-
     const [currentMouseX, setCurrentMouseX] = useState(0)
     const [currentMouseY, setCurrentMouseY] = useState(0)
     const [startMouseX, setStartMouseX] = useState(0)
     const [startMouseY, setStartMouseY] = useState(0)
+    const [isDraw, setIsDraw] = useState(false)
 
     const allSlides = [...slides]
-
-    const [isDraw, setIsDraw] = useState(false)
+    const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
+    const currentSlide = slides.find((slide) => slide.id === lastSlideId)
 
     const [styleObj, setStyleObj] = useState({
         opacity: 0,
@@ -117,9 +114,7 @@ const WorkSpaceWidget = ({
             onMouseUp={(e) => handleMouseUp(e)}
         >
             <CurrentSlide slide={currentSlide ?? slides[0]} selected={selected} setSelected={setSelected} />
-            <div style={styleObj} className={styles.drawPotentialObject}>
-                {' '}
-            </div>
+            <div style={styleObj} className={styles.drawPotentialObject}></div>
         </div>
     )
 }
