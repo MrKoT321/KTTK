@@ -11,7 +11,7 @@ const DropdownMenu = ({ icons, onClicks, labels }: DropdownMenuProps) => {
     return (
         <div className={styles.popupMenu}>
             {icons.map((icon, index) => (
-                <div className={styles.line}>
+                <div className={styles.line} key={index}>
                     <AddElementButton icon={icon} onClick={onClicks[index]} label={labels[index]} />
                 </div>
             ))}

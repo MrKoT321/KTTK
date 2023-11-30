@@ -2,7 +2,6 @@ import styles from './SideSlide.module.css'
 import { Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import React, { useState } from 'react'
-import { SelectSlide } from './SelectSlide'
 
 type SlideProps = {
     order: number
@@ -27,7 +26,7 @@ const SideSlide = ({
     handleDragStart,
     handleDrop,
 }: SlideProps) => {
-    slide.order = order
+    const [isHovered, setIsHovered] = useState(false)
     const styleObj = {
         background: slide.backgroundValue,
     }
@@ -35,10 +34,16 @@ const SideSlide = ({
         slidesIds: [...selected.slidesIds],
         objectsIds: [...selected.objectsIds],
     }
-    const [isHovered, setIsHovered] = useState(false)
+    slide.order = order
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        SelectSlide({ e, sel, setSelected, slide })
+        if (e.ctrlKey) {
+            sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
+            sel.slidesIds.push(slide.id)
+        } else {
+            sel.slidesIds = [slide.id]
+        }
+        setSelected(sel)
     }
 
     return (
@@ -63,6 +68,7 @@ const SideSlide = ({
                             isSideSlide={true}
                             selected={selected}
                             setSelected={setSelected}
+                            isObjectSelected={false}
                         />
                     ))}
                 </div>

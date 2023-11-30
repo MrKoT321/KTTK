@@ -24,21 +24,32 @@ const WorkSpaceWidget = ({
     mouseState,
     setMouseState,
 }: WorkSpaceWidgetProps) => {
+<<<<<<< HEAD
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId)
 
+=======
+>>>>>>> origin/Sanya
     const [currentMouseX, setCurrentMouseX] = useState(0)
     const [currentMouseY, setCurrentMouseY] = useState(0)
     const [startMouseX, setStartMouseX] = useState(0)
     const [startMouseY, setStartMouseY] = useState(0)
+    const [isDraw, setIsDraw] = useState(false)
 
     const [isDraw, setIsDraw] = useState(false)
     const [isObjectMove, setIsObjectMove] = useState(false)
     const [isObjectChange, setIsObjectChange] = useState(false)
 
     const allSlides = [...slides]
+<<<<<<< HEAD
 
     const [styleObj, setStyleObj] = useState<DrawStyle>({
+=======
+    const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
+    const currentSlide = slides.find((slide) => slide.id === lastSlideId)
+
+    const [styleObj, setStyleObj] = useState({
+>>>>>>> origin/Sanya
         opacity: 0,
         left: 0,
         top: 0,

@@ -6,12 +6,12 @@ type ObjectProps = {
     isSideSlide?: boolean
     selected: Selected
     setSelected: (selected: Selected) => void
-    isSelected?: boolean
+    isObjectSelected: boolean
 }
 
 const scaleSideSlide = 220 / 1080
 
-const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: ObjectProps) => {
+const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }: ObjectProps) => {
     switch (object.oType) {
         case 'ObjectTextType':
             if (isSideSlide) {
@@ -37,7 +37,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                         oType={object.oType}
                         selected={selected}
                         setSelected={setSelected}
-                        isSelected={isSelected}
+                        isSelected={isObjectSelected}
                     />
                 )
             }
@@ -63,7 +63,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                     oType={object.oType}
                     selected={selected}
                     setSelected={setSelected}
-                    isSelected={isSelected}
+                    isSelected={isObjectSelected}
                 />
             )
         case 'ObjectShapeType':
@@ -84,6 +84,9 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                                 radius={object.radius}
                                 shapeBgColor={object.shapeBgColor}
                                 oType={object.oType}
+                                selected={selected}
+                                setSelected={setSelected}
+                                isSelected={isObjectSelected}
                             />
                         )
                     case 'rect':
@@ -102,6 +105,9 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                                 type={object.type}
                                 shapeBgColor={object.shapeBgColor}
                                 oType={object.oType}
+                                selected={selected}
+                                setSelected={setSelected}
+                                isSelected={isObjectSelected}
                             />
                         )
                 }
@@ -122,6 +128,9 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                             radius={object.radius}
                             shapeBgColor={object.shapeBgColor}
                             oType={object.oType}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isSelected={isObjectSelected}
                         />
                     )
                 case 'rect':
@@ -140,6 +149,9 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                             type={object.type}
                             shapeBgColor={object.shapeBgColor}
                             oType={object.oType}
+                            selected={selected}
+                            setSelected={setSelected}
+                            isSelected={isObjectSelected}
                         />
                     )
             }
@@ -159,6 +171,9 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                         imageSrc={object.imageSrc}
                         imageSrcType={object.imageSrcType}
                         oType={object.oType}
+                        selected={selected}
+                        setSelected={setSelected}
+                        isSelected={isObjectSelected}
                     />
                 )
             }
@@ -176,6 +191,9 @@ const Object = ({ object, isSideSlide, selected, setSelected, isSelected }: Obje
                     imageSrc={object.imageSrc}
                     imageSrcType={object.imageSrcType}
                     oType={object.oType}
+                    selected={selected}
+                    setSelected={setSelected}
+                    isSelected={isObjectSelected}
                 />
             )
     }

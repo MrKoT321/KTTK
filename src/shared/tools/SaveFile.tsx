@@ -28,7 +28,7 @@ const saveFile = ({ toolMenuTools, presentationNameTools }: SaveFilePatams) => {
     const a = document.createElement('a')
     const file = new Blob([text], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = 'PresentationMaker.json'
+    a.download = presentationNameTools.name
     a.click()
 }
 

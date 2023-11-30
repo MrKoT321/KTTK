@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/shared/tools/Drop.tsx
-import { SlideType } from '../types/types'
-========
 import { SlideType } from '../../../../../shared/types/types'
->>>>>>>> origin/Sanya:src/widgets/sideBarWidget/ui/sideSlide/tools/Drop.tsx
 
 type DropParams = {
     e: React.DragEvent<HTMLDivElement>

@@ -25,7 +25,7 @@ const CurrentSlide = ({ slide, selected, setSelected, setSlides }: CurrentSlideP
                         object={object}
                         selected={selected}
                         setSelected={setSelected}
-                        isSelected={isSelected}
+                        isObjectSelected={isSelected}
                     />
                 )
             })}

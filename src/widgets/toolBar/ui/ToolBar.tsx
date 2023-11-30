@@ -40,7 +40,6 @@ const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }
             </button>
             <label htmlFor={'open'}>Открыть</label>
             <input
-                // in openResult result means json text
                 type={'file'}
                 accept={'.json'}
                 id={'open'}
