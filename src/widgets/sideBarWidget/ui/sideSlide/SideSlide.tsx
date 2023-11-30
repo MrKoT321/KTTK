@@ -2,6 +2,7 @@ import styles from './SideSlide.module.css'
 import { Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import React, { useState } from 'react'
+import { SelectSlide } from './SelectSlide'
 
 type SlideProps = {
     order: number
@@ -37,13 +38,7 @@ const SideSlide = ({
     const [isHovered, setIsHovered] = useState(false)
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.ctrlKey) {
-            sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
-            sel.slidesIds.push(slide.id)
-        } else {
-            sel.slidesIds = [slide.id]
-        }
-        setSelected(sel)
+        SelectSlide({ e, sel, setSelected, slide })
     }
 
     return (

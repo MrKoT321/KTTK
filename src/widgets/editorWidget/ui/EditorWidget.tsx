@@ -2,8 +2,8 @@ import { TopPanelWidget } from '../../topPanelWidget'
 import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
 import styles from './EditorWidget.module.css'
-import { Editor, SlideType } from '../../../shared/types/types'
 import { useEffect, useState } from 'react'
+import { Editor } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/types/testData'
 
 type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle'
@@ -29,6 +29,13 @@ const EditorWidget = () => {
         presentation: presentation,
     }
 
+    // const handleDelete = (e) => {
+    //     if (e.keyCode == 8) {
+    //         sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
+    //         sel.slidesIds.push(slide.id)
+    //     }
+    // }
+
     useEffect(() => {
         setSel(presentation.selected)
         setSlides(presentation.document.slides)
@@ -44,7 +51,7 @@ const EditorWidget = () => {
                 presentationsObjTools={presentationsObjTools}
             />
             <div className={styles.mainContent}>
-                <SideBarWidget slides={slides} setSlides={setSlides} selected={sel} setSelected={setSel} />
+                <SideBarWidget slides={slides} selected={sel} setSelected={setSel} setSlides={setSlides} />
                 <WorkSpaceWidget
                     slides={slides}
                     selected={sel}

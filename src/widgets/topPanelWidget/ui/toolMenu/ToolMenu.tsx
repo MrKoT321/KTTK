@@ -10,36 +10,25 @@ import addImageIcon from '../../../../shared/icons/addImageIcon.svg'
 import addShapeIcon from '../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
-import { SlideType } from '../../../../shared/types/types'
+import { Selected, SlideType } from '../../../../shared/types/types'
 import { useState } from 'react'
 import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
+import { AddSlide } from './AddSlide'
 
 type ToolMenuProps = {
     slides: SlideType[]
     setSlides(slides: SlideType[]): void
     setMouseState: (mouseState: MouseStates) => void
+    selected: Selected
 }
 
-const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
+const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps) => {
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
 
-    //TODO: сделать в зависимости от длины
     const stylePopupMenu = {
         marginLeft: 384,
         marginTop: 40,
-    }
-
-    const addSlide = () => {
-        const newSlide: SlideType = {
-            id: slides[slides.length - 1].id + 1,
-            order: slides.length,
-            background: 'color',
-            backgroundValue: '#FFFFFF',
-            objects: [],
-        }
-        allSlides.push(newSlide)
-        setSlides(allSlides)
     }
 
     const changePopupMenuShapesVisibility = () => {
@@ -55,7 +44,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
             <AddElementButton
                 icon={addSlideIcon}
                 onClick={() => {
-                    addSlide()
+                    AddSlide({ allSlides, setSlides })
                 }}
             />
             <AddElementButton
