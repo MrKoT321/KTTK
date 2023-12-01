@@ -1,9 +1,8 @@
 import styles from './TopPanelWidget.module.css'
 import { PresentationName } from '../../presentationNameWidget'
-import { ToolBar } from '../../toolBar/ui/ToolBar'
-import { Editor, Selected, SlideType } from '../../../shared/types/types'
+import { Editor, MouseStates, Selected, SlideType } from '../../../shared/types/types'
 import { ToolMenu } from './toolMenu/ToolMenu'
-import { MouseStates } from '../../editorWidget/ui/EditorWidget'
+import { ToolBar } from './toolBar/ui/ToolBar'
 
 type TopPanelWidgetProps = {
     toolMenuTools: {
@@ -39,9 +38,9 @@ const TopPanelWidget = ({
         </div>
         <ToolMenu
             slides={toolMenuTools.slides}
-            selected={toolMenuTools.selected}
             setSlides={toolMenuTools.setSlides}
             setMouseState={setMouseState}
+            selected={toolMenuTools.selected}
         />
     </div>
 )

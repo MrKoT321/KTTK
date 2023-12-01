@@ -1,9 +1,8 @@
 import styles from './selectImagePopUp.module.css'
 import closeIcon from '../../../shared/icons/closeIcon.svg'
 import { useState } from 'react'
-import { AddObject } from '../../workSpaceWidget/ui/tools/AddObject'
-import { Selected, SlideType } from '../../../shared/types/types'
-import { MouseStates } from '../../editorWidget/ui/EditorWidget'
+import { MouseStates, Selected, SlideType } from '../../../shared/types/types'
+import { addObject } from 'shared/tools/addObject'
 
 type SelectImagePopUpProps = {
     slides: SlideType[]
@@ -19,22 +18,11 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const [btnState, setBtnsState] = useState(true)
     const [linkValue, setLinkValue] = useState('')
     const [mouseState, setMouseState] = useState<MouseStates>('creatingBase64Img')
-    const [currentMouseX, setCurrentMouseX] = useState(650)
-    const [currentMouseY, setCurrentMouseY] = useState(450)
-    const [startMouseX, setStartMouseX] = useState(750)
-    const [startMouseY, setStartMouseY] = useState(550)
+    const [currentMouseX, setCurrentMouseX] = useState(200) //TODO: Заменить на центр слайда
+    const [currentMouseY, setCurrentMouseY] = useState(200) //TODO: Заменить на центр слайда
+    const [startMouseX, setStartMouseX] = useState(100) //TODO: Заменить на центр слайда
+    const [startMouseY, setStartMouseY] = useState(100) //TODO: Заменить на центр слайда
     const allSlides = [...slides]
-    const chooseCompBtn = () => {
-        setBtnsState(() => true)
-    }
-
-    const chooseLinkBtn = () => {
-        setBtnsState(() => false)
-    }
-
-    const linkUsed = () => {
-        setIsLinkUsed(true)
-    }
 
     const linkNotUsed = () => {
         setLinkValue('')
@@ -44,13 +32,10 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const findImgFromLink = () => {
         fetch(linkValue)
             .then((res) => {
-                if (linkValue == '' || res.status == 404) return
-                const image = new Image()
-                image.onload = () => {
-                    linkUsed()
+                if (res.status != 404) {
+                    setIsLinkUsed(true)
                     setImageSrc(linkValue)
                 }
-                image.src = linkValue
             })
             .catch((err) => {
                 linkNotUsed()
@@ -68,7 +53,7 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const createImage = (someRef: string, imageSrcBase64 = '') => {
         if (someRef == 'creatingBase64Img') {
             setMouseState('creatingBase64Img')
-            AddObject({
+            addObject({
                 mouseState,
                 currentMouseX,
                 startMouseX,
@@ -84,7 +69,7 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
         }
         if (someRef == 'creatingLinkImg') {
             setMouseState('creatingLinkImg')
-            AddObject({
+            addObject({
                 mouseState,
                 currentMouseX,
                 startMouseX,
@@ -131,26 +116,22 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                 <div className={styles.popupToolBar}>
                     <button
                         className={btnState ? styles.popupToolBarChoiceSelected : styles.popupToolBarChoice}
-                        onClick={chooseCompBtn}
+                        onClick={() => {
+                            setBtnsState(true)
+                        }}
                     >
                         С компьютера
                     </button>
                     <button
                         className={btnState ? styles.popupToolBarChoice : styles.popupToolBarChoiceSelected}
-                        onClick={chooseLinkBtn}
+                        onClick={() => {
+                            setBtnsState(true)
+                        }}
                     >
                         Ссылка
                     </button>
                 </div>
-                <hr
-                    style={{
-                        background: 'black',
-                        color: 'black',
-                        borderColor: 'black',
-                        height: '1px',
-                        width: '100%',
-                    }}
-                />
+                <hr className={styles.popupToolBarLine} />
                 <div className={styles.popUpContent}>
                     <div className={btnState ? null : styles.hidden}>
                         <label htmlFor={'fileLoader'} className={styles.popUpContentImageLabel}>

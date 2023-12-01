@@ -1,4 +1,4 @@
-import { PresentationMaker } from './pages/presentationMaker'
+import { PresentationMaker } from './widgets/presentationMaker'
 
 const App = () => <PresentationMaker />
 

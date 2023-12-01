@@ -1,5 +1,14 @@
 type BackgroundType = 'color' | 'imageLink' | 'imageBase64'
 
+type MouseStates =
+    | 'cursor'
+    | 'creatingText'
+    | 'creatingRect'
+    | 'creatingCircle'
+    | 'creatingTriangle'
+    | 'creatingBase64Img'
+    | 'creatingLinkImg'
+
 type GeneralObjectType = {
     id: number
     width: number
@@ -60,6 +69,7 @@ type ObjectType = ObjectImageType | ObjectTextType | ObjectShapeType
 
 type SlideType = {
     id: number
+    order: number
     background: BackgroundType
     backgroundValue: string
     objects: Array<ObjectType>
@@ -96,4 +106,5 @@ export type {
     ObjectTextType,
     BackgroundType,
     ObjectType,
+    MouseStates,
 }
