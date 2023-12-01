@@ -8,7 +8,7 @@ import { MouseStates } from '../../editorWidget/ui/EditorWidget'
 type TopPanelWidgetProps = {
     toolMenuTools: {
         slides: SlideType[]
-        setSlides(slides: SlideType[]): void
+        setSlides: (slides: SlideType[]) => void
         selected: Selected
     }
     presentationNameTools: {
@@ -37,7 +37,12 @@ const TopPanelWidget = ({
                 presentationsObjTools={presentationsObjTools}
             />
         </div>
-        <ToolMenu slides={toolMenuTools.slides} setSlides={toolMenuTools.setSlides} setMouseState={setMouseState} />
+        <ToolMenu
+            slides={toolMenuTools.slides}
+            selected={toolMenuTools.selected}
+            setSlides={toolMenuTools.setSlides}
+            setMouseState={setMouseState}
+        />
     </div>
 )
 

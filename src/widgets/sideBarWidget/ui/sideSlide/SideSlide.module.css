@@ -3,7 +3,7 @@
 }
 
 .sideSlideBorder {
-    box-shadow: 0 0 3px #E4E2E2;
+    box-shadow: 0 0 3px #e4e2e2;
     border: solid 1px #737373;
 }
 
@@ -13,25 +13,25 @@
 }
 
 .sideSlideBorderSelected {
-    box-shadow: 0 0 0 3px #2055FF;
-    border: solid 1px #2055FF;
+    box-shadow: 0 0 0 3px #2055ff;
+    border: solid 1px #2055ff;
 }
 
 .container {
     width: 240px;
     height: 150px;
-    background: #FFFFFF;
+    background: #ffffff;
     border-radius: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid #FFFFFF 5px;
+    border: solid #ffffff 5px;
 }
 
 .content {
     width: 220px;
     height: 130px;
-    background: #FFFFFF;
+    background: #ffffff;
     position: relative;
     overflow: hidden;
 }

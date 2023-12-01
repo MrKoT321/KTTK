@@ -10,18 +10,19 @@ import addImageIcon from '../../../../shared/icons/addImageIcon.svg'
 import addShapeIcon from '../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
-import { SlideType } from '../../../../shared/types/types'
-import { useEffect, useState } from 'react'
+import { Selected, SlideType } from '../../../../shared/types/types'
+import { useState } from 'react'
 import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
 import { SelectImagePopUp } from '../../../selectImagePopUpWidget'
 
 type ToolMenuProps = {
     slides: SlideType[]
-    setSlides(slides: SlideType[]): void
+    selected: Selected
+    setSlides: (slides: SlideType[]) => void
     setMouseState: (mouseState: MouseStates) => void
 }
 
-const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
+const ToolMenu = ({ slides, selected, setSlides, setMouseState }: ToolMenuProps) => {
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
     const [isPopUpOpen, setPopUpState] = useState(false)
@@ -119,7 +120,13 @@ const ToolMenu = ({ slides, setSlides, setMouseState }: ToolMenuProps) => {
                     onClicks={[() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]}
                 />
             </div>
-            <SelectImagePopUp isPopUpOpen={isPopUpOpen} closePopUp={closeSelectImagePopUp} />
+            <SelectImagePopUp
+                slides={slides}
+                selected={selected}
+                setSlides={setSlides}
+                isPopUpOpen={isPopUpOpen}
+                closePopUp={closeSelectImagePopUp}
+            />
         </div>
     )
 }

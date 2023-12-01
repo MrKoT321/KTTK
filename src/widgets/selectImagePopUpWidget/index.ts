@@ -1,1 +1,1 @@
-export { SelectImagePopUp } from './ui/selectImagePopUp'
+export { SelectImagePopUp } from './ui/SelectImagePopUp'

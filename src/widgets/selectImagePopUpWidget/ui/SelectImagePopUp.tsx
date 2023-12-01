@@ -1,17 +1,29 @@
 import styles from './selectImagePopUp.module.css'
 import closeIcon from '../../../shared/icons/closeIcon.svg'
 import { useState } from 'react'
+import { AddObject } from '../../workSpaceWidget/ui/tools/AddObject'
+import { Selected, SlideType } from '../../../shared/types/types'
+import { MouseStates } from '../../editorWidget/ui/EditorWidget'
 
 type SelectImagePopUpProps = {
+    slides: SlideType[]
+    selected: Selected
+    setSlides: (slides: SlideType[]) => void
     isPopUpOpen: boolean
     closePopUp(): void
 }
 
-const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) => {
-    const [linkImgSrc, setLinkImgSrc] = useState('')
+const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp }: SelectImagePopUpProps) => {
+    const [imageSrc, setImageSrc] = useState('')
     const [isLinkUsed, setIsLinkUsed] = useState(false)
     const [btnState, setBtnsState] = useState(true)
     const [linkValue, setLinkValue] = useState('')
+    const [mouseState, setMouseState] = useState<MouseStates>('creatingBase64Img')
+    const [currentMouseX, setCurrentMouseX] = useState(200)
+    const [currentMouseY, setCurrentMouseY] = useState(200)
+    const [startMouseX, setStartMouseX] = useState(100)
+    const [startMouseY, setStartMouseY] = useState(100)
+    const allSlides = [...slides]
     const chooseCompBtn = () => {
         setBtnsState(() => true)
     }
@@ -30,12 +42,80 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
     }
 
     const findImgFromLink = () => {
-        fetch(linkValue).then((res) => {
-            if (res.status != 404) {
-                linkUsed()
-                setLinkImgSrc(linkValue)
+        fetch(linkValue)
+            .then((res) => {
+                if (res.status != 404) {
+                    linkUsed()
+                    setImageSrc(linkValue)
+                }
+            })
+            .catch((err) => {
+                linkNotUsed()
+            })
+    }
+
+    const createPosition = (startMousePos: number, currentMousePos: number) => {
+        if (startMousePos >= currentMousePos) {
+            return currentMousePos
+        } else {
+            return startMousePos
+        }
+    }
+
+    const createImage = (someRef: string, imageSrcBase64 = '') => {
+        if (someRef == 'creatingBase64Img') {
+            setMouseState('creatingBase64Img')
+            AddObject({
+                mouseState,
+                currentMouseX,
+                startMouseX,
+                startMouseY,
+                currentMouseY,
+                slides,
+                selected,
+                allSlides,
+                setSlides,
+                createPosition,
+                imageSrc: imageSrcBase64,
+            })
+        }
+        if (someRef == 'creatingLinkImg') {
+            setMouseState('creatingLinkImg')
+            AddObject({
+                mouseState,
+                currentMouseX,
+                startMouseX,
+                startMouseY,
+                currentMouseY,
+                slides,
+                selected,
+                allSlides,
+                setSlides,
+                createPosition,
+                imageSrc,
+            })
+        }
+    }
+
+    const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        closePopUp()
+        new Promise((resolve, reject) => {
+            if (e.target.files !== null) {
+                const file = Array.from(e.target.files)[0]
+                const reader = new FileReader()
+                reader.readAsDataURL(file)
+                reader.onload = () => {
+                    createImage('creatingBase64Img', reader.result as string)
+                    resolve(reader.result as string)
+                }
+                reader.onerror = reject
             }
         })
+    }
+
+    const createLinkImage = () => {
+        closePopUp()
+        createImage('creatingLinkImg')
     }
 
     return (
@@ -43,7 +123,7 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
             <div className={styles.popUpBlock}>
                 <div className={styles.popUpHeader}>
                     <span>Вставка картинки</span>
-                    <img src={closeIcon} className={styles.popUpHeaderCloseBtn} onClick={closePopUp} />
+                    <img src={closeIcon} className={styles.popUpHeaderCloseBtn} onClick={closePopUp} alt={''} />
                 </div>
                 <div className={styles.popupToolBar}>
                     <button
@@ -73,7 +153,12 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
                         <label htmlFor={'fileLoader'} className={styles.popUpContentImageLabel}>
                             <span>Загрузить</span>
                         </label>
-                        <input type={'file'} id={'fileLoader'} className={styles.hidden} />
+                        <input
+                            type={'file'}
+                            id={'fileLoader'}
+                            className={styles.hidden}
+                            onChange={handleFileSelected}
+                        />
                     </div>
                     <div className={btnState ? styles.hidden : styles.popUpContentLinkBlock}>
                         <div className={styles.popUpContentLinkInputBlock}>
@@ -96,13 +181,15 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
                         </div>
                         <div className={isLinkUsed ? styles.popUpContentLinkFindBlock : styles.hidden}>
                             <div className={styles.popUpContentLinkImgBlock}>
-                                <img src={linkImgSrc} />
+                                <img src={imageSrc} alt={''} />
                             </div>
                             <div className={styles.popUpContentLinkImgBtns}>
                                 <button className={styles.popUpContentLinkImgDeleteBtn} onClick={linkNotUsed}>
                                     Удалить
                                 </button>
-                                <button className={styles.popUpContentLinkImgConfirmBtn}>Подтвердить</button>
+                                <button className={styles.popUpContentLinkImgConfirmBtn} onClick={createLinkImage}>
+                                    Подтвердить
+                                </button>
                             </div>
                         </div>
                     </div>
