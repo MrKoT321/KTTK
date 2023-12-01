@@ -89,16 +89,24 @@
     height: 100%;
 }
 
-.popUpContentImageLabel {
+.popUpContentImageLabelBlock {
     margin-top: 20px;
     position: absolute;
     width: 100%;
     height: 100%;
-    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
     line-height: 24px;
     text-align: center;
     background-color: #c0c0c0;
     cursor: pointer;
+}
+
+.popUpContentImageLabel {
+
 }
 
 .popUpContentLinkBlock {

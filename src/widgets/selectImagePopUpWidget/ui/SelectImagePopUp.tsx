@@ -1,4 +1,4 @@
-import styles from './selectImagePopUp.module.css'
+import styles from './SelectImagePopUp.module.css'
 import closeIcon from '../../../shared/icons/closeIcon.svg'
 import { useState } from 'react'
 import { MouseStates, Selected, SlideType } from '../../../shared/types/types'
@@ -18,10 +18,10 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const [btnState, setBtnsState] = useState(true)
     const [linkValue, setLinkValue] = useState('')
     const [mouseState, setMouseState] = useState<MouseStates>('creatingBase64Img')
-    const [currentMouseX, setCurrentMouseX] = useState(200) //TODO: Заменить на центр слайда
-    const [currentMouseY, setCurrentMouseY] = useState(200) //TODO: Заменить на центр слайда
-    const [startMouseX, setStartMouseX] = useState(100) //TODO: Заменить на центр слайда
-    const [startMouseY, setStartMouseY] = useState(100) //TODO: Заменить на центр слайда
+    const [currentMouseX, setCurrentMouseX] = useState(600) //TODO: Заменить на центр слайда
+    const [currentMouseY, setCurrentMouseY] = useState(600) //TODO: Заменить на центр слайда
+    const [startMouseX, setStartMouseX] = useState(500) //TODO: Заменить на центр слайда
+    const [startMouseY, setStartMouseY] = useState(500) //TODO: Заменить на центр слайда
     const allSlides = [...slides]
 
     const linkNotUsed = () => {
@@ -125,7 +125,7 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                     <button
                         className={btnState ? styles.popupToolBarChoice : styles.popupToolBarChoiceSelected}
                         onClick={() => {
-                            setBtnsState(true)
+                            setBtnsState(false)
                         }}
                     >
                         Ссылка
@@ -134,8 +134,8 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                 <hr className={styles.popupToolBarLine} />
                 <div className={styles.popUpContent}>
                     <div className={btnState ? null : styles.hidden}>
-                        <label htmlFor={'fileLoader'} className={styles.popUpContentImageLabel}>
-                            <span>Загрузить</span>
+                        <label htmlFor={'fileLoader'} className={styles.popUpContentImageLabelBlock}>
+                            <span>Загрузить фотографию</span>
                         </label>
                         <input
                             type={'file'}
