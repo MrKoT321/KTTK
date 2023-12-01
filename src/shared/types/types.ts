@@ -1,6 +1,6 @@
 type BackgroundType = 'color' | 'imageLink' | 'imageBase64'
 
-type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle'
+type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle' | 'move'
 
 type GeneralObjectType = {
     id: number
@@ -55,6 +55,8 @@ type ObjectImageType = GeneralObjectType & {
     caption: string
     imageSrcType: 'imageLink' | 'imageBase64'
     imageSrc: string
+    width?: number
+    height: number
     oType: 'ObjectImageType'
 }
 

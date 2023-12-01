@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { DrawStyle } from '../../../shared/types/DrawStyle'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
+import { StyleMoveObj } from '../../../shared/types/StyleMoveObj'
 
 type WorkSpaceWidgetProps = {
     slides: SlideType[]
@@ -48,6 +49,7 @@ const WorkSpaceWidget = ({
         borderWidth: 2,
         borderStyle: 'solid',
     })
+    const [stylesMoveObjs, setStylesMoveObjs] = useState<StyleMoveObj[]>([])
 
     const createPosition = (startMousePos: number, currentMousePos: number) => {
         if (startMousePos >= currentMousePos) {
@@ -133,8 +135,20 @@ const WorkSpaceWidget = ({
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseUp={() => handleMouseUp()}
         >
-            <CurrentSlide slide={currentSlide ?? slides[0]} selected={selected} setSelected={setSelected} />
+            <CurrentSlide
+                slide={currentSlide ?? slides[0]}
+                selected={selected}
+                setSelected={setSelected}
+                setSlides={setSlides}
+                setMouseState={setMouseState}
+                mouseState={mouseState}
+            />
             <div style={styleObj} className={styles.drawPotentialObject} />
+            {stylesMoveObjs.map((style) => {
+                return (
+                    <div style={style} />
+                )
+            })}
         </div>
     )
 }
