@@ -19,10 +19,10 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const [btnState, setBtnsState] = useState(true)
     const [linkValue, setLinkValue] = useState('')
     const [mouseState, setMouseState] = useState<MouseStates>('creatingBase64Img')
-    const [currentMouseX, setCurrentMouseX] = useState(200)
-    const [currentMouseY, setCurrentMouseY] = useState(200)
-    const [startMouseX, setStartMouseX] = useState(100)
-    const [startMouseY, setStartMouseY] = useState(100)
+    const [currentMouseX, setCurrentMouseX] = useState(650)
+    const [currentMouseY, setCurrentMouseY] = useState(450)
+    const [startMouseX, setStartMouseX] = useState(750)
+    const [startMouseY, setStartMouseY] = useState(550)
     const allSlides = [...slides]
     const chooseCompBtn = () => {
         setBtnsState(() => true)
@@ -44,10 +44,13 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const findImgFromLink = () => {
         fetch(linkValue)
             .then((res) => {
-                if (res.status != 404) {
+                if (linkValue == '' || res.status == 404) return
+                const image = new Image()
+                image.onload = () => {
                     linkUsed()
                     setImageSrc(linkValue)
                 }
+                image.src = linkValue
             })
             .catch((err) => {
                 linkNotUsed()
