@@ -1,4 +1,4 @@
-import { Editor, Selected, SlideType } from '../types/types'
+import { Editor, Selected, SlideType } from '../../../../../shared/types/types'
 
 type SaveFilePatams = {
     toolMenuTools: {

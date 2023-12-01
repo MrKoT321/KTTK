@@ -1,0 +1,9 @@
+.hidden {
+    display: none;
+}
+
+.saveButton {
+    padding: 10;
+    background-color: '#FF603D';
+    margin-left: 50;
+}

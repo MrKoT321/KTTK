@@ -1,4 +1,4 @@
-import { ObjectShapeType } from '../types/types'
+import { ObjectShapeType } from '../../../../../types/types'
 
 const createShapeObject = (props: ObjectShapeType) => {
     switch (props.type) {

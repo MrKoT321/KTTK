@@ -110,6 +110,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                                 isSelected={isObjectSelected}
                             />
                         )
+                        break
                 }
             }
             switch (object.type) {
@@ -155,6 +156,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                         />
                     )
             }
+            break
         case 'ObjectImageType':
             if (isSideSlide) {
                 return (
@@ -176,6 +178,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                         isSelected={isObjectSelected}
                     />
                 )
+                break
             }
             return (
                 <ImageObject

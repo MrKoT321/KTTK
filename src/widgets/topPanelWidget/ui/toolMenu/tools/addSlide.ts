@@ -1,4 +1,4 @@
-import { SlideType } from '../types/types'
+import { SlideType } from '../../../../../shared/types/types'
 
 type AddSlideParams = {
     allSlides: SlideType[]

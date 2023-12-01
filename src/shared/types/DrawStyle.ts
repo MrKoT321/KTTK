@@ -10,4 +10,4 @@ type DrawStyle = {
     borderStyle: string
 }
 
-export type {DrawStyle}
+export type { DrawStyle }

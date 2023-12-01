@@ -7,12 +7,11 @@ type CurrentSlideProps = {
     slide: SlideType
     selected: Selected
     setSelected: (selected: Selected) => void
-    setSlides: (slides: SlideType[]) => void
 }
 
-const CurrentSlide = ({ slide, selected, setSelected, setSlides }: CurrentSlideProps) => {
+const CurrentSlide = ({ slide, selected, setSelected }: CurrentSlideProps) => {
     const styleObj = {
-        background: slide.backgroundValue,
+        background: slide.backgroundValue, //TODO: добавить кнопку смены
     }
 
     return (

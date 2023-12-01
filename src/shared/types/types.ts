@@ -1,5 +1,7 @@
 type BackgroundType = 'color' | 'imageLink' | 'imageBase64'
 
+type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle'
+
 type GeneralObjectType = {
     id: number
     width: number
@@ -97,4 +99,5 @@ export type {
     ObjectTextType,
     BackgroundType,
     ObjectType,
+    MouseStates,
 }

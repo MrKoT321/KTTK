@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import { Editor } from '../types/types'
+import { Editor } from '../../../../../shared/types/types'
 
 type OpenFileParams = {
     event: ChangeEvent<HTMLInputElement>

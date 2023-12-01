@@ -27,6 +27,7 @@ const SideSlide = ({
     handleDrop,
 }: SlideProps) => {
     const [isHovered, setIsHovered] = useState(false)
+
     const styleObj = {
         background: slide.backgroundValue,
     }
@@ -34,14 +35,14 @@ const SideSlide = ({
         slidesIds: [...selected.slidesIds],
         objectsIds: [...selected.objectsIds],
     }
-    slide.order = order
+    const thisSlide = { ...slide, order: order }
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.ctrlKey) {
-            sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
-            sel.slidesIds.push(slide.id)
+            sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== thisSlide.id)
+            sel.slidesIds.push(thisSlide.id)
         } else {
-            sel.slidesIds = [slide.id]
+            sel.slidesIds = [thisSlide.id]
         }
         setSelected(sel)
     }
@@ -54,14 +55,14 @@ const SideSlide = ({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={(e) => handleClick(e)}
-            onDragStart={(e) => handleDragStart(e, slide)}
+            onDragStart={(e) => handleDragStart(e, thisSlide)}
             onDragOver={(e) => handleDragOver(e)}
-            onDrop={(e) => handleDrop(e, slide)}
+            onDrop={(e) => handleDrop(e, thisSlide)}
             draggable={isDraggable}
         >
             <div className={styles.container} style={styleObj}>
                 <div className={styles.content} style={styleObj}>
-                    {slide.objects.map((object, index) => (
+                    {thisSlide.objects.map((object, index) => (
                         <Object
                             key={index}
                             object={object}

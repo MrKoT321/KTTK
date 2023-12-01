@@ -2,7 +2,7 @@ import { Selected, SlideType } from '../../../shared/types/types'
 import styles from './SideBarWidget.module.css'
 import { SideSlide } from './sideSlide/SideSlide'
 import React, { useState } from 'react'
-import { drop } from './sideSlide/tools/Drop'
+import { drop } from '../tools/drop'
 
 type SlideBarProps = {
     slides: SlideType[]

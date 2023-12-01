@@ -1,3 +1,0 @@
-const useDraggableList = () => {}
-
-export { useDraggableList }

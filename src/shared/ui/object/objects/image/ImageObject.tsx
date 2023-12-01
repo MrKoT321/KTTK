@@ -1,5 +1,5 @@
-import { ObjectImageType, Selected } from '../../../types/types'
-import styles from '../Object.module.css'
+import { ObjectImageType, Selected } from '../../../../types/types'
+import styles from '../../Object.module.css'
 
 type ImageObjProps = ObjectImageType & {
     selected: Selected

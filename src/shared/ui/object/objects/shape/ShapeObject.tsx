@@ -1,19 +1,21 @@
-import { createTextObject } from '../../../tools/CreateTextObject'
-import { ObjectTextType, Selected } from '../../../types/types'
-import styles from '../Object.module.css'
+import { ObjectShapeType, Selected } from '../../../../types/types'
+import styles from '../../Object.module.css'
+import { createShapeObject } from './tools/createShapeObject'
 
-type TextObjProps = ObjectTextType & {
+type ShapeObjProps = ObjectShapeType & {
     selected: Selected
     setSelected(selected: Selected): void
     isSelected: boolean
 }
 
-const TextObject = (props: TextObjProps) => {
-    const parentObj = {
+const ShapeObject = (props: ShapeObjProps) => {
+    const styleChildObj = createShapeObject(props)
+    const styleParentObj = {
+        width: props.width + props.borderWidth,
+        height: props.height + props.borderWidth,
         left: props.startX,
         top: props.startY,
     }
-    const childObj = createTextObject(props)
 
     const handleClick = () => {
         const sel: Selected = {
@@ -25,15 +27,13 @@ const TextObject = (props: TextObjProps) => {
 
     return (
         <div
+            style={styleParentObj}
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
-            style={parentObj}
             onClick={handleClick}
         >
-            <div style={childObj}>
-                <span>{props.value}</span>
-            </div>
+            <div style={styleChildObj}></div>
         </div>
     )
 }
 
-export { TextObject }
+export { ShapeObject }

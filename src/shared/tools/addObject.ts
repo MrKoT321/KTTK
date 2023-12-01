@@ -1,5 +1,4 @@
-import { ObjectType, Selected, SlideType } from '../types/types'
-import { MouseStates } from '../../widgets/editorWidget/ui/EditorWidget'
+import { MouseStates, ObjectType, Selected, SlideType } from '../types/types'
 
 type AddObjectParams = {
     mouseState: MouseStates

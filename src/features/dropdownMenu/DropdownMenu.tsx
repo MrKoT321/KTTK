@@ -1,5 +1,5 @@
 import { AddElementButton } from '../addElementButton/AddElementButton'
-import styles from './PopupMenu.module.css'
+import styles from './DropdownMenu.module.css'
 
 type DropdownMenuProps = {
     icons: string[]

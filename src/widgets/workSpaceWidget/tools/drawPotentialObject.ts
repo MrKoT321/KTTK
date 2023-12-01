@@ -1,5 +1,5 @@
-import { MouseStates } from "../../widgets/editorWidget/ui/EditorWidget"
-import { DrawStyle } from "../types/DrawStyle"
+import { DrawStyle } from '../../../shared/types/DrawStyle'
+import { MouseStates } from '../../../shared/types/types'
 
 type DrawPotentialObjectParams = {
     mouseState: MouseStates
@@ -11,7 +11,7 @@ type DrawPotentialObjectParams = {
     createPosition: (startMousePos: number, currentMousePos: number) => number
 }
 
-const DrawPotentialObject = ({
+const drawPotentialObject = ({
     mouseState,
     currentMouseX,
     startMouseX,
@@ -53,4 +53,4 @@ const DrawPotentialObject = ({
     }
 }
 
-export { DrawPotentialObject }
+export { drawPotentialObject }
