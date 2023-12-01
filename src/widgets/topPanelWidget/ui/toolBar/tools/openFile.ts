@@ -21,9 +21,26 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
             const result = reader.result
             console.log('result = ', result)
             if (typeof result === 'string') {
-                const parsedResult = JSON.parse(result)
+                try {
+                    JSON.parse(result)
+                } catch {
+                    alert('Невозможно открыть файл')
+                    return
+                }
+                const parsedResult: Editor = JSON.parse(result)
                 console.log('parsedResult = ', parsedResult)
-                presentationsObjTools.setPresentation(parsedResult)
+                if (
+                    'document' in parsedResult &&
+                    'selected' in parsedResult &&
+                    'name' in parsedResult.document &&
+                    'slides' in parsedResult.document &&
+                    'slidesIds' in parsedResult.selected &&
+                    'objectsIds' in parsedResult.selected
+                ) {
+                    presentationsObjTools.setPresentation(parsedResult)
+                } else {
+                    alert('Невозможно открыть файл')
+                }
             } else {
                 console.log('Ошибка декодирования')
             }
