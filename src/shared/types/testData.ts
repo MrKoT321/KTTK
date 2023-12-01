@@ -6,6 +6,7 @@ const minEditor: Editor = {
         slides: [
             {
                 id: 1,
+                order: 1,
                 background: 'color',
                 backgroundValue: '#FFFFFF',
                 objects: [],
@@ -24,6 +25,7 @@ const mediumEditor: Editor = {
         slides: [
             {
                 id: 1,
+                order: 1,
                 background: 'color',
                 backgroundValue: '#FFFFFF',
                 objects: [
@@ -80,6 +82,7 @@ const maxEditor: Editor = {
         slides: [
             {
                 id: 1,
+                order: 1,
                 background: 'color',
                 backgroundValue: '#fc6969',
                 objects: [
@@ -232,6 +235,7 @@ const maxEditor: Editor = {
             },
             {
                 id: 2,
+                order: 2,
                 background: 'color',
                 backgroundValue: '#57bbff',
                 objects: [

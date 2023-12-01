@@ -1,7 +1,6 @@
-import { ObjectType, Selected, SlideType } from '../../../../shared/types/types'
-import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
+import { MouseStates, ObjectType, Selected, SlideType } from '../types/types'
 
-type AddObjectProps = {
+type AddObjectParams = {
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
@@ -12,10 +11,10 @@ type AddObjectProps = {
     allSlides: SlideType[]
     setSlides: (slides: SlideType[]) => void
     createPosition: (startMousePos: number, currentMousePos: number) => number
-    imageSrc: string
+    imageSrc?: string
 }
 
-const AddObject = ({
+const addObject = ({
     mouseState,
     currentMouseX,
     startMouseX,
@@ -27,12 +26,13 @@ const AddObject = ({
     setSlides,
     createPosition,
     imageSrc,
-}: AddObjectProps) => {
+}: AddObjectParams) => {
     let object: ObjectType
 
+    const borderWidth = 15
     const startX = createPosition(startMouseX, currentMouseX) - 240
     const startY = createPosition(startMouseY, currentMouseY) - 80
-    const width = Math.abs(currentMouseX - startMouseX)
+    const width = Math.abs(currentMouseX - startMouseX) + borderWidth
     const height = Math.abs(currentMouseY - startMouseY)
 
     const createObjectId = () => {
@@ -89,7 +89,8 @@ const AddObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 2,
+                borderWidth: 15,
+                //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
                 fontSize: 14,
                 fontColor: 'green',
@@ -158,4 +159,4 @@ const AddObject = ({
     setSlides(allSlides)
 }
 
-export { AddObject }
+export { addObject }

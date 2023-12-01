@@ -1,5 +1,4 @@
 import styles from './ToolMenu.module.css'
-import { AddElementButton, PopupMenu } from '../../../../shared/ui/object'
 import addSlideIcon from '../../../../shared/icons/addSlideIcon.svg'
 import chooseTemplateIcon from '../../../../shared/icons/chooseTemplateIcon.svg'
 import cancelIcon from '../../../../shared/icons/cancelIcon.svg'
@@ -10,19 +9,21 @@ import addImageIcon from '../../../../shared/icons/addImageIcon.svg'
 import addShapeIcon from '../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
-import { Selected, SlideType } from '../../../../shared/types/types'
+import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
 import { useState } from 'react'
-import { MouseStates } from '../../../editorWidget/ui/EditorWidget'
-import { SelectImagePopUp } from '../../../selectImagePopUpWidget'
+import { addSlide } from './tools/addSlide'
+import { AddElementButton } from '../../../../features/addElementButton/AddElementButton'
+import { DropdownMenu } from '../../../../features/dropdownMenu/DropdownMenu'
+import { SelectImagePopUp } from 'widgets/selectImagePopUpWidget'
 
 type ToolMenuProps = {
     slides: SlideType[]
-    selected: Selected
     setSlides: (slides: SlideType[]) => void
     setMouseState: (mouseState: MouseStates) => void
+    selected: Selected
 }
 
-const ToolMenu = ({ slides, selected, setSlides, setMouseState }: ToolMenuProps) => {
+const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps) => {
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
     const [isPopUpOpen, setPopUpState] = useState(false)
@@ -35,22 +36,11 @@ const ToolMenu = ({ slides, selected, setSlides, setMouseState }: ToolMenuProps)
         setPopUpState(() => false)
     }
 
-    //TODO: сделать в зависимости от длины
     const stylePopupMenu = {
         marginLeft: 384,
         marginTop: 40,
     }
-
-    const addSlide = () => {
-        const newSlide: SlideType = {
-            id: slides[slides.length - 1].id + 1,
-            background: 'color',
-            backgroundValue: '#FFFFFF',
-            objects: [],
-        }
-        allSlides.push(newSlide)
-        setSlides(allSlides)
-    }
+    const onClickFuncs = [() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]
 
     const changePopupMenuShapesVisibility = () => {
         if (isShowShapesPopupMenu) {
@@ -62,42 +52,27 @@ const ToolMenu = ({ slides, selected, setSlides, setMouseState }: ToolMenuProps)
 
     return (
         <div className={styles.toolMenu}>
-            <AddElementButton
-                icon={addSlideIcon}
-                onClick={() => {
-                    addSlide()
-                }}
-            />
+            <AddElementButton icon={addSlideIcon} onClick={() => addSlide({ allSlides, setSlides })} />
             <AddElementButton
                 icon={chooseTemplateIcon}
                 onClick={() => {
-                    console.log('Открытие панельки с готовой заготовкой слайдов')
+                    console.log()
                 }}
             />
             <AddElementButton
                 icon={cancelIcon}
                 onClick={() => {
-                    console.log('Отмена действия')
+                    console.log()
                 }}
             />
             <AddElementButton
                 icon={returnIcon}
                 onClick={() => {
-                    console.log('Возвращение последнего действия')
+                    console.log()
                 }}
             />
-            <AddElementButton
-                icon={pointerIcon}
-                onClick={() => {
-                    setMouseState('cursor')
-                }}
-            />
-            <AddElementButton
-                icon={addTextIcon}
-                onClick={() => {
-                    setMouseState('creatingText')
-                }}
-            />
+            <AddElementButton icon={pointerIcon} onClick={() => setMouseState('cursor')} />
+            <AddElementButton icon={addTextIcon} onClick={() => setMouseState('creatingText')} />
             <AddElementButton
                 icon={addImageIcon}
                 onClick={() => {
@@ -110,14 +85,15 @@ const ToolMenu = ({ slides, selected, setSlides, setMouseState }: ToolMenuProps)
                     changePopupMenuShapesVisibility()
                 }}
             />
+            <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
             <div
                 className={isShowShapesPopupMenu ? styles.shapePopupMenu_visible : styles.shapePopupMenu_hidden}
                 style={stylePopupMenu}
             >
-                <PopupMenu
+                <DropdownMenu
                     icons={[addRectangleIcon, addCircleIcon]}
                     labels={['Rectangle', 'Circle']}
-                    onClicks={[() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]}
+                    onClicks={onClickFuncs}
                 />
             </div>
             <SelectImagePopUp

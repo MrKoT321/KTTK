@@ -1,21 +1,12 @@
 import { TopPanelWidget } from '../../topPanelWidget'
 import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
-import styles from './EditorWidget.module.css'
+import styles from './PresentationMaker.module.css'
 import { useEffect, useState } from 'react'
-import { Editor } from '../../../shared/types/types'
+import { Editor, MouseStates } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/types/testData'
 
-type MouseStates =
-    | 'cursor'
-    | 'creatingText'
-    | 'creatingRect'
-    | 'creatingCircle'
-    | 'creatingTriangle'
-    | 'creatingLinkImg'
-    | 'creatingBase64Img'
-
-const EditorWidget = () => {
+const PresentationMaker = () => {
     const [presentation, setPresentation] = useState<Editor>(minEditor)
     const [sel, setSel] = useState(presentation.selected)
     const [slides, setSlides] = useState(presentation.document.slides)
@@ -23,7 +14,6 @@ const EditorWidget = () => {
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
 
     const toolMenuTools = {
-        //TODO: разобраться че передавать
         setSlides: setSlides,
         slides: slides,
         selected: sel,
@@ -37,20 +27,11 @@ const EditorWidget = () => {
         presentation: presentation,
     }
 
-    // const handleDelete = (e) => {
-    //     if (e.keyCode == 8) {
-    //         sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== slide.id)
-    //         sel.slidesIds.push(slide.id)
-    //     }
-    // }
-
     useEffect(() => {
         setSel(presentation.selected)
         setSlides(presentation.document.slides)
         setPresentationName(presentation.document.name)
     }, [presentation])
-
-    console.log('sel = ', sel)
 
     return (
         <div>
@@ -61,7 +42,7 @@ const EditorWidget = () => {
                 presentationsObjTools={presentationsObjTools}
             />
             <div className={styles.mainContent}>
-                <SideBarWidget slides={slides} selected={sel} setSelected={setSel} />
+                <SideBarWidget slides={slides} selected={sel} setSelected={setSel} setSlides={setSlides} />
                 <WorkSpaceWidget
                     slides={slides}
                     selected={sel}
@@ -75,5 +56,4 @@ const EditorWidget = () => {
     )
 }
 
-export { EditorWidget }
-export type { MouseStates }
+export { PresentationMaker }

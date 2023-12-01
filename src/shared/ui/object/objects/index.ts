@@ -1,3 +1,3 @@
-export { TextObject } from './TextObject'
-export { ShapeObject } from './ShapeObject'
-export { ImageObject } from './ImageObject'
+export { TextObject } from './text/TextObject'
+export { ShapeObject } from './shape/ShapeObject'
+export { ImageObject } from './image/ImageObject'

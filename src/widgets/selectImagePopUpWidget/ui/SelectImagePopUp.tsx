@@ -1,9 +1,8 @@
 import styles from './selectImagePopUp.module.css'
 import closeIcon from '../../../shared/icons/closeIcon.svg'
 import { useState } from 'react'
-import { AddObject } from '../../workSpaceWidget/ui/tools/AddObject'
-import { Selected, SlideType } from '../../../shared/types/types'
-import { MouseStates } from '../../editorWidget/ui/EditorWidget'
+import { MouseStates, Selected, SlideType } from '../../../shared/types/types'
+import { addObject } from 'shared/tools/addObject'
 
 type SelectImagePopUpProps = {
     slides: SlideType[]
@@ -19,10 +18,10 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const [btnState, setBtnsState] = useState(true)
     const [linkValue, setLinkValue] = useState('')
     const [mouseState, setMouseState] = useState<MouseStates>('creatingBase64Img')
-    const [currentMouseX, setCurrentMouseX] = useState(200)
-    const [currentMouseY, setCurrentMouseY] = useState(200)
-    const [startMouseX, setStartMouseX] = useState(100)
-    const [startMouseY, setStartMouseY] = useState(100)
+    const [currentMouseX, setCurrentMouseX] = useState(200) //TODO: Заменить на центр слайда
+    const [currentMouseY, setCurrentMouseY] = useState(200) //TODO: Заменить на центр слайда
+    const [startMouseX, setStartMouseX] = useState(100) //TODO: Заменить на центр слайда
+    const [startMouseY, setStartMouseY] = useState(100) //TODO: Заменить на центр слайда
     const allSlides = [...slides]
     const chooseCompBtn = () => {
         setBtnsState(() => true)
@@ -65,7 +64,7 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const createImage = (someRef: string, imageSrcBase64 = '') => {
         if (someRef == 'creatingBase64Img') {
             setMouseState('creatingBase64Img')
-            AddObject({
+            addObject({
                 mouseState,
                 currentMouseX,
                 startMouseX,
@@ -81,7 +80,7 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
         }
         if (someRef == 'creatingLinkImg') {
             setMouseState('creatingLinkImg')
-            AddObject({
+            addObject({
                 mouseState,
                 currentMouseX,
                 startMouseX,
