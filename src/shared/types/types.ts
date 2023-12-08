@@ -8,6 +8,7 @@ type MouseStates =
     | 'creatingTriangle'
     | 'creatingBase64Img'
     | 'creatingLinkImg'
+    | 'move'
 
 type GeneralObjectType = {
     id: number
@@ -62,6 +63,8 @@ type ObjectImageType = GeneralObjectType & {
     caption: string
     imageSrcType: 'imageLink' | 'imageBase64'
     imageSrc: string
+    width?: number
+    height: number
     oType: 'ObjectImageType'
 }
 

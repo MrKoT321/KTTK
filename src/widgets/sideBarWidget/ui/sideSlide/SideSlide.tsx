@@ -2,6 +2,7 @@ import styles from './SideSlide.module.css'
 import { Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import React, { useState } from 'react'
+import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
 
 type SlideProps = {
     order: number
@@ -28,7 +29,7 @@ const SideSlide = ({
 }: SlideProps) => {
     const [isHovered, setIsHovered] = useState(false)
 
-    const styleObj = {
+    const slideBackgroundStyle = {
         background: slide.backgroundValue,
     }
     const sel: Selected = {
@@ -49,7 +50,7 @@ const SideSlide = ({
 
     return (
         <div className={styles.containerWithNumber}>
-            <span className={styles.number}>{order + 1}</span>
+            <span>{order + 1}</span>
             <div
                 className={`${styles.sideSlide}
             ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
@@ -62,8 +63,8 @@ const SideSlide = ({
                 onDrop={(e) => handleDrop(e, thisSlide)}
                 draggable={isDraggable}
             >
-                <div className={styles.container} style={styleObj}>
-                    <div className={styles.content} style={styleObj}>
+                <div className={styles.container} style={slideBackgroundStyle && wsp.sideSlideContainerSizeStyle}>
+                    <div className={styles.content} style={slideBackgroundStyle && wsp.sideSlideSizeStyle}>
                         {thisSlide.objects.map((object, index) => (
                             <Object
                                 key={index}
@@ -72,6 +73,12 @@ const SideSlide = ({
                                 selected={selected}
                                 setSelected={setSelected}
                                 isObjectSelected={false}
+                                setMouseState={() => {
+                                    console.log()
+                                }}
+                                handleMouseDown={() => {
+                                    console.log()
+                                }}
                             />
                         ))}
                     </div>
