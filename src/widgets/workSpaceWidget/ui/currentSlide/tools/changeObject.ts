@@ -1,5 +1,0 @@
-const changeObject = () => {
-
-}
-
-export {changeObject}

@@ -1,58 +1,66 @@
-import { useState } from 'react'
-import { MouseStates, ObjectType, Selected, SlideType } from '../../../../shared/types/types'
-// import { useDraggableList1 } from '../../../../shared/hooks/useDraggableList1'
+import { MoveObj } from '../../../../shared/types/MoveObj'
+import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
-import { changeObject } from './tools/changeObject'
-import { drawMoveObject } from './tools/drawMoveObject'
 
 type CurrentSlideProps = {
     slide: SlideType
     selected: Selected
     setSelected: (selected: Selected) => void
-    setSlides: (slides: SlideType[]) => void
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
+    setMoveObjs: (moveObjs: MoveObj[]) => void
+    moveObjs: MoveObj[]
+    setStartMouseX: (startMouseX: number) => void
+    setStartMouseY: (startMouseY: number) => void
+    setCurrentMouseX: (currentMouseX: number) => void
+    setCurrentMouseY: (currentMouseY: number) => void
 }
 
-const CurrentSlide = ({ slide, selected, setSelected, setSlides, setMouseState, mouseState }: CurrentSlideProps) => {
+const CurrentSlide = ({
+    slide,
+    selected,
+    setSelected,
+    setMouseState,
+    mouseState,
+    setMoveObjs,
+    moveObjs,
+    setStartMouseX,
+    setStartMouseY,
+    setCurrentMouseX,
+    setCurrentMouseY,
+}: CurrentSlideProps) => {
+    const shadowObjs = [...moveObjs]
+
     const styleObj = {
         background: slide.backgroundValue, //TODO: добавить кнопку смены
     }
 
-    // const [currentMouseX, setCurrentMouseX] = useState(0)
-    // const [currentMouseY, setCurrentMouseY] = useState(0)
-    // const [startMouseX, setStartMouseX] = useState(0)
-    // const [startMouseY, setStartMouseY] = useState(0)
-
-    // const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
-    //     if (mouseState === 'cursor' && isSelected) {
-    //         setStartMouseX(e.clientX)
-    //         setStartMouseY(e.clientY)
-    //         setMouseState('move')
-    //     }
-    // }
-    // const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    //     if (mouseState === 'move') {
-    //         setCurrentMouseX(e.clientX)
-    //         setCurrentMouseY(e.clientY)
-    //         slide.objects.map((object) => {
-    //             if (selected.objectsIds.includes(object.id)) {
-    //                 drawMoveObject({
-    //                     object,
-    //                     width: Math.abs(currentMouseX - startMouseX),
-    //                     height: Math.abs(currentMouseY - startMouseY),
-    //                 }) 
-    //             }
-    //         }) 
-    //     }
-    // }
-    // const handleMouseUp = () => {
-    //     if (mouseState === 'move') {
-    //         setMouseState('cursor')
-    //         changeObject()
-    //     }
-    // }
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
+        if (mouseState === 'cursor' && isSelected) {
+            setStartMouseX(e.clientX)
+            setStartMouseY(e.clientY)
+            setCurrentMouseX(e.clientX)
+            setCurrentMouseY(e.clientY)
+            setMouseState('move')
+            selected.objectsIds.map((id) => {
+                const currMoveObj = slide.objects.find((object) => object.id === id)
+                if (currMoveObj) {
+                    const style = {
+                        width: currMoveObj.width,
+                        height: currMoveObj.height,
+                        left: currMoveObj.startX,
+                        top: currMoveObj.startY,
+                    }
+                    shadowObjs.push({
+                        style,
+                        id,
+                    })
+                }
+            })
+            setMoveObjs(shadowObjs)
+        }
+    }
 
     return (
         <div className={styles.workSlide} style={styleObj}>
@@ -65,6 +73,8 @@ const CurrentSlide = ({ slide, selected, setSelected, setSlides, setMouseState, 
                         selected={selected}
                         setSelected={setSelected}
                         isObjectSelected={isSelected}
+                        setMouseState={setMouseState}
+                        handleMouseDown={handleMouseDown}
                     />
                 )
             })}

@@ -71,7 +71,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
             />
             <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
             <div
-                className={isShowShapesPopupMenu ? styles.shapePopupMenu_visible : styles.shapePopupMenu_hidden}
+                className={isShowShapesPopupMenu ? styles.shapeDropdownMenu_visible : styles.shapeDropdownMenu_hidden}
                 style={stylePopupMenu}
             >
                 <DropdownMenu

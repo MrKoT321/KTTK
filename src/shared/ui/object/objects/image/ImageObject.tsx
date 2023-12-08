@@ -5,6 +5,7 @@ type ImageObjProps = ObjectImageType & {
     selected: Selected
     setSelected(selected: Selected): void
     isSelected: boolean
+    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
 }
 
 const ImageObject = (props: ImageObjProps) => {
@@ -25,8 +26,22 @@ const ImageObject = (props: ImageObjProps) => {
         left: props.startX,
         top: props.startY,
     }
+
+    const handleClick = () => {
+        const sel: Selected = {
+            slidesIds: [...props.selected.slidesIds],
+            objectsIds: [props.id],
+        }
+        props.setSelected(sel)
+    }
+
     return (
-        <div style={styleObj} className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}>
+        <div
+            style={styleObj}
+            className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
+            onClick={handleClick}
+            onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
+        >
             <div style={styleParentObj}>
                 <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />
             </div>

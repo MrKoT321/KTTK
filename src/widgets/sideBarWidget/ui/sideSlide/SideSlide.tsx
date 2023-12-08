@@ -70,6 +70,12 @@ const SideSlide = ({
                             selected={selected}
                             setSelected={setSelected}
                             isObjectSelected={false}
+                            setMouseState={() => {
+                                console.log()
+                            }}
+                            handleMouseDown={() => {
+                                console.log()
+                            }}
                         />
                     ))}
                 </div>

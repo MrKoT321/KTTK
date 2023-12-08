@@ -1,4 +1,4 @@
-import { ObjectTextType, Selected } from '../../../../types/types'
+import { MouseStates, ObjectTextType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
 
@@ -6,6 +6,8 @@ type TextObjProps = ObjectTextType & {
     selected: Selected
     setSelected(selected: Selected): void
     isSelected: boolean
+    setMouseState: (mouseState: MouseStates) => void
+    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
 }
 
 const TextObject = (props: TextObjProps) => {
@@ -16,11 +18,13 @@ const TextObject = (props: TextObjProps) => {
     const childObj = createTextObject(props)
 
     const handleClick = () => {
-        const sel: Selected = {
-            slidesIds: [...props.selected.slidesIds],
-            objectsIds: [props.id],
+        if (!props.isSelected) {
+            const sel: Selected = {
+                slidesIds: [...props.selected.slidesIds],
+                objectsIds: [props.id],
+            }
+            props.setSelected(sel)
         }
-        props.setSelected(sel)
     }
 
     return (
@@ -28,6 +32,7 @@ const TextObject = (props: TextObjProps) => {
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
             style={parentObj}
             onClick={handleClick}
+            onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
         >
             <div style={childObj}>
                 <span>{props.value}</span>
