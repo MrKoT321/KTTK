@@ -1,10 +1,18 @@
+.containerWithNumber {
+    display: flex;
+    gap: 10px;
+}
+
+.number {
+}
+
 .sideSlide {
-    border-radius: 30px;
+    border-radius: 15px;
     cursor: grab;
 }
 
 .sideSlideBorder {
-    box-shadow: 0 0 3px #e4e2e2;
+    box-shadow: 0 0 3px #E4E2E2;
     border: solid 1px #737373;
 }
 
@@ -14,25 +22,21 @@
 }
 
 .sideSlideBorderSelected {
-    box-shadow: 0 0 0 3px #2055ff;
-    border: solid 1px #2055ff;
+    box-shadow: 0 0 0 3px #2055FF;
+    border: solid 1px #2055FF;
 }
 
 .container {
-    width: 240px;
-    height: 150px;
-    background: #ffffff;
-    border-radius: 30px;
+    background: #FFFFFF;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid #ffffff 5px;
+    border: solid #FFFFFF 5px;
 }
 
 .content {
-    width: 220px;
-    height: 130px;
-    background: #ffffff;
+    background: #FFFFFF;
     position: relative;
     overflow: hidden;
 }

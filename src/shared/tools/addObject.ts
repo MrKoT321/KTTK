@@ -11,6 +11,7 @@ type AddObjectParams = {
     allSlides: SlideType[]
     setSlides: (slides: SlideType[]) => void
     createPosition: (startMousePos: number, currentMousePos: number) => number
+    imageSrc?: string
 }
 
 const addObject = ({
@@ -24,6 +25,7 @@ const addObject = ({
     allSlides,
     setSlides,
     createPosition,
+    imageSrc,
 }: AddObjectParams) => {
     let object: ObjectType
 
@@ -45,6 +47,40 @@ const addObject = ({
     }
 
     switch (mouseState) {
+        case 'creatingLinkImg':
+            if (!imageSrc) break
+            object = {
+                id: createObjectId(),
+                width: width,
+                height: height,
+                startX: startX,
+                startY: startY,
+                borderStyle: 'none',
+                borderWidth: 0,
+                borderColor: '#000000',
+                caption: '',
+                imageSrcType: 'imageLink',
+                imageSrc: imageSrc,
+                oType: 'ObjectImageType',
+            }
+            break
+        case 'creatingBase64Img':
+            if (!imageSrc) break
+            object = {
+                id: createObjectId(),
+                width: width,
+                height: height,
+                startX: startX,
+                startY: startY,
+                borderStyle: 'none',
+                borderWidth: 0,
+                borderColor: '#000000',
+                caption: '123',
+                imageSrcType: 'imageBase64',
+                imageSrc: imageSrc,
+                oType: 'ObjectImageType',
+            }
+            break
         case 'creatingText':
             object = {
                 id: createObjectId(),

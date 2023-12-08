@@ -11,10 +11,12 @@ type TextObjProps = ObjectTextType & {
 }
 
 const TextObject = (props: TextObjProps) => {
-    const parentObj = {
-        left: props.startX,
-        top: props.startY,
-    }
+    // const parentObj = {
+    //     left: props.startX,
+    //     top: props.startY,
+    //     userSelect: userSelectValue,
+    // }
+    // TODO разобраться в типах
     const childObj = createTextObject(props)
 
     const handleClick = () => {
@@ -30,7 +32,7 @@ const TextObject = (props: TextObjProps) => {
     return (
         <div
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
-            style={parentObj}
+            style={{ left: props.startX, top: props.startY, userSelect: 'text' }}
             onClick={handleClick}
             onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
         >

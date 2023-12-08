@@ -1,5 +1,4 @@
-import styles from './TopPanelWidget.module.css'
-import { PresentationName } from '../../presentationNameWidget'
+import { PresentationName } from './presentationName'
 import { Editor, MouseStates, Selected, SlideType } from '../../../shared/types/types'
 import { ToolMenu } from './toolMenu/ToolMenu'
 import { ToolBar } from './toolBar/ui/ToolBar'
@@ -7,7 +6,7 @@ import { ToolBar } from './toolBar/ui/ToolBar'
 type TopPanelWidgetProps = {
     toolMenuTools: {
         slides: SlideType[]
-        setSlides(slides: SlideType[]): void
+        setSlides: (slides: SlideType[]) => void
         selected: Selected
     }
     presentationNameTools: {
@@ -27,22 +26,20 @@ const TopPanelWidget = ({
     setMouseState,
     presentationsObjTools,
 }: TopPanelWidgetProps) => (
-    <div className={styles.topPanel}>
-        <div className={styles.container}>
-            <PresentationName setName={presentationNameTools.setName} name={presentationNameTools.name} />
-            <ToolBar
-                toolMenuTools={toolMenuTools}
-                presentationNameTools={presentationNameTools}
-                presentationsObjTools={presentationsObjTools}
-            />
-        </div>
+    <>
+        <PresentationName setName={presentationNameTools.setName} name={presentationNameTools.name} />
+        <ToolBar
+            toolMenuTools={toolMenuTools}
+            presentationNameTools={presentationNameTools}
+            presentationsObjTools={presentationsObjTools}
+        />
         <ToolMenu
             slides={toolMenuTools.slides}
             setSlides={toolMenuTools.setSlides}
             setMouseState={setMouseState}
             selected={toolMenuTools.selected}
         />
-    </div>
+    </>
 )
 
 export { TopPanelWidget }

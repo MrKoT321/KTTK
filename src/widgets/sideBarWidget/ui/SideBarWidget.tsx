@@ -27,7 +27,7 @@ const SideBarWidget = ({ slides, setSlides, selected, setSelected }: SlideBarPro
     }
 
     return (
-        <div className={styles.sideBar}>
+        <>
             {slides.map((slide, index) => {
                 const isSelected = selected.slidesIds.includes(slide.id)
                 return (
@@ -45,7 +45,7 @@ const SideBarWidget = ({ slides, setSlides, selected, setSelected }: SlideBarPro
                     />
                 )
             })}
-        </div>
+        </>
     )
 }
 

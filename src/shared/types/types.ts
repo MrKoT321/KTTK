@@ -1,6 +1,14 @@
 type BackgroundType = 'color' | 'imageLink' | 'imageBase64'
 
-type MouseStates = 'cursor' | 'creatingText' | 'creatingRect' | 'creatingCircle' | 'creatingTriangle' | 'move'
+type MouseStates =
+    | 'cursor'
+    | 'creatingText'
+    | 'creatingRect'
+    | 'creatingCircle'
+    | 'creatingTriangle'
+    | 'creatingBase64Img'
+    | 'creatingLinkImg'
+    | 'move'
 
 type GeneralObjectType = {
     id: number

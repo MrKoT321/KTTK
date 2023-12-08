@@ -14,10 +14,11 @@ import { useState } from 'react'
 import { addSlide } from './tools/addSlide'
 import { AddElementButton } from '../../../../features/addElementButton/AddElementButton'
 import { DropdownMenu } from '../../../../features/dropdownMenu/DropdownMenu'
+import { SelectImagePopUp } from 'widgets/selectImagePopUpWidget'
 
 type ToolMenuProps = {
     slides: SlideType[]
-    setSlides(slides: SlideType[]): void
+    setSlides: (slides: SlideType[]) => void
     setMouseState: (mouseState: MouseStates) => void
     selected: Selected
 }
@@ -25,6 +26,15 @@ type ToolMenuProps = {
 const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps) => {
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
+    const [isPopUpOpen, setPopUpState] = useState(false)
+
+    const openSelectImagePopUp = () => {
+        setPopUpState(() => true)
+    }
+
+    const closeSelectImagePopUp = () => {
+        setPopUpState(() => false)
+    }
 
     const stylePopupMenu = {
         marginLeft: 384,
@@ -66,12 +76,17 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
             <AddElementButton
                 icon={addImageIcon}
                 onClick={() => {
-                    console.log()
+                    openSelectImagePopUp()
                 }}
             />
-            <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
+            <AddElementButton
+                icon={addShapeIcon}
+                onClick={() => {
+                    changePopupMenuShapesVisibility()
+                }}
+            />
             <div
-                className={isShowShapesPopupMenu ? styles.shapeDropdownMenu_visible : styles.shapeDropdownMenu_hidden}
+                className={isShowShapesPopupMenu ? styles.shapeDropDown_visible : styles.shapeDropDown_hidden}
                 style={stylePopupMenu}
             >
                 <DropdownMenu
@@ -80,6 +95,13 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
                     onClicks={onClickFuncs}
                 />
             </div>
+            <SelectImagePopUp
+                slides={slides}
+                selected={selected}
+                setSlides={setSlides}
+                isPopUpOpen={isPopUpOpen}
+                closePopUp={closeSelectImagePopUp}
+            />
         </div>
     )
 }

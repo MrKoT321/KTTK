@@ -2,6 +2,7 @@ import styles from './SideSlide.module.css'
 import { Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import React, { useState } from 'react'
+import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
 
 type SlideProps = {
     order: number
@@ -28,7 +29,10 @@ const SideSlide = ({
 }: SlideProps) => {
     const [isHovered, setIsHovered] = useState(false)
 
-    const styleObj = {
+    const slideStyle = wsp.sideSlideSizeStyle && {
+        background: slide.backgroundValue,
+    }
+    const slideContainerStyle = wsp.sideSlideContainerSizeStyle && {
         background: slide.backgroundValue,
     }
     const sel: Selected = {
@@ -48,36 +52,39 @@ const SideSlide = ({
     }
 
     return (
-        <div
-            className={`${styles.sideSlide}
+        <div className={styles.containerWithNumber}>
+            <span className={styles.number}>{order + 1}</span>
+            <div
+                className={`${styles.sideSlide}
             ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
             ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onClick={(e) => handleClick(e)}
-            onDragStart={(e) => handleDragStart(e, thisSlide)}
-            onDragOver={(e) => handleDragOver(e)}
-            onDrop={(e) => handleDrop(e, thisSlide)}
-            draggable={isDraggable}
-        >
-            <div className={styles.container} style={styleObj}>
-                <div className={styles.content} style={styleObj}>
-                    {thisSlide.objects.map((object, index) => (
-                        <Object
-                            key={index}
-                            object={object}
-                            isSideSlide={true}
-                            selected={selected}
-                            setSelected={setSelected}
-                            isObjectSelected={false}
-                            setMouseState={() => {
-                                console.log()
-                            }}
-                            handleMouseDown={() => {
-                                console.log()
-                            }}
-                        />
-                    ))}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={(e) => handleClick(e)}
+                onDragStart={(e) => handleDragStart(e, thisSlide)}
+                onDragOver={(e) => handleDragOver(e)}
+                onDrop={(e) => handleDrop(e, thisSlide)}
+                draggable={isDraggable}
+            >
+                <div className={styles.container} style={slideContainerStyle}>
+                    <div className={styles.content} style={slideStyle}>
+                        {thisSlide.objects.map((object, index) => (
+                            <Object
+                                key={index}
+                                object={object}
+                                isSideSlide={true}
+                                selected={selected}
+                                setSelected={setSelected}
+                                isObjectSelected={false}
+                                setMouseState={() => {
+                                    console.log()
+                                }}
+                                handleMouseDown={() => {
+                                    console.log()
+                                }}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

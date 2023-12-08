@@ -1,0 +1,215 @@
+.popUpBackground {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(0 0 0 / 60%);
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.popUpBlock {
+    padding: 0 58px 58px;
+    width: 73.7%;
+    height: 74.17%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border-radius: 40px;
+    background: #D9D9D9;
+}
+
+.popUpHeader {
+    margin-top: 28px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popUpHeaderCloseBtn {
+    cursor: pointer;
+}
+
+.popupToolBar {
+    margin: 26px 0 17px 52px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.popupToolBarChoice {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #000000;
+    text-align: center;
+    font-family: Inter;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popupToolBarChoiceSelected {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: default;
+    color: #0B57D0;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popupToolBarLine {
+    width: 100%;
+    height: 1px;
+    background-color: #000000;
+    color: #000000;
+    border-color: #000000;
+}
+
+.popUpContent {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.popUpContentImageLabelBlock {
+    margin-top: 20px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    line-height: 24px;
+    text-align: center;
+    background-color: #C0C0C0;
+    cursor: pointer;
+}
+
+.popUpContentImageLabel {
+}
+
+.popUpContentLinkBlock {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    width: 100%;
+    height: 100%;
+}
+
+.popUpContentLinkInputBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.popUpContentLinkInput {
+    width: 70.67%;
+    height: 60px;
+    background-color: white;
+    outline: none;
+    border: 0;
+    padding-left: 20px;
+    border-radius: 20px;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popUpContentLinkFindBtn {
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    background-color: white;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popUpContentLinkFindBlock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.popUpContentLinkImgBlock {
+    display: flex;
+    justify-content: center;
+    width: 70.67%;
+    height: 390px;
+    background-color: #BFBFBF;
+    border: 0;
+    border-radius: 20px;
+}
+
+.popUpContentLinkImgBtns {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 24px;
+}
+
+.popUpContentLinkImgDeleteBtn {
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    background-color: #800000;
+    color: white;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.popUpContentLinkImgConfirmBtn {
+    width: 250px;
+    height: 60px;
+    text-align: center;
+    background-color: #008000;
+    color: white;
+    border: 0;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.hidden {
+    display: none;
+}
