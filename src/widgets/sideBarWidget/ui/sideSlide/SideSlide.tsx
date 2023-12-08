@@ -48,30 +48,33 @@ const SideSlide = ({
     }
 
     return (
-        <div
-            className={`${styles.sideSlide}
+        <div className={styles.containerWithNumber}>
+            <span className={styles.number}>{order + 1}</span>
+            <div
+                className={`${styles.sideSlide}
             ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
             ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            onClick={(e) => handleClick(e)}
-            onDragStart={(e) => handleDragStart(e, thisSlide)}
-            onDragOver={(e) => handleDragOver(e)}
-            onDrop={(e) => handleDrop(e, thisSlide)}
-            draggable={isDraggable}
-        >
-            <div className={styles.container} style={styleObj}>
-                <div className={styles.content} style={styleObj}>
-                    {thisSlide.objects.map((object, index) => (
-                        <Object
-                            key={index}
-                            object={object}
-                            isSideSlide={true}
-                            selected={selected}
-                            setSelected={setSelected}
-                            isObjectSelected={false}
-                        />
-                    ))}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onClick={(e) => handleClick(e)}
+                onDragStart={(e) => handleDragStart(e, thisSlide)}
+                onDragOver={(e) => handleDragOver(e)}
+                onDrop={(e) => handleDrop(e, thisSlide)}
+                draggable={isDraggable}
+            >
+                <div className={styles.container} style={styleObj}>
+                    <div className={styles.content} style={styleObj}>
+                        {thisSlide.objects.map((object, index) => (
+                            <Object
+                                key={index}
+                                object={object}
+                                isSideSlide={true}
+                                selected={selected}
+                                setSelected={setSelected}
+                                isObjectSelected={false}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

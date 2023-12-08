@@ -127,7 +127,6 @@ const WorkSpaceWidget = ({
 
     return (
         <div
-            className={styles.workSpace}
             onMouseDown={(e) => handleMouseDown(e)}
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseUp={() => handleMouseUp()}

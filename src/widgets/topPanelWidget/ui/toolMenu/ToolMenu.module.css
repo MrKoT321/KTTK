@@ -1,18 +1,15 @@
 .toolMenu {
-    width: 100%;
-    padding: 20px 0;
-    box-sizing: border-box;
     display: flex;
     gap: 10px;
-    background-color: #E4E2E2;
-    z-index: 10000000;
+    background-color: #e4e2e2;
 }
 
-.shapePopupMenu_hidden {
+.shapeDropDown_hidden {
     position: absolute;
     visibility: hidden;
 }
 
-.shapePopupMenu_visible {
+.shapeDropDown_visible {
     position: absolute;
+    z-index: 1;
 }

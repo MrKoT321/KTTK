@@ -22,18 +22,20 @@ type ToolBarProps = {
 
 const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }: ToolBarProps) => {
     return (
-        <div>
-            <button className={styles.saveButton} onClick={() => saveFile({ toolMenuTools, presentationNameTools })}>
+        <div className={styles.toolBar}>
+            <button className={styles.button} onClick={() => saveFile({ toolMenuTools, presentationNameTools })}>
                 Скачать
             </button>
-            <label htmlFor={'open'}>Открыть</label>
-            <input
-                type={'file'}
-                accept={'.json'}
-                id={'open'}
-                className={styles.hidden}
-                onInput={(event: ChangeEvent<HTMLInputElement>) => openFile({ event, presentationsObjTools })}
-            />
+            <button className={styles.button}>
+                <label htmlFor={'open'}>Открыть</label>
+                <input
+                    type={'file'}
+                    accept={'.json'}
+                    id={'open'}
+                    className={styles.hidden}
+                    onInput={(event: ChangeEvent<HTMLInputElement>) => openFile({ event, presentationsObjTools })}
+                />
+            </button>
         </div>
     )
 }
