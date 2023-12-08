@@ -1,3 +1,4 @@
+import { layoutParams as lp, widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
 import { MoveObj } from '../../../../shared/types/MoveObj'
 import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
@@ -32,16 +33,16 @@ const CurrentSlide = ({
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
-    const styleObj = {
+    const currentSlideBackgroundStyle = {
         background: slide.backgroundValue, //TODO: добавить кнопку смены
     }
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
         if (mouseState === 'cursor' && isSelected) {
-            setStartMouseX(e.clientX)
-            setStartMouseY(e.clientY)
-            setCurrentMouseX(e.clientX)
-            setCurrentMouseY(e.clientY)
+            setStartMouseX(e.clientX - lp.sideBarWidth)
+            setStartMouseY(e.clientY - lp.topPanelHeight)
+            setCurrentMouseX(e.clientX - lp.sideBarWidth)
+            setCurrentMouseY(e.clientY - lp.topPanelHeight)
             setMouseState('move')
             selected.objectsIds.map((id) => {
                 const currMoveObj = slide.objects.find((object) => object.id === id)
@@ -49,8 +50,8 @@ const CurrentSlide = ({
                     const style = {
                         width: currMoveObj.width,
                         height: currMoveObj.height,
-                        left: currMoveObj.startX,
-                        top: currMoveObj.startY,
+                        left: currMoveObj.startX + lp.sideBarWidth,
+                        top: currMoveObj.startY + lp.topPanelHeight,
                     }
                     shadowObjs.push({
                         style,
@@ -63,7 +64,7 @@ const CurrentSlide = ({
     }
 
     return (
-        <div className={styles.workSlide} style={styleObj}>
+        <div className={styles.workSlide} style={currentSlideBackgroundStyle && wsp.currentSlideSizeStyle}>
             {slide.objects.map((object, index) => {
                 const isSelected = selected.objectsIds.includes(object.id)
                 return (

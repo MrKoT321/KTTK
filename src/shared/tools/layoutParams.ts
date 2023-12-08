@@ -1,38 +1,43 @@
+const slideSizeRatio = 1.7
+
 const topPanelHeight = 80
 const footerHeight = 10
 const sideBarWidth = 280
 const layoutHeight = window.innerHeight
 const layoutWidth = window.innerWidth
-const sideSlideWidth = 180
-const sideSlideHeight = 100
-const sideSlideContainerWidth = 200
+const sideSlideHeight = 120
 const sideSlideContainerHeight = 120
-// const currentSlideWidth =
-// const currentSlideHeight =
 
-const mainContentMaxHeight = layoutHeight - topPanelHeight - footerHeight
+const mainContentHeight = layoutHeight - topPanelHeight - footerHeight
 const workSpaceWidth = layoutWidth - sideBarWidth
+
+const sideSlideWidth = slideSizeRatio * sideSlideHeight
+const sideSlideContainerWidth = slideSizeRatio * sideSlideContainerHeight
+const currentSlideHeight = 0.7 * mainContentHeight
+const currentSlideWidth = slideSizeRatio * currentSlideHeight
 
 const layoutParams = {
     topPanelHeight,
     layoutHeight,
     layoutWidth,
     footerHeight,
-    mainContentMaxHeight,
+    mainContentHeight,
     sideBarWidth,
     workSpaceWidth,
     sideSlideWidth,
     sideSlideHeight,
     sideSlideContainerWidth,
     sideSlideContainerHeight,
+    currentSlideWidth,
+    currentSlideHeight,
 }
 
 const topPanelSizeStyle = {
     height: topPanelHeight,
 }
 const mainContentSizeStyle = {
-    maxHeight: mainContentMaxHeight,
-    height: mainContentMaxHeight,
+    maxHeight: mainContentHeight,
+    height: mainContentHeight,
 }
 const workSpaceSizeStyle = {
     width: workSpaceWidth,
@@ -60,6 +65,14 @@ const sideSlideContainerSizeStyle = {
     minHeight: sideSlideContainerHeight,
 }
 
+const currentSlideSizeStyle = {
+    width: currentSlideWidth,
+    maxWidth: currentSlideWidth,
+    minWidth: currentSlideWidth,
+    height: currentSlideHeight,
+    maxHeight: currentSlideHeight,
+    minHeight: currentSlideHeight,
+}
 
 const widgetsSizeParams = {
     topPanelSizeStyle,
@@ -67,7 +80,8 @@ const widgetsSizeParams = {
     workSpaceSizeStyle,
     sideBarSizeStyle,
     sideSlideSizeStyle,
-    sideSlideContainerSizeStyle
+    sideSlideContainerSizeStyle,
+    currentSlideSizeStyle,
 }
 
 export { layoutParams, widgetsSizeParams }

@@ -1,7 +1,7 @@
 .toolMenu {
     display: flex;
     gap: 10px;
-    background-color: #E4E2E2;
+    background-color: #e4e2e2;
 }
 
 .shapeDropDown_hidden {

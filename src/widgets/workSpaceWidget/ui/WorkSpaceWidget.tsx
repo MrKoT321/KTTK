@@ -7,6 +7,7 @@ import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
 import { MoveObj } from '../../../shared/types/MoveObj'
 import { changeObjects } from './currentSlide/tools/changeObjects'
+import { layoutParams as lp } from 'shared/tools/layoutParams'
 
 type WorkSpaceWidgetProps = {
     slides: SlideType[]
@@ -77,8 +78,8 @@ const WorkSpaceWidget = ({
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') {
             setIsDraw(true)
-            setStartMouseX(e.clientX - 275)
-            setStartMouseY(e.clientY - 225)
+            setStartMouseX(e.clientX - lp.sideBarWidth)
+            setStartMouseY(e.clientY - lp.topPanelHeight)
         }
     }
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -86,8 +87,8 @@ const WorkSpaceWidget = ({
             (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') &&
             isDraw
         ) {
-            setCurrentMouseX(e.clientX - 275)
-            setCurrentMouseY(e.clientY - 225)
+            setCurrentMouseX(e.clientX - lp.sideBarWidth)
+            setCurrentMouseY(e.clientY - lp.topPanelHeight)
             drawPotentialObject({
                 mouseState,
                 currentMouseX,
@@ -99,8 +100,8 @@ const WorkSpaceWidget = ({
             })
         }
         if (mouseState === 'move') {
-            setCurrentMouseX(e.clientX)
-            setCurrentMouseY(e.clientY)
+            setCurrentMouseX(e.clientX - lp.sideBarWidth)
+            setCurrentMouseY(e.clientY - lp.topPanelHeight)
             setCurrMoveToX(currMoveToX + createMovePosition(startMouseX, currentMouseX, currMoveToX))
             setCurrMoveToY(currMoveToY + createMovePosition(startMouseY, currentMouseY, currMoveToY))
             moveObjs.map((object) => {

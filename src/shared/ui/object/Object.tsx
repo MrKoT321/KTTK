@@ -1,5 +1,6 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
 import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
+import { layoutParams as lp } from 'shared/tools/layoutParams'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
@@ -11,7 +12,7 @@ type ObjectProps = {
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
 }
 
-const scaleSideSlide = 220 / 1080
+const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
 
 const Object = ({
     object,
