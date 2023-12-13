@@ -39,10 +39,10 @@ const CurrentSlide = ({
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
         if (mouseState === 'cursor' && isSelected) {
-            setStartMouseX(e.clientX - lp.sideBarWidth)
-            setStartMouseY(e.clientY - lp.topPanelHeight)
-            setCurrentMouseX(e.clientX - lp.sideBarWidth)
-            setCurrentMouseY(e.clientY - lp.topPanelHeight)
+            setStartMouseX(e.clientX)
+            setStartMouseY(e.clientY)
+            setCurrentMouseX(e.clientX)
+            setCurrentMouseY(e.clientY)
             setMouseState('move')
             selected.objectsIds.map((id) => {
                 const currMoveObj = slide.objects.find((object) => object.id === id)
@@ -50,8 +50,8 @@ const CurrentSlide = ({
                     const style = {
                         width: currMoveObj.width,
                         height: currMoveObj.height,
-                        left: currMoveObj.startX + lp.sideBarWidth,
-                        top: currMoveObj.startY + lp.topPanelHeight,
+                        left: currMoveObj.startX + lp.currentSlideIndentX,
+                        top: currMoveObj.startY + lp.currentSlideIndentY,
                     }
                     shadowObjs.push({
                         style,

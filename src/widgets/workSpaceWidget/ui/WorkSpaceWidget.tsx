@@ -100,8 +100,8 @@ const WorkSpaceWidget = ({
             })
         }
         if (mouseState === 'move') {
-            setCurrentMouseX(e.clientX - lp.sideBarWidth)
-            setCurrentMouseY(e.clientY - lp.topPanelHeight)
+            setCurrentMouseX(e.clientX)
+            setCurrentMouseY(e.clientY)
             setCurrMoveToX(currMoveToX + createMovePosition(startMouseX, currentMouseX, currMoveToX))
             setCurrMoveToY(currMoveToY + createMovePosition(startMouseY, currentMouseY, currMoveToY))
             moveObjs.map((object) => {
@@ -168,6 +168,8 @@ const WorkSpaceWidget = ({
                 }
             })
             setSlides(allSlides)
+            setCurrMoveToX(0)
+            setCurrMoveToY(0)
             setMoveObjs([])
         }
         // if (mouseState != 'cursor' && isObjectChange) {

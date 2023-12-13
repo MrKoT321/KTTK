@@ -11,8 +11,8 @@ const changeObjects = ({ moveObjs, currentSlide }: ChangeObjectParams) => {
     moveObjs.map((currObject) => {
         currentSlide.objects.map((object) => {
             if (object.id === currObject.id) {
-                object.startX = currObject.style.left - lp.sideBarWidth
-                object.startY = currObject.style.top - lp.topPanelHeight
+                object.startX = currObject.style.left - lp.currentSlideIndentX
+                object.startY = currObject.style.top - lp.currentSlideIndentY
             }
         })
     })
