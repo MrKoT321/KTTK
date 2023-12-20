@@ -18,10 +18,10 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const [btnState, setBtnsState] = useState(true)
     const [linkValue, setLinkValue] = useState('')
     const [mouseState, setMouseState] = useState<MouseStates>('creatingBase64Img')
-    const [currentMouseX, setCurrentMouseX] = useState(600) //TODO: Заменить на центр слайда
-    const [currentMouseY, setCurrentMouseY] = useState(600) //TODO: Заменить на центр слайда
-    const [startMouseX, setStartMouseX] = useState(500) //TODO: Заменить на центр слайда
-    const [startMouseY, setStartMouseY] = useState(500) //TODO: Заменить на центр слайда
+    const [currentMouseX, setCurrentMouseX] = useState(600)
+    const [currentMouseY, setCurrentMouseY] = useState(600)
+    const [startMouseX, setStartMouseX] = useState(500)
+    const [startMouseY, setStartMouseY] = useState(500)
     const allSlides = [...slides]
 
     const linkNotUsed = () => {
