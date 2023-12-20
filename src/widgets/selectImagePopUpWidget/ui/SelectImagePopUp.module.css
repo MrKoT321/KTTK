@@ -19,7 +19,7 @@
     flex-direction: column;
     align-items: start;
     border-radius: 40px;
-    background: #d9d9d9;
+    background: #D9D9D9;
 }
 
 .popUpHeader {
@@ -67,7 +67,7 @@
     border: none;
     padding: 0;
     cursor: default;
-    color: #0b57d0;
+    color: #0B57D0;
     font-size: 30px;
     font-style: normal;
     font-weight: 400;
@@ -101,12 +101,11 @@
     font-size: 30px;
     line-height: 24px;
     text-align: center;
-    background-color: #c0c0c0;
+    background-color: #C0C0C0;
     cursor: pointer;
 }
 
 .popUpContentImageLabel {
-
 }
 
 .popUpContentLinkBlock {
@@ -167,7 +166,7 @@
     justify-content: center;
     width: 70.67%;
     height: 390px;
-    background-color: #bfbfbf;
+    background-color: #BFBFBF;
     border: 0;
     border-radius: 20px;
 }
