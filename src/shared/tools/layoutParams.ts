@@ -1,7 +1,7 @@
 const slideSizeRatio = 1.7
 
 const topPanelHeight = 80
-const footerHeight = 10
+const footerHeight = 0
 const sideBarWidth = 280
 const layoutHeight = window.innerHeight
 const layoutWidth = window.innerWidth

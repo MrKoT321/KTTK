@@ -1,6 +1,7 @@
 import { MouseStates, ObjectTextType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
+import React from 'react'
 
 type TextObjProps = ObjectTextType & {
     selected: Selected
@@ -18,22 +19,32 @@ const TextObject = (props: TextObjProps) => {
     // }
     // TODO разобраться в типах
     const childObj = createTextObject(props)
+    const sel: Selected = {
+        slidesIds: [...props.selected.slidesIds],
+        objectsIds: [...props.selected.objectsIds],
+    }
 
-    const handleClick = () => {
-        if (!props.isSelected) {
-            const sel: Selected = {
-                slidesIds: [...props.selected.slidesIds],
-                objectsIds: [props.id],
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.ctrlKey) {
+            if (!props.isSelected) {
+                sel.objectsIds.push(props.id)
             }
-            props.setSelected(sel)
+        } else {
+            // if (!props.isSelected) {
+            //     sel.objectsIds = []
+            // }
+            if (!props.isSelected) {
+                sel.objectsIds = [props.id]
+            }
         }
+        props.setSelected(sel)
     }
 
     return (
         <div
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
             style={{ left: props.startX, top: props.startY, userSelect: 'text' }}
-            onClick={handleClick}
+            onClick={(e) => handleClick(e)}
             onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
         >
             <div style={childObj}>
