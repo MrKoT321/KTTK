@@ -27,6 +27,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
     const [isPopUpOpen, setPopUpState] = useState(false)
+    const [chosenColor, setChosenColor] = useState('#000000')
 
     const openSelectImagePopUp = () => {
         setPopUpState(() => true)
@@ -86,6 +87,15 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
                 }}
             />
             <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
+            <input
+                className={styles.inputColor}
+                type={'color'}
+                value={chosenColor}
+                onChange={(event) => {
+                    setChosenColor(event.target.value)
+                    console.log(event.target.value)
+                }}
+            />
             <div
                 className={isShowShapesPopupMenu ? styles.shapePopupMenu_visible : styles.shapePopupMenu_hidden}
                 style={stylePopupMenu}
