@@ -15,6 +15,8 @@ const sideSlideWidth = slideSizeRatio * sideSlideHeight
 const sideSlideContainerWidth = slideSizeRatio * sideSlideContainerHeight
 const currentSlideHeight = 0.7 * mainContentHeight
 const currentSlideWidth = slideSizeRatio * currentSlideHeight
+const currentSlideIndentX = (workSpaceWidth - currentSlideWidth) / 2
+const currentSlideIndentY = (mainContentHeight - currentSlideHeight) / 2
 
 const layoutParams = {
     topPanelHeight,
@@ -30,6 +32,8 @@ const layoutParams = {
     sideSlideContainerHeight,
     currentSlideWidth,
     currentSlideHeight,
+    currentSlideIndentX,
+    currentSlideIndentY,
 }
 
 const topPanelSizeStyle = {

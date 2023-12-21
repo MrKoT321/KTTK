@@ -24,7 +24,15 @@ const Object = ({
     handleMouseDown,
 }: ObjectProps) => {
     switch (object.oType) {
-        case 'ObjectTextType':
+        case 'ObjectTextType': {
+            const props = {
+                ...object,
+                selected,
+                setSelected,
+                isSelected: isObjectSelected,
+                setMouseState,
+                handleMouseDown,
+            }
             if (isSideSlide) {
                 return (
                     <TextObject
@@ -54,33 +62,8 @@ const Object = ({
                     />
                 )
             }
-            return (
-                <TextObject
-                    id={object.id}
-                    width={object.width}
-                    height={object.height}
-                    startX={object.startX}
-                    startY={object.startY}
-                    borderStyle={object.borderStyle}
-                    borderWidth={object.borderWidth}
-                    borderColor={object.borderColor}
-                    fontSize={object.fontSize}
-                    fontColor={object.fontColor}
-                    fontFamily={object.fontFamily}
-                    bold={object.bold}
-                    italic={object.italic}
-                    underlined={object.underlined}
-                    highlighter={object.highlighter}
-                    underlineColor={object.underlineColor}
-                    value={object.value}
-                    oType={object.oType}
-                    selected={selected}
-                    setSelected={setSelected}
-                    isSelected={isObjectSelected}
-                    setMouseState={setMouseState}
-                    handleMouseDown={handleMouseDown}
-                />
-            )
+            return <TextObject {...props} />
+        }
         case 'ObjectShapeType':
             if (isSideSlide) {
                 switch (object.type) {

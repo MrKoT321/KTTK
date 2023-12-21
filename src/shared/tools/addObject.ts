@@ -31,8 +31,8 @@ const addObject = ({
     let object: ObjectType
 
     const borderWidth = 0
-    const startX = createPosition(startMouseX, currentMouseX) - lp.sideBarWidth - borderWidth
-    const startY = createPosition(startMouseY, currentMouseY) - lp.topPanelHeight - 2 * borderWidth
+    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX - borderWidth
+    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY - 2 * borderWidth
     const width = Math.abs(currentMouseX - startMouseX) + borderWidth
     const height = Math.abs(currentMouseY - startMouseY) + borderWidth
 
