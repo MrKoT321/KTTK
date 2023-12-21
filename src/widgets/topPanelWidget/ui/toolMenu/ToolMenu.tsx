@@ -86,7 +86,6 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
                     changePopupMenuShapesVisibility()
                 }}
             />
-            <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
             <input
                 className={styles.inputColor}
                 type={'color'}
