@@ -11,5 +11,14 @@
 
 .shapeDropDown_visible {
     position: absolute;
-    z-index: 3;
+}
+
+.inputColor {
+    appearance: none;
+    background-color: transparent;
+    width: 37px;
+    height: 37px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
 }

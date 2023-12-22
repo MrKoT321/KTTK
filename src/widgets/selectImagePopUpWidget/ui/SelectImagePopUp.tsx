@@ -18,10 +18,10 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const [btnState, setBtnsState] = useState(true)
     const [linkValue, setLinkValue] = useState('')
     const [mouseState, setMouseState] = useState<MouseStates>('creatingBase64Img')
-    const [currentMouseX, setCurrentMouseX] = useState(600) //TODO: Заменить на центр слайда
-    const [currentMouseY, setCurrentMouseY] = useState(600) //TODO: Заменить на центр слайда
-    const [startMouseX, setStartMouseX] = useState(500) //TODO: Заменить на центр слайда
-    const [startMouseY, setStartMouseY] = useState(500) //TODO: Заменить на центр слайда
+    const [currentMouseX, setCurrentMouseX] = useState(600)
+    const [currentMouseY, setCurrentMouseY] = useState(600)
+    const [startMouseX, setStartMouseX] = useState(500)
+    const [startMouseY, setStartMouseY] = useState(500)
     const allSlides = [...slides]
 
     const linkNotUsed = () => {
@@ -35,9 +35,17 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                 if (res.status != 404) {
                     setIsLinkUsed(true)
                     setImageSrc(linkValue)
+                    const image = new Image()
+                    image.src = linkValue
+                    image.onload = () => {
+                        setStartMouseX(300)
+                        setStartMouseY(100)
+                        setCurrentMouseX(image.width)
+                        setCurrentMouseY(image.height)
+                    }
                 }
             })
-            .catch((err) => {
+            .catch(() => {
                 linkNotUsed()
             })
     }
@@ -50,15 +58,15 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
         }
     }
 
-    const createImage = (someRef: string, imageSrcBase64 = '') => {
+    const createImage = (someRef: string, imageWidth = 0, imageHeight = 0, imageSrcBase64 = '') => {
         if (someRef == 'creatingBase64Img') {
             setMouseState('creatingBase64Img')
             addObject({
                 mouseState,
-                currentMouseX,
-                startMouseX,
-                startMouseY,
-                currentMouseY,
+                currentMouseX: imageWidth,
+                startMouseX: 300,
+                startMouseY: 100,
+                currentMouseY: imageHeight,
                 slides,
                 selected,
                 allSlides,
@@ -93,7 +101,11 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                 const reader = new FileReader()
                 reader.readAsDataURL(file)
                 reader.onload = () => {
-                    createImage('creatingBase64Img', reader.result as string)
+                    const image = new Image()
+                    image.src = reader.result as string
+                    image.onload = () => {
+                        createImage('creatingBase64Img', image.width, image.height, reader.result as string)
+                    }
                     resolve(reader.result as string)
                 }
                 reader.onerror = reject

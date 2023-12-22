@@ -33,7 +33,6 @@
     background-color: #e4e2e2;
     overflow-y: auto;
     overflow-x: hidden;
-    z-index: 2;
 }
 
 .workSpace {

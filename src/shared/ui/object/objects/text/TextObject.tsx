@@ -1,6 +1,7 @@
 import { MouseStates, ObjectTextType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
+import React from 'react'
 
 type TextObjProps = ObjectTextType & {
     selected: Selected
@@ -19,6 +20,10 @@ const TextObject = (props: TextObjProps) => {
     // }
     // TODO разобраться в типах
     const childObj = createTextObject(props)
+    const sel: Selected = {
+        slidesIds: [...props.selected.slidesIds],
+        objectsIds: [...props.selected.objectsIds],
+    }
 
     const quadStyle = {
         left: props.width - 5,
@@ -31,8 +36,8 @@ const TextObject = (props: TextObjProps) => {
                 slidesIds: [...props.selected.slidesIds],
                 objectsIds: [props.id],
             }
-            props.setSelected(sel)
         }
+        props.setSelected(sel)
     }
 
     return (
