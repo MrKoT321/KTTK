@@ -3,14 +3,30 @@ import { EditInputButton } from '../../../../../shared/ui/editInputButton/EditIn
 import { EditImgButton } from '../../../../../shared/ui/editImgButton/EditImgButton'
 import addCircleIcon from '../../../../../shared/icons/addShapeIcon.svg'
 
-const EditTools = () => (
+type EditToolsProps = {
+    editTools: {
+        selectedTextFonts: string
+        setSelectedTextFonts: (selectedTextFonts: string) => void
+        selectedTextSize: number
+        setSelectedTextSize: (selectedTextSize: number) => void
+        bolded: boolean
+        setBolded: (bolded: boolean) => void
+        italic: boolean
+        setItalic: (italic: boolean) => void
+        underlined: boolean
+        setUnderlined: (underlined: boolean) => void
+    }
+}
+
+const EditTools = ({ editTools }: EditToolsProps) => (
     <div className={styles.editTools}>
-        <EditInputButton />
-        <EditImgButton src={addCircleIcon} />
-        <EditImgButton src={addCircleIcon} />
-        <EditImgButton src={addCircleIcon} />
-        <EditImgButton src={addCircleIcon} />
-        <EditImgButton src={addCircleIcon} />
+        <EditInputButton editTools={editTools} type={'font'} />
+        <EditInputButton editTools={editTools} type={'fontSize'} />
+        <EditImgButton editTools={editTools} src={addCircleIcon} type={'bold'} />
+        <EditImgButton editTools={editTools} src={addCircleIcon} type={'italic'} />
+        <EditImgButton editTools={editTools} src={addCircleIcon} type={'underline'} />
+        {/*<EditImgButton src={addCircleIcon} />*/}
+        {/*<EditImgButton src={addCircleIcon} />*/}
     </div>
 )
 

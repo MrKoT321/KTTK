@@ -18,6 +18,11 @@ type CurrentSlideProps = {
     setCurrentMouseY: (currentMouseY: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     currentSlideBg: string
+    selectedTextFonts: string
+    selectedTextSize: number
+    bolded: boolean
+    italic: boolean
+    underlined: boolean
 }
 
 const CurrentSlide = ({
@@ -34,6 +39,11 @@ const CurrentSlide = ({
     setCurrentMouseY,
     handleMouseDownResize,
     currentSlideBg,
+    selectedTextFonts,
+    selectedTextSize,
+    bolded,
+    italic,
+    underlined,
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
@@ -82,6 +92,11 @@ const CurrentSlide = ({
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
+                        selectedTextFonts={selectedTextFonts}
+                        selectedTextSize={selectedTextSize}
+                        bolded={bolded}
+                        italic={italic}
+                        underlined={underlined}
                     />
                 )
             })}

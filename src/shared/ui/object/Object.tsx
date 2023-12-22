@@ -11,6 +11,11 @@ type ObjectProps = {
     setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
+    selectedTextFonts: string
+    selectedTextSize: number
+    bolded: boolean
+    italic: boolean
+    underlined: boolean
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -24,6 +29,11 @@ const Object = ({
     setMouseState,
     handleMouseDown,
     handleMouseDownResize,
+    selectedTextFonts,
+    selectedTextSize,
+    bolded,
+    italic,
+    underlined,
 }: ObjectProps) => {
     switch (object.oType) {
         case 'ObjectTextType': {
@@ -35,6 +45,11 @@ const Object = ({
                 setMouseState,
                 handleMouseDown,
                 handleMouseDownResize,
+                selectedTextFonts,
+                selectedTextSize,
+                bolded,
+                italic,
+                underlined,
             }
             if (isSideSlide) {
                 return (
@@ -51,8 +66,6 @@ const Object = ({
                         fontColor={object.fontColor}
                         fontFamily={object.fontFamily}
                         bold={object.bold}
-                        italic={object.italic}
-                        underlined={object.underlined}
                         highlighter={object.highlighter}
                         underlineColor={object.underlineColor}
                         value={object.value}
@@ -63,6 +76,11 @@ const Object = ({
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
+                        selectedTextFonts={selectedTextFonts}
+                        selectedTextSize={selectedTextSize}
+                        bolded={bolded}
+                        italic={italic}
+                        underlined={underlined}
                     />
                 )
             }

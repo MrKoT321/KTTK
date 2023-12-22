@@ -15,6 +15,11 @@ type SlideProps = {
     handleDragStart(e: React.DragEvent<HTMLDivElement>, slide: SlideType): void
     handleDragOver(e: React.DragEvent<HTMLDivElement>): void
     setCurrentSlideBg: (arg: string) => void
+    selectedTextFonts: string
+    selectedTextSize: number
+    bolded: boolean
+    italic: boolean
+    underlined: boolean
 }
 
 const SideSlide = ({
@@ -28,6 +33,11 @@ const SideSlide = ({
     handleDragStart,
     handleDrop,
     setCurrentSlideBg,
+    selectedTextFonts,
+    selectedTextSize,
+    bolded,
+    italic,
+    underlined,
 }: SlideProps) => {
     const [isHovered, setIsHovered] = useState(false)
 
@@ -93,6 +103,11 @@ const SideSlide = ({
                                 handleMouseDownResize={() => {
                                     console.log()
                                 }}
+                                selectedTextFonts={selectedTextFonts}
+                                selectedTextSize={selectedTextSize}
+                                bolded={bolded}
+                                italic={italic}
+                                underlined={underlined}
                             />
                         ))}
                     </div>

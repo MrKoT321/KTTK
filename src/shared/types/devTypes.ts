@@ -26,6 +26,10 @@ type TextObjProps = ObjectTextType & {
     selected: Selected
     setSelected(selected: Selected): void
     isSelected?: boolean
+    selectedTextFonts: string
+    selectedTextSize: number
+    bolded: boolean
+    underlined: boolean
 }
 
 export type { DrawStyle, TextObjProps, MoveObj }

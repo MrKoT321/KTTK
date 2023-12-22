@@ -10,9 +10,25 @@ type SlideBarProps = {
     selected: Selected
     setSelected: (sel: Selected) => void
     setCurrentSlideBg: (arg: string) => void
+    selectedTextFonts: string
+    selectedTextSize: number
+    bolded: boolean
+    italic: boolean
+    underlined: boolean
 }
 
-const SideBarWidget = ({ slides, setSlides, selected, setSelected, setCurrentSlideBg }: SlideBarProps) => {
+const SideBarWidget = ({
+    slides,
+    setSlides,
+    selected,
+    setSelected,
+    setCurrentSlideBg,
+    selectedTextFonts,
+    selectedTextSize,
+    bolded,
+    italic,
+    underlined,
+}: SlideBarProps) => {
     const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
@@ -77,6 +93,11 @@ const SideBarWidget = ({ slides, setSlides, selected, setSelected, setCurrentSli
                         handleDragStart={handleDragStart}
                         handleDragOver={handleDragOver}
                         setCurrentSlideBg={setCurrentSlideBg}
+                        selectedTextFonts={selectedTextFonts}
+                        selectedTextSize={selectedTextSize}
+                        bolded={bolded}
+                        italic={italic}
+                        underlined={underlined}
                     />
                 )
             })}

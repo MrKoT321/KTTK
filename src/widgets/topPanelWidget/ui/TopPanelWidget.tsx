@@ -22,6 +22,18 @@ type TopPanelWidgetProps = {
         setPresentation: (presentation: Editor) => void
         presentation: Editor
     }
+    editTools: {
+        selectedTextFonts: string
+        setSelectedTextFonts: (selectedTextFonts: string) => void
+        selectedTextSize: number
+        setSelectedTextSize: (selectedTextSize: number) => void
+        bolded: boolean
+        setBolded: (bolded: boolean) => void
+        italic: boolean
+        setItalic: (italic: boolean) => void
+        underlined: boolean
+        setUnderlined: (underlined: boolean) => void
+    }
 }
 
 const TopPanelWidget = ({
@@ -29,6 +41,7 @@ const TopPanelWidget = ({
     presentationNameTools,
     setMouseState,
     presentationsObjTools,
+    editTools,
 }: TopPanelWidgetProps) => (
     <>
         <div className={styles.top}>
@@ -48,7 +61,7 @@ const TopPanelWidget = ({
                 currentSlideBg={toolMenuTools.currentSlideBg}
                 setCurrentSlideBg={toolMenuTools.setCurrentSlideBg}
             />
-            <EditTools />
+            <EditTools editTools={editTools} />
         </div>
     </>
 )

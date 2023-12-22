@@ -16,6 +16,11 @@ type WorkSpaceWidgetProps = {
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
     currentSlideBg: string
+    selectedTextFonts: string
+    selectedTextSize: number
+    bolded: boolean
+    italic: boolean
+    underlined: boolean
 }
 
 const WorkSpaceWidget = ({
@@ -26,6 +31,11 @@ const WorkSpaceWidget = ({
     mouseState,
     setMouseState,
     currentSlideBg,
+    selectedTextFonts,
+    selectedTextSize,
+    bolded,
+    italic,
+    underlined,
 }: WorkSpaceWidgetProps) => {
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const allSlides = slides.map((slide) => {
@@ -280,6 +290,11 @@ const WorkSpaceWidget = ({
                 setCurrentMouseY={setCurrentMouseY}
                 handleMouseDownResize={handleMouseDownResize}
                 currentSlideBg={currentSlideBg}
+                selectedTextFonts={selectedTextFonts}
+                selectedTextSize={selectedTextSize}
+                bolded={bolded}
+                italic={italic}
+                underlined={underlined}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {
