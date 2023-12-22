@@ -5,6 +5,9 @@ import { useState } from 'react'
 import { DrawStyle } from '../../../shared/types/DrawStyle'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
+import { MoveObj } from '../../../shared/types/MoveObj'
+import { changeObjects } from './currentSlide/tools/changeObjects'
+import { layoutParams as lp } from 'shared/tools/layoutParams'
 
 type WorkSpaceWidgetProps = {
     slides: SlideType[]
@@ -24,7 +27,7 @@ const WorkSpaceWidget = ({
     setMouseState,
 }: WorkSpaceWidgetProps) => {
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
-    const currentSlide = slides.find((slide) => slide.id === lastSlideId)
+    const currentSlide = slides.find((slide) => slide.id === lastSlideId) ?? slides[0]
     const allSlides = [...slides]
 
     const [currentMouseX, setCurrentMouseX] = useState(0)
@@ -32,9 +35,8 @@ const WorkSpaceWidget = ({
     const [startMouseX, setStartMouseX] = useState(0)
     const [startMouseY, setStartMouseY] = useState(0)
 
-    const [isDraw, setIsDraw] = useState(false)
-    const [isObjectMove, setIsObjectMove] = useState(false)
     const [isObjectChange, setIsObjectChange] = useState(false)
+    const [isDraw, setIsDraw] = useState(false)
 
     const [styleObj, setStyleObj] = useState<DrawStyle>({
         opacity: 0,
@@ -47,6 +49,23 @@ const WorkSpaceWidget = ({
         borderWidth: 2,
         borderStyle: 'solid',
     })
+    const [moveObjs, setMoveObjs] = useState<MoveObj[]>([])
+
+    const [currMoveToX, setCurrMoveToX] = useState(0)
+    const [currMoveToY, setCurrMoveToY] = useState(0)
+
+    const createMovePosition = (startMousePos: number, currentMousePos: number, currMoveTo: number) => {
+        if (startMousePos >= currentMousePos) {
+            console.log('move', moveTo, currentMousePos, startMousePos)
+            return currentMousePos - startMousePos - currMoveTo
+        } else {
+            if (currMoveTo < 0) {
+                return currentMousePos - startMousePos + currMoveTo
+            } else {
+                return currentMousePos - startMousePos - currMoveTo
+            }
+        }
+    }
 
     const createPosition = (startMousePos: number, currentMousePos: number) => {
         if (startMousePos >= currentMousePos) {
@@ -57,16 +76,19 @@ const WorkSpaceWidget = ({
     }
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (mouseState != 'cursor' && !isObjectChange) {
+        if (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') {
             setIsDraw(true)
-            setStartMouseX(e.clientX - 275)
-            setStartMouseY(e.clientY - 225)
+            setStartMouseX(e.clientX - lp.sideBarWidth)
+            setStartMouseY(e.clientY - lp.topPanelHeight)
         }
     }
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (mouseState != 'cursor' && isDraw) {
-            setCurrentMouseX(e.clientX - 275)
-            setCurrentMouseY(e.clientY - 225)
+        if (
+            (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') &&
+            isDraw
+        ) {
+            setCurrentMouseX(e.clientX - lp.sideBarWidth)
+            setCurrentMouseY(e.clientY - lp.topPanelHeight)
             drawPotentialObject({
                 mouseState,
                 currentMouseX,
@@ -76,6 +98,21 @@ const WorkSpaceWidget = ({
                 setStyleObj,
                 createPosition,
             })
+        }
+        if (mouseState === 'move') {
+            setCurrentMouseX(e.clientX)
+            setCurrentMouseY(e.clientY)
+            setCurrMoveToX(currMoveToX + createMovePosition(startMouseX, currentMouseX, currMoveToX))
+            setCurrMoveToY(currMoveToY + createMovePosition(startMouseY, currentMouseY, currMoveToY))
+            moveObjs.map((object) => {
+                object.style = {
+                    left: object.style.left + createMovePosition(startMouseX, currentMouseX, currMoveToX),
+                    top: object.style.top + createMovePosition(startMouseY, currentMouseY, currMoveToY),
+                    width: object.style.width,
+                    height: object.style.height,
+                }
+            })
+            setMoveObjs(moveObjs)
         }
         // if (mouseState === 'cursor' && isObjectChange) {
         //     setCurrentMouseX(e.clientX - 275)
@@ -92,7 +129,10 @@ const WorkSpaceWidget = ({
         // }
     }
     const handleMouseUp = () => {
-        if (mouseState != 'cursor' && isDraw) {
+        if (
+            (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') &&
+            isDraw
+        ) {
             setIsDraw(false)
             setMouseState('cursor')
             addObject({
@@ -119,6 +159,19 @@ const WorkSpaceWidget = ({
                 borderStyle: 'solid',
             })
         }
+        if (mouseState === 'move') {
+            setMouseState('cursor')
+            changeObjects({ moveObjs, currentSlide })
+            allSlides.map((slide) => {
+                if (slide.id === currentSlide.id) {
+                    slide = currentSlide
+                }
+            })
+            setSlides(allSlides)
+            setCurrMoveToX(0)
+            setCurrMoveToY(0)
+            setMoveObjs([])
+        }
         // if (mouseState != 'cursor' && isObjectChange) {
         //     setIsObjectChange(false)
         //     setMouseState('cursor')
@@ -127,13 +180,27 @@ const WorkSpaceWidget = ({
 
     return (
         <div
-            className={styles.workSpace}
             onMouseDown={(e) => handleMouseDown(e)}
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseUp={() => handleMouseUp()}
         >
-            <CurrentSlide slide={currentSlide ?? slides[0]} selected={selected} setSelected={setSelected} />
+            <CurrentSlide
+                slide={currentSlide}
+                selected={selected}
+                setSelected={setSelected}
+                setMouseState={setMouseState}
+                mouseState={mouseState}
+                setMoveObjs={setMoveObjs}
+                moveObjs={moveObjs}
+                setStartMouseX={setStartMouseX}
+                setStartMouseY={setStartMouseY}
+                setCurrentMouseX={setCurrentMouseX}
+                setCurrentMouseY={setCurrentMouseY}
+            />
             <div style={styleObj} className={styles.drawPotentialObject} />
+            {moveObjs.map((object, index) => {
+                return <div style={object.style} className={styles.moveObjs} key={index} />
+            })}
         </div>
     )
 }

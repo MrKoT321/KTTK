@@ -1,4 +1,5 @@
 import { MouseStates, ObjectType, Selected, SlideType } from '../types/types'
+import { layoutParams as lp } from './layoutParams'
 
 type AddObjectParams = {
     mouseState: MouseStates
@@ -29,11 +30,11 @@ const addObject = ({
 }: AddObjectParams) => {
     let object: ObjectType
 
-    const borderWidth = 15
-    const startX = createPosition(startMouseX, currentMouseX) - 240
-    const startY = createPosition(startMouseY, currentMouseY) - 80
+    const borderWidth = 0
+    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX - borderWidth
+    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY - 2 * borderWidth
     const width = Math.abs(currentMouseX - startMouseX) + borderWidth
-    const height = Math.abs(currentMouseY - startMouseY)
+    const height = Math.abs(currentMouseY - startMouseY) + borderWidth
 
     const createObjectId = () => {
         if (slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length != 0) {
@@ -73,7 +74,7 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 0,
+                borderWidth: borderWidth,
                 borderColor: '#000000',
                 caption: '123',
                 imageSrcType: 'imageBase64',
@@ -89,7 +90,7 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 15,
+                borderWidth: borderWidth,
                 //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
                 fontSize: 14,
@@ -112,7 +113,7 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'solid',
-                borderWidth: 15,
+                borderWidth: borderWidth,
                 borderColor: 'black',
                 type: 'rect',
                 shapeBgColor: 'yellow',
@@ -127,7 +128,7 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'solid',
-                borderWidth: 15,
+                borderWidth: borderWidth,
                 borderColor: 'blue',
                 type: 'circle',
                 radius: Math.abs(currentMouseX - startMouseX / 2),
@@ -143,7 +144,7 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 15,
+                borderWidth: borderWidth,
                 borderColor: 'black',
                 type: 'line',
                 shapeBgColor: 'yellow',

@@ -1,5 +1,4 @@
 import { Selected, SlideType } from '../../../shared/types/types'
-import styles from './SideBarWidget.module.css'
 import { SideSlide } from './sideSlide/SideSlide'
 import React, { useState } from 'react'
 import { drop } from '../tools/drop'
@@ -27,7 +26,7 @@ const SideBarWidget = ({ slides, setSlides, selected, setSelected }: SlideBarPro
     }
 
     return (
-        <div className={styles.sideBar}>
+        <>
             {slides.map((slide, index) => {
                 const isSelected = selected.slidesIds.includes(slide.id)
                 return (
@@ -45,7 +44,7 @@ const SideBarWidget = ({ slides, setSlides, selected, setSelected }: SlideBarPro
                     />
                 )
             })}
-        </div>
+        </>
     )
 }
 

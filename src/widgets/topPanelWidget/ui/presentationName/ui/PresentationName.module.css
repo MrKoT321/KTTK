@@ -1,0 +1,18 @@
+.presentationNameInput {
+    width: 300px;
+    height: 30px;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-size: 16px;
+    color: #5e5e5e;
+    border: 2px solid #5e5e5e;
+    background-color: #e4e2e2;
+}
+
+.presentationNameInput:focus {
+    font-size: 16px;
+    margin: 0;
+    box-shadow: none;
+    border: 2px solid #000000;
+    outline: none;
+}

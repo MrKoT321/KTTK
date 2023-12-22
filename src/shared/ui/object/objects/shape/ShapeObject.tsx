@@ -6,6 +6,7 @@ type ShapeObjProps = ObjectShapeType & {
     selected: Selected
     setSelected(selected: Selected): void
     isSelected: boolean
+    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
 }
 
 const ShapeObject = (props: ShapeObjProps) => {
@@ -30,6 +31,7 @@ const ShapeObject = (props: ShapeObjProps) => {
             style={styleParentObj}
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
             onClick={handleClick}
+            onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
         >
             <div style={styleChildObj}></div>
         </div>

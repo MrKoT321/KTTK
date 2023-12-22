@@ -25,8 +25,8 @@ const drawPotentialObject = ({
         case 'creatingRect':
             setStyleObj({
                 opacity: 100,
-                top: createPosition(startMouseY, currentMouseY),
-                left: createPosition(startMouseX, currentMouseX),
+                top: createPosition(startMouseY, currentMouseY) + 2,
+                left: createPosition(startMouseX, currentMouseX) + 2,
                 width: Math.abs(currentMouseX - startMouseX),
                 height: Math.abs(currentMouseY - startMouseY),
                 borderColor: 'gray',
@@ -38,8 +38,8 @@ const drawPotentialObject = ({
         case 'creatingCircle':
             setStyleObj({
                 opacity: 100,
-                top: createPosition(startMouseY, currentMouseY),
-                left: createPosition(startMouseX, currentMouseX),
+                top: createPosition(startMouseY, currentMouseY) + 2,
+                left: createPosition(startMouseX, currentMouseX) + 2,
                 width: Math.abs(currentMouseX - startMouseX),
                 height: Math.abs(currentMouseY - startMouseY),
                 borderColor: 'gray',

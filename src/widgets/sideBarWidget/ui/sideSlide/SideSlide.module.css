@@ -1,5 +1,10 @@
+.containerWithNumber {
+    display: flex;
+    gap: 10px;
+}
+
 .sideSlide {
-    border-radius: 30px;
+    border-radius: 15px;
     cursor: grab;
 }
 
@@ -19,10 +24,8 @@
 }
 
 .container {
-    width: 240px;
-    height: 150px;
     background: #FFFFFF;
-    border-radius: 30px;
+    border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,8 +33,6 @@
 }
 
 .content {
-    width: 220px;
-    height: 130px;
     background: #FFFFFF;
     position: relative;
     overflow: hidden;

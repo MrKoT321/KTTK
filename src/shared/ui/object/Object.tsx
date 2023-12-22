@@ -1,5 +1,6 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import { ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
+import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
+import { layoutParams as lp } from 'shared/tools/layoutParams'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
@@ -7,13 +8,31 @@ type ObjectProps = {
     selected: Selected
     setSelected: (selected: Selected) => void
     isObjectSelected: boolean
+    setMouseState: (mouseState: MouseStates) => void
+    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
 }
 
-const scaleSideSlide = 220 / 1080
+const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
 
-const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }: ObjectProps) => {
+const Object = ({
+    object,
+    isSideSlide,
+    selected,
+    setSelected,
+    isObjectSelected,
+    setMouseState,
+    handleMouseDown,
+}: ObjectProps) => {
     switch (object.oType) {
-        case 'ObjectTextType':
+        case 'ObjectTextType': {
+            const props = {
+                ...object,
+                selected,
+                setSelected,
+                isSelected: isObjectSelected,
+                setMouseState,
+                handleMouseDown,
+            }
             if (isSideSlide) {
                 return (
                     <TextObject
@@ -38,34 +57,13 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                         selected={selected}
                         setSelected={setSelected}
                         isSelected={isObjectSelected}
+                        setMouseState={setMouseState}
+                        handleMouseDown={handleMouseDown}
                     />
                 )
             }
-            return (
-                <TextObject
-                    id={object.id}
-                    width={object.width}
-                    height={object.height}
-                    startX={object.startX}
-                    startY={object.startY}
-                    borderStyle={object.borderStyle}
-                    borderWidth={object.borderWidth}
-                    borderColor={object.borderColor}
-                    fontSize={object.fontSize}
-                    fontColor={object.fontColor}
-                    fontFamily={object.fontFamily}
-                    bold={object.bold}
-                    italic={object.italic}
-                    underlined={object.underlined}
-                    highlighter={object.highlighter}
-                    underlineColor={object.underlineColor}
-                    value={object.value}
-                    oType={object.oType}
-                    selected={selected}
-                    setSelected={setSelected}
-                    isSelected={isObjectSelected}
-                />
-            )
+            return <TextObject {...props} />
+        }
         case 'ObjectShapeType':
             if (isSideSlide) {
                 switch (object.type) {
@@ -87,6 +85,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                                 selected={selected}
                                 setSelected={setSelected}
                                 isSelected={isObjectSelected}
+                                handleMouseDown={handleMouseDown}
                             />
                         )
                     case 'rect':
@@ -108,6 +107,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                                 selected={selected}
                                 setSelected={setSelected}
                                 isSelected={isObjectSelected}
+                                handleMouseDown={handleMouseDown}
                             />
                         )
                         break
@@ -132,6 +132,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                             selected={selected}
                             setSelected={setSelected}
                             isSelected={isObjectSelected}
+                            handleMouseDown={handleMouseDown}
                         />
                     )
                 case 'rect':
@@ -153,6 +154,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                             selected={selected}
                             setSelected={setSelected}
                             isSelected={isObjectSelected}
+                            handleMouseDown={handleMouseDown}
                         />
                     )
             }
@@ -176,6 +178,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                         selected={selected}
                         setSelected={setSelected}
                         isSelected={isObjectSelected}
+                        handleMouseDown={handleMouseDown}
                     />
                 )
                 break
@@ -197,6 +200,7 @@ const Object = ({ object, isSideSlide, selected, setSelected, isObjectSelected }
                     selected={selected}
                     setSelected={setSelected}
                     isSelected={isObjectSelected}
+                    handleMouseDown={handleMouseDown}
                 />
             )
     }

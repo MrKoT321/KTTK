@@ -1,0 +1,54 @@
+.layout {
+    display: flex;
+    color: #5E5E5E;
+    flex-direction: column;
+    user-select: none;
+    overflow: hidden;
+    background-color: #E4E2E2;
+}
+
+.topPanel {
+    padding: 20px 100px;
+    box-sizing: border-box;
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    background-color: #E4E2E2;
+    z-index: 2;
+}
+
+.mainContent {
+    display: flex;
+}
+
+.sideBar {
+    width: 280px;
+    margin: 10px 0;
+    padding: 5px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #E4E2E2;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 2;
+}
+
+.workSpace {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border-left: solid #000000 3px;
+    border-top: solid #000000 3px;
+    background-color: #E4E2E2;
+    z-index: 1;
+}
+
+.footer {
+    background: #E4E2E2;
+}
