@@ -2,12 +2,11 @@ import styles from './WorkSpaceWidget.module.css'
 import { MouseStates, Selected, SlideType } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
 import { useState } from 'react'
-import { DrawStyle } from '../../../shared/types/DrawStyle'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
-import { MoveObj } from '../../../shared/types/MoveObj'
 import { changeObjects } from './currentSlide/tools/changeObjects'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
+import { DrawStyle, MoveObj } from '../../../shared/types/devTypes'
 
 type WorkSpaceWidgetProps = {
     slides: SlideType[]

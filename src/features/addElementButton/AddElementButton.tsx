@@ -8,7 +8,7 @@ type AddElementButtonProps = {
 
 const AddElementButton = ({ icon, onClick, label }: AddElementButtonProps) => {
     return (
-        <button
+        <label
             className={label === undefined ? styles.button_withoutText : styles.button_withText}
             onClick={() => {
                 onClick()
@@ -16,7 +16,7 @@ const AddElementButton = ({ icon, onClick, label }: AddElementButtonProps) => {
         >
             <img src={icon} className={styles.image} />
             <span className={label === undefined ? styles.hidden : styles.text}>{label}</span>
-        </button>
+        </label>
     )
 }
 

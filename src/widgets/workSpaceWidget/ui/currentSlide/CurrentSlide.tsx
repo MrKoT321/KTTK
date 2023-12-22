@@ -1,8 +1,8 @@
 import { layoutParams as lp, widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
-import { MoveObj } from '../../../../shared/types/MoveObj'
 import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
+import { MoveObj } from '../../../../shared/types/devTypes'
 
 type CurrentSlideProps = {
     slide: SlideType

@@ -3,7 +3,7 @@ import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
 import { useEffect, useState } from 'react'
 import { Editor, MouseStates } from '../../../shared/types/types'
-import { minEditor } from '../../../shared/types/testData'
+import { minEditor } from '../../../shared/testData'
 import { Layout } from './layout/Layout'
 
 const PresentationMaker = () => {

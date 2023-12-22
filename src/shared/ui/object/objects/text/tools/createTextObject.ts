@@ -1,4 +1,4 @@
-import { TextObjProps } from '../../../../../types/TextObjProps'
+import { TextObjProps } from '../../../../../types/devTypes'
 
 const createTextObject = (props: TextObjProps) => {
     let fontStyle = 'normal'

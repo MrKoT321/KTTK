@@ -1,5 +1,5 @@
-import { DrawStyle } from '../../../shared/types/DrawStyle'
 import { MouseStates } from '../../../shared/types/types'
+import { DrawStyle } from '../../../shared/types/devTypes'
 
 type DrawPotentialObjectParams = {
     mouseState: MouseStates

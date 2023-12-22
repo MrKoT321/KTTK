@@ -1,0 +1,24 @@
+.editInputButton {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #5E5E5E;
+    outline: none;
+}
+
+.input:focus {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid #000000;
+}

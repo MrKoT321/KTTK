@@ -1,7 +1,9 @@
 .toolMenu {
+    width: 300px;
     display: flex;
     gap: 10px;
-    background-color: #e4e2e2;
+    align-items: center;
+    background-color: #E4E2E2;
 }
 
 .shapeDropDown_hidden {
@@ -14,11 +16,14 @@
 }
 
 .inputColor {
+    width: 30px;
+    height: 30px;
+    padding: 0 2px;
     appearance: none;
     background-color: transparent;
-    width: 37px;
-    height: 37px;
-    border: 1px solid black;
+    outline: none;
+    box-shadow: none;
     border-radius: 5px;
+    border: 1px solid #5E5E5E;
     cursor: pointer;
 }

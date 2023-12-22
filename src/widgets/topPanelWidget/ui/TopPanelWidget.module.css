@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    display: flex;
+    gap: 50px;
+}
+
+.bottom {
+    display: flex;
+    gap: 50px;
+}

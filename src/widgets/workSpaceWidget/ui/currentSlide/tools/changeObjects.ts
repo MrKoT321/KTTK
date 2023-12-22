@@ -1,6 +1,6 @@
 import { layoutParams as lp } from 'shared/tools/layoutParams'
-import { MoveObj } from '../../../../../shared/types/MoveObj'
 import { SlideType } from '../../../../../shared/types/types'
+import { MoveObj } from '../../../../../shared/types/devTypes'
 
 type ChangeObjectParams = {
     moveObjs: MoveObj[]

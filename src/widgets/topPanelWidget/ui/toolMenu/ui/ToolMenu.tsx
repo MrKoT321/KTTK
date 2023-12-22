@@ -1,19 +1,19 @@
 import styles from './ToolMenu.module.css'
-import addSlideIcon from '../../../../shared/icons/addSlideIcon.svg'
-import chooseTemplateIcon from '../../../../shared/icons/chooseTemplateIcon.svg'
-import cancelIcon from '../../../../shared/icons/cancelIcon.svg'
-import returnIcon from '../../../../shared/icons/returnIcon.svg'
-import pointerIcon from '../../../../shared/icons/pointerIcon.svg'
-import addTextIcon from '../../../../shared/icons/addTextIcon.svg'
-import addImageIcon from '../../../../shared/icons/addImageIcon.svg'
-import addShapeIcon from '../../../../shared/icons/addShapeIcon.svg'
-import addRectangleIcon from '../../../../shared/icons/addRectangleIcon.svg'
-import addCircleIcon from '../../../../shared/icons/addCircleIcon.svg'
-import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
+import addSlideIcon from '../../../../../shared/icons/addSlideIcon.svg'
+import chooseTemplateIcon from '../../../../../shared/icons/chooseTemplateIcon.svg'
+import cancelIcon from '../../../../../shared/icons/cancelIcon.svg'
+import returnIcon from '../../../../../shared/icons/returnIcon.svg'
+import pointerIcon from '../../../../../shared/icons/pointerIcon.svg'
+import addTextIcon from '../../../../../shared/icons/addTextIcon.svg'
+import addImageIcon from '../../../../../shared/icons/addImageIcon.svg'
+import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
+import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
+import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
+import { MouseStates, Selected, SlideType } from '../../../../../shared/types/types'
 import { useState } from 'react'
-import { addSlide } from './tools/addSlide'
-import { AddElementButton } from '../../../../features/addElementButton/AddElementButton'
-import { DropdownMenu } from '../../../../features/dropdownMenu/DropdownMenu'
+import { addSlide } from '../tools/addSlide'
+import { AddElementButton } from '../../../../../features/addElementButton/AddElementButton'
+import { DropdownMenu } from '../../../../../features/dropdownMenu/DropdownMenu'
 import { SelectImagePopUp } from 'widgets/selectImagePopUpWidget'
 
 type ToolMenuProps = {
@@ -37,9 +37,9 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
         setPopUpState(() => false)
     }
 
-    const stylePopupMenu = {
-        marginLeft: 384,
-        marginTop: 40,
+    const styleDropDownMenu = {
+        marginLeft: 200,
+        marginTop: 115,
     }
     const onClickFuncs = [() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]
 
@@ -97,7 +97,7 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
             />
             <div
                 className={isShowShapesPopupMenu ? styles.shapeDropDown_visible : styles.shapeDropDown_hidden}
-                style={stylePopupMenu}
+                style={styleDropDownMenu}
             >
                 <DropdownMenu
                     icons={[addRectangleIcon, addCircleIcon]}
