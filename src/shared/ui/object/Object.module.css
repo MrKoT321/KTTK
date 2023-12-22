@@ -16,3 +16,12 @@
     height: 10px;
     background-color: blue;
 }
+
+.text {
+    resize: none;
+    position: absolute;
+}
+
+.text:focus {
+    outline: none;
+}

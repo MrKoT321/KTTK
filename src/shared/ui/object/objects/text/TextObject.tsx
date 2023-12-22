@@ -53,7 +53,7 @@ const TextObject = (props: TextObjProps) => {
                 ></div>
             )}
             <div style={childObj} onClick={handleClick} onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}>
-                <span>{props.value}</span>
+                <textarea placeholder="Введите текст" className={styles.text} style={childObj}></textarea>
             </div>
         </div>
     )
