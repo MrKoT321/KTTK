@@ -6,6 +6,7 @@ type ImageObjProps = ObjectImageType & {
     setSelected(selected: Selected): void
     isSelected: boolean
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const ImageObject = (props: ImageObjProps) => {
@@ -26,6 +27,10 @@ const ImageObject = (props: ImageObjProps) => {
         left: props.startX,
         top: props.startY,
     }
+    const quadStyle = {
+        left: props.width - 5,
+        top: -5,
+    }
 
     const handleClick = () => {
         const sel: Selected = {
@@ -36,13 +41,19 @@ const ImageObject = (props: ImageObjProps) => {
     }
 
     return (
-        <div
-            style={styleObj}
-            className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
-            onClick={handleClick}
-            onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
-        >
-            <div style={styleParentObj}>
+        <div style={styleObj} className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}>
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={quadStyle}
+                    onMouseDown={(e) => props.handleMouseDownResize(e)}
+                ></div>
+            )}
+            <div
+                style={styleParentObj}
+                onClick={handleClick}
+                onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
+            >
                 <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />
             </div>
         </div>

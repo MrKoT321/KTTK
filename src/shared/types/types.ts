@@ -9,6 +9,7 @@ type MouseStates =
     | 'creatingBase64Img'
     | 'creatingLinkImg'
     | 'move'
+    | 'resize'
 
 type GeneralObjectType = {
     id: number

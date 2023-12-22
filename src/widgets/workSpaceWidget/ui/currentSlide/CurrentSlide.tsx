@@ -16,6 +16,7 @@ type CurrentSlideProps = {
     setStartMouseY: (startMouseY: number) => void
     setCurrentMouseX: (currentMouseX: number) => void
     setCurrentMouseY: (currentMouseY: number) => void
+    handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const CurrentSlide = ({
@@ -30,6 +31,7 @@ const CurrentSlide = ({
     setStartMouseY,
     setCurrentMouseX,
     setCurrentMouseY,
+    handleMouseDownResize,
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
@@ -76,6 +78,7 @@ const CurrentSlide = ({
                         isObjectSelected={isSelected}
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
+                        handleMouseDownResize={handleMouseDownResize}
                     />
                 )
             })}

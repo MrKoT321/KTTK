@@ -79,6 +79,9 @@ const SideSlide = ({
                                 handleMouseDown={() => {
                                     console.log()
                                 }}
+                                handleMouseDownResize={() => {
+                                    console.log()
+                                }}
                             />
                         ))}
                     </div>

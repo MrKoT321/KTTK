@@ -29,13 +29,16 @@ const WorkSpaceWidget = ({
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId) ?? slides[0]
     const allSlides = [...slides]
+    const currSelected = { ...selected }
 
     const [currentMouseX, setCurrentMouseX] = useState(0)
     const [currentMouseY, setCurrentMouseY] = useState(0)
     const [startMouseX, setStartMouseX] = useState(0)
     const [startMouseY, setStartMouseY] = useState(0)
 
-    const [isObjectChange, setIsObjectChange] = useState(false)
+    const [startWidth, setStartWidth] = useState(0)
+    const [startHeight, setStartHeight] = useState(0)
+
     const [isDraw, setIsDraw] = useState(false)
 
     const [styleObj, setStyleObj] = useState<DrawStyle>({
@@ -114,19 +117,19 @@ const WorkSpaceWidget = ({
             })
             setMoveObjs(moveObjs)
         }
-        // if (mouseState === 'cursor' && isObjectChange) {
-        //     setCurrentMouseX(e.clientX - 275)
-        //     setCurrentMouseY(e.clientY - 225)
-        //     drawPotentialObject({
-        //         mouseState,
-        //         currentMouseX,
-        //         startMouseX,
-        //         startMouseY,
-        //         currentMouseY,
-        //         setStyleObj,
-        //         createPosition,
-        //     })
-        // }
+        if (mouseState === 'resize') {
+            setCurrentMouseX(e.clientX - lp.sideBarWidth)
+            setCurrentMouseY(e.clientY - lp.topPanelHeight)
+            drawPotentialObject({
+                mouseState: 'creatingRect',
+                currentMouseX,
+                startMouseX,
+                startMouseY,
+                currentMouseY,
+                setStyleObj,
+                createPosition,
+            })
+        }
     }
     const handleMouseUp = () => {
         if (
@@ -172,10 +175,84 @@ const WorkSpaceWidget = ({
             setCurrMoveToY(0)
             setMoveObjs([])
         }
-        // if (mouseState != 'cursor' && isObjectChange) {
-        //     setIsObjectChange(false)
-        //     setMouseState('cursor')
-        // }
+        if (mouseState === 'resize') {
+            setMouseState('cursor')
+            const newObjects = currentSlide.objects.map((object) => {
+                if (selected.objectsIds.includes(object.id)) {
+                    object.width = object.width * (styleObj.width / startWidth)
+                    console.log(styleObj.width, startWidth)
+                    console.log(styleObj.width / startWidth)
+                    object.height = object.height * (styleObj.height / startHeight)
+                    console.log(styleObj.height, startHeight)
+                    console.log(styleObj.height / startHeight)
+                    object.startX = startMouseX - lp.currentSlideIndentX
+                    object.startY = startMouseY - styleObj.height - lp.currentSlideIndentY
+                }
+                return object
+            })
+            const newSlides = allSlides.map((slide) => {
+                if (slide.id === currentSlide.id) {
+                    slide.objects = newObjects
+                }
+                return slide
+            })
+            setSlides(newSlides)
+            setStyleObj({
+                opacity: 0,
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0,
+                borderColor: 'black',
+                borderRadius: 10,
+                borderWidth: 2,
+                borderStyle: 'solid',
+            })
+        }
+    }
+
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        const currObject = currentSlide.objects.find(
+            (obj) =>
+                e.clientX - lp.sideBarWidth - lp.currentSlideIndentX > obj.startX &&
+                e.clientX - lp.sideBarWidth - lp.currentSlideIndentX < obj.startX + obj.width &&
+                e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
+                e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
+        )
+        if (selected.objectsIds.length !== 0) {
+            if (currObject) {
+                currSelected.objectsIds = [currObject.id]
+            } else {
+                currSelected.objectsIds = []
+            }
+            setSelected(currSelected)
+        }
+        if (currObject) {
+            currSelected.objectsIds = [currObject.id]
+        }
+    }
+
+    const handleMouseDownResize = (e: React.MouseEvent<HTMLDivElement>) => {
+        setMouseState('resize')
+        let minX = 1920
+        let maxY = 0
+        selected.objectsIds.map((id) => {
+            const currobj = currentSlide.objects.find((object) => object.id === id) ?? {
+                startX: minX,
+                startY: maxY,
+                height: 0,
+            }
+            if (minX > currobj.startX) {
+                minX = currobj.startX
+            }
+            if (maxY < currobj.startY + currobj.height) {
+                maxY = currobj.startY + currobj.height
+            }
+        })
+        setStartMouseX(minX + lp.currentSlideIndentX)
+        setStartMouseY(maxY + lp.currentSlideIndentY)
+        setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX)
+        setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
     }
 
     return (
@@ -183,6 +260,7 @@ const WorkSpaceWidget = ({
             onMouseDown={(e) => handleMouseDown(e)}
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseUp={() => handleMouseUp()}
+            onClick={(e) => handleClick(e)}
         >
             <CurrentSlide
                 slide={currentSlide}
@@ -196,6 +274,7 @@ const WorkSpaceWidget = ({
                 setStartMouseY={setStartMouseY}
                 setCurrentMouseX={setCurrentMouseX}
                 setCurrentMouseY={setCurrentMouseY}
+                handleMouseDownResize={handleMouseDownResize}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {

@@ -7,15 +7,21 @@ type ShapeObjProps = ObjectShapeType & {
     setSelected(selected: Selected): void
     isSelected: boolean
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const ShapeObject = (props: ShapeObjProps) => {
     const styleChildObj = createShapeObject(props)
     const styleParentObj = {
-        width: props.width + props.borderWidth,
-        height: props.height + props.borderWidth,
+        width: props.width + 2 * props.borderWidth,
+        height: props.height + 2 * props.borderWidth,
         left: props.startX,
         top: props.startY,
+    }
+
+    const quadStyle = {
+        left: props.width - 5,
+        top: -5,
     }
 
     const handleClick = () => {
@@ -30,10 +36,19 @@ const ShapeObject = (props: ShapeObjProps) => {
         <div
             style={styleParentObj}
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
-            onClick={handleClick}
-            onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
         >
-            <div style={styleChildObj}></div>
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={quadStyle}
+                    onMouseDown={(e) => props.handleMouseDownResize(e)}
+                ></div>
+            )}
+            <div
+                style={styleChildObj}
+                onClick={handleClick}
+                onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
+            ></div>
         </div>
     )
 }

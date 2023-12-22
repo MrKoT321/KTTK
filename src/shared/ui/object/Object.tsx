@@ -10,6 +10,7 @@ type ObjectProps = {
     isObjectSelected: boolean
     setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -22,6 +23,7 @@ const Object = ({
     isObjectSelected,
     setMouseState,
     handleMouseDown,
+    handleMouseDownResize,
 }: ObjectProps) => {
     switch (object.oType) {
         case 'ObjectTextType': {
@@ -32,6 +34,7 @@ const Object = ({
                 isSelected: isObjectSelected,
                 setMouseState,
                 handleMouseDown,
+                handleMouseDownResize,
             }
             if (isSideSlide) {
                 return (
@@ -59,6 +62,7 @@ const Object = ({
                         isSelected={isObjectSelected}
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
+                        handleMouseDownResize={handleMouseDownResize}
                     />
                 )
             }
@@ -86,6 +90,7 @@ const Object = ({
                                 setSelected={setSelected}
                                 isSelected={isObjectSelected}
                                 handleMouseDown={handleMouseDown}
+                                handleMouseDownResize={handleMouseDownResize}
                             />
                         )
                     case 'rect':
@@ -108,6 +113,7 @@ const Object = ({
                                 setSelected={setSelected}
                                 isSelected={isObjectSelected}
                                 handleMouseDown={handleMouseDown}
+                                handleMouseDownResize={handleMouseDownResize}
                             />
                         )
                         break
@@ -133,6 +139,7 @@ const Object = ({
                             setSelected={setSelected}
                             isSelected={isObjectSelected}
                             handleMouseDown={handleMouseDown}
+                            handleMouseDownResize={handleMouseDownResize}
                         />
                     )
                 case 'rect':
@@ -155,6 +162,7 @@ const Object = ({
                             setSelected={setSelected}
                             isSelected={isObjectSelected}
                             handleMouseDown={handleMouseDown}
+                            handleMouseDownResize={handleMouseDownResize}
                         />
                     )
             }
@@ -179,6 +187,7 @@ const Object = ({
                         setSelected={setSelected}
                         isSelected={isObjectSelected}
                         handleMouseDown={handleMouseDown}
+                        handleMouseDownResize={handleMouseDownResize}
                     />
                 )
                 break
@@ -201,6 +210,7 @@ const Object = ({
                     setSelected={setSelected}
                     isSelected={isObjectSelected}
                     handleMouseDown={handleMouseDown}
+                    handleMouseDownResize={handleMouseDownResize}
                 />
             )
     }

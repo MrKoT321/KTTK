@@ -8,6 +8,7 @@ type TextObjProps = ObjectTextType & {
     isSelected: boolean
     setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const TextObject = (props: TextObjProps) => {
@@ -18,6 +19,11 @@ const TextObject = (props: TextObjProps) => {
     // }
     // TODO разобраться в типах
     const childObj = createTextObject(props)
+
+    const quadStyle = {
+        left: props.width - 5,
+        top: -5,
+    }
 
     const handleClick = () => {
         if (!props.isSelected) {
@@ -33,10 +39,15 @@ const TextObject = (props: TextObjProps) => {
         <div
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
             style={{ left: props.startX, top: props.startY, userSelect: 'text' }}
-            onClick={handleClick}
-            onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
         >
-            <div style={childObj}>
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={quadStyle}
+                    onMouseDown={(e) => props.handleMouseDownResize(e)}
+                ></div>
+            )}
+            <div style={childObj} onClick={handleClick} onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}>
                 <span>{props.value}</span>
             </div>
         </div>
