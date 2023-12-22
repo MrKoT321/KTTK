@@ -18,11 +18,6 @@ type TextObjProps = ObjectTextType & {
 }
 
 const TextObject = (props: TextObjProps) => {
-    // const parentObj = {
-    //     left: props.startX,
-    //     top: props.startY,
-    //     userSelect: userSelectValue,
-    // }
     // TODO разобраться в типах
     const childObj = createTextObject(props)
     const sel: Selected = {
