@@ -8,9 +8,10 @@ type SlideBarProps = {
     setSlides(slides: SlideType[]): void
     selected: Selected
     setSelected: (sel: Selected) => void
+    setCurrentSlideBg: (arg: string) => void
 }
 
-const SideBarWidget = ({ slides, setSlides, selected, setSelected }: SlideBarProps) => {
+const SideBarWidget = ({ slides, setSlides, selected, setSelected, setCurrentSlideBg }: SlideBarProps) => {
     const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
@@ -41,6 +42,7 @@ const SideBarWidget = ({ slides, setSlides, selected, setSelected }: SlideBarPro
                         handleDrop={handleDrop}
                         handleDragStart={handleDragStart}
                         handleDragOver={handleDragOver}
+                        setCurrentSlideBg={setCurrentSlideBg}
                     />
                 )
             })}

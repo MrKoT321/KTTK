@@ -12,11 +12,15 @@ const PresentationMaker = () => {
     const [slides, setSlides] = useState(presentation.document.slides)
     const [presentationName, setPresentationName] = useState(presentation.document.name)
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
+    const currentSlide = slides.find((slide) => slide.id === sel.slidesIds[sel.slidesIds.length - 1]) ?? slides[0]
+    const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
 
     const toolMenuTools = {
         setSlides: setSlides,
-        slides: slides,
+        slides,
         selected: sel,
+        currentSlideBg,
+        setCurrentSlideBg,
     }
     const presentationNameTools = {
         setName: setPresentationName,
@@ -43,7 +47,15 @@ const PresentationMaker = () => {
                     presentationsObjTools={presentationsObjTools}
                 />
             }
-            sideBar={<SideBarWidget slides={slides} selected={sel} setSelected={setSel} setSlides={setSlides} />}
+            sideBar={
+                <SideBarWidget
+                    slides={slides}
+                    selected={sel}
+                    setSelected={setSel}
+                    setSlides={setSlides}
+                    setCurrentSlideBg={setCurrentSlideBg}
+                />
+            }
             workSpace={
                 <WorkSpaceWidget
                     slides={slides}
@@ -52,6 +64,7 @@ const PresentationMaker = () => {
                     setSlides={setSlides}
                     mouseState={mouseState}
                     setMouseState={setMouseState}
+                    currentSlideBg={currentSlideBg}
                 />
             }
             footer={<></>}

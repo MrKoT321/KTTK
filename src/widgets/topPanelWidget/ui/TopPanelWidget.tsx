@@ -10,6 +10,8 @@ type TopPanelWidgetProps = {
         slides: SlideType[]
         setSlides: (slides: SlideType[]) => void
         selected: Selected
+        currentSlideBg: string
+        setCurrentSlideBg: (currentSlideBg: string) => void
     }
     presentationNameTools: {
         setName: (name: string) => void
@@ -43,6 +45,8 @@ const TopPanelWidget = ({
                 setSlides={toolMenuTools.setSlides}
                 setMouseState={setMouseState}
                 selected={toolMenuTools.selected}
+                currentSlideBg={toolMenuTools.currentSlideBg}
+                setCurrentSlideBg={toolMenuTools.setCurrentSlideBg}
             />
             <EditTools />
         </div>

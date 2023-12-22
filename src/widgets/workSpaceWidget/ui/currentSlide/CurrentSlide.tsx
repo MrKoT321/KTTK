@@ -17,6 +17,7 @@ type CurrentSlideProps = {
     setCurrentMouseX: (currentMouseX: number) => void
     setCurrentMouseY: (currentMouseY: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
+    currentSlideBg: string
 }
 
 const CurrentSlide = ({
@@ -32,11 +33,13 @@ const CurrentSlide = ({
     setCurrentMouseX,
     setCurrentMouseY,
     handleMouseDownResize,
+    currentSlideBg,
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
-    const currentSlideBackgroundStyle = {
-        background: slide.backgroundValue, //TODO: добавить кнопку смены
+    const currentSlideStyle = {
+        ...wsp.currentSlideSizeStyle,
+        background: currentSlideBg, //TODO: добавить кнопку смены
     }
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
@@ -66,7 +69,7 @@ const CurrentSlide = ({
     }
 
     return (
-        <div className={styles.workSlide} style={currentSlideBackgroundStyle && wsp.currentSlideSizeStyle}>
+        <div className={styles.workSlide} style={currentSlideStyle}>
             {slide.objects.map((object, index) => {
                 const isSelected = selected.objectsIds.includes(object.id)
                 return (

@@ -24,16 +24,13 @@
 }
 
 .container {
-    background: #FFFFFF;
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: solid #FFFFFF 5px;
 }
 
 .content {
-    background: #FFFFFF;
     position: relative;
     overflow: hidden;
 }

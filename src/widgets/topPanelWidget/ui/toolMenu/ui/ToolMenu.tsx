@@ -10,7 +10,7 @@ import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
 import { MouseStates, Selected, SlideType } from '../../../../../shared/types/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { addSlide } from '../tools/addSlide'
 import { AddElementButton } from '../../../../../features/addElementButton/AddElementButton'
 import { DropdownMenu } from '../../../../../features/dropdownMenu/DropdownMenu'
@@ -21,13 +21,15 @@ type ToolMenuProps = {
     setSlides: (slides: SlideType[]) => void
     setMouseState: (mouseState: MouseStates) => void
     selected: Selected
+    currentSlideBg: string
+    setCurrentSlideBg(currentSlideBg: string): void
 }
 
-const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps) => {
+const ToolMenu = ({ slides, setSlides, setMouseState, selected, currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
     const [isPopUpOpen, setPopUpState] = useState(false)
-    const [chosenColor, setChosenColor] = useState('#000000')
+    // const [chosenColor, setChosenColor] = useState('#000000')
 
     const openSelectImagePopUp = () => {
         setPopUpState(() => true)
@@ -89,10 +91,9 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected }: ToolMenuProps)
             <input
                 className={styles.inputColor}
                 type={'color'}
-                value={chosenColor}
+                value={currentSlideBg}
                 onChange={(event) => {
-                    setChosenColor(event.target.value)
-                    console.log(event.target.value)
+                    setCurrentSlideBg(event.target.value)
                 }}
             />
             <div

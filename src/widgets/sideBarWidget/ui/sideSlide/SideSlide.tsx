@@ -14,6 +14,7 @@ type SlideProps = {
     handleDrop(e: React.DragEvent<HTMLDivElement>, slide: SlideType): void
     handleDragStart(e: React.DragEvent<HTMLDivElement>, slide: SlideType): void
     handleDragOver(e: React.DragEvent<HTMLDivElement>): void
+    setCurrentSlideBg: (arg: string) => void
 }
 
 const SideSlide = ({
@@ -26,11 +27,19 @@ const SideSlide = ({
     handleDragOver,
     handleDragStart,
     handleDrop,
+    setCurrentSlideBg,
 }: SlideProps) => {
     const [isHovered, setIsHovered] = useState(false)
 
-    const slideBackgroundStyle = {
+    const slideStyle = {
+        ...wsp.sideSlideContainerSizeStyle,
         background: slide.backgroundValue,
+    }
+    const slideContainerStyle = {
+        ...slideStyle,
+        borderColor: slide.backgroundValue,
+        borderWidth: 5,
+        borderStyle: 'solid',
     }
     const sel: Selected = {
         slidesIds: [...selected.slidesIds],
@@ -46,6 +55,7 @@ const SideSlide = ({
             sel.slidesIds = [thisSlide.id]
         }
         setSelected(sel)
+        setCurrentSlideBg(slide.backgroundValue)
     }
 
     return (
@@ -55,6 +65,7 @@ const SideSlide = ({
                 className={`${styles.sideSlide}
             ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
             ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
+                style={{ background: slideStyle.background }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={(e) => handleClick(e)}
@@ -63,8 +74,8 @@ const SideSlide = ({
                 onDrop={(e) => handleDrop(e, thisSlide)}
                 draggable={isDraggable}
             >
-                <div className={styles.container} style={slideBackgroundStyle && wsp.sideSlideContainerSizeStyle}>
-                    <div className={styles.content} style={slideBackgroundStyle && wsp.sideSlideSizeStyle}>
+                <div className={styles.container} style={slideContainerStyle}>
+                    <div className={styles.content} style={slideStyle}>
                         {thisSlide.objects.map((object, index) => (
                             <Object
                                 key={index}
