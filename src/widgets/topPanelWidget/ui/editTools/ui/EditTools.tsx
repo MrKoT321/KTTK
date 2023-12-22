@@ -15,6 +15,8 @@ type EditToolsProps = {
         setItalic: (italic: boolean) => void
         underlined: boolean
         setUnderlined: (underlined: boolean) => void
+        textColor: string
+        setTextColor: (textColor: string) => void
     }
 }
 
@@ -25,7 +27,7 @@ const EditTools = ({ editTools }: EditToolsProps) => (
         <EditImgButton editTools={editTools} src={addCircleIcon} type={'bold'} />
         <EditImgButton editTools={editTools} src={addCircleIcon} type={'italic'} />
         <EditImgButton editTools={editTools} src={addCircleIcon} type={'underline'} />
-        {/*<EditImgButton src={addCircleIcon} />*/}
+        <EditImgButton editTools={editTools} type={'textColor'} />
         {/*<EditImgButton src={addCircleIcon} />*/}
     </div>
 )

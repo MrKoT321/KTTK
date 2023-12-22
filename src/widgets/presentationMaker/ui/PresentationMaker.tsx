@@ -19,6 +19,7 @@ const PresentationMaker = () => {
     const [bolded, setBolded] = useState(false)
     const [italic, setItalic] = useState(false)
     const [underlined, setUnderlined] = useState(false)
+    const [textColor, setTextColor] = useState('#000000')
 
     const toolMenuTools = {
         setSlides: setSlides,
@@ -38,6 +39,8 @@ const PresentationMaker = () => {
         setItalic: setItalic,
         underlined: underlined,
         setUnderlined: setUnderlined,
+        textColor: textColor,
+        setTextColor: setTextColor,
     }
     const presentationNameTools = {
         setName: setPresentationName,
@@ -77,6 +80,7 @@ const PresentationMaker = () => {
                     bolded={bolded}
                     italic={italic}
                     underlined={underlined}
+                    textColor={textColor}
                 />
             }
             workSpace={
@@ -93,6 +97,7 @@ const PresentationMaker = () => {
                     bolded={bolded}
                     italic={italic}
                     underlined={underlined}
+                    textColor={textColor}
                 />
             }
             footer={<></>}

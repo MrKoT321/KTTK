@@ -23,6 +23,7 @@ type CurrentSlideProps = {
     bolded: boolean
     italic: boolean
     underlined: boolean
+    textColor: string
 }
 
 const CurrentSlide = ({
@@ -44,6 +45,7 @@ const CurrentSlide = ({
     bolded,
     italic,
     underlined,
+    textColor,
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
@@ -97,6 +99,7 @@ const CurrentSlide = ({
                         bolded={bolded}
                         italic={italic}
                         underlined={underlined}
+                        textColor={textColor}
                     />
                 )
             })}

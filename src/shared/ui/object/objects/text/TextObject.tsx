@@ -15,6 +15,7 @@ type TextObjProps = ObjectTextType & {
     bolded: boolean
     italic: boolean
     underlined: boolean
+    textColor: string
 }
 
 const TextObject = (props: TextObjProps) => {

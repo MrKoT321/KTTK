@@ -30,6 +30,7 @@ type TextObjProps = ObjectTextType & {
     selectedTextSize: number
     bolded: boolean
     underlined: boolean
+    textColor: string
 }
 
 export type { DrawStyle, TextObjProps, MoveObj }

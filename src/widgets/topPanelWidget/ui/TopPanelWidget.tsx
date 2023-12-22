@@ -33,6 +33,8 @@ type TopPanelWidgetProps = {
         setItalic: (italic: boolean) => void
         underlined: boolean
         setUnderlined: (underlined: boolean) => void
+        textColor: string
+        setTextColor: (textColor: string) => void
     }
 }
 

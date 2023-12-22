@@ -15,6 +15,7 @@ type SlideBarProps = {
     bolded: boolean
     italic: boolean
     underlined: boolean
+    textColor: string
 }
 
 const SideBarWidget = ({
@@ -28,6 +29,7 @@ const SideBarWidget = ({
     bolded,
     italic,
     underlined,
+    textColor,
 }: SlideBarProps) => {
     const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
 
@@ -98,6 +100,7 @@ const SideBarWidget = ({
                         bolded={bolded}
                         italic={italic}
                         underlined={underlined}
+                        textColor={textColor}
                     />
                 )
             })}

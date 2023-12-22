@@ -21,6 +21,7 @@ type WorkSpaceWidgetProps = {
     bolded: boolean
     italic: boolean
     underlined: boolean
+    textColor: string
 }
 
 const WorkSpaceWidget = ({
@@ -36,6 +37,7 @@ const WorkSpaceWidget = ({
     bolded,
     italic,
     underlined,
+    textColor,
 }: WorkSpaceWidgetProps) => {
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const allSlides = slides.map((slide) => {
@@ -295,6 +297,7 @@ const WorkSpaceWidget = ({
                 bolded={bolded}
                 italic={italic}
                 underlined={underlined}
+                textColor={textColor}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {

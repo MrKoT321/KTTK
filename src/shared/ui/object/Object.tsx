@@ -16,6 +16,7 @@ type ObjectProps = {
     bolded: boolean
     italic: boolean
     underlined: boolean
+    textColor: string
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -34,6 +35,7 @@ const Object = ({
     bolded,
     italic,
     underlined,
+    textColor,
 }: ObjectProps) => {
     switch (object.oType) {
         case 'ObjectTextType': {
@@ -50,6 +52,7 @@ const Object = ({
                 bolded,
                 italic,
                 underlined,
+                textColor,
             }
             if (isSideSlide) {
                 return (
@@ -81,6 +84,7 @@ const Object = ({
                         bolded={bolded}
                         italic={italic}
                         underlined={underlined}
+                        textColor={textColor}
                     />
                 )
             }

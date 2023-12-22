@@ -20,6 +20,7 @@ type SlideProps = {
     bolded: boolean
     italic: boolean
     underlined: boolean
+    textColor: string
 }
 
 const SideSlide = ({
@@ -38,6 +39,7 @@ const SideSlide = ({
     bolded,
     italic,
     underlined,
+    textColor,
 }: SlideProps) => {
     const [isHovered, setIsHovered] = useState(false)
 
@@ -108,6 +110,7 @@ const SideSlide = ({
                                 bolded={bolded}
                                 italic={italic}
                                 underlined={underlined}
+                                textColor={textColor}
                             />
                         ))}
                     </div>
