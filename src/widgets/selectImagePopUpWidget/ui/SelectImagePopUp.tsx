@@ -40,8 +40,8 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                     image.onload = () => {
                         setStartMouseX(300)
                         setStartMouseY(100)
-                        setCurrentMouseX(image.width)
-                        setCurrentMouseY(image.height)
+                        setCurrentMouseX(300 + image.width)
+                        setCurrentMouseY(100 + image.height)
                     }
                 }
             })
@@ -63,10 +63,10 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
             setMouseState('creatingBase64Img')
             addObject({
                 mouseState,
-                currentMouseX: imageWidth,
+                currentMouseX: 300 + imageWidth,
                 startMouseX: 300,
                 startMouseY: 100,
-                currentMouseY: imageHeight,
+                currentMouseY: 100 + imageHeight,
                 slides,
                 selected,
                 allSlides,
