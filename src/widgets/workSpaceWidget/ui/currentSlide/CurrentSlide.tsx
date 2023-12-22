@@ -3,6 +3,7 @@ import { MoveObj } from '../../../../shared/types/MoveObj'
 import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
+import { useRef } from 'react'
 
 type CurrentSlideProps = {
     slide: SlideType
@@ -16,6 +17,8 @@ type CurrentSlideProps = {
     setStartMouseY: (startMouseY: number) => void
     setCurrentMouseX: (currentMouseX: number) => void
     setCurrentMouseY: (currentMouseY: number) => void
+    slideSize: number[]
+    setSlideSize: (slideSize: number[]) => void
 }
 
 const CurrentSlide = ({
@@ -30,12 +33,15 @@ const CurrentSlide = ({
     setStartMouseY,
     setCurrentMouseX,
     setCurrentMouseY,
+    slideSize,
+    setSlideSize,
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
     const currentSlideBackgroundStyle = {
         background: slide.backgroundValue, //TODO: добавить кнопку смены
     }
+    const slideRef = useRef(null)
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
         if (mouseState === 'cursor' && isSelected) {

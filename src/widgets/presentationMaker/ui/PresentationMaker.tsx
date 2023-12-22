@@ -12,6 +12,7 @@ const PresentationMaker = () => {
     const [slides, setSlides] = useState(presentation.document.slides)
     const [presentationName, setPresentationName] = useState(presentation.document.name)
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
+    const [slideSize, setSlideSize] = useState([0, 0])
 
     const toolMenuTools = {
         setSlides: setSlides,
@@ -52,6 +53,8 @@ const PresentationMaker = () => {
                     setSlides={setSlides}
                     mouseState={mouseState}
                     setMouseState={setMouseState}
+                    slideSize={slideSize}
+                    setSlideSize={setSlideSize}
                 />
             }
             footer={<></>}

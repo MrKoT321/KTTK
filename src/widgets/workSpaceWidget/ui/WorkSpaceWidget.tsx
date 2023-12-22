@@ -16,6 +16,8 @@ type WorkSpaceWidgetProps = {
     setSlides: (slides: SlideType[]) => void
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
+    slideSize: number[]
+    setSlideSize: (slideSize: number[]) => void
 }
 
 const WorkSpaceWidget = ({
@@ -25,6 +27,8 @@ const WorkSpaceWidget = ({
     setSlides,
     mouseState,
     setMouseState,
+    slideSize,
+    setSlideSize,
 }: WorkSpaceWidgetProps) => {
     const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
     const currentSlide = slides.find((slide) => slide.id === lastSlideId) ?? slides[0]
@@ -196,6 +200,8 @@ const WorkSpaceWidget = ({
                 setStartMouseY={setStartMouseY}
                 setCurrentMouseX={setCurrentMouseX}
                 setCurrentMouseY={setCurrentMouseY}
+                slideSize={slideSize}
+                setSlideSize={setSlideSize}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {
