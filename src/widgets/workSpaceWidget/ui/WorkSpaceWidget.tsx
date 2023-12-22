@@ -188,11 +188,7 @@ const WorkSpaceWidget = ({
             const newObjects = currentSlide.objects.map((object) => {
                 if (selected.objectsIds.includes(object.id)) {
                     object.width = object.width * (styleObj.width / startWidth)
-                    console.log(styleObj.width, startWidth)
-                    console.log(styleObj.width / startWidth)
                     object.height = object.height * (styleObj.height / startHeight)
-                    console.log(styleObj.height, startHeight)
-                    console.log(styleObj.height / startHeight)
                     object.startX = startMouseX - lp.currentSlideIndentX
                     object.startY = startMouseY - styleObj.height - lp.currentSlideIndentY
                 }
