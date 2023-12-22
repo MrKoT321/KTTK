@@ -10,7 +10,7 @@ import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
 import { MouseStates, Selected, SlideType } from '../../../../../shared/types/types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { addSlide } from '../tools/addSlide'
 import { AddElementButton } from '../../../../../features/addElementButton/AddElementButton'
 import { DropdownMenu } from '../../../../../features/dropdownMenu/DropdownMenu'
@@ -29,7 +29,6 @@ const ToolMenu = ({ slides, setSlides, setMouseState, selected, currentSlideBg, 
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const allSlides = [...slides]
     const [isPopUpOpen, setPopUpState] = useState(false)
-    // const [chosenColor, setChosenColor] = useState('#000000')
 
     const openSelectImagePopUp = () => {
         setPopUpState(() => true)

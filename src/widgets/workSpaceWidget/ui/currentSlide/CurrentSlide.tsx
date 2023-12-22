@@ -1,8 +1,9 @@
 import { layoutParams as lp, widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
-import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
+import { MouseStates, ObjectShapeType, Selected, SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
 import { MoveObj } from '../../../../shared/types/devTypes'
+import { useEffect } from 'react'
 
 type CurrentSlideProps = {
     slide: SlideType
@@ -18,6 +19,8 @@ type CurrentSlideProps = {
     setCurrentMouseY: (currentMouseY: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     currentSlideBg: string
+    slides: SlideType[]
+    setSlides(slides: SlideType[]): void
 }
 
 const CurrentSlide = ({
@@ -34,6 +37,8 @@ const CurrentSlide = ({
     setCurrentMouseY,
     handleMouseDownResize,
     currentSlideBg,
+    slides,
+    setSlides,
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
@@ -67,6 +72,46 @@ const CurrentSlide = ({
             setMoveObjs(shadowObjs)
         }
     }
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        const emptyObject: ObjectShapeType = {
+            id: -1,
+            width: -1,
+            height: -1,
+            startX: -1,
+            startY: -1,
+            borderStyle: 'none',
+            borderWidth: -1,
+            borderColor: '',
+            shapeBgColor: '',
+            type: 'line',
+            oType: 'ObjectShapeType',
+        }
+        if (e.key === 'Delete') {
+            const newObjects = slide.objects.map((object) => {
+                if (!selected.objectsIds.includes(object.id)) {
+                    return object
+                }
+                return emptyObject
+            })
+            console.log('newObjects = ', newObjects)
+            const allObjects = newObjects.filter((object) => object.id !== emptyObject.id)
+            const newSlides = slides.map((slideFrom) => {
+                if (slideFrom.id === slide.id) {
+                    slideFrom.objects = allObjects
+                    return slideFrom
+                }
+                return slideFrom
+            })
+            setSlides(newSlides)
+            const currSelected = { ...selected, objectId: [] }
+            setSelected(currSelected)
+        }
+    }
+    useEffect(() => {
+        document.addEventListener('keydown', (e) => handleKeyDown(e))
+        return document.removeEventListener('keydown', (e) => handleKeyDown(e))
+    }, [selected.objectsIds])
 
     return (
         <div className={styles.workSlide} style={currentSlideStyle}>

@@ -23,7 +23,6 @@ const saveFile = ({ toolMenuTools, presentationNameTools }: SaveFileParams) => {
             slidesIds: toolMenuTools.selected.slidesIds,
         },
     }
-    console.log('editor = ', editor)
     const text = JSON.stringify(editor)
     const a = document.createElement('a')
     const file = new Blob([text], { type: 'application/json' })

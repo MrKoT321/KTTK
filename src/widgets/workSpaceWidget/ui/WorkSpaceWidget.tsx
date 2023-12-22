@@ -67,7 +67,6 @@ const WorkSpaceWidget = ({
 
     const createMovePosition = (startMousePos: number, currentMousePos: number, currMoveTo: number) => {
         if (startMousePos >= currentMousePos) {
-            console.log('move', moveTo, currentMousePos, startMousePos)
             return currentMousePos - startMousePos - currMoveTo
         } else {
             if (currMoveTo < 0) {
@@ -280,6 +279,8 @@ const WorkSpaceWidget = ({
                 setCurrentMouseY={setCurrentMouseY}
                 handleMouseDownResize={handleMouseDownResize}
                 currentSlideBg={currentSlideBg}
+                slides={slides}
+                setSlides={setSlides}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {

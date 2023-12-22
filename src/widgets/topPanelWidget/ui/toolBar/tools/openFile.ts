@@ -19,7 +19,6 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
         'load',
         () => {
             const result = reader.result
-            console.log('result = ', result)
             if (typeof result === 'string') {
                 try {
                     JSON.parse(result)
@@ -28,7 +27,6 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
                     return
                 }
                 const parsedResult: Editor = JSON.parse(result)
-                console.log('parsedResult = ', parsedResult)
                 if (
                     'document' in parsedResult &&
                     'selected' in parsedResult &&
@@ -42,7 +40,7 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
                     alert('Невозможно открыть файл')
                 }
             } else {
-                console.log('Ошибка декодирования')
+                alert('Ошибка декодирования')
             }
         },
         false,
