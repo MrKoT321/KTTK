@@ -13,10 +13,6 @@ type TopPanelWidgetProps = {
         currentSlideBg: string
         setCurrentSlideBg: (currentSlideBg: string) => void
     }
-    presentationNameTools: {
-        setName: (name: string) => void
-        name: string
-    }
     setMouseState: (mouseState: MouseStates) => void
     presentationsObjTools: {
         setPresentation: (presentation: Editor) => void
@@ -38,21 +34,11 @@ type TopPanelWidgetProps = {
     }
 }
 
-const TopPanelWidget = ({
-    toolMenuTools,
-    presentationNameTools,
-    setMouseState,
-    presentationsObjTools,
-    editTools,
-}: TopPanelWidgetProps) => (
+const TopPanelWidget = ({ toolMenuTools, setMouseState, presentationsObjTools, editTools }: TopPanelWidgetProps) => (
     <>
         <div className={styles.top}>
-            <PresentationName setName={presentationNameTools.setName} name={presentationNameTools.name} />
-            <ToolBar
-                toolMenuTools={toolMenuTools}
-                presentationNameTools={presentationNameTools}
-                presentationsObjTools={presentationsObjTools}
-            />
+            <PresentationName />
+            <ToolBar toolMenuTools={toolMenuTools} presentationsObjTools={presentationsObjTools} />
         </div>
         <div className={styles.bottom}>
             <ToolMenu

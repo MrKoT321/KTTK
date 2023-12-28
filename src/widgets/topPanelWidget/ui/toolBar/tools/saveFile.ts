@@ -1,4 +1,5 @@
 import { Editor, Selected, SlideType } from '../../../../../shared/types/types'
+import { useAppSelector } from '../../../../../shared/redux/store'
 
 type SaveFileParams = {
     toolMenuTools: {
@@ -6,16 +7,13 @@ type SaveFileParams = {
         setSlides(slides: SlideType[]): void
         selected: Selected
     }
-    presentationNameTools: {
-        setName: (name: string) => void
-        name: string
-    }
 }
 
-const saveFile = ({ toolMenuTools, presentationNameTools }: SaveFileParams) => {
+const saveFile = ({ toolMenuTools }: SaveFileParams) => {
+    const presentationName = useAppSelector((state) => state.presentationName.name)
     const editor: Editor = {
         document: {
-            name: presentationNameTools.name,
+            name: presentationName,
             slides: toolMenuTools.slides,
         },
         selected: {
@@ -28,7 +26,7 @@ const saveFile = ({ toolMenuTools, presentationNameTools }: SaveFileParams) => {
     const a = document.createElement('a')
     const file = new Blob([text], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = presentationNameTools.name
+    a.download = presentationName
     a.click()
 }
 

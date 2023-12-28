@@ -10,20 +10,16 @@ type ToolBarProps = {
         setSlides(slides: SlideType[]): void
         selected: Selected
     }
-    presentationNameTools: {
-        setName: (name: string) => void
-        name: string
-    }
     presentationsObjTools: {
         setPresentation(presentation: Editor): void
         presentation: Editor
     }
 }
 
-const ToolBar = ({ toolMenuTools, presentationNameTools, presentationsObjTools }: ToolBarProps) => {
+const ToolBar = ({ toolMenuTools, presentationsObjTools }: ToolBarProps) => {
     return (
         <div className={styles.toolBar}>
-            <button className={styles.button} onClick={() => saveFile({ toolMenuTools, presentationNameTools })}>
+            <button className={styles.button} onClick={() => saveFile({ toolMenuTools })}>
                 Скачать
             </button>
             <button className={styles.button}>

@@ -1,20 +1,20 @@
 import styles from './PresentationName.module.css'
+import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
 
-type PresentationNameProps = {
-    setName(name: string): void
-    name: string
+const PresentationName = () => {
+    const { setPresentationName } = useAppActions()
+    const presentationName = useAppSelector((state) => state.presentationName.name)
+    return (
+        <input
+            className={styles.presentationNameInput}
+            placeholder={'Назавание презентации'}
+            value={presentationName}
+            type={'text'}
+            onChange={(event) => {
+                setPresentationName(event.target.value)
+            }}
+        />
+    )
 }
-
-const PresentationName = ({ setName, name }: PresentationNameProps) => (
-    <input
-        className={styles.presentationNameInput}
-        placeholder={'Назавание презентации'}
-        value={name}
-        type={'text'}
-        onChange={(event) => {
-            setName(event.target.value)
-        }}
-    />
-)
 
 export { PresentationName }

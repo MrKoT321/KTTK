@@ -42,10 +42,6 @@ const PresentationMaker = () => {
         textColor: textColor,
         setTextColor: setTextColor,
     }
-    const presentationNameTools = {
-        setName: setPresentationName,
-        name: presentationName,
-    }
     const presentationsObjTools = {
         setPresentation: setPresentation,
         presentation: presentation,
@@ -63,7 +59,6 @@ const PresentationMaker = () => {
                 <TopPanelWidget
                     toolMenuTools={toolMenuTools}
                     editTools={editTools}
-                    presentationNameTools={presentationNameTools}
                     setMouseState={setMouseState}
                     presentationsObjTools={presentationsObjTools}
                 />
