@@ -1,20 +1,22 @@
 import { SlideType } from '../../../shared/types/types'
+import { useAppSelector } from '../../../shared/redux/store'
+import { PresentationTypes } from '../../../shared/redux/actionTypes'
 
 type DropParams = {
-    e: React.DragEvent<HTMLDivElement>
-    slide: SlideType
     slides: SlideType[]
-    setSlides(slides: SlideType[]): void
+    setSlides: (slides: SlideType[]) => void
+    currentSlide: SlideType
+    e: React.DragEvent<HTMLDivElement>
     draggedSlide: SlideType | null
 }
 
-const drop = ({ e, slide, slides, setSlides, draggedSlide }: DropParams) => {
+const drop = ({ slides, setSlides, currentSlide, e, draggedSlide }: DropParams) => {
     e.preventDefault()
     const editedSlides = [...slides]
     setSlides(
         editedSlides
             .map((s) => {
-                if (s.id === slide.id) {
+                if (s.id === currentSlide.id) {
                     if (draggedSlide) {
                         const r = { ...s, order: draggedSlide.order }
                         return r
@@ -23,7 +25,7 @@ const drop = ({ e, slide, slides, setSlides, draggedSlide }: DropParams) => {
                 }
                 if (draggedSlide) {
                     if (s.id === draggedSlide.id) {
-                        const r = { ...s, order: slide.order }
+                        const r = { ...s, order: currentSlide.order }
                         return r
                     }
                 }

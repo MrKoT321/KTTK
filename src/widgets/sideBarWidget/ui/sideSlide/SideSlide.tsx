@@ -1,18 +1,17 @@
 import styles from './SideSlide.module.css'
-import { Selected, SlideType } from '../../../../shared/types/types'
+import { SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
+import { useAppActions, useAppSelector } from '../../../../shared/redux/store'
+import { setSelected, setSelectedObjectIds } from '../../../../shared/redux/actionCreators'
 
 type SlideProps = {
     order: number
-    slide: SlideType
-    selected: Selected
-    setSelected(sel: Selected): void
     isSelected: boolean
     isDraggable: boolean
-    handleDrop(e: React.DragEvent<HTMLDivElement>, slide: SlideType): void
-    handleDragStart(e: React.DragEvent<HTMLDivElement>, slide: SlideType): void
+    handleDrop(e: React.DragEvent<HTMLDivElement>, currentSlide: SlideType): void
+    handleDragStart(e: React.DragEvent<HTMLDivElement>, currentSlide: SlideType): void
     handleDragOver(e: React.DragEvent<HTMLDivElement>): void
     setCurrentSlideBg: (arg: string) => void
     selectedTextFonts: string
@@ -25,9 +24,6 @@ type SlideProps = {
 
 const SideSlide = ({
     order,
-    slide,
-    selected,
-    setSelected,
     isSelected,
     isDraggable,
     handleDragOver,
@@ -41,33 +37,32 @@ const SideSlide = ({
     underlined,
     textColor,
 }: SlideProps) => {
+    const { setSelectedSlideIds } = useAppActions()
+    let selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const [isHovered, setIsHovered] = useState(false)
 
     const slideStyle = {
         ...wsp.sideSlideContainerSizeStyle,
-        background: slide.backgroundValue,
+        background: currentSlide.backgroundValue,
     }
     const slideContainerStyle = {
         ...slideStyle,
-        borderColor: slide.backgroundValue,
+        borderColor: currentSlide.backgroundValue,
         borderWidth: 5,
         borderStyle: 'solid',
     }
-    const sel: Selected = {
-        slidesIds: [...selected.slidesIds],
-        objectsIds: [...selected.objectsIds],
-    }
-    const thisSlide = { ...slide, order: order }
+    const thisSlide = { ...currentSlide, order: order }
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.ctrlKey) {
-            sel.slidesIds = sel.slidesIds.filter((selectedId) => selectedId !== thisSlide.id)
-            sel.slidesIds.push(thisSlide.id)
+            selectedSlideIds = selectedSlideIds.filter((selectedId) => selectedId !== thisSlide.id)
+            selectedSlideIds.push(thisSlide.id)
         } else {
-            sel.slidesIds = [thisSlide.id]
+            selectedSlideIds = [thisSlide.id]
         }
-        setSelected(sel)
-        setCurrentSlideBg(slide.backgroundValue)
+        setSelectedSlideIds(selectedSlideIds)
+        setCurrentSlideBg(currentSlide.backgroundValue)
     }
 
     return (
@@ -93,8 +88,6 @@ const SideSlide = ({
                                 key={index}
                                 object={object}
                                 isSideSlide={true}
-                                selected={selected}
-                                setSelected={setSelected}
                                 isObjectSelected={false}
                                 setMouseState={() => {
                                     console.log()

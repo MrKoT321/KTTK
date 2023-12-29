@@ -3,11 +3,9 @@ import { MouseStates, Selected, SlideType } from '../../../../shared/types/types
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
 import { MoveObj } from '../../../../shared/types/devTypes'
+import { useAppSelector } from '../../../../shared/redux/store'
 
 type CurrentSlideProps = {
-    slide: SlideType
-    selected: Selected
-    setSelected: (selected: Selected) => void
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
     setMoveObjs: (moveObjs: MoveObj[]) => void
@@ -27,9 +25,6 @@ type CurrentSlideProps = {
 }
 
 const CurrentSlide = ({
-    slide,
-    selected,
-    setSelected,
     setMouseState,
     mouseState,
     setMoveObjs,
@@ -47,6 +42,8 @@ const CurrentSlide = ({
     underlined,
     textColor,
 }: CurrentSlideProps) => {
+    const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const shadowObjs = [...moveObjs]
 
     const currentSlideStyle = {
@@ -61,8 +58,8 @@ const CurrentSlide = ({
             setCurrentMouseX(e.clientX)
             setCurrentMouseY(e.clientY)
             setMouseState('move')
-            selected.objectsIds.map((id) => {
-                const currMoveObj = slide.objects.find((object) => object.id === id)
+            selectedObjectIds.map((id) => {
+                const currMoveObj = currentSlide.objects.find((object) => object.id === id)
                 if (currMoveObj) {
                     const style = {
                         width: currMoveObj.width,
@@ -82,14 +79,12 @@ const CurrentSlide = ({
 
     return (
         <div className={styles.workSlide} style={currentSlideStyle}>
-            {slide.objects.map((object, index) => {
-                const isSelected = selected.objectsIds.includes(object.id)
+            {currentSlide.objects.map((object, index) => {
+                const isSelected = selectedObjectIds.includes(object.id)
                 return (
                     <Object
                         key={index}
                         object={object}
-                        selected={selected}
-                        setSelected={setSelected}
                         isObjectSelected={isSelected}
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}

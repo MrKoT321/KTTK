@@ -1,14 +1,11 @@
-import { Selected, SlideType } from '../../../shared/types/types'
+import { SlideType } from '../../../shared/types/types'
 import { SideSlide } from './sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { drop } from '../tools/drop'
 import { minEditor } from 'shared/testData'
+import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 
 type SlideBarProps = {
-    slides: SlideType[]
-    setSlides(slides: SlideType[]): void
-    selected: Selected
-    setSelected: (sel: Selected) => void
     setCurrentSlideBg: (arg: string) => void
     selectedTextFonts: string
     selectedTextSize: number
@@ -19,10 +16,6 @@ type SlideBarProps = {
 }
 
 const SideBarWidget = ({
-    slides,
-    setSlides,
-    selected,
-    setSelected,
     setCurrentSlideBg,
     selectedTextFonts,
     selectedTextSize,
@@ -31,6 +24,11 @@ const SideBarWidget = ({
     underlined,
     textColor,
 }: SlideBarProps) => {
+    const slides = useAppSelector((state) => state.slides.slides)
+    const selected = useAppSelector((state) => state.selected)
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const { selectedSlideIds } = selected
+    const { setSlides, setSelected } = useAppActions()
     const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
@@ -42,7 +40,7 @@ const SideBarWidget = ({
     }
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
-        drop({ e, slide, slides, setSlides, draggedSlide })
+        drop({ slides, setSlides, currentSlide, e, draggedSlide })
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -60,7 +58,7 @@ const SideBarWidget = ({
             //     setSlides(allSlides)
             // }
             for (const slide of slides) {
-                if (!selected.slidesIds.includes(slide.id)) {
+                if (!selectedSlideIds.includes(slide.id)) {
                     allSlides.push(slide)
                 }
             }
@@ -69,26 +67,23 @@ const SideBarWidget = ({
             } else {
                 setSlides([...allSlides])
             }
-            const currSelected = { ...selected, slidesIds: [] }
+            const currSelected = { ...selected, selectedSlideIds: [] }
             setSelected(currSelected)
         }
     }
     useEffect(() => {
         document.addEventListener('keydown', (e) => handleKeyDown(e))
         return document.removeEventListener('keydown', (e) => handleKeyDown(e))
-    }, [selected.slidesIds])
+    }, [selectedSlideIds])
 
     return (
         <div>
             {slides.map((slide, index) => {
-                const isSelected = selected.slidesIds.includes(slide.id)
+                const isSelected = selectedSlideIds.includes(slide.id)
                 return (
                     <SideSlide
                         order={index}
-                        selected={selected}
-                        setSelected={setSelected}
                         key={slide.id}
-                        slide={slide}
                         isSelected={isSelected}
                         isDraggable={true}
                         handleDrop={handleDrop}

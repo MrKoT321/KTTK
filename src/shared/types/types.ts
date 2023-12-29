@@ -81,12 +81,12 @@ type SlideType = {
 
 type Doc = {
     name: string
-    slides: Array<SlideType>
+    slides: SlideType[]
 }
 
 type Selected = {
-    slidesIds: Array<number>
-    objectsIds: Array<number>
+    selectedSlideIds: number[]
+    selectedObjectIds: number[]
 }
 
 // type Cached = {

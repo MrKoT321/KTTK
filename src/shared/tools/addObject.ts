@@ -1,30 +1,31 @@
-import { MouseStates, ObjectType, Selected, SlideType } from '../types/types'
+import { MouseStates, ObjectType, SlideType } from '../types/types'
 import { layoutParams as lp } from './layoutParams'
 
 type AddObjectParams = {
+    slides: SlideType[]
+    setSlides: (slides: SlideType[]) => void
+    selectedSlideIds: number[]
+    currentSlide: SlideType
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
     startMouseX: number
     startMouseY: number
-    slides: SlideType[]
-    selected: Selected
     allSlides: SlideType[]
-    setSlides: (slides: SlideType[]) => void
     createPosition: (startMousePos: number, currentMousePos: number) => number
     imageSrc?: string
 }
 
 const addObject = ({
+    slides,
+    setSlides,
+    selectedSlideIds,
+    currentSlide,
     mouseState,
     currentMouseX,
     startMouseX,
     startMouseY,
     currentMouseY,
-    slides,
-    selected,
-    allSlides,
-    setSlides,
     createPosition,
     imageSrc,
 }: AddObjectParams) => {
@@ -37,14 +38,15 @@ const addObject = ({
     const height = Math.abs(currentMouseY - startMouseY) + borderWidth
 
     const createObjectId = () => {
-        if (slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length != 0) {
-            return (
-                slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects[
-                    slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length - 1
-                ].id + 1
-            )
+        let maxId = 0
+        if (currentSlide.objects.length > 0) {
+            currentSlide.objects.map((object) => {
+                if (object.id > maxId) {
+                    maxId = object.id
+                }
+            })
         }
-        return 1
+        return maxId + 1
     }
 
     switch (mouseState) {
@@ -152,12 +154,12 @@ const addObject = ({
             }
             break
     }
-    allSlides.forEach((slide) => {
-        if (slide.id === selected.slidesIds[selected.slidesIds.length - 1]) {
+    slides.forEach((slide) => {
+        if (slide.id === selectedSlideIds[selectedSlideIds.length - 1]) {
             slide.objects.push(object)
         }
     })
-    setSlides(allSlides)
+    setSlides(slides)
 }
 
 export { addObject }

@@ -1,18 +1,15 @@
 import styles from './WorkSpaceWidget.module.css'
 import { MouseStates, Selected, SlideType } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
 import { changeObjects } from './currentSlide/tools/changeObjects'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { DrawStyle, MoveObj } from '../../../shared/types/devTypes'
+import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 
 type WorkSpaceWidgetProps = {
-    slides: SlideType[]
-    selected: Selected
-    setSelected: (selected: Selected) => void
-    setSlides: (slides: SlideType[]) => void
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
     currentSlideBg: string
@@ -25,10 +22,6 @@ type WorkSpaceWidgetProps = {
 }
 
 const WorkSpaceWidget = ({
-    slides,
-    selected,
-    setSelected,
-    setSlides,
     mouseState,
     setMouseState,
     currentSlideBg,
@@ -39,7 +32,11 @@ const WorkSpaceWidget = ({
     underlined,
     textColor,
 }: WorkSpaceWidgetProps) => {
-    const lastSlideId = selected.slidesIds[selected.slidesIds.length - 1]
+    const slides = useAppSelector((state) => state.slides.slides)
+    const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
+    const lastSlideId = selectedSlideIds[selectedSlideIds.length - 1]
+    const currentSlide = slides.filter((slide) => slide.id === lastSlideId)[0]
+    const { setCurrentSlide, setSlides, setSelected } = useAppActions()
     const allSlides = slides.map((slide) => {
         const id = lastSlideId || slides[0].id
         if (slide.id === id) {
@@ -47,9 +44,9 @@ const WorkSpaceWidget = ({
         }
         return slide
     })
-    const currentSlide = allSlides.find((slide) => slide.id === lastSlideId) ?? slides[0]
+    // const currentSlide = allSlides.find((slide) => slide.id === lastSlideId) ?? slides[0]
 
-    const currSelected = { ...selected }
+    const currSelected = useAppSelector((state) => state.selected)
 
     const [currentMouseX, setCurrentMouseX] = useState(0)
     const [currentMouseY, setCurrentMouseY] = useState(0)
@@ -79,7 +76,6 @@ const WorkSpaceWidget = ({
 
     const createMovePosition = (startMousePos: number, currentMousePos: number, currMoveTo: number) => {
         if (startMousePos >= currentMousePos) {
-            console.log('move', moveTo, currentMousePos, startMousePos)
             return currentMousePos - startMousePos - currMoveTo
         } else {
             if (currMoveTo < 0) {
@@ -159,15 +155,16 @@ const WorkSpaceWidget = ({
             setIsDraw(false)
             setMouseState('cursor')
             addObject({
+                slides,
+                setSlides,
+                selectedSlideIds,
+                currentSlide,
                 mouseState,
                 currentMouseX,
                 startMouseX,
                 startMouseY,
                 currentMouseY,
-                slides,
-                selected,
                 allSlides,
-                setSlides,
                 createPosition,
             })
             setStyleObj({
@@ -198,7 +195,7 @@ const WorkSpaceWidget = ({
         if (mouseState === 'resize') {
             setMouseState('cursor')
             const newObjects = currentSlide.objects.map((object) => {
-                if (selected.objectsIds.includes(object.id)) {
+                if (selectedObjectIds.includes(object.id)) {
                     object.width = object.width * (styleObj.width / startWidth)
                     object.height = object.height * (styleObj.height / startHeight)
                     object.startX = startMouseX - lp.currentSlideIndentX
@@ -235,16 +232,16 @@ const WorkSpaceWidget = ({
                 e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
                 e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
         )
-        if (selected.objectsIds.length !== 0) {
+        if (selectedObjectIds.length !== 0) {
             if (currObject) {
-                currSelected.objectsIds = [currObject.id]
+                currSelected.selectedObjectIds = [currObject.id]
             } else {
-                currSelected.objectsIds = []
+                currSelected.selectedObjectIds = []
             }
             setSelected(currSelected)
         }
         if (currObject) {
-            currSelected.objectsIds = [currObject.id]
+            currSelected.selectedObjectIds = [currObject.id]
         }
     }
 
@@ -252,7 +249,7 @@ const WorkSpaceWidget = ({
         setMouseState('resize')
         let minX = 1920
         let maxY = 0
-        selected.objectsIds.map((id) => {
+        selectedObjectIds.map((id) => {
             const currobj = currentSlide.objects.find((object) => object.id === id) ?? {
                 startX: minX,
                 startY: maxY,
@@ -271,6 +268,10 @@ const WorkSpaceWidget = ({
         setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
     }
 
+    useEffect(() => {
+        setCurrentSlide(currentSlide)
+    }, [currentSlide])
+
     return (
         <div
             onMouseDown={(e) => handleMouseDown(e)}
@@ -279,9 +280,6 @@ const WorkSpaceWidget = ({
             onClick={(e) => handleClick(e)}
         >
             <CurrentSlide
-                slide={currentSlide}
-                selected={selected}
-                setSelected={setSelected}
                 setMouseState={setMouseState}
                 mouseState={mouseState}
                 setMoveObjs={setMoveObjs}

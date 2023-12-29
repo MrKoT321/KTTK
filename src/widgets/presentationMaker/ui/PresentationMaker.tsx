@@ -1,18 +1,16 @@
 import { TopPanelWidget } from '../../topPanelWidget'
 import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Editor, MouseStates } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/testData'
 import { Layout } from './layout/Layout'
+import { useAppSelector } from '../../../shared/redux/store'
 
 const PresentationMaker = () => {
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const [presentation, setPresentation] = useState<Editor>(minEditor)
-    const [sel, setSel] = useState(presentation.selected)
-    const [slides, setSlides] = useState(presentation.document.slides)
-    const [presentationName, setPresentationName] = useState(presentation.document.name)
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
-    const currentSlide = slides.find((slide) => slide.id === sel.slidesIds[sel.slidesIds.length - 1]) ?? slides[0]
     const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
     const [selectedTextFonts, setSelectedTextFonts] = useState('')
     const [selectedTextSize, setSelectedTextSize] = useState(0)
@@ -22,9 +20,6 @@ const PresentationMaker = () => {
     const [textColor, setTextColor] = useState('#000000')
 
     const toolMenuTools = {
-        setSlides: setSlides,
-        slides,
-        selected: sel,
         currentSlideBg,
         setCurrentSlideBg,
     }
@@ -47,12 +42,6 @@ const PresentationMaker = () => {
         presentation: presentation,
     }
 
-    useEffect(() => {
-        setSel(presentation.selected)
-        setSlides(presentation.document.slides)
-        setPresentationName(presentation.document.name)
-    }, [presentation])
-
     return (
         <Layout
             topPanel={
@@ -65,10 +54,6 @@ const PresentationMaker = () => {
             }
             sideBar={
                 <SideBarWidget
-                    slides={slides}
-                    selected={sel}
-                    setSelected={setSel}
-                    setSlides={setSlides}
                     setCurrentSlideBg={setCurrentSlideBg}
                     selectedTextFonts={selectedTextFonts}
                     selectedTextSize={selectedTextSize}
@@ -80,10 +65,6 @@ const PresentationMaker = () => {
             }
             workSpace={
                 <WorkSpaceWidget
-                    slides={slides}
-                    selected={sel}
-                    setSelected={setSel}
-                    setSlides={setSlides}
                     mouseState={mouseState}
                     setMouseState={setMouseState}
                     currentSlideBg={currentSlideBg}

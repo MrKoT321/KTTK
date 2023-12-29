@@ -14,8 +14,8 @@ const minEditor: Editor = {
         ],
     },
     selected: {
-        slidesIds: [1],
-        objectsIds: [],
+        selectedSlideIds: [1],
+        selectedObjectIds: [],
     },
 }
 
@@ -71,8 +71,8 @@ const mediumEditor: Editor = {
         ],
     },
     selected: {
-        slidesIds: [1],
-        objectsIds: [1, 2],
+        selectedSlideIds: [1],
+        selectedObjectIds: [1, 2],
     },
 }
 
@@ -291,8 +291,8 @@ const maxEditor: Editor = {
         ],
     },
     selected: {
-        slidesIds: [2],
-        objectsIds: [1, 2, 3],
+        selectedSlideIds: [2],
+        selectedObjectIds: [1, 2, 3],
     },
 }
 

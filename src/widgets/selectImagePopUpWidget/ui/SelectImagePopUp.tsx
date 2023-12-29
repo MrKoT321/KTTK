@@ -1,18 +1,20 @@
 import styles from './SelectImagePopUp.module.css'
 import closeIcon from '../../../shared/icons/closeIcon.svg'
 import { useState } from 'react'
-import { MouseStates, Selected, SlideType } from '../../../shared/types/types'
+import { MouseStates } from '../../../shared/types/types'
 import { addObject } from 'shared/tools/addObject'
+import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 
 type SelectImagePopUpProps = {
-    slides: SlideType[]
-    selected: Selected
-    setSlides: (slides: SlideType[]) => void
     isPopUpOpen: boolean
     closePopUp(): void
 }
 
-const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp }: SelectImagePopUpProps) => {
+const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) => {
+    const slides = useAppSelector((state) => state.slides.slides)
+    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const { setSlides } = useAppActions()
     const [imageSrc, setImageSrc] = useState('')
     const [isLinkUsed, setIsLinkUsed] = useState(false)
     const [btnState, setBtnsState] = useState(true)
@@ -62,15 +64,16 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
         if (someRef == 'creatingBase64Img') {
             setMouseState('creatingBase64Img')
             addObject({
+                slides,
+                setSlides,
+                selectedSlideIds,
+                currentSlide,
                 mouseState,
                 currentMouseX: imageWidth,
                 startMouseX: 300,
                 startMouseY: 100,
                 currentMouseY: imageHeight,
-                slides,
-                selected,
                 allSlides,
-                setSlides,
                 createPosition,
                 imageSrc: imageSrcBase64,
             })
@@ -78,15 +81,16 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
         if (someRef == 'creatingLinkImg') {
             setMouseState('creatingLinkImg')
             addObject({
+                slides,
+                setSlides,
+                selectedSlideIds,
+                currentSlide,
                 mouseState,
                 currentMouseX,
                 startMouseX,
                 startMouseY,
                 currentMouseY,
-                slides,
-                selected,
                 allSlides,
-                setSlides,
                 createPosition,
                 imageSrc,
             })

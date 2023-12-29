@@ -1,12 +1,11 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
 import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
+import { useAppSelector } from '../../redux/store'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
     isSideSlide?: boolean
-    selected: Selected
-    setSelected: (selected: Selected) => void
     isObjectSelected: boolean
     setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
@@ -24,8 +23,6 @@ const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
 const Object = ({
     object,
     isSideSlide,
-    selected,
-    setSelected,
     isObjectSelected,
     setMouseState,
     handleMouseDown,
@@ -37,12 +34,12 @@ const Object = ({
     underlined,
     textColor,
 }: ObjectProps) => {
+    const selected = useAppSelector((state) => state.selected)
     switch (object.oType) {
         case 'ObjectTextType': {
             const props = {
                 ...object,
                 selected,
-                setSelected,
                 isSelected: isObjectSelected,
                 setMouseState,
                 handleMouseDown,
@@ -73,8 +70,6 @@ const Object = ({
                         underlineColor={object.underlineColor}
                         value={object.value}
                         oType={object.oType}
-                        selected={selected}
-                        setSelected={setSelected}
                         isSelected={isObjectSelected}
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
@@ -108,8 +103,6 @@ const Object = ({
                                 radius={object.radius}
                                 shapeBgColor={object.shapeBgColor}
                                 oType={object.oType}
-                                selected={selected}
-                                setSelected={setSelected}
                                 isSelected={isObjectSelected}
                                 handleMouseDown={handleMouseDown}
                                 handleMouseDownResize={handleMouseDownResize}
@@ -131,8 +124,6 @@ const Object = ({
                                 type={object.type}
                                 shapeBgColor={object.shapeBgColor}
                                 oType={object.oType}
-                                selected={selected}
-                                setSelected={setSelected}
                                 isSelected={isObjectSelected}
                                 handleMouseDown={handleMouseDown}
                                 handleMouseDownResize={handleMouseDownResize}
@@ -157,8 +148,6 @@ const Object = ({
                             radius={object.radius}
                             shapeBgColor={object.shapeBgColor}
                             oType={object.oType}
-                            selected={selected}
-                            setSelected={setSelected}
                             isSelected={isObjectSelected}
                             handleMouseDown={handleMouseDown}
                             handleMouseDownResize={handleMouseDownResize}
@@ -180,8 +169,6 @@ const Object = ({
                             type={object.type}
                             shapeBgColor={object.shapeBgColor}
                             oType={object.oType}
-                            selected={selected}
-                            setSelected={setSelected}
                             isSelected={isObjectSelected}
                             handleMouseDown={handleMouseDown}
                             handleMouseDownResize={handleMouseDownResize}
@@ -205,8 +192,6 @@ const Object = ({
                         imageSrc={object.imageSrc}
                         imageSrcType={object.imageSrcType}
                         oType={object.oType}
-                        selected={selected}
-                        setSelected={setSelected}
                         isSelected={isObjectSelected}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
@@ -228,8 +213,6 @@ const Object = ({
                     imageSrc={object.imageSrc}
                     imageSrcType={object.imageSrcType}
                     oType={object.oType}
-                    selected={selected}
-                    setSelected={setSelected}
                     isSelected={isObjectSelected}
                     handleMouseDown={handleMouseDown}
                     handleMouseDownResize={handleMouseDownResize}

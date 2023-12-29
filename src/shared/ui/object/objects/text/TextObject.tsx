@@ -2,10 +2,11 @@ import { MouseStates, ObjectTextType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
 import React from 'react'
+import { useAppActions, useAppSelector } from '../../../../redux/store'
 
 type TextObjProps = ObjectTextType & {
-    selected: Selected
-    setSelected(selected: Selected): void
+    // selected: Selected
+    // setSelected(selected: Selected): void
     isSelected: boolean
     setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
@@ -20,10 +21,12 @@ type TextObjProps = ObjectTextType & {
 
 const TextObject = (props: TextObjProps) => {
     // TODO разобраться в типах
+    const { setSelected } = useAppActions()
+    const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
     const childObj = createTextObject(props)
     const sel: Selected = {
-        slidesIds: [...props.selected.slidesIds],
-        objectsIds: [...props.selected.objectsIds],
+        selectedSlideIds: [...selectedSlideIds],
+        selectedObjectIds: [...selectedObjectIds],
     }
 
     const quadStyle = {
@@ -34,11 +37,11 @@ const TextObject = (props: TextObjProps) => {
     const handleClick = () => {
         if (!props.isSelected) {
             const sel: Selected = {
-                slidesIds: [...props.selected.slidesIds],
-                objectsIds: [props.id],
+                selectedSlideIds: [...selectedSlideIds],
+                selectedObjectIds: [props.id],
             }
         }
-        props.setSelected(sel)
+        setSelected(sel)
     }
 
     return (

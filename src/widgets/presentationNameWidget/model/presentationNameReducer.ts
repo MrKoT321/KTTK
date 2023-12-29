@@ -1,6 +1,10 @@
 import { ActionTypes, PresentationTypes } from '../../../shared/redux/actionTypes'
 
-const initialState = {
+type PresentationNameReducerType = {
+    name: string
+}
+
+const initialState: PresentationNameReducerType = {
     name: '',
 }
 const presentationNameReducer = (state = initialState, action: ActionTypes) => {
