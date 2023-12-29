@@ -7,7 +7,7 @@ const createTextObject = (props: TextObjProps) => {
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
-        fontSize: props.isSelected ? props.selectedTextSize : '20',
+        fontSize: props.selectedTextSize,
         color: props.isSelected ? props.textColor : '0',
         fontFamily: props.isSelected ? props.selectedTextFonts : '0',
         fontWeight: props.bolded && props.isSelected ? 'bold' : '0',

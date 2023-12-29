@@ -24,6 +24,8 @@ type CurrentSlideProps = {
     italic: boolean
     underlined: boolean
     textColor: string
+    setSlides: (slides: SlideType[]) => void
+    slides: SlideType[]
 }
 
 const CurrentSlide = ({
@@ -46,6 +48,8 @@ const CurrentSlide = ({
     italic,
     underlined,
     textColor,
+    setSlides,
+    slides,
 }: CurrentSlideProps) => {
     const shadowObjs = [...moveObjs]
 
@@ -100,6 +104,8 @@ const CurrentSlide = ({
                         italic={italic}
                         underlined={underlined}
                         textColor={textColor}
+                        setSlides={setSlides}
+                        slides={slides}
                     />
                 )
             })}

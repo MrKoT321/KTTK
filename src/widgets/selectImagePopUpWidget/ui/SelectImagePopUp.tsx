@@ -23,7 +23,8 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
     const [startMouseX, setStartMouseX] = useState(500)
     const [startMouseY, setStartMouseY] = useState(500)
     const allSlides = [...slides]
-
+    const currentSlide =
+        allSlides.find((slide) => slide.id === selected.slidesIds[selected.slidesIds.length - 1]) ?? slides[0]
     const linkNotUsed = () => {
         setLinkValue('')
         setIsLinkUsed(false)
@@ -67,7 +68,7 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                 startMouseX: 300,
                 startMouseY: 100,
                 currentMouseY: imageHeight,
-                slides,
+                currentSlide,
                 selected,
                 allSlides,
                 setSlides,
@@ -83,7 +84,7 @@ const SelectImagePopUp = ({ slides, selected, setSlides, isPopUpOpen, closePopUp
                 startMouseX,
                 startMouseY,
                 currentMouseY,
-                slides,
+                currentSlide,
                 selected,
                 allSlides,
                 setSlides,

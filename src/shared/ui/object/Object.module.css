@@ -3,7 +3,7 @@
 }
 
 .selected {
-    border: 4px solid #ff0000;
+    border: 4px solid #FF0000;
 }
 
 .nonSelected {
@@ -19,9 +19,17 @@
 
 .text {
     resize: none;
-    position: absolute;
+    overflow: hidden;
 }
 
 .text:focus {
     outline: none;
+}
+
+.textBlocked {
+    cursor: grab;
+}
+
+.textNotBlocked {
+    cursor: text;
 }

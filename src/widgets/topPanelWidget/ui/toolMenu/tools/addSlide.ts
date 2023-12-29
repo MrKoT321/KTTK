@@ -6,8 +6,18 @@ type AddSlideParams = {
 }
 
 const addSlide = ({ allSlides, setSlides }: AddSlideParams) => {
+    const createSlideId = () => {
+        let maxId = 0
+        allSlides.map((slide) => {
+            if (slide.id > maxId) {
+                maxId = slide.id
+            }
+        })
+        return maxId + 1
+    }
+    console.log(allSlides)
     const newSlide: SlideType = {
-        id: allSlides[allSlides.length - 1].id + 1,
+        id: createSlideId(),
         order: allSlides.length,
         background: 'color',
         backgroundValue: '#FFFFFF',

@@ -7,12 +7,12 @@ type AddObjectParams = {
     currentMouseY: number
     startMouseX: number
     startMouseY: number
-    slides: SlideType[]
     selected: Selected
     allSlides: SlideType[]
     setSlides: (slides: SlideType[]) => void
     createPosition: (startMousePos: number, currentMousePos: number) => number
     imageSrc?: string
+    currentSlide: SlideType
 }
 
 const addObject = ({
@@ -21,12 +21,12 @@ const addObject = ({
     startMouseX,
     startMouseY,
     currentMouseY,
-    slides,
     selected,
     allSlides,
     setSlides,
     createPosition,
     imageSrc,
+    currentSlide,
 }: AddObjectParams) => {
     let object: ObjectType
 
@@ -37,14 +37,15 @@ const addObject = ({
     const height = Math.abs(currentMouseY - startMouseY) + borderWidth
 
     const createObjectId = () => {
-        if (slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length != 0) {
-            return (
-                slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects[
-                    slides[selected.slidesIds[selected.slidesIds.length - 1] - 1].objects.length - 1
-                ].id + 1
-            )
+        let maxId = 0
+        if (currentSlide.objects.length > 0) {
+            currentSlide.objects.map((object) => {
+                if (object.id > maxId) {
+                    maxId = object.id
+                }
+            })
         }
-        return 1
+        return maxId + 1
     }
 
     switch (mouseState) {
@@ -99,9 +100,9 @@ const addObject = ({
                 bold: true,
                 italic: false,
                 underlined: true,
-                highlighter: 'blue',
+                highlighter: '#00000000',
                 underlineColor: 'purple',
-                value: `House of Tom's cat`,
+                value: '',
                 oType: 'ObjectTextType',
             }
             break

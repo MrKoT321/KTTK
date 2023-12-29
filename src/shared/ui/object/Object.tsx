@@ -1,5 +1,5 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
+import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected, SlideType } from '../../types/types'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 
 type ObjectProps = {
@@ -17,6 +17,8 @@ type ObjectProps = {
     italic: boolean
     underlined: boolean
     textColor: string
+    setSlides?: (slides: SlideType[]) => void
+    slides?: SlideType[]
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -36,6 +38,8 @@ const Object = ({
     italic,
     underlined,
     textColor,
+    setSlides,
+    slides,
 }: ObjectProps) => {
     switch (object.oType) {
         case 'ObjectTextType': {
@@ -53,6 +57,8 @@ const Object = ({
                 italic,
                 underlined,
                 textColor,
+                setSlides,
+                slides,
             }
             if (isSideSlide) {
                 return (
@@ -80,11 +86,12 @@ const Object = ({
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
                         selectedTextFonts={selectedTextFonts}
-                        selectedTextSize={selectedTextSize}
+                        selectedTextSize={scaleSideSlide * selectedTextSize}
                         bolded={bolded}
                         italic={italic}
                         underlined={underlined}
                         textColor={textColor}
+                        isBlocked={isSideSlide}
                     />
                 )
             }
