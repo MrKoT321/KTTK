@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react'
 import { openFile } from '../tools/openFile'
 import { saveFile } from '../tools/saveFile'
 import { Editor } from '../../../../../shared/types/types'
-import { useAppSelector } from '../../../../../shared/redux/store'
+import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
 
 type ToolBarProps = {
     presentationsObjTools: {
@@ -16,6 +16,7 @@ const ToolBar = ({ presentationsObjTools }: ToolBarProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const selected = useAppSelector((state) => state.selected)
     const presentationName = useAppSelector((state) => state.presentationName.name)
+    const { setSlides, setSelected, setPresentationName, setCurrentSlide } = useAppActions()
 
     return (
         <div className={styles.toolBar}>
@@ -29,7 +30,9 @@ const ToolBar = ({ presentationsObjTools }: ToolBarProps) => {
                     accept={'.json'}
                     id={'open'}
                     className={styles.hidden}
-                    onInput={(event: ChangeEvent<HTMLInputElement>) => openFile({ event, presentationsObjTools })}
+                    onInput={(event: ChangeEvent<HTMLInputElement>) =>
+                        openFile(event, setSlides, setSelected, setPresentationName, setCurrentSlide)
+                    }
                 />
             </button>
         </div>

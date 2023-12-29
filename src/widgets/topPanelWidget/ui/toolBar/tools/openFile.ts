@@ -1,15 +1,13 @@
+import { Editor, Selected, SlideType } from '../../../../../shared/types/types'
 import { ChangeEvent } from 'react'
-import { Editor } from '../../../../../shared/types/types'
 
-type OpenFileParams = {
-    event: ChangeEvent<HTMLInputElement>
-    presentationsObjTools: {
-        setPresentation(presentation: Editor): void
-        presentation: Editor
-    }
-}
-
-const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
+const openFile = (
+    event: ChangeEvent<HTMLInputElement>,
+    setSlides: (slides: SlideType[]) => void,
+    setSelected: (selected: Selected) => void,
+    setPresentationName: (slides: string) => void,
+    setCurrentSlide: (slide: SlideType) => void,
+) => {
     if (!event.target.files) {
         return null
     }
@@ -37,7 +35,10 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
                     'selectedSlideIds' in parsedResult.selected &&
                     'selectedObjectIds' in parsedResult.selected
                 ) {
-                    presentationsObjTools.setPresentation(parsedResult)
+                    setCurrentSlide(parsedResult.document.slides[0])
+                    setSlides(parsedResult.document.slides)
+                    setSelected(parsedResult.selected)
+                    setPresentationName(parsedResult.document.name)
                 } else {
                     alert('Невозможно открыть файл')
                 }
