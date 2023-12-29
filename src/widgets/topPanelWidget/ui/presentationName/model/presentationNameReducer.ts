@@ -1,4 +1,4 @@
-import { ActionTypes, PresentationTypes } from '../../../shared/redux/actionTypes'
+import { ActionTypes, PresentationTypes } from '../../../../../shared/redux/actionTypes'
 
 type PresentationNameReducerType = {
     name: string

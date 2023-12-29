@@ -1,10 +1,8 @@
-import { MouseLocations, Selected, SlideType } from '../../../shared/types/types'
+import { MouseLocations, SlideType } from '../../../shared/types/types'
 import { SideSlide } from './sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
-import { drop } from '../tools/drop'
 import { minEditor } from 'shared/testData'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
-import { setCurrentSlide } from '../../../shared/redux/actionCreators'
 
 type SlideBarProps = {
     setCurrentSlideBg: (arg: string) => void
@@ -29,9 +27,8 @@ const SideBarWidget = ({
 }: SlideBarProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const selected = useAppSelector((state) => state.selected)
-    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const { selectedSlideIds } = selected
-    const { setSlides, setSelected } = useAppActions()
+    const { setSlides, setSelectedSlideIds } = useAppActions()
     const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
@@ -73,38 +70,16 @@ const SideBarWidget = ({
                 e.preventDefault()
                 let allSlides: SlideType[] = []
                 for (const slide of slides) {
-                    if (!selected.slidesIds.includes(slide.id)) {
+                    if (!selected.selectedSlideIds.includes(slide.id)) {
                         allSlides.push(slide)
                     }
                 }
                 if (allSlides.length === 0) {
                     allSlides = minEditor.document.slides
                 }
-        if (e.key === 'Delete') {
-            const allSlides: SlideType[] = []
-            // if (selected.slidesIds.length === allSlides.length) {
-            //     setSlides(minEditor.document.slides)
-            // } else {
-            //     for (let i = 0; i < allSlides.length; i++) {
-            //         if (selected.slidesIds.includes(allSlides[i].id) && allSlides[i]) {
-            //             allSlides.splice(i, 1)
-            //             i--
-            //         }
-            //     }
-            //     setSlides(allSlides)
-            // }
-            for (const slide of slides) {
-                if (!selectedSlideIds.includes(slide.id)) {
-                    allSlides.push(slide)
-                }
-            }
-            if (allSlides.length === 0) {
-                setSlides([...minEditor.document.slides])
-            } else {
                 setSlides([...allSlides])
+                setSelectedSlideIds([allSlides[0].id])
             }
-            const currSelected = { ...selected, selectedSlideIds: [] }
-            setSelected(currSelected)
         }
     }
 

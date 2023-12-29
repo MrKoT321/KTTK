@@ -2,6 +2,7 @@ import { ObjectShapeType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createShapeObject } from './tools/createShapeObject'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
+import React from 'react'
 
 type ShapeObjProps = ObjectShapeType & {
     isSelected: boolean

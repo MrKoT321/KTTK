@@ -1,9 +1,10 @@
 import { layoutParams as lp, widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
-import { MouseStates, Selected, SlideType } from '../../../../shared/types/types'
+import { MouseStates } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
 import { MoveObj } from '../../../../shared/types/devTypes'
 import { useAppSelector } from '../../../../shared/redux/store'
+import React from 'react'
 
 type CurrentSlideProps = {
     mouseState: MouseStates
@@ -22,8 +23,6 @@ type CurrentSlideProps = {
     italic: boolean
     underlined: boolean
     textColor: string
-    setSlides: (slides: SlideType[]) => void
-    slides: SlideType[]
 }
 
 const CurrentSlide = ({
@@ -43,8 +42,6 @@ const CurrentSlide = ({
     italic,
     underlined,
     textColor,
-    setSlides,
-    slides,
 }: CurrentSlideProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
@@ -100,8 +97,6 @@ const CurrentSlide = ({
                         italic={italic}
                         underlined={underlined}
                         textColor={textColor}
-                        setSlides={setSlides}
-                        slides={slides}
                     />
                 )
             })}

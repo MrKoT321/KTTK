@@ -1,6 +1,7 @@
 import { ObjectImageType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
+import React from 'react'
 
 type ImageObjProps = ObjectImageType & {
     isSelected: boolean

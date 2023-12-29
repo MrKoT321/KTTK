@@ -1,7 +1,8 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected, SlideType } from '../../types/types'
+import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType } from '../../types/types'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { useAppSelector } from '../../redux/store'
+import React from 'react'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
@@ -16,8 +17,6 @@ type ObjectProps = {
     italic: boolean
     underlined: boolean
     textColor: string
-    setSlides?: (slides: SlideType[]) => void
-    slides?: SlideType[]
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -35,8 +34,6 @@ const Object = ({
     italic,
     underlined,
     textColor,
-    setSlides,
-    slides,
 }: ObjectProps) => {
     const selected = useAppSelector((state) => state.selected)
     switch (object.oType) {
@@ -54,8 +51,6 @@ const Object = ({
                 italic,
                 underlined,
                 textColor,
-                setSlides,
-                slides,
             }
             if (isSideSlide) {
                 return (
@@ -204,7 +199,6 @@ const Object = ({
                         handleMouseDownResize={handleMouseDownResize}
                     />
                 )
-                break
             }
             return (
                 <ImageObject

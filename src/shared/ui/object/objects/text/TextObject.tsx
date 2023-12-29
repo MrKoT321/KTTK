@@ -1,4 +1,4 @@
-import { MouseStates, ObjectTextType, Selected, SlideType } from '../../../../types/types'
+import { MouseStates, ObjectTextType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
 import React from 'react'
@@ -16,8 +16,6 @@ type TextObjProps = ObjectTextType & {
     underlined: boolean
     textColor: string
     isBlocked?: boolean
-    setSlides?: (slides: SlideType[]) => void
-    slides?: SlideType[]
 }
 
 const TextObject = (props: TextObjProps) => {
@@ -28,13 +26,9 @@ const TextObject = (props: TextObjProps) => {
         top: props.startY,
     }
 
-    const { setSelected } = useAppActions()
-    const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
-    const childObj = createTextObject(props)
-    const sel: Selected = {
-        selectedSlideIds: [...selectedSlideIds],
-        selectedObjectIds: [...selectedObjectIds],
-    }
+    const { setSelected, setSlides } = useAppActions()
+    const selected = useAppSelector((state) => state.selected)
+    const slides = useAppSelector((state) => state.slides.slides)
 
     const quadStyle = {
         left: props.width - 5,
@@ -44,11 +38,11 @@ const TextObject = (props: TextObjProps) => {
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!props.isSelected) {
             if (e.ctrlKey) {
-                sel.objectsIds.push(props.id)
+                selected.selectedObjectIds.push(props.id)
             } else {
-                sel.objectsIds = [props.id]
+                selected.selectedObjectIds = [props.id]
             }
-            props.setSelected(sel)
+            setSelected(selected)
         }
     }
 
@@ -85,15 +79,13 @@ const TextObject = (props: TextObjProps) => {
                         className={`${styles.text} ${props.isBlocked ? styles.textBlocked : styles.textNotBlocked}`}
                         style={createTextObject(props)}
                         onChange={(e) => {
-                            if (props.setSlides && props.slides) {
-                                const allSlides = [...props.slides]
-                                for (const object of allSlides[props.selected.slidesIds.length - 1].objects) {
-                                    if (object.id === props.id && object.oType === 'ObjectTextType') {
-                                        object.value = e.target.value
-                                    }
+                            const allSlides = [...slides]
+                            for (const object of allSlides[selected.selectedSlideIds.length - 1].objects) {
+                                if (object.id === props.id && object.oType === 'ObjectTextType') {
+                                    object.value = e.target.value
                                 }
-                                props.setSlides(allSlides)
                             }
+                            setSlides(allSlides)
                         }}
                     ></textarea>
                 )}
