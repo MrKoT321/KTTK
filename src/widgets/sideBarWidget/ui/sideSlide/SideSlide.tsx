@@ -1,12 +1,14 @@
 import styles from './SideSlide.module.css'
 import { SlideType } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
 import { useAppActions, useAppSelector } from '../../../../shared/redux/store'
-import { setSelected, setSelectedObjectIds } from '../../../../shared/redux/actionCreators'
+import { setCurrentSlide, setSelectedObjectIds } from '../../../../shared/redux/actionCreators'
+import { drop } from '../../tools/drop'
 
 type SlideProps = {
+    slide: SlideType
     order: number
     isSelected: boolean
     isDraggable: boolean
@@ -23,6 +25,7 @@ type SlideProps = {
 }
 
 const SideSlide = ({
+    slide,
     order,
     isSelected,
     isDraggable,
@@ -37,22 +40,22 @@ const SideSlide = ({
     underlined,
     textColor,
 }: SlideProps) => {
-    const { setSelectedSlideIds } = useAppActions()
+    const { setSelectedSlideIds, setSlides } = useAppActions()
+    const slides = useAppSelector((state) => state.slides.slides)
     let selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
-    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const [isHovered, setIsHovered] = useState(false)
 
     const slideStyle = {
         ...wsp.sideSlideContainerSizeStyle,
-        background: currentSlide.backgroundValue,
+        background: slide.backgroundValue,
     }
     const slideContainerStyle = {
         ...slideStyle,
-        borderColor: currentSlide.backgroundValue,
+        borderColor: slide.backgroundValue,
         borderWidth: 5,
         borderStyle: 'solid',
     }
-    const thisSlide = { ...currentSlide, order: order }
+    const thisSlide = { ...slide, order: order }
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (e.ctrlKey) {
@@ -62,7 +65,9 @@ const SideSlide = ({
             selectedSlideIds = [thisSlide.id]
         }
         setSelectedSlideIds(selectedSlideIds)
-        setCurrentSlideBg(currentSlide.backgroundValue)
+        setSelectedObjectIds([])
+        setCurrentSlide(thisSlide)
+        setCurrentSlideBg(thisSlide.backgroundValue)
     }
 
     return (

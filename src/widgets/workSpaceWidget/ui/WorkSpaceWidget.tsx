@@ -35,7 +35,8 @@ const WorkSpaceWidget = ({
     const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
     const lastSlideId = selectedSlideIds[selectedSlideIds.length - 1]
-    const currentSlide = slides.filter((slide) => slide.id === lastSlideId)[0]
+    // const currentSlide1 = slides.filter((slide) => slide.id === lastSlideId)[0]
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const { setCurrentSlide, setSlides, setSelected } = useAppActions()
     const allSlides = slides.map((slide) => {
         const id = lastSlideId || slides[0].id
@@ -157,6 +158,7 @@ const WorkSpaceWidget = ({
             addObject({
                 slides,
                 setSlides,
+                setCurrentSlide,
                 selectedSlideIds,
                 currentSlide,
                 mouseState,
@@ -267,10 +269,6 @@ const WorkSpaceWidget = ({
         setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX)
         setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
     }
-
-    useEffect(() => {
-        setCurrentSlide(currentSlide)
-    }, [currentSlide])
 
     return (
         <div

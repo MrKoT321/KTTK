@@ -4,6 +4,7 @@ import { layoutParams as lp } from './layoutParams'
 type AddObjectParams = {
     slides: SlideType[]
     setSlides: (slides: SlideType[]) => void
+    setCurrentSlide: (currentSlide: SlideType) => void
     selectedSlideIds: number[]
     currentSlide: SlideType
     mouseState: MouseStates
@@ -19,6 +20,7 @@ type AddObjectParams = {
 const addObject = ({
     slides,
     setSlides,
+    setCurrentSlide,
     selectedSlideIds,
     currentSlide,
     mouseState,
@@ -157,9 +159,11 @@ const addObject = ({
     slides.forEach((slide) => {
         if (slide.id === selectedSlideIds[selectedSlideIds.length - 1]) {
             slide.objects.push(object)
+            setCurrentSlide({ ...slide })
         }
     })
     setSlides(slides)
+    console.log(slides)
 }
 
 export { addObject }

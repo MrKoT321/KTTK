@@ -42,10 +42,11 @@ const CurrentSlide = ({
     underlined,
     textColor,
 }: CurrentSlideProps) => {
+    const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
-    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const lastSelectedSlideId = selectedSlideIds[selectedSlideIds.length - 1]
+    const currentSlide = slides.filter((slide) => slide.id === lastSelectedSlideId)[0]
     const shadowObjs = [...moveObjs]
-
     const currentSlideStyle = {
         ...wsp.currentSlideSizeStyle,
         background: currentSlideBg, //TODO: добавить кнопку смены

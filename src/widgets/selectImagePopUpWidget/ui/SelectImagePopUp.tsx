@@ -14,7 +14,7 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
     const slides = useAppSelector((state) => state.slides.slides)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const currentSlide = useAppSelector((state) => state.slides.currentSlide)
-    const { setSlides } = useAppActions()
+    const { setSlides, setCurrentSlide } = useAppActions()
     const [imageSrc, setImageSrc] = useState('')
     const [isLinkUsed, setIsLinkUsed] = useState(false)
     const [btnState, setBtnsState] = useState(true)
@@ -66,6 +66,7 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
             addObject({
                 slides,
                 setSlides,
+                setCurrentSlide,
                 selectedSlideIds,
                 currentSlide,
                 mouseState,
@@ -83,6 +84,7 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
             addObject({
                 slides,
                 setSlides,
+                setCurrentSlide,
                 selectedSlideIds,
                 currentSlide,
                 mouseState,

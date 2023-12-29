@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { drop } from '../tools/drop'
 import { minEditor } from 'shared/testData'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
+import { setCurrentSlide } from '../../../shared/redux/actionCreators'
 
 type SlideBarProps = {
     setCurrentSlideBg: (arg: string) => void
@@ -40,7 +41,28 @@ const SideBarWidget = ({
     }
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
-        drop({ slides, setSlides, currentSlide, e, draggedSlide })
+        e.preventDefault()
+        const editedSlides = [...slides]
+        setSlides(
+            editedSlides
+                .map((s) => {
+                    if (s.id === slide.id) {
+                        if (draggedSlide) {
+                            const r = { ...s, order: draggedSlide.order }
+                            return r
+                        }
+                        return s
+                    }
+                    if (draggedSlide) {
+                        if (s.id === draggedSlide.id) {
+                            const r = { ...s, order: slide.order }
+                            return r
+                        }
+                    }
+                    return s
+                })
+                .sort((x, y) => x.order - y.order),
+        )
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -82,6 +104,7 @@ const SideBarWidget = ({
                 const isSelected = selectedSlideIds.includes(slide.id)
                 return (
                     <SideSlide
+                        slide={slide}
                         order={index}
                         key={slide.id}
                         isSelected={isSelected}

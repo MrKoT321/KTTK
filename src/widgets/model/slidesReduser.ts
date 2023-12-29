@@ -16,17 +16,17 @@ const SlidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.ADD_SLIDE:
             return {
                 ...state,
-                slides: action.payload,
+                slides: [...action.payload],
             }
         case PresentationTypes.SET_SLIDES:
             return {
                 ...state,
-                slides: action.payload,
+                slides: [...action.payload],
             }
         case PresentationTypes.SET_CURRENT_SLIDE:
             return {
                 ...state,
-                currentSlide: action.payload,
+                currentSlide: { ...action.payload },
             }
         default:
             return state

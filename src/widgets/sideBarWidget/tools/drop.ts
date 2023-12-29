@@ -1,16 +1,12 @@
 import { SlideType } from '../../../shared/types/types'
-import { useAppSelector } from '../../../shared/redux/store'
-import { PresentationTypes } from '../../../shared/redux/actionTypes'
 
-type DropParams = {
-    slides: SlideType[]
-    setSlides: (slides: SlideType[]) => void
-    currentSlide: SlideType
-    e: React.DragEvent<HTMLDivElement>
-    draggedSlide: SlideType | null
-}
-
-const drop = ({ slides, setSlides, currentSlide, e, draggedSlide }: DropParams) => {
+const drop = (
+    slides: SlideType[],
+    setSlides: (slides: SlideType[]) => void,
+    currentSlide: SlideType,
+    e: React.DragEvent<HTMLDivElement>,
+    draggedSlide: SlideType | null,
+) => {
     e.preventDefault()
     const editedSlides = [...slides]
     setSlides(

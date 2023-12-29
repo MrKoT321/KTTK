@@ -11,7 +11,7 @@ const setPresentationName = (name: string) => {
 const addSlide = (allSlides: SlideType[]) => {
     const newSlide: SlideType = {
         id: allSlides[allSlides.length - 1].id + 1,
-        order: allSlides.length,
+        order: allSlides.length + 1,
         background: 'color',
         backgroundValue: '#FFFFFF',
         objects: [],
@@ -47,14 +47,14 @@ const setSelectedObjectIds = (selectedObjectIds: number[]) => {
 const setSelected = (selected: Selected) => {
     return {
         type: PresentationTypes.SET_SELECTED,
-        payload: selected,
+        payload: { ...selected },
     }
 }
 
 const setCurrentSlide = (currentSlide: SlideType) => {
     return {
         type: PresentationTypes.SET_CURRENT_SLIDE,
-        payload: currentSlide,
+        payload: { ...currentSlide },
     }
 }
 
