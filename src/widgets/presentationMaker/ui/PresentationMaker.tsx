@@ -1,7 +1,7 @@
 import { TopPanelWidget } from '../../topPanelWidget'
 import { SideBarWidget } from '../../sideBarWidget'
 import { WorkSpaceWidget } from '../../workSpaceWidget'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Editor, MouseLocations, MouseStates } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/testData'
 import { Layout } from './layout/Layout'

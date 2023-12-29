@@ -1,19 +1,12 @@
-import { Editor } from '../../../../../shared/types/types'
-import { useAppSelector } from '../../../../../shared/redux/store'
+import { Editor, Selected, SlideType } from '../../../../../shared/types/types'
 
-const saveFile = () => {
-    const slides = useAppSelector((state) => state.slides.slides)
-    const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
-    const presentationName = useAppSelector((state) => state.presentationName.name)
+const saveFile = (slides: SlideType[], selected: Selected, presentationName: string) => {
     const editor: Editor = {
         document: {
             name: presentationName,
             slides: slides,
         },
-        selected: {
-            selectedObjectIds: selectedObjectIds,
-            selectedSlideIds: selectedSlideIds,
-        },
+        selected: selected,
     }
     console.log('editor = ', editor)
     const text = JSON.stringify(editor)
