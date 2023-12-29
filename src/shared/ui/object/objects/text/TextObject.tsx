@@ -1,7 +1,7 @@
 import { MouseStates, ObjectTextType, Selected, SlideType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
-import React, { useState } from 'react'
+import React from 'react'
 
 type TextObjProps = ObjectTextType & {
     selected: Selected
@@ -22,8 +22,6 @@ type TextObjProps = ObjectTextType & {
 }
 
 const TextObject = (props: TextObjProps) => {
-    const childObj = createTextObject(props)
-
     const styleParentObj = {
         width: props.width + 2 * props.borderWidth,
         height: props.height + 2 * props.borderWidth,
@@ -75,7 +73,7 @@ const TextObject = (props: TextObjProps) => {
                         placeholder="Введите текст"
                         className={`${styles.text} ${props.isBlocked ? styles.textBlocked : styles.textNotBlocked}`}
                         readOnly={true}
-                        style={childObj}
+                        style={createTextObject(props)}
                     ></textarea>
                 )}
                 {!props.isBlocked && (
@@ -83,7 +81,7 @@ const TextObject = (props: TextObjProps) => {
                         value={props.value}
                         placeholder="Введите текст"
                         className={`${styles.text} ${props.isBlocked ? styles.textBlocked : styles.textNotBlocked}`}
-                        style={childObj}
+                        style={createTextObject(props)}
                         onChange={(e) => {
                             if (props.setSlides && props.slides) {
                                 const allSlides = [...props.slides]

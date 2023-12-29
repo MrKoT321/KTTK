@@ -15,7 +15,7 @@ const PresentationMaker = () => {
     const [mouseLocation, setMouseLocation] = useState<MouseLocations>('workSpace')
     const currentSlide = slides.find((slide) => slide.id === sel.slidesIds[sel.slidesIds.length - 1]) ?? slides[0]
     const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
-    const [selectedTextFonts, setSelectedTextFonts] = useState('')
+    const [selectedTextFonts, setSelectedTextFonts] = useState('FuturaPT')
     const [selectedTextSize, setSelectedTextSize] = useState(20)
     const [bolded, setBolded] = useState(false)
     const [italic, setItalic] = useState(false)
