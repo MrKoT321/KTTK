@@ -11,6 +11,8 @@ type MouseStates =
     | 'move'
     | 'resize'
 
+type MouseLocations = 'workSpace' | 'sideBar' | 'topPanel'
+
 type GeneralObjectType = {
     id: number
     width: number
@@ -111,4 +113,5 @@ export type {
     BackgroundType,
     ObjectType,
     MouseStates,
+    MouseLocations,
 }

@@ -1,5 +1,5 @@
 import styles from './WorkSpaceWidget.module.css'
-import { MouseStates, Selected, SlideType } from '../../../shared/types/types'
+import { MouseLocations, MouseStates, ObjectType, Selected, SlideType } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
 import { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
@@ -19,6 +19,7 @@ type WorkSpaceWidgetProps = {
     italic: boolean
     underlined: boolean
     textColor: string
+    mouseLocation: MouseLocations
 }
 
 const WorkSpaceWidget = ({
@@ -31,6 +32,7 @@ const WorkSpaceWidget = ({
     italic,
     underlined,
     textColor,
+    mouseLocation,
 }: WorkSpaceWidgetProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
@@ -227,6 +229,25 @@ const WorkSpaceWidget = ({
     }
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!e.ctrlKey) {
+            const currObject = currentSlide.objects.find(
+                (obj) =>
+                    e.clientX - lp.sideBarWidth - lp.currentSlideIndentX > obj.startX &&
+                    e.clientX - lp.sideBarWidth - lp.currentSlideIndentX < obj.startX + obj.width &&
+                    e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
+                    e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
+            )
+            if (selected.objectsIds.length !== 0) {
+                if (currObject) {
+                    currSelected.objectsIds = [currObject.id]
+                } else {
+                    currSelected.objectsIds = []
+                }
+                setSelected(currSelected)
+            }
+            if (currObject) {
+                currSelected.objectsIds = [currObject.id]
+            }
         const currObject = currentSlide.objects.find(
             (obj) =>
                 e.clientX - lp.sideBarWidth - lp.currentSlideIndentX > obj.startX &&
@@ -269,6 +290,33 @@ const WorkSpaceWidget = ({
         setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX)
         setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
     }
+
+    const handleKeyDown = (e: KeyboardEvent, selected: Selected) => {
+        if (mouseLocation === 'workSpace') {
+            if (e.key === 'Delete') {
+                e.preventDefault()
+                const objects: ObjectType[] = []
+                for (const object of currentSlide.objects) {
+                    if (!selected.objectsIds.includes(object.id)) {
+                        objects.push(object)
+                    }
+                }
+                for (const slide of allSlides) {
+                    if (slide.id === lastSlideId) {
+                        slide.objects = objects
+                    }
+                }
+                setSlides([...allSlides])
+                const currSelected = { ...selected, objectsIds: [] }
+                setSelected(currSelected)
+            }
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('keydown', (e) => handleKeyDown(e, selected))
+        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selected))
+    }, [selected.objectsIds])
 
     return (
         <div

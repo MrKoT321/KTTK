@@ -1,5 +1,5 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected } from '../../types/types'
+import { MouseStates, ObjectImageType, ObjectShapeType, ObjectTextType, Selected, SlideType } from '../../types/types'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { useAppSelector } from '../../redux/store'
 
@@ -16,6 +16,8 @@ type ObjectProps = {
     italic: boolean
     underlined: boolean
     textColor: string
+    setSlides?: (slides: SlideType[]) => void
+    slides?: SlideType[]
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -33,6 +35,8 @@ const Object = ({
     italic,
     underlined,
     textColor,
+    setSlides,
+    slides,
 }: ObjectProps) => {
     const selected = useAppSelector((state) => state.selected)
     switch (object.oType) {
@@ -50,6 +54,8 @@ const Object = ({
                 italic,
                 underlined,
                 textColor,
+                setSlides,
+                slides,
             }
             if (isSideSlide) {
                 return (
@@ -65,7 +71,7 @@ const Object = ({
                         fontSize={scaleSideSlide * object.fontSize}
                         fontColor={object.fontColor}
                         fontFamily={object.fontFamily}
-                        bold={object.bold}
+                        bold={true}
                         highlighter={object.highlighter}
                         underlineColor={object.underlineColor}
                         value={object.value}
@@ -75,11 +81,12 @@ const Object = ({
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
                         selectedTextFonts={selectedTextFonts}
-                        selectedTextSize={selectedTextSize}
+                        selectedTextSize={scaleSideSlide * selectedTextSize}
                         bolded={bolded}
                         italic={italic}
                         underlined={underlined}
                         textColor={textColor}
+                        isBlocked={isSideSlide}
                     />
                 )
             }

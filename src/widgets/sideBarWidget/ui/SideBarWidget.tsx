@@ -1,4 +1,4 @@
-import { SlideType } from '../../../shared/types/types'
+import { MouseLocations, Selected, SlideType } from '../../../shared/types/types'
 import { SideSlide } from './sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { drop } from '../tools/drop'
@@ -14,6 +14,7 @@ type SlideBarProps = {
     italic: boolean
     underlined: boolean
     textColor: string
+    mouseLocation: MouseLocations
 }
 
 const SideBarWidget = ({
@@ -24,6 +25,7 @@ const SideBarWidget = ({
     italic,
     underlined,
     textColor,
+    mouseLocation,
 }: SlideBarProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const selected = useAppSelector((state) => state.selected)
@@ -66,6 +68,18 @@ const SideBarWidget = ({
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
+        if (mouseLocation === 'sideBar') {
+            if (e.key === 'Delete') {
+                e.preventDefault()
+                let allSlides: SlideType[] = []
+                for (const slide of slides) {
+                    if (!selected.slidesIds.includes(slide.id)) {
+                        allSlides.push(slide)
+                    }
+                }
+                if (allSlides.length === 0) {
+                    allSlides = minEditor.document.slides
+                }
         if (e.key === 'Delete') {
             const allSlides: SlideType[] = []
             // if (selected.slidesIds.length === allSlides.length) {
@@ -93,6 +107,7 @@ const SideBarWidget = ({
             setSelected(currSelected)
         }
     }
+
     useEffect(() => {
         document.addEventListener('keydown', (e) => handleKeyDown(e))
         return document.removeEventListener('keydown', (e) => handleKeyDown(e))

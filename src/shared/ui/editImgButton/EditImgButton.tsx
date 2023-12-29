@@ -41,7 +41,7 @@ const EditImgButton = ({ src, type, editTools }: EditImgButtonType) => (
         )}
         {type === 'underline' && (
             <label
-                // className={styles.editImgButton}
+                className={styles.editImgButton}
                 onClick={(e) => {
                     editTools.setUnderlined(!editTools.underlined)
                 }}

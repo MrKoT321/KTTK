@@ -103,9 +103,9 @@ const addObject = ({
                 bold: true,
                 italic: false,
                 underlined: true,
-                highlighter: 'blue',
+                highlighter: '#00000000',
                 underlineColor: 'purple',
-                value: `House of Tom's cat`,
+                value: '',
                 oType: 'ObjectTextType',
             }
             break
@@ -163,7 +163,6 @@ const addObject = ({
         }
     })
     setSlides(slides)
-    console.log(slides)
 }
 
 export { addObject }

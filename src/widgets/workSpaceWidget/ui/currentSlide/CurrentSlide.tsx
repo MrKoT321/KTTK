@@ -22,6 +22,8 @@ type CurrentSlideProps = {
     italic: boolean
     underlined: boolean
     textColor: string
+    setSlides: (slides: SlideType[]) => void
+    slides: SlideType[]
 }
 
 const CurrentSlide = ({
@@ -41,6 +43,8 @@ const CurrentSlide = ({
     italic,
     underlined,
     textColor,
+    setSlides,
+    slides,
 }: CurrentSlideProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
@@ -96,6 +100,8 @@ const CurrentSlide = ({
                         italic={italic}
                         underlined={underlined}
                         textColor={textColor}
+                        setSlides={setSlides}
+                        slides={slides}
                     />
                 )
             })}
