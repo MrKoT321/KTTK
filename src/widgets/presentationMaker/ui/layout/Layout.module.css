@@ -24,13 +24,13 @@
 
 .sideBar {
     width: 280px;
-    margin: 10px 0;
+    margin: 16px 0;
     padding: 5px 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 16px;
     align-items: center;
-    gap: 20px;
     background-color: #e4e2e2;
     overflow-y: auto;
     overflow-x: hidden;
