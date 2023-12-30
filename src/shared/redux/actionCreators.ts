@@ -1,5 +1,5 @@
 import { PresentationTypes } from './actionTypes'
-import { Selected, SlideType } from '../types/types'
+import { ObjectTextType, ObjectType, Selected, SlideType } from '../types/types'
 
 const setPresentationName = (name: string) => {
     return {
@@ -37,6 +37,13 @@ const setSelectedSlideIds = (selectedSlideIds: number[]) => {
     }
 }
 
+const setSlideObjects = (slideObjects: ObjectType[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED,
+        payload: [...slideObjects],
+    }
+}
+
 const setSelectedObjectIds = (selectedObjectIds: number[]) => {
     return {
         type: PresentationTypes.SET_SELECTED_OBJECT_IDS,
@@ -58,12 +65,53 @@ const setCurrentSlide = (currentSlide: SlideType) => {
     }
 }
 
+const setTextObjects = (textObject: ObjectTextType[]) => {
+    return {
+        type: PresentationTypes.SET_TEXT_OBJECTS,
+        payload: [...textObject],
+    }
+}
+
+const setTextObjectsBolded = (selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED,
+        payload: { selectedTextIds },
+    }
+}
+
+const setTextObjectsItalic = (selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_ITALIC,
+        payload: { selectedTextIds },
+    }
+}
+
+const setTextObjectsUnderlined = (selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED,
+        payload: { selectedTextIds },
+    }
+}
+
+const setTextObjectColor = (color: string, selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_COLOR,
+        payload: { selectedTextIds, color },
+    }
+}
+
 export {
     setPresentationName,
     addSlide,
     setSlides,
+    setSlideObjects,
     setSelectedSlideIds,
     setSelectedObjectIds,
     setSelected,
     setCurrentSlide,
+    setTextObjects,
+    setTextObjectsBolded,
+    setTextObjectsItalic,
+    setTextObjectsUnderlined,
+    setTextObjectColor,
 }

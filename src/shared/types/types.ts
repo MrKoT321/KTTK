@@ -78,7 +78,7 @@ type SlideType = {
     order: number
     background: BackgroundType
     backgroundValue: string
-    objects: Array<ObjectType>
+    objects: ObjectType[]
 }
 
 type Doc = {

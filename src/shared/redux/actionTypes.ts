@@ -1,13 +1,18 @@
-import { Selected, SlideType } from '../types/types'
+import { ObjectType, Selected, SlideType } from '../types/types'
 
 enum PresentationTypes {
     SET_PRESENTATION_NAME = 'SET_PRESENTATION_NAME',
     ADD_SLIDE = 'ADD_SLIDE',
     SET_SLIDES = 'SET_SLIDES',
+    SET_SLIDE_OBJECTS_BOLDED = 'SET_SLIDE_OBJECTS_BOLDED',
+    SET_SLIDE_OBJECTS_ITALIC = 'SET_SLIDE_OBJECTS_ITALIC',
+    SET_SLIDE_OBJECTS_UNDERLINED = 'SET_SLIDE_OBJECTS_UNDERLINED',
+    SET_SLIDE_OBJECTS_COLOR = 'SET_SLIDE_OBJECTS_COLOR',
     SET_SELECTED_SLIDE_IDS = 'SET_SELECTED_SLIDE_IDS',
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
     SET_CURRENT_SLIDE = 'SET_CURRENT_SLIDE',
+    SET_TEXT_OBJECTS = 'SET_TEXT_OBJECTS',
 }
 
 type SetPresentationNameAction = {
@@ -23,6 +28,35 @@ type AddSlideAction = {
 type SetSlidesAction = {
     type: PresentationTypes.SET_SLIDES
     payload: SlideType[]
+}
+
+type SetSlideObjectsBoldedAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED
+    payload: {
+        objectIds: number[]
+    }
+}
+
+type SetSlideObjectsItalicAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_ITALIC
+    payload: {
+        objectIds: number[]
+    }
+}
+
+type SetSlideObjectsUnderlinedAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED
+    payload: {
+        objectIds: number[]
+    }
+}
+
+type SetSlideObjectsColorAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_COLOR
+    payload: {
+        objectIds: number[]
+        color: string
+    }
 }
 
 type SetSelectedSlidesAction = {
@@ -45,6 +79,11 @@ type SetCurrentSlideAction = {
     payload: SlideType
 }
 
+type setTextObjectsAction = {
+    type: PresentationTypes.SET_TEXT_OBJECTS
+    payload: ObjectType[]
+}
+
 type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
@@ -53,5 +92,10 @@ type ActionTypes =
     | SetSelectedObjectsAction
     | SetSelectedAction
     | SetCurrentSlideAction
+    | setTextObjectsAction
+    | SetSlideObjectsBoldedAction
+    | SetSlideObjectsItalicAction
+    | SetSlideObjectsUnderlinedAction
+    | SetSlideObjectsColorAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }
