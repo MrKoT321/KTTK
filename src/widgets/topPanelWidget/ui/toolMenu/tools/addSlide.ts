@@ -15,7 +15,6 @@ const addSlide = ({ allSlides, setSlides }: AddSlideParams) => {
         })
         return maxId + 1
     }
-    console.log(allSlides)
     const newSlide: SlideType = {
         id: createSlideId(),
         order: allSlides.length,
@@ -24,7 +23,6 @@ const addSlide = ({ allSlides, setSlides }: AddSlideParams) => {
         objects: [],
     }
     allSlides.push(newSlide)
-    setSlides(allSlides)
 }
 
 export { addSlide }

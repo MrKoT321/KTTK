@@ -32,12 +32,20 @@ const ImageObject = (props: ImageObjProps) => {
         top: -5,
     }
 
-    const handleClick = () => {
-        const sel: Selected = {
-            slidesIds: [...props.selected.slidesIds],
-            objectsIds: [props.id],
+    const sel: Selected = {
+        slidesIds: [...props.selected.slidesIds],
+        objectsIds: [...props.selected.objectsIds],
+    }
+
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (!props.isSelected) {
+            if (e.ctrlKey) {
+                sel.objectsIds.push(props.id)
+            } else {
+                sel.objectsIds = [props.id]
+            }
+            props.setSelected(sel)
         }
-        props.setSelected(sel)
     }
 
     return (
@@ -51,7 +59,7 @@ const ImageObject = (props: ImageObjProps) => {
             )}
             <div
                 style={styleParentObj}
-                onClick={handleClick}
+                onClick={(e) => handleClick(e)}
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             >
                 <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />

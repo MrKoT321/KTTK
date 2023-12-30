@@ -24,12 +24,20 @@ const ShapeObject = (props: ShapeObjProps) => {
         top: -5,
     }
 
-    const handleClick = () => {
-        const sel: Selected = {
-            slidesIds: [...props.selected.slidesIds],
-            objectsIds: [props.id],
+    const sel: Selected = {
+        slidesIds: [...props.selected.slidesIds],
+        objectsIds: [...props.selected.objectsIds],
+    }
+
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (!props.isSelected) {
+            if (e.ctrlKey) {
+                sel.objectsIds.push(props.id)
+            } else {
+                sel.objectsIds = [props.id]
+            }
+            props.setSelected(sel)
         }
-        props.setSelected(sel)
     }
 
     return (
@@ -46,7 +54,7 @@ const ShapeObject = (props: ShapeObjProps) => {
             )}
             <div
                 style={styleChildObj}
-                onClick={handleClick}
+                onClick={(e) => handleClick(e)}
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             ></div>
         </div>
