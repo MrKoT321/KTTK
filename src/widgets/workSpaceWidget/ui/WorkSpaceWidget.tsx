@@ -1,5 +1,5 @@
 import styles from './WorkSpaceWidget.module.css'
-import { MouseLocations, MouseStates, ObjectType, Selected, SlideType } from '../../../shared/types/types'
+import { MouseLocations, MouseStates, ObjectType, Selected } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
 import React, { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
