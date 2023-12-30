@@ -11,7 +11,8 @@ type ImageObjProps = ObjectImageType & {
 
 const ImageObject = (props: ImageObjProps) => {
     const { setSelected } = useAppActions()
-    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const selected = useAppSelector((state) => state.selected)
+
     const styleObj = {
         left: props.startX,
         top: props.startY,
@@ -34,12 +35,15 @@ const ImageObject = (props: ImageObjProps) => {
         top: -5,
     }
 
-    const handleClick = () => {
-        const sel: Selected = {
-            selectedSlideIds: [...selectedSlideIds],
-            selectedObjectIds: [props.id],
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (!props.isSelected) {
+            if (e.ctrlKey) {
+                selected.selectedObjectIds.push(props.id)
+            } else {
+                selected.selectedObjectIds = [props.id]
+            }
+            setSelected(selected)
         }
-        setSelected(sel)
     }
 
     return (
@@ -53,7 +57,7 @@ const ImageObject = (props: ImageObjProps) => {
             )}
             <div
                 style={styleParentObj}
-                onClick={handleClick}
+                onClick={(e) => handleClick(e)}
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             >
                 <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />

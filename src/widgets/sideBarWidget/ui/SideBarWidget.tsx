@@ -1,4 +1,4 @@
-import { MouseLocations, SlideType } from '../../../shared/types/types'
+import { MouseLocations, Selected, SlideType } from '../../../shared/types/types'
 import { SideSlide } from './sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { minEditor } from 'shared/testData'
@@ -27,7 +27,6 @@ const SideBarWidget = ({
 }: SlideBarProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const selected = useAppSelector((state) => state.selected)
-    const { selectedSlideIds } = selected
     const { setSlides, setSelectedSlideIds } = useAppActions()
     const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
 
@@ -64,34 +63,36 @@ const SideBarWidget = ({
         )
     }
 
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent, selectedSlideIds: number[]) => {
         if (mouseLocation === 'sideBar') {
             if (e.key === 'Delete') {
                 e.preventDefault()
                 let allSlides: SlideType[] = []
                 for (const slide of slides) {
-                    if (!selected.selectedSlideIds.includes(slide.id)) {
+                    if (!selectedSlideIds.includes(slide.id)) {
                         allSlides.push(slide)
                     }
                 }
                 if (allSlides.length === 0) {
                     allSlides = minEditor.document.slides
                 }
-                setSlides([...allSlides])
+                console.log(selected)
                 setSelectedSlideIds([allSlides[0].id])
+                setSlides([...allSlides])
+                console.log(selected)
             }
         }
     }
 
     useEffect(() => {
-        document.addEventListener('keydown', (e) => handleKeyDown(e))
-        return document.removeEventListener('keydown', (e) => handleKeyDown(e))
-    }, [selectedSlideIds])
+        document.addEventListener('keydown', (e) => handleKeyDown(e, selected.selectedSlideIds))
+        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selected.selectedSlideIds))
+    }, [selected.selectedSlideIds])
 
     return (
         <div>
             {slides.map((slide, index) => {
-                const isSelected = selectedSlideIds.includes(slide.id)
+                const isSelected = selected.selectedSlideIds.includes(slide.id)
                 return (
                     <SideSlide
                         slide={slide}

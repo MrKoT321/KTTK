@@ -12,7 +12,8 @@ type ShapeObjProps = ObjectShapeType & {
 
 const ShapeObject = (props: ShapeObjProps) => {
     const { setSelected } = useAppActions()
-    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const selected = useAppSelector((state) => state.selected)
+
     const styleChildObj = createShapeObject(props)
     const styleParentObj = {
         width: props.width + 2 * props.borderWidth,
@@ -26,12 +27,15 @@ const ShapeObject = (props: ShapeObjProps) => {
         top: -5,
     }
 
-    const handleClick = () => {
-        const sel: Selected = {
-            selectedSlideIds: [...selectedSlideIds],
-            selectedObjectIds: [props.id],
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (!props.isSelected) {
+            if (e.ctrlKey) {
+                selected.selectedObjectIds.push(props.id)
+            } else {
+                selected.selectedObjectIds = [props.id]
+            }
+            setSelected(selected)
         }
-        setSelected(sel)
     }
 
     return (
@@ -48,7 +52,7 @@ const ShapeObject = (props: ShapeObjProps) => {
             )}
             <div
                 style={styleChildObj}
-                onClick={handleClick}
+                onClick={(e) => handleClick(e)}
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             ></div>
         </div>

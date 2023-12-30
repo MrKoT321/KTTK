@@ -8,7 +8,6 @@ const saveFile = (slides: SlideType[], selected: Selected, presentationName: str
         },
         selected: selected,
     }
-    console.log('editor = ', editor)
     const text = JSON.stringify(editor)
     const a = document.createElement('a')
     const file = new Blob([text], { type: 'application/json' })

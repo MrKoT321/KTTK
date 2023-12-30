@@ -8,6 +8,7 @@ import { changeObjects } from './currentSlide/tools/changeObjects'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { DrawStyle, MoveObj } from '../../../shared/types/devTypes'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
+import { setSelectedSlideIds } from 'shared/redux/actionCreators'
 
 type WorkSpaceWidgetProps = {
     mouseState: MouseStates
@@ -272,13 +273,13 @@ const WorkSpaceWidget = ({
         setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
     }
 
-    const handleKeyDown = (e: KeyboardEvent, selected: Selected) => {
+    const handleKeyDown = (e: KeyboardEvent, selectedObjectIds: number[]) => {
         if (mouseLocation === 'workSpace') {
             if (e.key === 'Delete') {
                 e.preventDefault()
                 const objects: ObjectType[] = []
                 for (const object of currentSlide.objects) {
-                    if (!selected.selectedObjectIds.includes(object.id)) {
+                    if (!selectedObjectIds.includes(object.id)) {
                         objects.push(object)
                     }
                 }
@@ -287,16 +288,20 @@ const WorkSpaceWidget = ({
                         slide.objects = objects
                     }
                 }
+                console.log('selectedObjectIds ', selectedObjectIds)
+                console.log('objects =', objects)
+                console.log('currentSlide =', currentSlide)
                 setSlides([...allSlides])
-                const currSelected = { ...selected, objectsIds: [] }
-                setSelected(currSelected)
+                const nullObjectsIds: number[] = []
+                setSelectedSlideIds(nullObjectsIds)
+                console.log('selectedObjectIds ', selectedObjectIds)
             }
         }
     }
 
     useEffect(() => {
-        document.addEventListener('keydown', (e) => handleKeyDown(e, selected))
-        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selected))
+        document.addEventListener('keydown', (e) => handleKeyDown(e, selected.selectedObjectIds))
+        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selected.selectedObjectIds))
     }, [selected.selectedObjectIds])
 
     return (

@@ -19,7 +19,6 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
         'load',
         () => {
             const result = reader.result
-            console.log('result = ', result)
             if (typeof result === 'string') {
                 try {
                     JSON.parse(result)

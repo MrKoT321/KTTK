@@ -3,8 +3,8 @@ import { MouseStates } from '../../../../shared/types/types'
 import { Object } from '../../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
 import { MoveObj } from '../../../../shared/types/devTypes'
-import { useAppSelector } from '../../../../shared/redux/store'
-import React from 'react'
+import { useAppActions, useAppSelector } from '../../../../shared/redux/store'
+import React, { useEffect } from 'react'
 
 type CurrentSlideProps = {
     mouseState: MouseStates
@@ -50,8 +50,9 @@ const CurrentSlide = ({
     const shadowObjs = [...moveObjs]
     const currentSlideStyle = {
         ...wsp.currentSlideSizeStyle,
-        background: currentSlideBg, //TODO: добавить кнопку смены
+        background: currentSlideBg,
     }
+    const { setCurrentSlide } = useAppActions()
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
         if (mouseState === 'cursor' && isSelected) {
@@ -78,6 +79,10 @@ const CurrentSlide = ({
             setMoveObjs(shadowObjs)
         }
     }
+
+    useEffect(() => {
+        setCurrentSlide(currentSlide)
+    }, [currentSlide])
 
     return (
         <div className={styles.workSlide} style={currentSlideStyle}>
