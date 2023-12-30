@@ -11,10 +11,6 @@ type TextObjProps = ObjectTextType & {
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     selectedTextFonts: string
     selectedTextSize: number
-    bolded: boolean
-    italic: boolean
-    underlined: boolean
-    textColor: string
     isBlocked?: boolean
 }
 

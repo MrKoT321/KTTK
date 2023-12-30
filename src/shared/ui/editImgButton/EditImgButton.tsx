@@ -1,35 +1,27 @@
 import styles from './EditImgButton.module.css'
 import { useAppActions, useAppSelector } from '../../redux/store'
-import { setTextObjectsBolded, setTextObjectsItalic } from '../../redux/actionCreators'
+import { useState } from 'react'
 
 type EditInputStyleType = 'bold' | 'italic' | 'underline' | 'textColor'
 
 type EditImgButtonType = {
     src?: string
     type: EditInputStyleType
-    editTools: {
-        bolded: boolean
-        setBolded: (bolded: boolean) => void
-        italic: boolean
-        setItalic: (italic: boolean) => void
-        underlined: boolean
-        setUnderlined: (underlined: boolean) => void
-        textColor: string
-        setTextColor: (textColor: string) => void
-    }
 }
 
 const EditImgButton = ({ src, type }: EditImgButtonType) => {
+    const [textColor, setTextColor] = useState('#000000')
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const selectedItems = useAppSelector((state) => state.selected.selectedObjectIds)
-    const { setTextObjectsBolded, setTextObjectsItalic, setTextObjectsUnderlined, setTextObjectColor } = useAppActions()
-    console.log(selectedItems)
+    const { setTextObjectsBolded, setTextObjectsItalic, setTextObjectsUnderlined, setTextObjectFontColor } =
+        useAppActions()
     return (
         <>
             {type === 'bold' && (
                 <label
                     className={styles.editImgButton}
                     onClick={() => {
-                        setTextObjectsBolded(selectedItems)
+                        setTextObjectsBolded(selectedItems, currentSlide)
                     }}
                 >
                     <img src={src} className={styles.image} />
@@ -39,7 +31,7 @@ const EditImgButton = ({ src, type }: EditImgButtonType) => {
                 <label
                     className={styles.editImgButton}
                     onClick={() => {
-                        setTextObjectsItalic(selectedItems)
+                        setTextObjectsItalic(selectedItems, currentSlide)
                     }}
                 >
                     <img src={src} className={styles.image} />
@@ -49,7 +41,7 @@ const EditImgButton = ({ src, type }: EditImgButtonType) => {
                 <label
                     className={styles.editImgButton}
                     onClick={() => {
-                        // setTextObjectsUnderlined(!underlined)
+                        setTextObjectsUnderlined(selectedItems, currentSlide)
                     }}
                 >
                     <img src={src} className={styles.image} />
@@ -59,9 +51,10 @@ const EditImgButton = ({ src, type }: EditImgButtonType) => {
                 <input
                     className={styles.editImgButton}
                     type={'color'}
-                    // value={textColor}
+                    value={textColor}
                     onChange={(event) => {
-                        // setTextObjectColor(event.target.value)
+                        // setTextObjectFontColor(event.target.value, selectedItems, currentSlide)
+                        setTextColor(event.target.value)
                     }}
                 />
             )}

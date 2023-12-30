@@ -13,10 +13,6 @@ type ObjectProps = {
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     selectedTextFonts: string
     selectedTextSize: number
-    bolded: boolean
-    italic: boolean
-    underlined: boolean
-    textColor: string
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -30,10 +26,6 @@ const Object = ({
     handleMouseDownResize,
     selectedTextFonts,
     selectedTextSize,
-    bolded,
-    italic,
-    underlined,
-    textColor,
 }: ObjectProps) => {
     const selected = useAppSelector((state) => state.selected)
     switch (object.oType) {
@@ -47,10 +39,6 @@ const Object = ({
                 handleMouseDownResize,
                 selectedTextFonts,
                 selectedTextSize,
-                bolded,
-                italic,
-                underlined,
-                textColor,
             }
             if (isSideSlide) {
                 return (
@@ -66,9 +54,10 @@ const Object = ({
                         fontSize={scaleSideSlide * object.fontSize}
                         fontColor={object.fontColor}
                         fontFamily={object.fontFamily}
-                        bold={true}
+                        bold={object.bold}
                         highlighter={object.highlighter}
-                        underlineColor={object.underlineColor}
+                        // underlineColor={object.underlineColor}
+                        underlineColor={object.fontColor}
                         value={object.value}
                         oType={object.oType}
                         isSelected={isObjectSelected}
@@ -77,10 +66,8 @@ const Object = ({
                         handleMouseDownResize={handleMouseDownResize}
                         selectedTextFonts={selectedTextFonts}
                         selectedTextSize={scaleSideSlide * selectedTextSize}
-                        bolded={bolded}
-                        italic={italic}
-                        underlined={underlined}
-                        textColor={textColor}
+                        italic={object.italic}
+                        underlined={object.underlined}
                         isBlocked={isSideSlide}
                     />
                 )

@@ -15,10 +15,6 @@ type WorkSpaceWidgetProps = {
     currentSlideBg: string
     selectedTextFonts: string
     selectedTextSize: number
-    bolded: boolean
-    italic: boolean
-    underlined: boolean
-    textColor: string
     mouseLocation: MouseLocations
 }
 
@@ -28,10 +24,6 @@ const WorkSpaceWidget = ({
     currentSlideBg,
     selectedTextFonts,
     selectedTextSize,
-    bolded,
-    italic,
-    underlined,
-    textColor,
     mouseLocation,
 }: WorkSpaceWidgetProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
@@ -319,10 +311,6 @@ const WorkSpaceWidget = ({
                 currentSlideBg={currentSlideBg}
                 selectedTextFonts={selectedTextFonts}
                 selectedTextSize={selectedTextSize}
-                bolded={bolded}
-                italic={italic}
-                underlined={underlined}
-                textColor={textColor}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {

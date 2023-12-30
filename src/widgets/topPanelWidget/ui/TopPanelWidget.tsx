@@ -20,14 +20,6 @@ type TopPanelWidgetProps = {
         setSelectedTextFonts: (selectedTextFonts: string) => void
         selectedTextSize: number
         setSelectedTextSize: (selectedTextSize: number) => void
-        bolded: boolean
-        setBolded: (bolded: boolean) => void
-        italic: boolean
-        setItalic: (italic: boolean) => void
-        underlined: boolean
-        setUnderlined: (underlined: boolean) => void
-        textColor: string
-        setTextColor: (textColor: string) => void
     }
 }
 

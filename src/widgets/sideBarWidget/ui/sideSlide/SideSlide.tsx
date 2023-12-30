@@ -5,7 +5,6 @@ import React, { useState } from 'react'
 import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
 import { useAppActions, useAppSelector } from '../../../../shared/redux/store'
 import { setCurrentSlide, setSelectedObjectIds } from '../../../../shared/redux/actionCreators'
-import { drop } from '../../tools/drop'
 
 type SlideProps = {
     slide: SlideType
@@ -18,10 +17,6 @@ type SlideProps = {
     setCurrentSlideBg: (arg: string) => void
     selectedTextFonts: string
     selectedTextSize: number
-    bolded: boolean
-    italic: boolean
-    underlined: boolean
-    textColor: string
 }
 
 const SideSlide = ({
@@ -35,10 +30,6 @@ const SideSlide = ({
     setCurrentSlideBg,
     selectedTextFonts,
     selectedTextSize,
-    bolded,
-    italic,
-    underlined,
-    textColor,
 }: SlideProps) => {
     const { setSelectedSlideIds, setSlides } = useAppActions()
     const slides = useAppSelector((state) => state.slides.slides)
@@ -105,10 +96,6 @@ const SideSlide = ({
                                 }}
                                 selectedTextFonts={selectedTextFonts}
                                 selectedTextSize={selectedTextSize}
-                                bolded={bolded}
-                                italic={italic}
-                                underlined={underlined}
-                                textColor={textColor}
                             />
                         ))}
                     </div>

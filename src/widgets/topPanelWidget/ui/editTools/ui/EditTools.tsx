@@ -11,14 +11,6 @@ type EditToolsProps = {
         setSelectedTextFonts: (selectedTextFonts: string) => void
         selectedTextSize: number
         setSelectedTextSize: (selectedTextSize: number) => void
-        bolded: boolean
-        setBolded: (bolded: boolean) => void
-        italic: boolean
-        setItalic: (italic: boolean) => void
-        underlined: boolean
-        setUnderlined: (underlined: boolean) => void
-        textColor: string
-        setTextColor: (textColor: string) => void
     }
 }
 
@@ -26,10 +18,10 @@ const EditTools = ({ editTools }: EditToolsProps) => (
     <div className={styles.editTools}>
         <EditInputButton editTools={editTools} type={'font'} />
         <EditInputButton editTools={editTools} type={'fontSize'} />
-        <EditImgButton editTools={editTools} src={boldTextIcon} type={'bold'} />
-        <EditImgButton editTools={editTools} src={italicTextIcon} type={'italic'} />
-        <EditImgButton editTools={editTools} src={underlineTextIcon} type={'underline'} />
-        <EditImgButton editTools={editTools} type={'textColor'} />
+        <EditImgButton src={boldTextIcon} type={'bold'} />
+        <EditImgButton src={italicTextIcon} type={'italic'} />
+        <EditImgButton src={underlineTextIcon} type={'underline'} />
+        <EditImgButton type={'textColor'} />
         {/*<EditImgButton src={addCircleIcon} />*/}
     </div>
 )

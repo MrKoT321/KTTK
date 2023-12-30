@@ -19,10 +19,6 @@ type CurrentSlideProps = {
     currentSlideBg: string
     selectedTextFonts: string
     selectedTextSize: number
-    bolded: boolean
-    italic: boolean
-    underlined: boolean
-    textColor: string
 }
 
 const CurrentSlide = ({
@@ -38,10 +34,6 @@ const CurrentSlide = ({
     currentSlideBg,
     selectedTextFonts,
     selectedTextSize,
-    bolded,
-    italic,
-    underlined,
-    textColor,
 }: CurrentSlideProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
@@ -87,16 +79,13 @@ const CurrentSlide = ({
                     <Object
                         key={index}
                         object={object}
+                        isSideSlide={false}
                         isObjectSelected={isSelected}
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
                         selectedTextFonts={selectedTextFonts}
                         selectedTextSize={selectedTextSize}
-                        bolded={bolded}
-                        italic={italic}
-                        underlined={underlined}
-                        textColor={textColor}
                     />
                 )
             })}

@@ -7,7 +7,9 @@ enum PresentationTypes {
     SET_SLIDE_OBJECTS_BOLDED = 'SET_SLIDE_OBJECTS_BOLDED',
     SET_SLIDE_OBJECTS_ITALIC = 'SET_SLIDE_OBJECTS_ITALIC',
     SET_SLIDE_OBJECTS_UNDERLINED = 'SET_SLIDE_OBJECTS_UNDERLINED',
-    SET_SLIDE_OBJECTS_COLOR = 'SET_SLIDE_OBJECTS_COLOR',
+    SET_SLIDE_OBJECTS_FONT_COLOR = 'SET_SLIDE_OBJECTS_FONT_COLOR',
+    SET_SLIDE_OBJECTS_FONT_SIZE = 'SET_SLIDE_OBJECTS_FONT_SIZE',
+    SET_SLIDE_OBJECTS_FONT_FAMILY = 'SET_SLIDE_OBJECTS_FONT_FAMILY',
     SET_SELECTED_SLIDE_IDS = 'SET_SELECTED_SLIDE_IDS',
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
@@ -33,29 +35,51 @@ type SetSlidesAction = {
 type SetSlideObjectsBoldedAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED
     payload: {
-        objectIds: number[]
+        selectedObjectIds: number[]
+        currentSlide: SlideType
     }
 }
 
 type SetSlideObjectsItalicAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_ITALIC
     payload: {
-        objectIds: number[]
+        selectedObjectIds: number[]
+        currentSlide: SlideType
     }
 }
 
 type SetSlideObjectsUnderlinedAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED
     payload: {
-        objectIds: number[]
+        selectedObjectIds: number[]
+        currentSlide: SlideType
     }
 }
 
 type SetSlideObjectsColorAction = {
-    type: PresentationTypes.SET_SLIDE_OBJECTS_COLOR
+    type: PresentationTypes.SET_SLIDE_OBJECTS_FONT_COLOR
     payload: {
-        objectIds: number[]
         color: string
+        selectedObjectIds: number[]
+        currentSlide: SlideType
+    }
+}
+
+type SetSlideObjectsFontSizeAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_FONT_SIZE
+    payload: {
+        size: number
+        selectedObjectIds: number[]
+        currentSlide: SlideType
+    }
+}
+
+type SetSlideObjectsFontFamilyAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_FONT_FAMILY
+    payload: {
+        family: string
+        selectedObjectIds: number[]
+        currentSlide: SlideType
     }
 }
 
@@ -97,5 +121,7 @@ type ActionTypes =
     | SetSlideObjectsItalicAction
     | SetSlideObjectsUnderlinedAction
     | SetSlideObjectsColorAction
+    | SetSlideObjectsFontSizeAction
+    | SetSlideObjectsFontFamilyAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }

@@ -8,23 +8,10 @@ type SlideBarProps = {
     setCurrentSlideBg: (arg: string) => void
     selectedTextFonts: string
     selectedTextSize: number
-    bolded: boolean
-    italic: boolean
-    underlined: boolean
-    textColor: string
     mouseLocation: MouseLocations
 }
 
-const SideBarWidget = ({
-    setCurrentSlideBg,
-    selectedTextFonts,
-    selectedTextSize,
-    bolded,
-    italic,
-    underlined,
-    textColor,
-    mouseLocation,
-}: SlideBarProps) => {
+const SideBarWidget = ({ setCurrentSlideBg, selectedTextFonts, selectedTextSize, mouseLocation }: SlideBarProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const selected = useAppSelector((state) => state.selected)
     const { selectedSlideIds } = selected
@@ -105,10 +92,6 @@ const SideBarWidget = ({
                         setCurrentSlideBg={setCurrentSlideBg}
                         selectedTextFonts={selectedTextFonts}
                         selectedTextSize={selectedTextSize}
-                        bolded={bolded}
-                        italic={italic}
-                        underlined={underlined}
-                        textColor={textColor}
                     />
                 )
             })}

@@ -15,10 +15,6 @@ const PresentationMaker = () => {
     const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
     const [selectedTextFonts, setSelectedTextFonts] = useState('FuturaPT')
     const [selectedTextSize, setSelectedTextSize] = useState(20)
-    const [bolded, setBolded] = useState(false)
-    const [italic, setItalic] = useState(false)
-    const [underlined, setUnderlined] = useState(false)
-    const [textColor, setTextColor] = useState('#000000')
 
     const toolMenuTools = {
         currentSlideBg,
@@ -29,14 +25,6 @@ const PresentationMaker = () => {
         setSelectedTextFonts: setSelectedTextFonts,
         selectedTextSize: selectedTextSize,
         setSelectedTextSize: setSelectedTextSize,
-        bolded: bolded,
-        setBolded: setBolded,
-        italic: italic,
-        setItalic: setItalic,
-        underlined: underlined,
-        setUnderlined: setUnderlined,
-        textColor: textColor,
-        setTextColor: setTextColor,
     }
     const presentationsObjTools = {
         setPresentation: setPresentation,
@@ -44,7 +32,7 @@ const PresentationMaker = () => {
     }
 
     const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, location: MouseLocations) => {
-        e.preventDefault
+        e.preventDefault()
         setMouseLocation(location)
     }
 
@@ -63,10 +51,6 @@ const PresentationMaker = () => {
                     setCurrentSlideBg={setCurrentSlideBg}
                     selectedTextFonts={selectedTextFonts}
                     selectedTextSize={selectedTextSize}
-                    bolded={bolded}
-                    italic={italic}
-                    underlined={underlined}
-                    textColor={textColor}
                     mouseLocation={mouseLocation}
                 />
             }
@@ -77,10 +61,6 @@ const PresentationMaker = () => {
                     currentSlideBg={currentSlideBg}
                     selectedTextFonts={selectedTextFonts}
                     selectedTextSize={selectedTextSize}
-                    bolded={bolded}
-                    italic={italic}
-                    underlined={underlined}
-                    textColor={textColor}
                     mouseLocation={mouseLocation}
                 />
             }

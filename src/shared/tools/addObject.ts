@@ -98,13 +98,13 @@ const addObject = ({
                 //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
                 fontSize: 14,
-                fontColor: 'green',
+                fontColor: '#000000',
                 fontFamily: 'FuturaPT',
-                bold: true,
+                bold: false,
                 italic: false,
-                underlined: true,
+                underlined: false,
                 highlighter: '#00000000',
-                underlineColor: 'purple',
+                underlineColor: '#000000',
                 value: '',
                 oType: 'ObjectTextType',
             }
