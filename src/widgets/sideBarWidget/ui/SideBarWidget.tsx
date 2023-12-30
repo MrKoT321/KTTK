@@ -90,7 +90,7 @@ const SideBarWidget = ({
     }, [selected.selectedSlideIds])
 
     return (
-        <div>
+        <>
             {slides.map((slide, index) => {
                 const isSelected = selected.selectedSlideIds.includes(slide.id)
                 return (
@@ -113,7 +113,7 @@ const SideBarWidget = ({
                     />
                 )
             })}
-        </div>
+        </>
     )
 }
 
