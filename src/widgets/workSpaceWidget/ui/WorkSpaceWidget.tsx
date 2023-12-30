@@ -288,13 +288,9 @@ const WorkSpaceWidget = ({
                         slide.objects = objects
                     }
                 }
-                console.log('selectedObjectIds ', selectedObjectIds)
-                console.log('objects =', objects)
-                console.log('currentSlide =', currentSlide)
                 setSlides([...allSlides])
                 const nullObjectsIds: number[] = []
                 setSelectedSlideIds(nullObjectsIds)
-                console.log('selectedObjectIds ', selectedObjectIds)
             }
         }
     }

@@ -76,10 +76,8 @@ const SideBarWidget = ({
                 if (allSlides.length === 0) {
                     allSlides = minEditor.document.slides
                 }
-                console.log(selected)
                 setSelectedSlideIds([allSlides[0].id])
                 setSlides([...allSlides])
-                console.log(selected)
             }
         }
     }
