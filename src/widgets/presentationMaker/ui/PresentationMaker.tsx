@@ -10,7 +10,6 @@ import { useAppSelector } from '../../../shared/redux/store'
 const PresentationMaker = () => {
     const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const [presentation, setPresentation] = useState<Editor>(minEditor)
-    const [mouseState, setMouseState] = useState<MouseStates>('cursor')
     const [mouseLocation, setMouseLocation] = useState<MouseLocations>('workSpace')
     const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
     const [selectedTextFonts, setSelectedTextFonts] = useState('FuturaPT')
@@ -54,7 +53,6 @@ const PresentationMaker = () => {
                 <TopPanelWidget
                     toolMenuTools={toolMenuTools}
                     editTools={editTools}
-                    setMouseState={setMouseState}
                     presentationsObjTools={presentationsObjTools}
                 />
             }
@@ -72,8 +70,6 @@ const PresentationMaker = () => {
             }
             workSpace={
                 <WorkSpaceWidget
-                    mouseState={mouseState}
-                    setMouseState={setMouseState}
                     currentSlideBg={currentSlideBg}
                     selectedTextFonts={selectedTextFonts}
                     selectedTextSize={selectedTextSize}

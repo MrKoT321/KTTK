@@ -1,5 +1,5 @@
 import { PresentationTypes } from './actionTypes'
-import { Selected, SlideType } from '../types/types'
+import { MouseStates, Selected, SlideType } from '../types/types'
 
 const setPresentationName = (name: string) => {
     return {
@@ -58,6 +58,13 @@ const setCurrentSlide = (currentSlide: SlideType) => {
     }
 }
 
+const setMouseState = (mouseState: MouseStates) => {
+    return {
+        type: PresentationTypes.SET_MOUSE_STATE,
+        payload: mouseState,
+    }
+}
+
 export {
     setPresentationName,
     addSlide,
@@ -66,4 +73,5 @@ export {
     setSelectedObjectIds,
     setSelected,
     setCurrentSlide,
+    setMouseState,
 }

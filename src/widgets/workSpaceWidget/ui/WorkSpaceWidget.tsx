@@ -1,5 +1,5 @@
 import styles from './WorkSpaceWidget.module.css'
-import { MouseLocations, MouseStates, ObjectType, Selected, SlideType } from '../../../shared/types/types'
+import { MouseLocations, MouseStates, ObjectType } from '../../../shared/types/types'
 import { CurrentSlide } from './currentSlide/CurrentSlide'
 import React, { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
@@ -11,8 +11,6 @@ import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { setSelectedSlideIds } from 'shared/redux/actionCreators'
 
 type WorkSpaceWidgetProps = {
-    mouseState: MouseStates
-    setMouseState: (mouseState: MouseStates) => void
     currentSlideBg: string
     selectedTextFonts: string
     selectedTextSize: number
@@ -24,8 +22,6 @@ type WorkSpaceWidgetProps = {
 }
 
 const WorkSpaceWidget = ({
-    mouseState,
-    setMouseState,
     currentSlideBg,
     selectedTextFonts,
     selectedTextSize,
@@ -36,10 +32,11 @@ const WorkSpaceWidget = ({
     mouseLocation,
 }: WorkSpaceWidgetProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
+    const mouseState = useAppSelector((state) => state.mouseState.mouseState)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
     const lastSlideId = selectedSlideIds[selectedSlideIds.length - 1]
     const currentSlide = useAppSelector((state) => state.slides.currentSlide)
-    const { setCurrentSlide, setSlides, setSelected } = useAppActions()
+    const { setCurrentSlide, setSlides, setSelected, setMouseState } = useAppActions()
     const allSlides = slides.map((slide) => {
         const id = lastSlideId || slides[0].id
         if (slide.id === id) {

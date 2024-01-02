@@ -1,4 +1,4 @@
-import { Selected, SlideType } from '../types/types'
+import { MouseStates, Selected, SlideType } from '../types/types'
 
 enum PresentationTypes {
     SET_PRESENTATION_NAME = 'SET_PRESENTATION_NAME',
@@ -8,6 +8,7 @@ enum PresentationTypes {
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
     SET_CURRENT_SLIDE = 'SET_CURRENT_SLIDE',
+    SET_MOUSE_STATE = 'SET_MOUSE_STATE',
 }
 
 type SetPresentationNameAction = {
@@ -45,6 +46,11 @@ type SetCurrentSlideAction = {
     payload: SlideType
 }
 
+type SetMouseStateAction = {
+    type: PresentationTypes.SET_MOUSE_STATE
+    payload: MouseStates
+}
+
 type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
@@ -53,5 +59,6 @@ type ActionTypes =
     | SetSelectedObjectsAction
     | SetSelectedAction
     | SetCurrentSlideAction
+    | SetMouseStateAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }
