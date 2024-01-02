@@ -13,19 +13,10 @@ type WorkSpaceWidgetProps = {
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
     currentSlideBg: string
-    selectedTextFonts: string
-    selectedTextSize: number
     mouseLocation: MouseLocations
 }
 
-const WorkSpaceWidget = ({
-    mouseState,
-    setMouseState,
-    currentSlideBg,
-    selectedTextFonts,
-    selectedTextSize,
-    mouseLocation,
-}: WorkSpaceWidgetProps) => {
+const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocation }: WorkSpaceWidgetProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
     const lastSlideId = selectedSlideIds[selectedSlideIds.length - 1]
@@ -309,8 +300,6 @@ const WorkSpaceWidget = ({
                 setCurrentMouseY={setCurrentMouseY}
                 handleMouseDownResize={handleMouseDownResize}
                 currentSlideBg={currentSlideBg}
-                selectedTextFonts={selectedTextFonts}
-                selectedTextSize={selectedTextSize}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {

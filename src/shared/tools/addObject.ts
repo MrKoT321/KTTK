@@ -97,7 +97,7 @@ const addObject = ({
                 borderWidth: borderWidth,
                 //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
-                fontSize: 14,
+                fontSize: 20,
                 fontColor: '#000000',
                 fontFamily: 'FuturaPT',
                 bold: false,

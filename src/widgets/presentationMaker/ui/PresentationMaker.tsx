@@ -13,18 +13,10 @@ const PresentationMaker = () => {
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
     const [mouseLocation, setMouseLocation] = useState<MouseLocations>('workSpace')
     const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
-    const [selectedTextFonts, setSelectedTextFonts] = useState('FuturaPT')
-    const [selectedTextSize, setSelectedTextSize] = useState(20)
 
     const toolMenuTools = {
         currentSlideBg,
         setCurrentSlideBg,
-    }
-    const editTools = {
-        selectedTextFonts: selectedTextFonts,
-        setSelectedTextFonts: setSelectedTextFonts,
-        selectedTextSize: selectedTextSize,
-        setSelectedTextSize: setSelectedTextSize,
     }
     const presentationsObjTools = {
         setPresentation: setPresentation,
@@ -41,26 +33,16 @@ const PresentationMaker = () => {
             topPanel={
                 <TopPanelWidget
                     toolMenuTools={toolMenuTools}
-                    editTools={editTools}
                     setMouseState={setMouseState}
                     presentationsObjTools={presentationsObjTools}
                 />
             }
-            sideBar={
-                <SideBarWidget
-                    setCurrentSlideBg={setCurrentSlideBg}
-                    selectedTextFonts={selectedTextFonts}
-                    selectedTextSize={selectedTextSize}
-                    mouseLocation={mouseLocation}
-                />
-            }
+            sideBar={<SideBarWidget setCurrentSlideBg={setCurrentSlideBg} mouseLocation={mouseLocation} />}
             workSpace={
                 <WorkSpaceWidget
                     mouseState={mouseState}
                     setMouseState={setMouseState}
                     currentSlideBg={currentSlideBg}
-                    selectedTextFonts={selectedTextFonts}
-                    selectedTextSize={selectedTextSize}
                     mouseLocation={mouseLocation}
                 />
             }

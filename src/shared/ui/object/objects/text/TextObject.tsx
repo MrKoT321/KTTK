@@ -9,8 +9,6 @@ type TextObjProps = ObjectTextType & {
     setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
-    selectedTextFonts: string
-    selectedTextSize: number
     isBlocked?: boolean
 }
 

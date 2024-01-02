@@ -24,8 +24,6 @@ type MoveObj = {
 
 type TextObjProps = ObjectTextType & {
     isSelected?: boolean
-    selectedTextFonts: string
-    selectedTextSize: number
 }
 
 export type { DrawStyle, TextObjProps, MoveObj }

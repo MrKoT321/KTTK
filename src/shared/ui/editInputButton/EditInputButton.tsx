@@ -1,47 +1,81 @@
 import styles from './EditInputButton.module.css'
+import { useAppActions, useAppSelector } from '../../redux/store'
+import { SlideType } from '../../types/types'
 
 type EditInputType = 'font' | 'fontSize'
 
 type EditInputButtonProps = {
     type: EditInputType
-    editTools: {
-        selectedTextFonts: string
-        setSelectedTextFonts(selectedTextFonts: string): void
-        selectedTextSize: number
-        setSelectedTextSize(selectedTextSize: number): void
-    }
 }
 
-const EditInputButton = ({ editTools, type }: EditInputButtonProps) => {
+const EditInputButton = ({ type }: EditInputButtonProps) => {
+    const { setTextObjectFontSize, setTextObjectFontFamily } = useAppActions()
+    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const availableFonts = ['FuturaPT', 'Arial', 'Times New Roman', 'Comic Sans MS']
     const availableFontsSizes = [10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80]
+
+    const getSelectedObjectsCommonFontFamily = (currentSlide: SlideType, selectedObjectIds: number[]) => {
+        const emptyFontFamily = ''
+        const defaultFontFamily = 'FuturaPT'
+        let commonFontFamily = emptyFontFamily
+        for (const object of currentSlide.objects) {
+            if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
+                if (commonFontFamily == emptyFontFamily) {
+                    commonFontFamily = object.fontFamily
+                } else if (commonFontFamily != object.fontFamily) {
+                    return emptyFontFamily
+                }
+            }
+        }
+        return commonFontFamily == emptyFontFamily ? defaultFontFamily : commonFontFamily
+    }
+
+    const getSelectedObjectsCommonFontSize = (currentSlide: SlideType, selectedObjectIds: number[]) => {
+        const emptyFontSize = 0
+        const defaultFontSize = 20
+        let commonFontSize = emptyFontSize
+        for (const object of currentSlide.objects) {
+            if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
+                if (commonFontSize == emptyFontSize) {
+                    commonFontSize = object.fontSize
+                } else if (commonFontSize != object.fontSize) {
+                    return emptyFontSize
+                }
+            }
+        }
+        return commonFontSize == emptyFontSize ? defaultFontSize : commonFontSize
+    }
+
     return (
         <div className={styles.editInputButton}>
             {type === 'font' && (
                 <select
-                    value={editTools.selectedTextFonts}
+                    value={getSelectedObjectsCommonFontFamily(currentSlide, selectedObjectIds)}
                     className={styles.input}
-                    onChange={(e) => editTools.setSelectedTextFonts(e.target.value)}
+                    onChange={(e) => setTextObjectFontFamily(e.target.value, selectedObjectIds, currentSlide)}
                 >
                     {availableFonts.map((font, index) => (
                         <option key={index} value={font}>
                             {font}
                         </option>
                     ))}
+                    <option key={''} value={''} hidden={true}></option>
                 </select>
             )}
 
             {type === 'fontSize' && (
                 <select
-                    value={editTools.selectedTextSize}
+                    value={getSelectedObjectsCommonFontSize(currentSlide, selectedObjectIds)}
                     className={styles.input}
-                    onChange={(e) => editTools.setSelectedTextSize(parseInt(e.target.value))}
+                    onChange={(e) => setTextObjectFontSize(parseInt(e.target.value), selectedObjectIds, currentSlide)}
                 >
                     {availableFontsSizes.map((fontSize, index) => (
                         <option key={index} value={fontSize}>
                             {fontSize}
                         </option>
                     ))}
+                    <option key={0} value={0} hidden={true}></option>
                 </select>
             )}
         </div>

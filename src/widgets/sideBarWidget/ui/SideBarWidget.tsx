@@ -6,12 +6,10 @@ import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 
 type SlideBarProps = {
     setCurrentSlideBg: (arg: string) => void
-    selectedTextFonts: string
-    selectedTextSize: number
     mouseLocation: MouseLocations
 }
 
-const SideBarWidget = ({ setCurrentSlideBg, selectedTextFonts, selectedTextSize, mouseLocation }: SlideBarProps) => {
+const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const selected = useAppSelector((state) => state.selected)
     const { selectedSlideIds } = selected
@@ -90,8 +88,6 @@ const SideBarWidget = ({ setCurrentSlideBg, selectedTextFonts, selectedTextSize,
                         handleDragStart={handleDragStart}
                         handleDragOver={handleDragOver}
                         setCurrentSlideBg={setCurrentSlideBg}
-                        selectedTextFonts={selectedTextFonts}
-                        selectedTextSize={selectedTextSize}
                     />
                 )
             })}

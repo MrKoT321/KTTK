@@ -11,8 +11,6 @@ type ObjectProps = {
     setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
-    selectedTextFonts: string
-    selectedTextSize: number
 }
 
 const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
@@ -24,8 +22,6 @@ const Object = ({
     setMouseState,
     handleMouseDown,
     handleMouseDownResize,
-    selectedTextFonts,
-    selectedTextSize,
 }: ObjectProps) => {
     const selected = useAppSelector((state) => state.selected)
     switch (object.oType) {
@@ -37,8 +33,6 @@ const Object = ({
                 setMouseState,
                 handleMouseDown,
                 handleMouseDownResize,
-                selectedTextFonts,
-                selectedTextSize,
             }
             if (isSideSlide) {
                 return (
@@ -64,8 +58,6 @@ const Object = ({
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
-                        selectedTextFonts={selectedTextFonts}
-                        selectedTextSize={scaleSideSlide * selectedTextSize}
                         italic={object.italic}
                         underlined={object.underlined}
                         isBlocked={isSideSlide}

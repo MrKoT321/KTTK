@@ -17,8 +17,6 @@ type CurrentSlideProps = {
     setCurrentMouseY: (currentMouseY: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     currentSlideBg: string
-    selectedTextFonts: string
-    selectedTextSize: number
 }
 
 const CurrentSlide = ({
@@ -32,8 +30,6 @@ const CurrentSlide = ({
     setCurrentMouseY,
     handleMouseDownResize,
     currentSlideBg,
-    selectedTextFonts,
-    selectedTextSize,
 }: CurrentSlideProps) => {
     const slides = useAppSelector((state) => state.slides.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
@@ -84,8 +80,6 @@ const CurrentSlide = ({
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
-                        selectedTextFonts={selectedTextFonts}
-                        selectedTextSize={selectedTextSize}
                     />
                 )
             })}

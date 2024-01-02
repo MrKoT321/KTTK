@@ -15,8 +15,6 @@ type SlideProps = {
     handleDragStart(e: React.DragEvent<HTMLDivElement>, currentSlide: SlideType): void
     handleDragOver(e: React.DragEvent<HTMLDivElement>): void
     setCurrentSlideBg: (arg: string) => void
-    selectedTextFonts: string
-    selectedTextSize: number
 }
 
 const SideSlide = ({
@@ -28,8 +26,6 @@ const SideSlide = ({
     handleDragStart,
     handleDrop,
     setCurrentSlideBg,
-    selectedTextFonts,
-    selectedTextSize,
 }: SlideProps) => {
     const { setSelectedSlideIds, setSlides } = useAppActions()
     const slides = useAppSelector((state) => state.slides.slides)
@@ -94,8 +90,6 @@ const SideSlide = ({
                                 handleMouseDownResize={() => {
                                     console.log()
                                 }}
-                                selectedTextFonts={selectedTextFonts}
-                                selectedTextSize={selectedTextSize}
                             />
                         ))}
                     </div>

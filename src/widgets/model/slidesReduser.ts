@@ -116,7 +116,7 @@ const SlidesReducer = (state = initialState, action: ActionTypes) => {
                 currentSlide: setStyleCurrentSlideObjects(
                     { ...action.payload.currentSlide },
                     [...action.payload.selectedObjectIds],
-                    'fontSize',
+                    'fontFamily',
                     action.payload.family,
                 ),
             }
