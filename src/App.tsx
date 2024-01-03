@@ -1,4 +1,4 @@
-import { PresentationMaker } from './widgets/presentationMaker/ui'
+import { PresentationMaker } from './pages/presentationMaker'
 import { Provider } from 'react-redux'
 import { store } from './shared/redux/store'
 

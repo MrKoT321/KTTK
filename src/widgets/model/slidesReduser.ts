@@ -1,12 +1,12 @@
 import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { SlideType } from '../../shared/types/types'
 
-type SlidesReducerType = {
+type slidesReducerType = {
     slides: SlideType[]
     currentSlide: SlideType
 }
 
-const initialState: SlidesReducerType = {
+const initialState: slidesReducerType = {
     slides: [{ id: 1, order: 1, background: 'color', backgroundValue: '#FFFFFF', objects: [] }],
     currentSlide: { id: 1, order: 1, background: 'color', backgroundValue: '#FFFFFF', objects: [] },
 }
@@ -45,7 +45,7 @@ const setStyleCurrentSlideObjects = (
     return currentSlide
 }
 
-const SlidesReducer = (state = initialState, action: ActionTypes) => {
+const slidesReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case PresentationTypes.ADD_SLIDE:
             return {
@@ -124,4 +124,4 @@ const SlidesReducer = (state = initialState, action: ActionTypes) => {
             return state
     }
 }
-export default SlidesReducer
+export default slidesReducer

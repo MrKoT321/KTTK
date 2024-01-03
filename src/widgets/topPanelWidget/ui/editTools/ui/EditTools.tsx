@@ -1,19 +1,19 @@
 import styles from './EditTools.module.css'
-import { EditInputButton } from '../../../../../shared/ui/editInputButton/EditInputButton'
-import { EditImgButton } from '../../../../../shared/ui/editImgButton/EditImgButton'
+import { EditInputButton } from './editInputButton/EditInputButton'
 import boldTextIcon from '../../../../../shared/icons/boldTextIcon.svg'
 import italicTextIcon from '../../../../../shared/icons/italicTextIcon.svg'
 import underlineTextIcon from '../../../../../shared/icons/underlineTextIcon.svg'
+import { ChangeTextDecorationSetupButton } from './changeTextDecorationSetupButton'
+import { ChangeTextColorButton } from './changeTextColorButton'
 
 const EditTools = () => (
     <div className={styles.editTools}>
         <EditInputButton type={'font'} />
         <EditInputButton type={'fontSize'} />
-        <EditImgButton src={boldTextIcon} type={'bold'} />
-        <EditImgButton src={italicTextIcon} type={'italic'} />
-        <EditImgButton src={underlineTextIcon} type={'underline'} />
-        <EditImgButton type={'textColor'} />
-        {/*<EditImgButton src={addCircleIcon} />*/}
+        <ChangeTextDecorationSetupButton imageSrc={boldTextIcon} type={'bold'} />
+        <ChangeTextDecorationSetupButton imageSrc={italicTextIcon} type={'italic'} />
+        <ChangeTextDecorationSetupButton imageSrc={underlineTextIcon} type={'underline'} />
+        <ChangeTextColorButton />
     </div>
 )
 

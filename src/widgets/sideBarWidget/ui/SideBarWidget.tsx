@@ -1,8 +1,9 @@
 import { MouseLocations, SlideType } from '../../../shared/types/types'
-import { SideSlide } from './sideSlide/SideSlide'
+import { SideSlide } from '../../../entity/sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { minEditor } from 'shared/testData'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
+import { getReorderedSlides } from '../tools/getReorderedSlides'
 
 type SlideBarProps = {
     setCurrentSlideBg: (arg: string) => void
@@ -16,7 +17,7 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
     const { setSlides, setSelectedSlideIds } = useAppActions()
     const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
 
-    const handleDragStart = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
+    const handleDragStart = (slide: SlideType) => {
         setDraggedSlide(slide)
     }
 
@@ -24,29 +25,9 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
         e.preventDefault()
     }
 
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>, thisSlide: SlideType) => {
         e.preventDefault()
-        const editedSlides = [...slides]
-        setSlides(
-            editedSlides
-                .map((s) => {
-                    if (s.id === slide.id) {
-                        if (draggedSlide) {
-                            const r = { ...s, order: draggedSlide.order }
-                            return r
-                        }
-                        return s
-                    }
-                    if (draggedSlide) {
-                        if (s.id === draggedSlide.id) {
-                            const r = { ...s, order: slide.order }
-                            return r
-                        }
-                    }
-                    return s
-                })
-                .sort((x, y) => x.order - y.order),
-        )
+        setSlides(getReorderedSlides(thisSlide, draggedSlide, slides))
     }
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -74,7 +55,7 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
     }, [selectedSlideIds])
 
     return (
-        <div>
+        <>
             {slides.map((slide, index) => {
                 const isSelected = selectedSlideIds.includes(slide.id)
                 return (
@@ -83,7 +64,6 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
                         order={index}
                         key={slide.id}
                         isSelected={isSelected}
-                        isDraggable={true}
                         handleDrop={handleDrop}
                         handleDragStart={handleDragStart}
                         handleDragOver={handleDragOver}
@@ -91,7 +71,7 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
                     />
                 )
             })}
-        </div>
+        </>
     )
 }
 

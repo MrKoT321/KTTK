@@ -11,9 +11,9 @@ import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
 import { MouseStates } from '../../../../../shared/types/types'
 import { useState } from 'react'
-import { AddElementButton } from '../../../../../features/addElementButton/AddElementButton'
-import { DropdownMenu } from '../../../../../features/dropdownMenu/DropdownMenu'
-import { SelectImagePopUp } from 'widgets/selectImagePopUpWidget'
+import { AddElementButton } from '../../../../../shared/ui/addElementButton/AddElementButton'
+import { DropdownMenu } from '../../../../../features/dropdownMenu'
+import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
 
 type ToolMenuProps = {
@@ -23,8 +23,8 @@ type ToolMenuProps = {
 }
 
 const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
-    const { addSlide } = useAppActions()
     const slides = useAppSelector((state) => state.slides.slides)
+    const { addSlide } = useAppActions()
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const [isPopUpOpen, setPopUpState] = useState(false)
 
