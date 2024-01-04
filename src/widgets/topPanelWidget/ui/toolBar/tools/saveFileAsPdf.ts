@@ -69,11 +69,15 @@ function addRect(doc: jsPDF, rect: ObjectShapeType) {
 
 function addTriangle(doc: jsPDF, triangle: ObjectShapeType) {
     doc.setFillColor(triangle.shapeBgColor)
-    doc.moveTo(triangle.startX + triangle.width / 2, triangle.startY)
-    doc.lineTo(triangle.width, triangle.height)
-    doc.lineTo(triangle.startX, triangle.height)
-    doc.lineTo(triangle.startX + triangle.width / 2, triangle.startY)
-    doc.fill()
+    doc.triangle(
+        triangle.startX + triangle.width / 2,
+        triangle.startY,
+        triangle.width,
+        triangle.height,
+        triangle.startX,
+        triangle.height,
+        'FD',
+    )
 }
 
 function addLine(doc: jsPDF, line: ObjectShapeType) {
