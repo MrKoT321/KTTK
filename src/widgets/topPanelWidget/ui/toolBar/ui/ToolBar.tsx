@@ -4,6 +4,7 @@ import { openFile } from '../tools/openFile'
 import { saveFile } from '../tools/saveFile'
 import { Editor } from '../../../../../shared/types/types'
 import { useAppSelector } from '../../../../../shared/redux/store'
+import { exportPresentationAsPdf } from '../tools/saveFileAsPdf'
 
 type ToolBarProps = {
     presentationsObjTools: {
@@ -31,6 +32,9 @@ const ToolBar = ({ presentationsObjTools }: ToolBarProps) => {
                     className={styles.hidden}
                     onInput={(event: ChangeEvent<HTMLInputElement>) => openFile({ event, presentationsObjTools })}
                 />
+            </button>
+            <button className={styles.button} onClick={() => exportPresentationAsPdf(slides, presentationName)}>
+                Скачать как PDF
             </button>
         </div>
     )
