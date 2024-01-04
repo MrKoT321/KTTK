@@ -125,9 +125,10 @@ async function addSlides(doc: jsPDF, slides: SlideType[], slideSize: number[]) {
     slides.forEach((slide) => {
         if (slide.background === 'color') {
             setBackgroundColor(doc, slide.backgroundValue, slideSize)
-        } else {
-            // await setBackgroundImage(doc, slide.backgroundValue)
         }
+        // else {
+        // await setBackgroundImage(doc, slide.backgroundValue)
+        // }
         addSlideObjects(doc, slide.objects)
         doc.addPage()
     })
