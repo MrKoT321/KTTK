@@ -14,7 +14,7 @@ const createTextObject = (props: TextObjProps) => {
         fontStyle: props.italic ? 'italic' : 'normal',
         textDecorationLine: props.underlined ? 'underline' : 'none',
         background: props.highlighter,
-        textDecorationColor: props.underlineColor,
+        textDecorationColor: props.fontColor,
     }
 }
 

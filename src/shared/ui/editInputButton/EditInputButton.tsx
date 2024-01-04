@@ -47,6 +47,13 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
         return commonFontSize == emptyFontSize ? defaultFontSize : commonFontSize
     }
 
+    // let textFontFamily = getSelectedObjectsCommonFontFamily(currentSlide, selectedObjectIds)
+    // let textFontSize = getSelectedObjectsCommonFontSize(currentSlide, selectedObjectIds)
+    // useEffect(() => {
+    //     textFontFamily = getSelectedObjectsCommonFontFamily(currentSlide, selectedObjectIds)
+    //     textFontSize = getSelectedObjectsCommonFontSize(currentSlide, selectedObjectIds)
+    // }, [selectedObjectIds])
+
     return (
         <div className={styles.editInputButton}>
             {type === 'font' && (

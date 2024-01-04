@@ -1,6 +1,5 @@
 import styles from './EditImgButton.module.css'
 import { useAppActions, useAppSelector } from '../../redux/store'
-import { useState } from 'react'
 import { SlideType } from '../../types/types'
 
 type EditInputStyleType = 'bold' | 'italic' | 'underline' | 'textColor'
@@ -11,7 +10,6 @@ type EditImgButtonType = {
 }
 
 const EditImgButton = ({ src, type }: EditImgButtonType) => {
-    const [textColor, setTextColor] = useState('#000000')
     const currentSlide = useAppSelector((state) => state.slides.currentSlide)
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const { setTextObjectsBolded, setTextObjectsItalic, setTextObjectsUnderlined, setTextObjectFontColor } =
@@ -68,11 +66,11 @@ const EditImgButton = ({ src, type }: EditImgButtonType) => {
                 <input
                     className={styles.editImgButton}
                     type={'color'}
-                    value={textColor}
-                    // value={getSelectedObjectsCommonFontColor(currentSlide, selectedObjectIds)}
+                    // value={textColor}
+                    value={getSelectedObjectsCommonFontColor(currentSlide, selectedObjectIds)}
                     onChange={(event) => {
-                        // setTextObjectFontColor(event.target.value, selectedItems, currentSlide)
-                        setTextColor(event.target.value)
+                        setTextObjectFontColor(event.target.value, selectedObjectIds, currentSlide)
+                        // setTextColor(event.target.value)
                     }}
                 />
             )}

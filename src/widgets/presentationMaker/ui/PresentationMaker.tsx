@@ -24,7 +24,6 @@ const PresentationMaker = () => {
     }
 
     const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, location: MouseLocations) => {
-        e.preventDefault()
         setMouseLocation(location)
     }
 
