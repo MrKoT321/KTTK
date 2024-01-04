@@ -66,6 +66,10 @@ function addRect(doc: jsPDF, rect: ObjectShapeType) {
     doc.setFillColor(rect.shapeBgColor)
     doc.rect(rect.startX, rect.startY, rect.width, rect.height, 'FD')
 }
+//
+// function addTriangle(doc: jsPDF, rect: ObjectShapeType) {}
+//
+// function addLine(doc: jsPDF, rect: ObjectShapeType) {}
 
 function addShape(doc: jsPDF, shapeObject: ObjectShapeType) {
     if (shapeObject.type === 'circle') {
@@ -73,6 +77,12 @@ function addShape(doc: jsPDF, shapeObject: ObjectShapeType) {
     }
     if (shapeObject.type === 'rect') {
         addRect(doc, shapeObject)
+    }
+    if (shapeObject.type === 'triangle') {
+        // addTriangle(doc, shapeObject)
+    }
+    if (shapeObject.type === 'line') {
+        // addLine(doc, shapeObject)
     }
 }
 
@@ -91,16 +101,14 @@ function addSlideObject(doc: jsPDF, slideObject: ObjectType) {
     })
 }
 
-async function addSlideObjects(doc: jsPDF, slideObjects: ObjectType[]) {
-    const promises = slideObjects.map((object) => {
+function addSlideObjects(doc: jsPDF, slideObjects: ObjectType[]) {
+    slideObjects.forEach((object) => {
         return addSlideObject(doc, object)
     })
-    await Promise.all(promises)
 }
 
 async function addSlides(doc: jsPDF, slides: SlideType[], slideSize: number[]) {
     slides.forEach((slide) => {
-        console.log(slide)
         if (slide.background === 'color') {
             setBackgroundColor(doc, slide.backgroundValue, slideSize)
         } else {
@@ -112,7 +120,6 @@ async function addSlides(doc: jsPDF, slides: SlideType[], slideSize: number[]) {
 }
 
 async function exportPresentationAsPdf(slides: SlideType[], presentationName: string) {
-    console.log('saved')
     const slideSize = [1218, 716]
     const doc = new jsPDF({
         unit: 'px',
