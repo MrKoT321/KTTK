@@ -103,7 +103,7 @@ type SetSelectedAction = {
 
 type SetCurrentSlideAction = {
     type: PresentationTypes.SET_CURRENT_SLIDE
-    payload: SlideType
+    payload: string
 }
 
 type setTextObjectsAction = {

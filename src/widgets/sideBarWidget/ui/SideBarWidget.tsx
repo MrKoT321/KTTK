@@ -54,11 +54,14 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
     //     return document.removeEventListener('keydown', (e) => handleKeyDown(e))
     // }, [selectedSlideIds])
 
+    console.log('selectedSlideIds = ', selectedSlideIds)
+
     return (
         <>
             {slidesOrder.map((slideId, index) => {
                 const isSelected = selectedSlideIds.includes(slideId)
                 const slide = slidesMap.get(slideId)
+                // console.log(slideId, '---', slide)
                 if (slide !== undefined) {
                     return (
                         <SideSlide

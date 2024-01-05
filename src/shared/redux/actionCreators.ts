@@ -62,10 +62,10 @@ const setSelected = (selected: Selected) => {
     }
 }
 
-const setCurrentSlide = (currentSlide: SlideType) => {
+const setCurrentSlide = (currentSlideId: string) => {
     return {
         type: PresentationTypes.SET_CURRENT_SLIDE,
-        payload: { ...currentSlide },
+        payload: currentSlideId,
     }
 }
 

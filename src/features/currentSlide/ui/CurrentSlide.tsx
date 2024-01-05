@@ -43,6 +43,9 @@ const CurrentSlide = ({
         background: currentSlideBg,
     }
 
+    console.log('currentSlideId = ', currentSlideId)
+    console.log('slidesMap = ', slidesMap)
+
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
         //TODO: вынести сотсояния мыши в редюсер
         if (mouseState === 'cursor' && isSelected) {

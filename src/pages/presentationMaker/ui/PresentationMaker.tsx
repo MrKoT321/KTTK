@@ -10,8 +10,6 @@ import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 const PresentationMaker = () => {
     const { currentSlideId, slidesMap } = useAppSelector((state) => state.slides)
-    console.log('currentSlideId = ', currentSlideId)
-    console.log('slidesMap = ', slidesMap)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [presentation, setPresentation] = useState<Editor>(minEditor)
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')

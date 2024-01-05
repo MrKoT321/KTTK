@@ -21,9 +21,11 @@ type SlideProps = {
 // handleDrop,
 // setCurrentSlideBg,
 
-const SideSlide = ({ slide, order, isSelected }: SlideProps) => {
-    // const { setSelectedSlideIds } = useAppActions()
-    // let selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) => {
+    const slidesOrder = useAppSelector((state) => state.slides.slidesOrder)
+    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const thisSlide = { ...slide }
+    const { setSelectedSlideIds } = useAppActions()
     const [isHovered, setIsHovered] = useState(false)
 
     const slideStyle = {
@@ -36,20 +38,22 @@ const SideSlide = ({ slide, order, isSelected }: SlideProps) => {
         borderWidth: 5,
         borderStyle: 'solid',
     }
-    const thisSlide = { ...slide, order: order }
 
-    // const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    //     if (e.ctrlKey) {
-    //         selectedSlideIds = selectedSlideIds.filter((selectedId) => selectedId !== thisSlide.id)
-    //         selectedSlideIds.push(thisSlide.id)
-    //     } else {
-    //         selectedSlideIds = [thisSlide.id]
-    //     }
-    //     setSelectedSlideIds(selectedSlideIds)
-    //     setSelectedObjectIds([])
-    //     setCurrentSlide(thisSlide)
-    //     setCurrentSlideBg(thisSlide.backgroundValue)
-    // }
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        let newSelectedSlideIds: string[]
+        const newCurrentSlideId = slidesOrder[order]
+        if (e.ctrlKey) {
+            newSelectedSlideIds = selectedSlideIds.filter((selectedId) => selectedId !== thisSlide.id)
+            newSelectedSlideIds.push(newCurrentSlideId)
+        } else {
+            newSelectedSlideIds = [newCurrentSlideId]
+        }
+        setSelectedSlideIds(newSelectedSlideIds)
+        setSelectedObjectIds([])
+        console.log('newCurrentSlideId = ', newCurrentSlideId)
+        setCurrentSlide(newCurrentSlideId)
+        setCurrentSlideBg(thisSlide.backgroundValue)
+    }
 
     return (
         <div className={styles.containerWithNumber}>
@@ -61,7 +65,7 @@ const SideSlide = ({ slide, order, isSelected }: SlideProps) => {
                 style={{ background: slideStyle.background }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                // onClick={(e) => handleClick(e)}
+                onClick={(e) => handleClick(e)}
                 // onDragStart={() => handleDragStart(thisSlide)}
                 // onDragOver={(e) => handleDragOver(e)}
                 // onDrop={(e) => handleDrop(e, thisSlide)}

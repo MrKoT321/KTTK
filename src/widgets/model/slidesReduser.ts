@@ -66,7 +66,7 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.SET_CURRENT_SLIDE:
             return {
                 ...state,
-                currentSlide: { ...action.payload },
+                currentSlideId: action.payload,
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_BOLDED:
             return {
