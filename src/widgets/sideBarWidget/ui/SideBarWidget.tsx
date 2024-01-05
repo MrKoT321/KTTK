@@ -54,8 +54,6 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
     //     return document.removeEventListener('keydown', (e) => handleKeyDown(e))
     // }, [selectedSlideIds])
 
-    console.log('selectedSlideIds = ', selectedSlideIds)
-
     return (
         <>
             {slidesOrder.map((slideId, index) => {

@@ -52,45 +52,14 @@ const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenu
 
     return (
         <div className={styles.toolMenu}>
-            <AddElementButton
-                icon={addSlideIcon}
-                onClick={() => {
-                    console.log(slidesMap)
-                    addSlide(slidesMap, slidesOrder)
-                }}
-            />
-            <AddElementButton
-                icon={chooseTemplateIcon}
-                onClick={() => {
-                    console.log()
-                }}
-            />
-            <AddElementButton
-                icon={cancelIcon}
-                onClick={() => {
-                    console.log()
-                }}
-            />
-            <AddElementButton
-                icon={returnIcon}
-                onClick={() => {
-                    console.log()
-                }}
-            />
+            <AddElementButton icon={addSlideIcon} onClick={() => addSlide(slidesMap, slidesOrder)} />
+            <AddElementButton icon={chooseTemplateIcon} onClick={() => console.log()} />
+            <AddElementButton icon={cancelIcon} onClick={() => console.log()} />
+            <AddElementButton icon={returnIcon} onClick={() => console.log()} />
             <AddElementButton icon={pointerIcon} onClick={() => setMouseState('cursor')} />
             <AddElementButton icon={addTextIcon} onClick={() => setMouseState('creatingText')} />
-            <AddElementButton
-                icon={addImageIcon}
-                onClick={() => {
-                    openSelectImagePopUp()
-                }}
-            />
-            <AddElementButton
-                icon={addShapeIcon}
-                onClick={() => {
-                    changePopupMenuShapesVisibility()
-                }}
-            />
+            <AddElementButton icon={addImageIcon} onClick={() => openSelectImagePopUp()} />
+            <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
             <input
                 className={styles.inputColor}
                 type={'color'}

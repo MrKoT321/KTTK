@@ -4,7 +4,6 @@ import { Object } from '../../shared/ui/object'
 import React, { useState } from 'react'
 import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
 import { useAppActions, useAppSelector } from '../../shared/redux/store'
-import { setCurrentSlide, setSelectedObjectIds } from '../../shared/redux/actionCreators'
 
 type SlideProps = {
     slide: SlideType
@@ -25,7 +24,7 @@ const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) 
     const slidesOrder = useAppSelector((state) => state.slides.slidesOrder)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const thisSlide = { ...slide }
-    const { setSelectedSlideIds } = useAppActions()
+    const { setSelectedSlideIds, setCurrentSlide, setSelectedObjectIds } = useAppActions()
     const [isHovered, setIsHovered] = useState(false)
 
     const slideStyle = {
@@ -50,7 +49,6 @@ const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) 
         }
         setSelectedSlideIds(newSelectedSlideIds)
         setSelectedObjectIds([])
-        console.log('newCurrentSlideId = ', newCurrentSlideId)
         setCurrentSlide(newCurrentSlideId)
         setCurrentSlideBg(thisSlide.backgroundValue)
     }
