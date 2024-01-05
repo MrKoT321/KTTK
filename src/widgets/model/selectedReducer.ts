@@ -2,7 +2,7 @@ import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { Selected } from '../../shared/types/types'
 
 const initialState: Selected = {
-    selectedSlideIds: [1],
+    selectedSlideIds: ['1'],
     selectedObjectIds: [],
 }
 const selectedReducer = (state = initialState, action: ActionTypes) => {

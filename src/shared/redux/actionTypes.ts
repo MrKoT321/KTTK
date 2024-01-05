@@ -24,12 +24,15 @@ type SetPresentationNameAction = {
 
 type AddSlideAction = {
     type: PresentationTypes.ADD_SLIDE
-    payload: SlideType[]
+    payload: {
+        slidesMap: Map<string, SlideType>
+        slidesOrder: string[]
+    }
 }
 
 type SetSlidesAction = {
     type: PresentationTypes.SET_SLIDES
-    payload: SlideType[]
+    payload: Map<string, SlideType>
 }
 
 type SetSlideObjectsBoldedAction = {
@@ -85,7 +88,7 @@ type SetSlideObjectsFontFamilyAction = {
 
 type SetSelectedSlidesAction = {
     type: PresentationTypes.SET_SELECTED_SLIDE_IDS
-    payload: number[]
+    payload: string[]
 }
 
 type SetSelectedObjectsAction = {

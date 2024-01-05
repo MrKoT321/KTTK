@@ -1,6 +1,7 @@
 import styles from './EditInputButton.module.css'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
 import { SlideType } from '../../../../../../shared/types/types'
+import { defaultCurrentSlide } from '../../../../../../shared/defaultCurrentSlide'
 
 type EditInputType = 'font' | 'fontSize'
 
@@ -9,9 +10,10 @@ type EditInputButtonProps = {
 }
 
 const EditInputButton = ({ type }: EditInputButtonProps) => {
-    const { setTextObjectFontSize, setTextObjectFontFamily } = useAppActions()
-    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
+    const { setTextObjectFontSize, setTextObjectFontFamily } = useAppActions()
     const availableFonts = ['FuturaPT', 'Arial', 'Times New Roman', 'Comic Sans MS']
     const availableFontsSizes = [10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80]
 

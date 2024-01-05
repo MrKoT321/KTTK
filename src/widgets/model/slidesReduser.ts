@@ -1,14 +1,19 @@
 import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { SlideType } from '../../shared/types/types'
+import { v4 as uuidV4 } from 'uuid'
 
 type slidesReducerType = {
-    slides: SlideType[]
-    currentSlide: SlideType
+    slidesOrder: string[]
+    slidesMap: Map<string, SlideType>
+    currentSlideId: string
 }
 
+const id = uuidV4()
+
 const initialState: slidesReducerType = {
-    slides: [{ id: 1, order: 1, background: 'color', backgroundValue: '#FFFFFF', objects: [] }],
-    currentSlide: { id: 1, order: 1, background: 'color', backgroundValue: '#FFFFFF', objects: [] },
+    slidesOrder: [id],
+    slidesMap: new Map([[id, { background: 'color', backgroundValue: '#FFFFFF', objects: [] }]]),
+    currentSlideId: id,
 }
 
 type ParamToChangeType = 'bold' | 'italic' | 'underlined' | 'fontColor' | 'fontSize' | 'fontFamily'
@@ -50,12 +55,13 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.ADD_SLIDE:
             return {
                 ...state,
-                slides: [...action.payload],
+                slidesMap: action.payload.slidesMap,
+                slidesOrder: action.payload.slidesOrder,
             }
         case PresentationTypes.SET_SLIDES:
             return {
                 ...state,
-                slides: [...action.payload],
+                slidesMap: new Map(action.payload),
             }
         case PresentationTypes.SET_CURRENT_SLIDE:
             return {

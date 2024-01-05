@@ -1,5 +1,6 @@
 import styles from './ChangeTextDecorationSetupButton.module.css'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
+import { defaultCurrentSlide } from '../../../../../../shared/defaultCurrentSlide'
 
 type ImgButtonType = 'bold' | 'italic' | 'underline'
 
@@ -9,7 +10,8 @@ type Props = {
 }
 
 const ChangeTextDecorationSetupButton = ({ imageSrc, type }: Props) => {
-    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const { setTextObjectsBolded, setTextObjectsItalic, setTextObjectsUnderlined } = useAppActions()
 

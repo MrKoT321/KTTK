@@ -4,6 +4,7 @@ import { openFile } from '../tools/openFile'
 import { saveFile } from '../tools/saveFile'
 import { Editor } from '../../../../../shared/types/types'
 import { useAppSelector } from '../../../../../shared/redux/store'
+import { defaultCurrentSlide } from '../../../../../shared/defaultCurrentSlide'
 
 type ToolBarProps = {
     presentationsObjTools: {
@@ -13,7 +14,8 @@ type ToolBarProps = {
 }
 
 const ToolBar = ({ presentationsObjTools }: ToolBarProps) => {
-    const slides = useAppSelector((state) => state.slides.slides)
+    const slidesMap = useAppSelector((state) => state.slides.slidesMap)
+    const slides = Array.from(slidesMap.values())
     const selected = useAppSelector((state) => state.selected)
     const presentationName = useAppSelector((state) => state.presentationName.name)
 

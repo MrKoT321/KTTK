@@ -23,7 +23,7 @@ type ToolMenuProps = {
 }
 
 const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
-    const slides = useAppSelector((state) => state.slides.slides)
+    const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const { addSlide } = useAppActions()
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const [isPopUpOpen, setPopUpState] = useState(false)
@@ -52,7 +52,13 @@ const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenu
 
     return (
         <div className={styles.toolMenu}>
-            <AddElementButton icon={addSlideIcon} onClick={() => addSlide(slides)} />
+            <AddElementButton
+                icon={addSlideIcon}
+                onClick={() => {
+                    console.log(slidesMap)
+                    addSlide(slidesMap, slidesOrder)
+                }}
+            />
             <AddElementButton
                 icon={chooseTemplateIcon}
                 onClick={() => {

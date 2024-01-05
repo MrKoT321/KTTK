@@ -6,9 +6,13 @@ import { Editor, MouseLocations, MouseStates } from '../../../shared/types/types
 import { minEditor } from '../../../shared/testData'
 import { Layout } from '../../../widgets/layoutWidget'
 import { useAppSelector } from '../../../shared/redux/store'
+import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 const PresentationMaker = () => {
-    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const { currentSlideId, slidesMap } = useAppSelector((state) => state.slides)
+    console.log('currentSlideId = ', currentSlideId)
+    console.log('slidesMap = ', slidesMap)
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [presentation, setPresentation] = useState<Editor>(minEditor)
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
     const [mouseLocation, setMouseLocation] = useState<MouseLocations>('workSpace')

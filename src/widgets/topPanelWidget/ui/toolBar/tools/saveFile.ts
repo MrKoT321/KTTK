@@ -4,7 +4,8 @@ const saveFile = (slides: SlideType[], selected: Selected, presentationName: str
     const editor: Editor = {
         document: {
             name: presentationName,
-            slides: slides,
+            slidesOrder: ['f'],
+            slidesMap: new Map([['e', slides[0]]]),
         },
         selected: selected,
     }

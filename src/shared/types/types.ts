@@ -74,8 +74,8 @@ type ObjectImageType = GeneralObjectType & {
 type ObjectType = ObjectImageType | ObjectTextType | ObjectShapeType
 
 type SlideType = {
-    id: number
-    order: number
+    id?: string
+    order?: number
     background: BackgroundType
     backgroundValue: string
     objects: ObjectType[]
@@ -83,11 +83,12 @@ type SlideType = {
 
 type Doc = {
     name: string
-    slides: SlideType[]
+    slidesMap: Map<string, SlideType>
+    slidesOrder: string[]
 }
 
 type Selected = {
-    selectedSlideIds: number[]
+    selectedSlideIds: string[]
     selectedObjectIds: number[]
 }
 

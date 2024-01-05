@@ -1,30 +1,37 @@
 import { Editor } from './types/types'
+import { v4 as uuidV4 } from 'uuid'
+
+const id = uuidV4()
 
 const minEditor: Editor = {
     document: {
         name: 'Name',
-        slides: [
-            {
-                id: 1,
-                order: 1,
-                background: 'color',
-                backgroundValue: '#FFFFFF',
-                objects: [],
-            },
-        ],
+        slidesOrder: [id],
+        slidesMap: new Map([
+            [
+                id,
+                {
+                    id: '1',
+                    order: 1,
+                    background: 'color',
+                    backgroundValue: '#FFFFFF',
+                    objects: [],
+                },
+            ],
+        ]),
     },
     selected: {
-        selectedSlideIds: [1],
+        selectedSlideIds: ['1'],
         selectedObjectIds: [],
     },
 }
 
-const mediumEditor: Editor = {
+const mediumEditor = {
     document: {
         name: 'Name',
         slides: [
             {
-                id: 1,
+                id: '1',
                 order: 1,
                 background: 'color',
                 backgroundValue: '#FFFFFF',
@@ -71,17 +78,17 @@ const mediumEditor: Editor = {
         ],
     },
     selected: {
-        selectedSlideIds: [1],
+        selectedSlideIds: ['1'],
         selectedObjectIds: [1, 2],
     },
 }
 
-const maxEditor: Editor = {
+const maxEditor = {
     document: {
         name: '',
         slides: [
             {
-                id: 1,
+                id: '1',
                 order: 1,
                 background: 'color',
                 backgroundValue: '#fc6969',
@@ -234,7 +241,7 @@ const maxEditor: Editor = {
                 ],
             },
             {
-                id: 2,
+                id: '2',
                 order: 2,
                 background: 'color',
                 backgroundValue: '#57bbff',
@@ -291,7 +298,7 @@ const maxEditor: Editor = {
         ],
     },
     selected: {
-        selectedSlideIds: [2],
+        selectedSlideIds: ['2'],
         selectedObjectIds: [1, 2, 3],
     },
 }
