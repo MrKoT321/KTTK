@@ -11,9 +11,9 @@ import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
 import { MouseStates } from '../../../../../shared/types/types'
 import { useState } from 'react'
-import { AddElementButton } from '../../../../../features/addElementButton/AddElementButton'
-import { DropdownMenu } from '../../../../../features/dropdownMenu/DropdownMenu'
-import { SelectImagePopUp } from 'widgets/selectImagePopUpWidget'
+import { AddElementButton } from '../../../../../shared/ui/addElementButton/AddElementButton'
+import { DropdownMenu } from '../../../../../features/dropdownMenu'
+import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
 
 type ToolMenuProps = {
@@ -23,8 +23,8 @@ type ToolMenuProps = {
 }
 
 const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
+    const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const { addSlide } = useAppActions()
-    const slides = useAppSelector((state) => state.slides.slides)
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const [isPopUpOpen, setPopUpState] = useState(false)
 
@@ -52,39 +52,14 @@ const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenu
 
     return (
         <div className={styles.toolMenu}>
-            <AddElementButton icon={addSlideIcon} onClick={() => addSlide(slides)} />
-            <AddElementButton
-                icon={chooseTemplateIcon}
-                onClick={() => {
-                    console.log()
-                }}
-            />
-            <AddElementButton
-                icon={cancelIcon}
-                onClick={() => {
-                    console.log()
-                }}
-            />
-            <AddElementButton
-                icon={returnIcon}
-                onClick={() => {
-                    console.log()
-                }}
-            />
+            <AddElementButton icon={addSlideIcon} onClick={() => addSlide(slidesMap, slidesOrder)} />
+            <AddElementButton icon={chooseTemplateIcon} onClick={() => console.log()} />
+            <AddElementButton icon={cancelIcon} onClick={() => console.log()} />
+            <AddElementButton icon={returnIcon} onClick={() => console.log()} />
             <AddElementButton icon={pointerIcon} onClick={() => setMouseState('cursor')} />
             <AddElementButton icon={addTextIcon} onClick={() => setMouseState('creatingText')} />
-            <AddElementButton
-                icon={addImageIcon}
-                onClick={() => {
-                    openSelectImagePopUp()
-                }}
-            />
-            <AddElementButton
-                icon={addShapeIcon}
-                onClick={() => {
-                    changePopupMenuShapesVisibility()
-                }}
-            />
+            <AddElementButton icon={addImageIcon} onClick={() => openSelectImagePopUp()} />
+            <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
             <input
                 className={styles.inputColor}
                 type={'color'}

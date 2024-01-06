@@ -1,28 +1,28 @@
 import { MouseStates, ObjectType, SlideType } from '../types/types'
 import { layoutParams as lp } from './layoutParams'
+import { defaultCurrentSlide } from '../defaultCurrentSlide'
 
 type AddObjectParams = {
-    slides: SlideType[]
-    setSlides: (slides: SlideType[]) => void
-    setCurrentSlide: (currentSlide: SlideType) => void
-    selectedSlideIds: number[]
-    currentSlide: SlideType
+    currentSlideId: string
+    slidesMap: Map<string, SlideType>
+    setSlides: (slidesMap: Map<string, SlideType>) => void
+    // setCurrentSlide: (currentSlide: SlideType) => void
+    // selectedSlideIds: string[]
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
     startMouseX: number
     startMouseY: number
-    allSlides: SlideType[]
     createPosition: (startMousePos: number, currentMousePos: number) => number
     imageSrc?: string
 }
 
 const addObject = ({
-    slides,
+    currentSlideId,
+    slidesMap,
     setSlides,
-    setCurrentSlide,
-    selectedSlideIds,
-    currentSlide,
+    // setCurrentSlide,
+    // selectedSlideIds,
     mouseState,
     currentMouseX,
     startMouseX,
@@ -31,6 +31,9 @@ const addObject = ({
     createPosition,
     imageSrc,
 }: AddObjectParams) => {
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
+    const slides = Array.from(slidesMap.values())
+
     let object: ObjectType
 
     const borderWidth = 0
@@ -157,12 +160,12 @@ const addObject = ({
             break
     }
     slides.forEach((slide) => {
-        if (slide.id === selectedSlideIds[selectedSlideIds.length - 1]) {
-            slide.objects.push(object)
-            setCurrentSlide({ ...slide })
+        if (slide.id === currentSlideId) {
+            currentSlide.objects.push(object)
         }
     })
-    setSlides(slides)
+    slidesMap.set(currentSlideId, currentSlide)
+    setSlides(slidesMap)
 }
 
 export { addObject }

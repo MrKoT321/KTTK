@@ -1,5 +1,6 @@
 import { PresentationTypes } from './actionTypes'
 import { ObjectTextType, Selected, SlideType } from '../types/types'
+import { v4 as uuidV4 } from 'uuid'
 
 const setPresentationName = (name: string) => {
     return {
@@ -8,29 +9,32 @@ const setPresentationName = (name: string) => {
     }
 }
 
-const addSlide = (allSlides: SlideType[]) => {
+const addSlide = (slidesMap: Map<string, SlideType>, order: string[]) => {
+    const id = uuidV4()
     const newSlide: SlideType = {
-        id: allSlides[allSlides.length - 1].id + 1,
-        order: allSlides.length + 1,
         background: 'color',
         backgroundValue: '#FFFFFF',
         objects: [],
     }
-    allSlides.push(newSlide)
+    slidesMap.set(id, newSlide)
+    order.push(id)
     return {
         type: PresentationTypes.ADD_SLIDE,
-        payload: [...allSlides],
+        payload: {
+            slidesMap: new Map(slidesMap),
+            slidesOrder: [...order],
+        },
     }
 }
 
-const setSlides = (allSlides: SlideType[]) => {
+const setSlides = (slidesMap: Map<string, SlideType>) => {
     return {
         type: PresentationTypes.SET_SLIDES,
-        payload: [...allSlides],
+        payload: slidesMap,
     }
 }
 
-const setSelectedSlideIds = (selectedSlideIds: number[]) => {
+const setSelectedSlideIds = (selectedSlideIds: string[]) => {
     return {
         type: PresentationTypes.SET_SELECTED_SLIDE_IDS,
         payload: [...selectedSlideIds],
@@ -58,10 +62,10 @@ const setSelected = (selected: Selected) => {
     }
 }
 
-const setCurrentSlide = (currentSlide: SlideType) => {
+const setCurrentSlide = (currentSlideId: string) => {
     return {
         type: PresentationTypes.SET_CURRENT_SLIDE,
-        payload: { ...currentSlide },
+        payload: currentSlideId,
     }
 }
 

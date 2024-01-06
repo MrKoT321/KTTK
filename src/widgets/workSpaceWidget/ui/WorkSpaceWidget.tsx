@@ -1,13 +1,14 @@
 import styles from './WorkSpaceWidget.module.css'
 import { MouseLocations, MouseStates, ObjectType, Selected } from '../../../shared/types/types'
-import { CurrentSlide } from './currentSlide/CurrentSlide'
+import { CurrentSlide } from '../../../features/currentSlide'
 import React, { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
-import { changeObjects } from './currentSlide/tools/changeObjects'
+import { changeObjects } from '../tools/changeObjects'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { DrawStyle, MoveObj } from '../../../shared/types/devTypes'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
+import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 type WorkSpaceWidgetProps = {
     mouseState: MouseStates
@@ -17,10 +18,11 @@ type WorkSpaceWidgetProps = {
 }
 
 const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocation }: WorkSpaceWidgetProps) => {
-    const slides = useAppSelector((state) => state.slides.slides)
+    const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
+    const slides = Array.from(slidesMap.values())
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
     const lastSlideId = selectedSlideIds[selectedSlideIds.length - 1]
-    const currentSlide = useAppSelector((state) => state.slides.currentSlide)
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const { setCurrentSlide, setSlides, setSelected } = useAppActions()
     const allSlides = slides.map((slide) => {
         const id = lastSlideId || slides[0].id
@@ -131,106 +133,103 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
             })
         }
     }
-    const handleMouseUp = () => {
-        if (
-            (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') &&
-            isDraw
-        ) {
-            setIsDraw(false)
-            setMouseState('cursor')
-            addObject({
-                slides,
-                setSlides,
-                setCurrentSlide,
-                selectedSlideIds,
-                currentSlide,
-                mouseState,
-                currentMouseX,
-                startMouseX,
-                startMouseY,
-                currentMouseY,
-                allSlides,
-                createPosition,
-            })
-            setStyleObj({
-                opacity: 0,
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-                borderColor: 'black',
-                borderRadius: 10,
-                borderWidth: 2,
-                borderStyle: 'solid',
-            })
-        }
-        if (mouseState === 'move') {
-            setMouseState('cursor')
-            changeObjects({ moveObjs, currentSlide })
-            allSlides.map((slide) => {
-                if (slide.id === currentSlide.id) {
-                    slide = currentSlide
-                }
-            })
-            setSlides(allSlides)
-            setCurrMoveToX(0)
-            setCurrMoveToY(0)
-            setMoveObjs([])
-        }
-        if (mouseState === 'resize') {
-            setMouseState('cursor')
-            const newObjects = currentSlide.objects.map((object) => {
-                if (selectedObjectIds.includes(object.id)) {
-                    object.width = object.width * (styleObj.width / startWidth)
-                    object.height = object.height * (styleObj.height / startHeight)
-                    object.startX = startMouseX - lp.currentSlideIndentX
-                    object.startY = startMouseY - styleObj.height - lp.currentSlideIndentY
-                }
-                return object
-            })
-            const newSlides = allSlides.map((slide) => {
-                if (slide.id === currentSlide.id) {
-                    slide.objects = newObjects
-                }
-                return slide
-            })
-            setSlides(newSlides)
-            setStyleObj({
-                opacity: 0,
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0,
-                borderColor: 'black',
-                borderRadius: 10,
-                borderWidth: 2,
-                borderStyle: 'solid',
-            })
-        }
-    }
+    // const handleMouseUp = () => {
+    //     if (
+    //         (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') &&
+    //         isDraw
+    //     ) {
+    //         setIsDraw(false)
+    //         setMouseState('cursor')
+    //         addObject({
+    //             currentSlideId,
+    //             slidesMap,
+    //             setSlides,
+    //             mouseState,
+    //             currentMouseX,
+    //             startMouseX,
+    //             startMouseY,
+    //             currentMouseY,
+    //             createPosition,
+    //         })
+    //         setStyleObj({
+    //             opacity: 0,
+    //             left: 0,
+    //             top: 0,
+    //             width: 0,
+    //             height: 0,
+    //             borderColor: 'black',
+    //             borderRadius: 10,
+    //             borderWidth: 2,
+    //             borderStyle: 'solid',
+    //         })
+    //     }
+    //     if (mouseState === 'move') {
+    //         setMouseState('cursor')
+    //         changeObjects({ moveObjs, currentSlide })
+    //         allSlides.map((slide) => {
+    //             if (slide.id === currentSlide.id) {
+    //                 slide = currentSlide
+    //             }
+    //         })
+    //         setSlides(allSlides)
+    //         setCurrMoveToX(0)
+    //         setCurrMoveToY(0)
+    //         setMoveObjs([])
+    //     }
+    //     if (mouseState === 'resize') {
+    //         setMouseState('cursor')
+    //         const newObjects = currentSlide.objects.map((object) => {
+    //             if (selectedObjectIds.includes(object.id)) {
+    //                 object.width = object.width * (styleObj.width / startWidth)
+    //                 object.height = object.height * (styleObj.height / startHeight)
+    //                 object.startX = startMouseX - lp.currentSlideIndentX
+    //                 object.startY = startMouseY - styleObj.height - lp.currentSlideIndentY
+    //             }
+    //             return object
+    //         })
+    //         const newSlides = allSlides.map((slide) => {
+    //             if (slide.id === currentSlide.id) {
+    //                 slide.objects = newObjects
+    //             }
+    //             return slide
+    //         })
+    //         setSlides(newSlides)
+    //         setStyleObj({
+    //             opacity: 0,
+    //             left: 0,
+    //             top: 0,
+    //             width: 0,
+    //             height: 0,
+    //             borderColor: 'black',
+    //             borderRadius: 10,
+    //             borderWidth: 2,
+    //             borderStyle: 'solid',
+    //         })
+    //     }
+    // }
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!e.ctrlKey) {
-            const currObject = currentSlide.objects.find(
-                (obj) =>
-                    e.clientX - lp.sideBarWidth - lp.currentSlideIndentX > obj.startX &&
-                    e.clientX - lp.sideBarWidth - lp.currentSlideIndentX < obj.startX + obj.width &&
-                    e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
-                    e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
-            )
-            if (selected.selectedObjectIds.length !== 0) {
-                if (currObject) {
-                    selected.selectedObjectIds = [currObject.id]
-                } else {
-                    selected.selectedObjectIds = []
-                }
-                setSelected(selected)
-            }
-            if (currObject) {
-                selected.selectedObjectIds = [currObject.id]
-            }
-        }
-    }
+    // const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    //     if (!e.ctrlKey) {
+    //         const currObject = currentSlide.objects.find(
+    //             (obj) =>
+    //                 e.clientX - lp.sideBarWidth - lp.currentSlideIndentX > obj.startX &&
+    //                 e.clientX - lp.sideBarWidth - lp.currentSlideIndentX < obj.startX + obj.width &&
+    //                 e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
+    //                 e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
+    //         )
+    //         if (selected.selectedObjectIds.length !== 0) {
+    //             if (currObject) {
+    //                 selected.selectedObjectIds = [currObject.id]
+    //             } else {
+    //                 selected.selectedObjectIds = []
+    //             }
+    //             setSelected(selected)
+    //         }
+    //         if (currObject) {
+    //             selected.selectedObjectIds = [currObject.id]
+    //         }
+    //     }
+    // }
 
     const handleMouseDownResize = (e: React.MouseEvent<HTMLDivElement>) => {
         setMouseState('resize')
@@ -266,13 +265,13 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
                     }
                 }
                 for (const slide of allSlides) {
-                    if (slide.id === lastSlideId) {
+                    if (slide.id === currentSlideId) {
                         slide.objects = objects
+                        slidesMap.set(currentSlideId, slide)
                     }
                 }
-                setSlides([...allSlides])
-                const currSelected = { ...selected, objectsIds: [] }
-                setSelected(currSelected)
+                setSlides(slidesMap)
+                setSelected({ ...selected, selectedObjectIds: [] })
             }
         }
     }
@@ -286,8 +285,8 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
         <div
             onMouseDown={(e) => handleMouseDown(e)}
             onMouseMove={(e) => handleMouseMove(e)}
-            onMouseUp={() => handleMouseUp()}
-            onClick={(e) => handleClick(e)}
+            // onMouseUp={() => handleMouseUp()}
+            // onClick={(e) => handleClick(e)}
         >
             <CurrentSlide
                 setMouseState={setMouseState}
