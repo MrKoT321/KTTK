@@ -9,21 +9,26 @@ type SlideProps = {
     slide: SlideType
     order: number
     isSelected: boolean
-    // handleDrop(e: React.DragEvent<HTMLDivElement>, currentSlide: SlideType): void
-    // handleDragStart(currentSlide: SlideType): void
-    // handleDragOver(e: React.DragEvent<HTMLDivElement>): void
+    handleDrop(e: React.DragEvent<HTMLDivElement>, thisSlidePos: number): void
+    handleDragStart(pos: number): void
+    handleDragOver(e: React.DragEvent<HTMLDivElement>): void
     setCurrentSlideBg: (arg: string) => void
 }
 
-// handleDragOver,
-// handleDragStart,
-// handleDrop,
-// setCurrentSlideBg,
-
-const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) => {
-    const slidesOrder = useAppSelector((state) => state.slides.slidesOrder)
+const SideSlide = ({
+    slide,
+    order,
+    isSelected,
+    setCurrentSlideBg,
+    handleDragOver,
+    handleDragStart,
+    handleDrop,
+}: SlideProps) => {
+    const { slidesOrder, slidesMap } = useAppSelector((state) => state.slides)
+    const slides = Array.from(slidesMap.values())
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
-    const thisSlide = { ...slide }
+    const thisSlide: SlideType = { ...slide }
+
     const { setSelectedSlideIds, setCurrentSlide, setSelectedObjectIds } = useAppActions()
     const [isHovered, setIsHovered] = useState(false)
 
@@ -58,15 +63,23 @@ const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) 
             <span>{order + 1}</span>
             <div
                 className={`${styles.sideSlide}
-            ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
-            ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
+                    ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
+                    ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
                 style={{ background: slideStyle.background }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                onMouseEnter={() => {
+                    if (!isSelected) {
+                        setIsHovered(true)
+                    }
+                }}
+                onMouseLeave={() => {
+                    if (!isSelected) {
+                        setIsHovered(false)
+                    }
+                }}
                 onClick={(e) => handleClick(e)}
-                // onDragStart={() => handleDragStart(thisSlide)}
-                // onDragOver={(e) => handleDragOver(e)}
-                // onDrop={(e) => handleDrop(e, thisSlide)}
+                onDragStart={() => handleDragStart(slides.indexOf(slide))}
+                onDragOver={(e) => handleDragOver(e)}
+                onDrop={(e) => handleDrop(e, slides.indexOf(slide))}
                 draggable={true}
             >
                 <div className={styles.container} style={slideContainerStyle}>

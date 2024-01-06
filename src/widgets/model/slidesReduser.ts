@@ -1,6 +1,7 @@
 import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { SlideType } from '../../shared/types/types'
 import { v4 as uuidV4 } from 'uuid'
+import { defaultCurrentSlide } from '../../shared/defaultCurrentSlide'
 
 type slidesReducerType = {
     slidesOrder: string[]
@@ -8,23 +9,25 @@ type slidesReducerType = {
     currentSlideId: string
 }
 
-const id = uuidV4()
+const firstSlideId = uuidV4()
 
 const initialState: slidesReducerType = {
-    slidesOrder: [id],
-    slidesMap: new Map([[id, { background: 'color', backgroundValue: '#FFFFFF', objects: [] }]]),
-    currentSlideId: id,
+    slidesOrder: [firstSlideId],
+    slidesMap: new Map([[firstSlideId, { background: 'color', backgroundValue: '#FFFFFF', objects: [] }]]),
+    currentSlideId: firstSlideId,
 }
 
 type ParamToChangeType = 'bold' | 'italic' | 'underlined' | 'fontColor' | 'fontSize' | 'fontFamily'
 
 const setStyleCurrentSlideObjects = (
-    currentSlide: SlideType,
+    currentSlideId: string,
+    slidesMap: Map<string, SlideType>,
     selectedObjectIds: number[],
     paramToChange: ParamToChangeType,
     stringParamToChange?: string,
     numberParamToChange?: number,
-): SlideType => {
+): Map<string, SlideType> => {
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     currentSlide.objects.forEach((object) => {
         if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
             if (paramToChange == 'bold') {
@@ -47,7 +50,8 @@ const setStyleCurrentSlideObjects = (
             }
         }
     })
-    return currentSlide
+    slidesMap.set(currentSlideId, currentSlide)
+    return slidesMap
 }
 
 const slidesReducer = (state = initialState, action: ActionTypes) => {
@@ -71,36 +75,40 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.SET_SLIDE_OBJECTS_BOLDED:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'bold',
                 ),
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_ITALIC:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'italic',
                 ),
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'underlined',
                 ),
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_FONT_COLOR:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'fontColor',
                     action.payload.color,
                 ),
@@ -108,9 +116,10 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.SET_SLIDE_OBJECTS_FONT_SIZE:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'fontSize',
                     '',
                     action.payload.size,
@@ -119,12 +128,18 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.SET_SLIDE_OBJECTS_FONT_FAMILY:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'fontFamily',
                     action.payload.family,
                 ),
+            }
+        case PresentationTypes.SET_SLIDES_ORDER:
+            return {
+                ...state,
+                slidesOrder: action.payload,
             }
         default:
             return state

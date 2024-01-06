@@ -15,6 +15,7 @@ enum PresentationTypes {
     SET_SELECTED = 'SET_SELECTED',
     SET_CURRENT_SLIDE = 'SET_CURRENT_SLIDE',
     SET_TEXT_OBJECTS = 'SET_TEXT_OBJECTS',
+    SET_SLIDES_ORDER = 'SET_SLIDES_ORDER',
 }
 
 type SetPresentationNameAction = {
@@ -39,7 +40,6 @@ type SetSlideObjectsBoldedAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED
     payload: {
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -47,7 +47,6 @@ type SetSlideObjectsItalicAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_ITALIC
     payload: {
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -55,7 +54,6 @@ type SetSlideObjectsUnderlinedAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED
     payload: {
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -64,7 +62,6 @@ type SetSlideObjectsColorAction = {
     payload: {
         color: string
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -73,7 +70,6 @@ type SetSlideObjectsFontSizeAction = {
     payload: {
         size: number
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -82,7 +78,6 @@ type SetSlideObjectsFontFamilyAction = {
     payload: {
         family: string
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -106,9 +101,14 @@ type SetCurrentSlideAction = {
     payload: string
 }
 
-type setTextObjectsAction = {
+type SetTextObjectsAction = {
     type: PresentationTypes.SET_TEXT_OBJECTS
     payload: ObjectType[]
+}
+
+type SetSlidesOrderAction = {
+    type: PresentationTypes.SET_SLIDES_ORDER
+    payload: string[]
 }
 
 type ActionTypes =
@@ -119,12 +119,13 @@ type ActionTypes =
     | SetSelectedObjectsAction
     | SetSelectedAction
     | SetCurrentSlideAction
-    | setTextObjectsAction
+    | SetTextObjectsAction
     | SetSlideObjectsBoldedAction
     | SetSlideObjectsItalicAction
     | SetSlideObjectsUnderlinedAction
     | SetSlideObjectsColorAction
     | SetSlideObjectsFontSizeAction
     | SetSlideObjectsFontFamilyAction
+    | SetSlidesOrderAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }
