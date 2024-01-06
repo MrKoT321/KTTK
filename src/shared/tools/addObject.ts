@@ -32,7 +32,6 @@ const addObject = ({
     imageSrc,
 }: AddObjectParams) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
-    const slides = Array.from(slidesMap.values())
 
     let object: ObjectType
 
@@ -71,6 +70,7 @@ const addObject = ({
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingBase64Img':
             if (!imageSrc) break
@@ -88,6 +88,7 @@ const addObject = ({
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingText':
             object = {
@@ -111,6 +112,7 @@ const addObject = ({
                 value: '',
                 oType: 'ObjectTextType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingRect':
             object = {
@@ -126,6 +128,7 @@ const addObject = ({
                 shapeBgColor: 'yellow',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingCircle':
             object = {
@@ -142,6 +145,7 @@ const addObject = ({
                 shapeBgColor: 'green',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingTriangle':
             object = {
@@ -157,15 +161,12 @@ const addObject = ({
                 shapeBgColor: 'yellow',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
     }
-    slides.forEach((slide) => {
-        if (slide.id === currentSlideId) {
-            currentSlide.objects.push(object)
-        }
-    })
     slidesMap.set(currentSlideId, currentSlide)
     setSlides(slidesMap)
+    console.log(currentSlide)
 }
 
 export { addObject }
