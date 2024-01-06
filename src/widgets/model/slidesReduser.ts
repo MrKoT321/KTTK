@@ -19,6 +19,12 @@ const initialState: slidesReducerType = {
 
 type ParamToChangeType = 'bold' | 'italic' | 'underlined' | 'fontColor' | 'fontSize' | 'fontFamily'
 
+const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
+    currentSlide.backgroundValue = color
+    return slidesMap.set(currentSlideId, currentSlide)
+}
+
 const setStyleCurrentSlideObjects = (
     currentSlideId: string,
     slidesMap: Map<string, SlideType>,
@@ -66,6 +72,11 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
             return {
                 ...state,
                 slidesMap: new Map(action.payload),
+            }
+        case PresentationTypes.SET_BACKGROUND:
+            return {
+                ...state,
+                slidesMap: setBackgroundCurrentSlide(action.payload, state.slidesMap, state.currentSlideId),
             }
         case PresentationTypes.SET_CURRENT_SLIDE:
             return {

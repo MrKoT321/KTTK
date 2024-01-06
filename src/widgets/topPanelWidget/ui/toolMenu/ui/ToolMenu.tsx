@@ -15,6 +15,7 @@ import { AddElementButton } from '../../../../../shared/ui/addElementButton/AddE
 import { DropdownMenu } from '../../../../../features/dropdownMenu'
 import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
+import { defaultCurrentSlide } from '../../../../../shared/defaultCurrentSlide'
 
 type ToolMenuProps = {
     setMouseState: (mouseState: MouseStates) => void
@@ -23,8 +24,9 @@ type ToolMenuProps = {
 }
 
 const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
-    const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
-    const { addSlide } = useAppActions()
+    const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
+    const { addSlide, setBackground } = useAppActions()
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const [isPopUpOpen, setPopUpState] = useState(false)
 
@@ -63,9 +65,9 @@ const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenu
             <input
                 className={styles.inputColor}
                 type={'color'}
-                value={currentSlideBg}
+                value={currentSlide.backgroundValue}
                 onChange={(event) => {
-                    setCurrentSlideBg(event.target.value)
+                    setBackground(event.target.value)
                 }}
             />
             <div

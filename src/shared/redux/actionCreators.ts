@@ -34,6 +34,13 @@ const setSlides = (slidesMap: Map<string, SlideType>) => {
     }
 }
 
+const setBackground = (color: string) => {
+    return {
+        type: PresentationTypes.SET_BACKGROUND,
+        payload: color,
+    }
+}
+
 const setSelectedSlideIds = (selectedSlideIds: string[]) => {
     return {
         type: PresentationTypes.SET_SELECTED_SLIDE_IDS,
@@ -129,6 +136,7 @@ export {
     setPresentationName,
     addSlide,
     setSlides,
+    setBackground,
     // setSlideObjects,
     setSelectedSlideIds,
     setSelectedObjectIds,

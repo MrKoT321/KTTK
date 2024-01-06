@@ -298,7 +298,6 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
                 setCurrentMouseX={setCurrentMouseX}
                 setCurrentMouseY={setCurrentMouseY}
                 handleMouseDownResize={handleMouseDownResize}
-                currentSlideBg={currentSlideBg}
             />
             <div style={styleObj} className={styles.drawPotentialObject} />
             {moveObjs.map((object, index) => {

@@ -18,7 +18,6 @@ type CurrentSlideProps = {
     setCurrentMouseX: (currentMouseX: number) => void
     setCurrentMouseY: (currentMouseY: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
-    currentSlideBg: string
 }
 
 const CurrentSlide = ({
@@ -31,16 +30,14 @@ const CurrentSlide = ({
     setCurrentMouseX,
     setCurrentMouseY,
     handleMouseDownResize,
-    currentSlideBg,
 }: CurrentSlideProps) => {
     const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
-    // const lastSelectedSlideId = selectedSlideIds[selectedSlideIds.length - 1]
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const shadowObjs = [...moveObjs]
     const currentSlideStyle = {
         ...wsp.currentSlideSizeStyle,
-        background: currentSlideBg,
+        background: currentSlide.backgroundValue,
     }
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {

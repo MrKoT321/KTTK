@@ -4,6 +4,7 @@ enum PresentationTypes {
     SET_PRESENTATION_NAME = 'SET_PRESENTATION_NAME',
     ADD_SLIDE = 'ADD_SLIDE',
     SET_SLIDES = 'SET_SLIDES',
+    SET_BACKGROUND = 'SET_BACKGROUND',
     SET_SLIDE_OBJECTS_BOLDED = 'SET_SLIDE_OBJECTS_BOLDED',
     SET_SLIDE_OBJECTS_ITALIC = 'SET_SLIDE_OBJECTS_ITALIC',
     SET_SLIDE_OBJECTS_UNDERLINED = 'SET_SLIDE_OBJECTS_UNDERLINED',
@@ -34,6 +35,11 @@ type AddSlideAction = {
 type SetSlidesAction = {
     type: PresentationTypes.SET_SLIDES
     payload: Map<string, SlideType>
+}
+
+type SetBackgroundAction = {
+    type: PresentationTypes.SET_BACKGROUND
+    payload: string
 }
 
 type SetSlideObjectsBoldedAction = {
@@ -115,6 +121,7 @@ type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
     | SetSlidesAction
+    | SetBackgroundAction
     | SetSelectedSlidesAction
     | SetSelectedObjectsAction
     | SetSelectedAction
