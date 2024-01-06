@@ -6,8 +6,6 @@ type AddObjectParams = {
     currentSlideId: string
     slidesMap: Map<string, SlideType>
     setSlides: (slidesMap: Map<string, SlideType>) => void
-    // setCurrentSlide: (currentSlide: SlideType) => void
-    // selectedSlideIds: string[]
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
@@ -15,14 +13,13 @@ type AddObjectParams = {
     startMouseY: number
     createPosition: (startMousePos: number, currentMousePos: number) => number
     imageSrc?: string
+    direction?: 'right' | 'left'
 }
 
 const addObject = ({
     currentSlideId,
     slidesMap,
     setSlides,
-    // setCurrentSlide,
-    // selectedSlideIds,
     mouseState,
     currentMouseX,
     startMouseX,
@@ -30,6 +27,7 @@ const addObject = ({
     currentMouseY,
     createPosition,
     imageSrc,
+    direction = 'right',
 }: AddObjectParams) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const slides = Array.from(slidesMap.values())
@@ -88,6 +86,7 @@ const addObject = ({
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingText':
             object = {
@@ -111,6 +110,7 @@ const addObject = ({
                 value: '',
                 oType: 'ObjectTextType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingRect':
             object = {
@@ -126,6 +126,7 @@ const addObject = ({
                 shapeBgColor: 'yellow',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingCircle':
             object = {
@@ -142,6 +143,24 @@ const addObject = ({
                 shapeBgColor: 'green',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
+            break
+        case 'creatingLine':
+            object = {
+                id: createObjectId(),
+                width: width,
+                height: height,
+                startX: startX,
+                startY: startY,
+                direction,
+                borderStyle: 'none',
+                borderWidth: borderWidth,
+                borderColor: 'black',
+                type: 'line',
+                shapeBgColor: 'black',
+                oType: 'ObjectShapeType',
+            }
+            currentSlide.objects.push(object)
             break
         case 'creatingTriangle':
             object = {
@@ -153,17 +172,13 @@ const addObject = ({
                 borderStyle: 'none',
                 borderWidth: borderWidth,
                 borderColor: 'black',
-                type: 'line',
+                type: 'triangle',
                 shapeBgColor: 'yellow',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
     }
-    slides.forEach((slide) => {
-        if (slide.id === currentSlideId) {
-            currentSlide.objects.push(object)
-        }
-    })
     slidesMap.set(currentSlideId, currentSlide)
     setSlides(slidesMap)
 }

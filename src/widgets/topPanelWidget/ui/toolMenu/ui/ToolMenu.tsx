@@ -9,6 +9,7 @@ import addImageIcon from '../../../../../shared/icons/addImageIcon.svg'
 import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
+import addLineIcon from '../../../../../shared/icons/addLineIcon.svg'
 import { MouseStates } from '../../../../../shared/types/types'
 import { useState } from 'react'
 import { AddElementButton } from '../../../../../shared/ui/addElementButton/AddElementButton'
@@ -40,7 +41,11 @@ const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenu
         marginLeft: 200,
         marginTop: 115,
     }
-    const onClickFuncs = [() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]
+    const onClickFuncs = [
+        () => setMouseState('creatingRect'),
+        () => setMouseState('creatingCircle'),
+        () => setMouseState('creatingLine'),
+    ]
 
     const changePopupMenuShapesVisibility = () => {
         if (isShowShapesPopupMenu) {
@@ -73,8 +78,8 @@ const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenu
                 style={styleDropDownMenu}
             >
                 <DropdownMenu
-                    icons={[addRectangleIcon, addCircleIcon]}
-                    labels={['Rectangle', 'Circle']}
+                    icons={[addRectangleIcon, addCircleIcon, addLineIcon]}
+                    labels={['Rectangle', 'Circle', 'Line']}
                     onClicks={onClickFuncs}
                 />
             </div>
