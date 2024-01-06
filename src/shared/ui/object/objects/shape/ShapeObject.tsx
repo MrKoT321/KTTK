@@ -1,16 +1,18 @@
 import { ObjectShapeType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createShapeObject } from './tools/createShapeObject'
+import { useAppActions, useAppSelector } from '../../../../redux/store'
+import React from 'react'
 
 type ShapeObjProps = ObjectShapeType & {
-    selected: Selected
-    setSelected(selected: Selected): void
     isSelected: boolean
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const ShapeObject = (props: ShapeObjProps) => {
+    const { setSelected } = useAppActions()
+    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const styleChildObj = createShapeObject(props)
     const styleParentObj = {
         width: props.width + 2 * props.borderWidth,
@@ -24,20 +26,12 @@ const ShapeObject = (props: ShapeObjProps) => {
         top: -5,
     }
 
-    const sel: Selected = {
-        slidesIds: [...props.selected.slidesIds],
-        objectsIds: [...props.selected.objectsIds],
-    }
-
-    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (!props.isSelected) {
-            if (e.ctrlKey) {
-                sel.objectsIds.push(props.id)
-            } else {
-                sel.objectsIds = [props.id]
-            }
-            props.setSelected(sel)
+    const handleClick = () => {
+        const sel: Selected = {
+            selectedSlideIds: [...selectedSlideIds],
+            selectedObjectIds: [props.id],
         }
+        setSelected(sel)
     }
 
     return (

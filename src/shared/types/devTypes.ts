@@ -1,4 +1,4 @@
-import { ObjectTextType, Selected } from './types'
+import { ObjectTextType } from './types'
 
 type DrawStyle = {
     opacity: number
@@ -23,14 +23,7 @@ type MoveObj = {
 }
 
 type TextObjProps = ObjectTextType & {
-    selected: Selected
-    setSelected(selected: Selected): void
     isSelected?: boolean
-    selectedTextFonts: string
-    selectedTextSize: number
-    bolded: boolean
-    underlined: boolean
-    textColor: string
 }
 
 export type { DrawStyle, TextObjProps, MoveObj }

@@ -1,34 +1,20 @@
 import { Editor, Selected, SlideType } from '../../../../../shared/types/types'
 
-type SaveFileParams = {
-    toolMenuTools: {
-        slides: SlideType[]
-        setSlides(slides: SlideType[]): void
-        selected: Selected
-    }
-    presentationNameTools: {
-        setName: (name: string) => void
-        name: string
-    }
-}
-
-const saveFile = ({ toolMenuTools, presentationNameTools }: SaveFileParams) => {
+const saveFile = (slides: SlideType[], selected: Selected, presentationName: string) => {
     const editor: Editor = {
         document: {
-            name: presentationNameTools.name,
-            slides: toolMenuTools.slides,
+            name: presentationName,
+            slidesOrder: ['f'],
+            slidesMap: new Map([['e', slides[0]]]),
         },
-        selected: {
-            objectsIds: toolMenuTools.selected.objectsIds,
-            slidesIds: toolMenuTools.selected.slidesIds,
-        },
+        selected: selected,
     }
     console.log('editor = ', editor)
     const text = JSON.stringify(editor)
     const a = document.createElement('a')
     const file = new Blob([text], { type: 'application/json' })
     a.href = URL.createObjectURL(file)
-    a.download = presentationNameTools.name
+    a.download = presentationName
     a.click()
 }
 

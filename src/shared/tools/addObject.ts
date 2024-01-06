@@ -1,33 +1,39 @@
-import { MouseStates, ObjectType, Selected, SlideType } from '../types/types'
+import { MouseStates, ObjectType, SlideType } from '../types/types'
 import { layoutParams as lp } from './layoutParams'
+import { defaultCurrentSlide } from '../defaultCurrentSlide'
 
 type AddObjectParams = {
+    currentSlideId: string
+    slidesMap: Map<string, SlideType>
+    setSlides: (slidesMap: Map<string, SlideType>) => void
+    // setCurrentSlide: (currentSlide: SlideType) => void
+    // selectedSlideIds: string[]
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
     startMouseX: number
     startMouseY: number
-    selected: Selected
-    allSlides: SlideType[]
-    setSlides: (slides: SlideType[]) => void
     createPosition: (startMousePos: number, currentMousePos: number) => number
     imageSrc?: string
-    currentSlide: SlideType
 }
 
 const addObject = ({
+    currentSlideId,
+    slidesMap,
+    setSlides,
+    // setCurrentSlide,
+    // selectedSlideIds,
     mouseState,
     currentMouseX,
     startMouseX,
     startMouseY,
     currentMouseY,
-    selected,
-    allSlides,
-    setSlides,
     createPosition,
     imageSrc,
-    currentSlide,
 }: AddObjectParams) => {
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
+    const slides = Array.from(slidesMap.values())
+
     let object: ObjectType
 
     const borderWidth = 0
@@ -94,14 +100,14 @@ const addObject = ({
                 borderWidth: borderWidth,
                 //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
-                fontSize: 14,
-                fontColor: 'green',
+                fontSize: 20,
+                fontColor: '#000000',
                 fontFamily: 'FuturaPT',
-                bold: true,
+                bold: false,
                 italic: false,
-                underlined: true,
+                underlined: false,
                 highlighter: '#00000000',
-                underlineColor: 'purple',
+                underlineColor: '#000000',
                 value: '',
                 oType: 'ObjectTextType',
             }
@@ -153,12 +159,13 @@ const addObject = ({
             }
             break
     }
-    allSlides.forEach((slide) => {
-        if (slide.id === selected.slidesIds[selected.slidesIds.length - 1]) {
-            slide.objects.push(object)
+    slides.forEach((slide) => {
+        if (slide.id === currentSlideId) {
+            currentSlide.objects.push(object)
         }
     })
-    setSlides(allSlides)
+    slidesMap.set(currentSlideId, currentSlide)
+    setSlides(slidesMap)
 }
 
 export { addObject }

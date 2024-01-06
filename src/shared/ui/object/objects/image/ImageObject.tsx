@@ -1,15 +1,17 @@
 import { ObjectImageType, Selected } from '../../../../types/types'
 import styles from '../../Object.module.css'
+import { useAppActions, useAppSelector } from '../../../../redux/store'
+import React from 'react'
 
 type ImageObjProps = ObjectImageType & {
-    selected: Selected
-    setSelected(selected: Selected): void
     isSelected: boolean
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
 const ImageObject = (props: ImageObjProps) => {
+    const { setSelected } = useAppActions()
+    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const styleObj = {
         left: props.startX,
         top: props.startY,
@@ -32,20 +34,12 @@ const ImageObject = (props: ImageObjProps) => {
         top: -5,
     }
 
-    const sel: Selected = {
-        slidesIds: [...props.selected.slidesIds],
-        objectsIds: [...props.selected.objectsIds],
-    }
-
-    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (!props.isSelected) {
-            if (e.ctrlKey) {
-                sel.objectsIds.push(props.id)
-            } else {
-                sel.objectsIds = [props.id]
-            }
-            props.setSelected(sel)
+    const handleClick = () => {
+        const sel: Selected = {
+            selectedSlideIds: [...selectedSlideIds],
+            selectedObjectIds: [props.id],
         }
+        setSelected(sel)
     }
 
     return (

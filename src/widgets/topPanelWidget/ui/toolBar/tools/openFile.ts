@@ -19,7 +19,6 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
         'load',
         () => {
             const result = reader.result
-            console.log('result = ', result)
             if (typeof result === 'string') {
                 try {
                     JSON.parse(result)
@@ -34,8 +33,8 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
                     'selected' in parsedResult &&
                     'name' in parsedResult.document &&
                     'slides' in parsedResult.document &&
-                    'slidesIds' in parsedResult.selected &&
-                    'objectsIds' in parsedResult.selected
+                    'selectedSlideIds' in parsedResult.selected &&
+                    'selectedObjectIds' in parsedResult.selected
                 ) {
                     presentationsObjTools.setPresentation(parsedResult)
                 } else {
