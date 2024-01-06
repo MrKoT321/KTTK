@@ -47,7 +47,9 @@ const SideSlide = ({
         let newSelectedSlideIds: string[]
         const newCurrentSlideId = slidesOrder[order]
         if (e.ctrlKey) {
-            newSelectedSlideIds = selectedSlideIds.filter((selectedId) => selectedId !== thisSlide.id)
+            newSelectedSlideIds = selectedSlideIds.filter(
+                (selectedId) => selectedId !== slidesOrder[slides.indexOf(slide)],
+            )
             newSelectedSlideIds.push(newCurrentSlideId)
         } else {
             newSelectedSlideIds = [newCurrentSlideId]
@@ -66,16 +68,8 @@ const SideSlide = ({
                     ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
                     ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
                 style={{ background: slideStyle.background }}
-                onMouseEnter={() => {
-                    if (!isSelected) {
-                        setIsHovered(true)
-                    }
-                }}
-                onMouseLeave={() => {
-                    if (!isSelected) {
-                        setIsHovered(false)
-                    }
-                }}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
                 onClick={(e) => handleClick(e)}
                 onDragStart={() => handleDragStart(slides.indexOf(slide))}
                 onDragOver={(e) => handleDragOver(e)}

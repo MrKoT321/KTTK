@@ -30,9 +30,9 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, thisSlidePos: number) => {
         e.preventDefault()
-        console.log('slidesOrder = ', slidesOrder)
-        console.log('draggedSlidePos = ', draggedSlidePos)
-        console.log('thisSlidePos = ', thisSlidePos)
+        // console.log('slidesOrder = ', slidesOrder)
+        // console.log('draggedSlidePos = ', draggedSlidePos)
+        // console.log('thisSlidePos = ', thisSlidePos)
         setSlidesOrder(getReorderedSlides(thisSlidePos, draggedSlidePos, slidesMap, slidesOrder))
     }
 
