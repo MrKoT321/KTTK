@@ -55,7 +55,7 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
                 <select
                     value={getSelectedObjectsCommonFontFamily(currentSlide, selectedObjectIds)}
                     className={styles.input}
-                    onChange={(e) => setTextObjectFontFamily(e.target.value, selectedObjectIds, currentSlide)}
+                    onChange={(e) => setTextObjectFontFamily(e.target.value, selectedObjectIds)}
                 >
                     {availableFonts.map((font, index) => (
                         <option key={index} value={font}>
@@ -70,7 +70,7 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
                 <select
                     value={getSelectedObjectsCommonFontSize(currentSlide, selectedObjectIds)}
                     className={styles.input}
-                    onChange={(e) => setTextObjectFontSize(parseInt(e.target.value), selectedObjectIds, currentSlide)}
+                    onChange={(e) => setTextObjectFontSize(parseInt(e.target.value), selectedObjectIds)}
                 >
                     {availableFontsSizes.map((fontSize, index) => (
                         <option key={index} value={fontSize}>

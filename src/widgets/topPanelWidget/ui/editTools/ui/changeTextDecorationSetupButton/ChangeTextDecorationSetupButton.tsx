@@ -10,25 +10,29 @@ type Props = {
 }
 
 const ChangeTextDecorationSetupButton = ({ imageSrc, type }: Props) => {
-    const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
-    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const { setTextObjectsBolded, setTextObjectsItalic, setTextObjectsUnderlined } = useAppActions()
 
     const handleClick = (type: string) => {
         if (type === 'bold') {
-            setTextObjectsBolded(selectedObjectIds, currentSlide)
+            setTextObjectsBolded(selectedObjectIds)
         }
         if (type === 'italic') {
-            setTextObjectsItalic(selectedObjectIds, currentSlide)
+            setTextObjectsItalic(selectedObjectIds)
         }
         if (type === 'underline') {
-            setTextObjectsUnderlined(selectedObjectIds, currentSlide)
+            setTextObjectsUnderlined(selectedObjectIds)
         }
     }
 
     return (
-        <label className={styles.button} onClick={() => handleClick(type)}>
+        <label
+            className={styles.button}
+            onClick={() => {
+                handleClick(type)
+                console.log('да сука, я кликнул нахуй, не ждал, да?!')
+            }}
+        >
             <img src={imageSrc} className={styles.image} />
         </label>
     )
