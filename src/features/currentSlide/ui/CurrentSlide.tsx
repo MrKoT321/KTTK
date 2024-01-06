@@ -1,11 +1,10 @@
 import { layoutParams as lp, widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
-import { BackgroundType, MouseStates, ObjectType, SlideType } from '../../../shared/types/types'
+import { MouseStates } from '../../../shared/types/types'
 import { Object } from '../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
 import { MoveObj } from '../../../shared/types/devTypes'
 import { useAppSelector } from '../../../shared/redux/store'
 import React from 'react'
-import { minEditor } from '../../../shared/testData'
 import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 type CurrentSlideProps = {
@@ -31,8 +30,8 @@ const CurrentSlide = ({
     setCurrentMouseY,
     handleMouseDownResize,
 }: CurrentSlideProps) => {
-    const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
-    const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
+    const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
+    const { selectedObjectIds } = useAppSelector((state) => state.selected)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const shadowObjs = [...moveObjs]
     const currentSlideStyle = {

@@ -23,7 +23,7 @@ type ToolMenuProps = {
     setCurrentSlideBg(currentSlideBg: string): void
 }
 
-const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
+const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
     const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
     const { addSlide, setBackground } = useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide

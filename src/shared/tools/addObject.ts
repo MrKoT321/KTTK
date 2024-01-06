@@ -6,8 +6,6 @@ type AddObjectParams = {
     currentSlideId: string
     slidesMap: Map<string, SlideType>
     setSlides: (slidesMap: Map<string, SlideType>) => void
-    // setCurrentSlide: (currentSlide: SlideType) => void
-    // selectedSlideIds: string[]
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
@@ -21,8 +19,6 @@ const addObject = ({
     currentSlideId,
     slidesMap,
     setSlides,
-    // setCurrentSlide,
-    // selectedSlideIds,
     mouseState,
     currentMouseX,
     startMouseX,

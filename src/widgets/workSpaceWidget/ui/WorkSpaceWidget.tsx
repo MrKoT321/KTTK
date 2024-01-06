@@ -23,7 +23,7 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
     const lastSlideId = selectedSlideIds[selectedSlideIds.length - 1]
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
-    const { setCurrentSlide, setSlides, setSelected } = useAppActions()
+    const { setSlides, setSelected } = useAppActions()
     const allSlides = slides.map((slide) => {
         const id = lastSlideId || slides[0].id
         if (slide.id === id) {
