@@ -5,14 +5,10 @@ import { MouseStates } from '../../../shared/types/types'
 import { addObject } from 'shared/tools/addObject'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 
-type SelectImagePopUpProps = {
-    isPopUpOpen: boolean
-    closePopUp(): void
-}
-
-const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) => {
+const SelectImagePopUp = () => {
+    const isPopUpOpen = useAppSelector((state) => state.imagePopUp.isPopUpOpen)
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
-    const { setSlides } = useAppActions()
+    const { setSlides, setSelectImagePopUpState } = useAppActions()
     const [imageSrc, setImageSrc] = useState('')
     const [isLinkUsed, setIsLinkUsed] = useState(false)
     const [btnState, setBtnsState] = useState(true)
@@ -91,7 +87,7 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
     }
 
     const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
-        closePopUp()
+        setSelectImagePopUpState(false)
         new Promise((resolve, reject) => {
             if (e.target.files !== null) {
                 const file = Array.from(e.target.files)[0]
@@ -111,7 +107,7 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
     }
 
     const createLinkImage = () => {
-        closePopUp()
+        setSelectImagePopUpState(false)
         createImage('creatingLinkImg')
     }
 
@@ -120,7 +116,12 @@ const SelectImagePopUp = ({ isPopUpOpen, closePopUp }: SelectImagePopUpProps) =>
             <div className={styles.popUpBlock}>
                 <div className={styles.popUpHeader}>
                     <span>Вставка картинки</span>
-                    <img src={closeIcon} className={styles.popUpHeaderCloseBtn} onClick={closePopUp} alt={''} />
+                    <img
+                        src={closeIcon}
+                        className={styles.popUpHeaderCloseBtn}
+                        onClick={() => setSelectImagePopUpState(false)}
+                        alt={''}
+                    />
                 </div>
                 <div className={styles.popupToolBar}>
                     <button

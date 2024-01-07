@@ -9,6 +9,7 @@ import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { DrawStyle, MoveObj } from '../../../shared/types/devTypes'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
+import { SelectImagePopUp } from '../../../features/selectImagePopUp'
 
 type WorkSpaceWidgetProps = {
     mouseState: MouseStates
@@ -272,28 +273,31 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
     }, [selected.selectedObjectIds])
 
     return (
-        <div
-            onMouseDown={(e) => handleMouseDown(e)}
-            onMouseMove={(e) => handleMouseMove(e)}
-            onMouseUp={() => handleMouseUp()}
-            onClick={(e) => handleClick(e)}
-        >
-            <CurrentSlide
-                setMouseState={setMouseState}
-                mouseState={mouseState}
-                setMoveObjs={setMoveObjs}
-                moveObjs={moveObjs}
-                setStartMouseX={setStartMouseX}
-                setStartMouseY={setStartMouseY}
-                setCurrentMouseX={setCurrentMouseX}
-                setCurrentMouseY={setCurrentMouseY}
-                handleMouseDownResize={handleMouseDownResize}
-            />
-            <div style={styleObj} className={styles.drawPotentialObject} />
-            {moveObjs.map((object, index) => {
-                return <div style={object.style} className={styles.moveObjs} key={index} />
-            })}
-        </div>
+        <>
+            <div
+                onMouseDown={(e) => handleMouseDown(e)}
+                onMouseMove={(e) => handleMouseMove(e)}
+                onMouseUp={() => handleMouseUp()}
+                onClick={(e) => handleClick(e)}
+            >
+                <CurrentSlide
+                    setMouseState={setMouseState}
+                    mouseState={mouseState}
+                    setMoveObjs={setMoveObjs}
+                    moveObjs={moveObjs}
+                    setStartMouseX={setStartMouseX}
+                    setStartMouseY={setStartMouseY}
+                    setCurrentMouseX={setCurrentMouseX}
+                    setCurrentMouseY={setCurrentMouseY}
+                    handleMouseDownResize={handleMouseDownResize}
+                />
+                <div style={styleObj} className={styles.drawPotentialObject} />
+                {moveObjs.map((object, index) => {
+                    return <div style={object.style} className={styles.moveObjs} key={index} />
+                })}
+            </div>
+            <div>{/*<SelectImagePopUp />*/}</div>
+        </>
     )
 }
 
