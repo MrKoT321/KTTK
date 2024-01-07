@@ -1,6 +1,5 @@
 import styles from './ChangeTextDecorationSetupButton.module.css'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
-import { defaultCurrentSlide } from '../../../../../../shared/defaultCurrentSlide'
 
 type ImgButtonType = 'bold' | 'italic' | 'underline'
 
@@ -30,7 +29,6 @@ const ChangeTextDecorationSetupButton = ({ imageSrc, type }: Props) => {
             className={styles.button}
             onClick={() => {
                 handleClick(type)
-                console.log('да сука, я кликнул нахуй, не ждал, да?!')
             }}
         >
             <img src={imageSrc} className={styles.image} />

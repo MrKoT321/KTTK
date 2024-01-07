@@ -62,7 +62,7 @@ const TextObject = (props: TextObjProps) => {
                     <textarea
                         value={props.value}
                         placeholder="Введите текст"
-                        className={`${styles.text} ${props.isBlocked ? styles.textBlocked : styles.textNotBlocked}`}
+                        className={`${styles.text} ${styles.textBlocked}`}
                         readOnly={true}
                         style={createTextObject(props)}
                     ></textarea>
@@ -71,7 +71,7 @@ const TextObject = (props: TextObjProps) => {
                     <textarea
                         value={props.value}
                         placeholder="Введите текст"
-                        className={`${styles.text} ${props.isBlocked ? styles.textBlocked : styles.textNotBlocked}`}
+                        className={`${styles.text} ${styles.textNotBlocked}`}
                         style={createTextObject(props)}
                         onChange={(e) => {
                             for (const object of currentSlide.objects) {

@@ -32,10 +32,10 @@ const addObject = ({
     let object: ObjectType
 
     const borderWidth = 0
-    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX - borderWidth
-    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY - 2 * borderWidth
-    const width = Math.abs(currentMouseX - startMouseX) + borderWidth
-    const height = Math.abs(currentMouseY - startMouseY) + borderWidth
+    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX
+    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY
+    const width = Math.abs(currentMouseX - startMouseX)
+    const height = Math.abs(currentMouseY - startMouseY)
 
     const createObjectId = () => {
         let maxId = 0
@@ -59,7 +59,7 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 0,
+                borderWidth: borderWidth,
                 borderColor: '#000000',
                 caption: '',
                 imageSrcType: 'imageLink',
@@ -93,7 +93,7 @@ const addObject = ({
                 height: height,
                 startX: startX,
                 startY: startY,
-                borderStyle: 'none',
+                borderStyle: 'solid',
                 borderWidth: borderWidth,
                 //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',

@@ -11,6 +11,8 @@ enum PresentationTypes {
     SET_SLIDE_OBJECTS_FONT_COLOR = 'SET_SLIDE_OBJECTS_FONT_COLOR',
     SET_SLIDE_OBJECTS_FONT_SIZE = 'SET_SLIDE_OBJECTS_FONT_SIZE',
     SET_SLIDE_OBJECTS_FONT_FAMILY = 'SET_SLIDE_OBJECTS_FONT_FAMILY',
+    SET_SLIDE_OBJECTS_BORDER_WIDTH = 'SET_SLIDE_OBJECTS_BORDER_WIDTH',
+    SET_SLIDE_OBJECTS_BORDER_STYLE = 'SET_SLIDE_OBJECTS_BORDER_STYLE',
     SET_SELECTED_SLIDE_IDS = 'SET_SELECTED_SLIDE_IDS',
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
@@ -87,6 +89,22 @@ type SetSlideObjectsFontFamilyAction = {
     }
 }
 
+type SetSlideObjectsBorderWidthAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_WIDTH
+    payload: {
+        width: number
+        selectedObjectIds: number[]
+    }
+}
+
+type SetSlideObjectsBorderStyleAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_STYLE
+    payload: {
+        style: string
+        selectedObjectIds: number[]
+    }
+}
+
 type SetSelectedSlidesAction = {
     type: PresentationTypes.SET_SELECTED_SLIDE_IDS
     payload: string[]
@@ -133,6 +151,8 @@ type ActionTypes =
     | SetSlideObjectsColorAction
     | SetSlideObjectsFontSizeAction
     | SetSlideObjectsFontFamilyAction
+    | SetSlideObjectsBorderWidthAction
+    | SetSlideObjectsBorderStyleAction
     | SetSlidesOrderAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }

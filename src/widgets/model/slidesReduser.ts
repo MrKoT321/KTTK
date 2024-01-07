@@ -2,6 +2,7 @@ import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { SlideType } from '../../shared/types/types'
 import { v4 as uuidV4 } from 'uuid'
 import { defaultCurrentSlide } from '../../shared/defaultCurrentSlide'
+import { BorderStyle } from '../../shared/types/devTypes'
 
 type slidesReducerType = {
     slidesOrder: string[]
@@ -17,7 +18,15 @@ const initialState: slidesReducerType = {
     currentSlideId: firstSlideId,
 }
 
-type ParamToChangeType = 'bold' | 'italic' | 'underlined' | 'fontColor' | 'fontSize' | 'fontFamily'
+type ParamToChangeType =
+    | 'bold'
+    | 'italic'
+    | 'underlined'
+    | 'fontColor'
+    | 'fontSize'
+    | 'fontFamily'
+    | 'borderWidth'
+    | 'borderStyle'
 
 const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
@@ -30,7 +39,7 @@ const setStyleCurrentSlideObjects = (
     slidesMap: Map<string, SlideType>,
     selectedObjectIds: number[],
     paramToChange: ParamToChangeType,
-    stringParamToChange?: string,
+    stringParamToChange?: string | BorderStyle,
     numberParamToChange?: number,
 ): Map<string, SlideType> => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
@@ -53,6 +62,12 @@ const setStyleCurrentSlideObjects = (
             }
             if (paramToChange == 'fontFamily') {
                 object.fontFamily = stringParamToChange || 'FuturaPT'
+            }
+            if (paramToChange == 'borderWidth') {
+                object.borderWidth = numberParamToChange || 0
+            }
+            if (paramToChange == 'borderStyle' && typeof stringParamToChange != 'string') {
+                object.borderStyle = stringParamToChange || 'none'
             }
         }
     })
@@ -145,6 +160,29 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
                     action.payload.selectedObjectIds,
                     'fontFamily',
                     action.payload.family,
+                ),
+            }
+        case PresentationTypes.SET_SLIDE_OBJECTS_BORDER_WIDTH:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'borderWidth',
+                    '',
+                    action.payload.width,
+                ),
+            }
+        case PresentationTypes.SET_SLIDE_OBJECTS_BORDER_STYLE:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'borderStyle',
+                    action.payload.style,
                 ),
             }
         case PresentationTypes.SET_SLIDES_ORDER:

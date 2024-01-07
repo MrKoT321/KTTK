@@ -14,6 +14,7 @@ const EditTools = () => (
         <ChangeTextDecorationSetupButton imageSrc={italicTextIcon} type={'italic'} />
         <ChangeTextDecorationSetupButton imageSrc={underlineTextIcon} type={'underline'} />
         <ChangeTextColorButton />
+        <EditInputButton type={'borderWidth'} />
     </div>
 )
 

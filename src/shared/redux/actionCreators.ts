@@ -125,6 +125,20 @@ const setTextObjectFontFamily = (family: string, selectedTextIds: number[]) => {
     }
 }
 
+const setSlideObjectsBorderWidth = (width: number, selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_WIDTH,
+        payload: { width: width, selectedObjectIds: [...selectedTextIds] },
+    }
+}
+
+const setSlideObjectsBorderStyle = (style: string, selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_STYLE,
+        payload: { style: style, selectedObjectIds: [...selectedTextIds] },
+    }
+}
+
 const setSlidesOrder = (slidesOrder: string[]) => {
     return {
         type: PresentationTypes.SET_SLIDES_ORDER,
@@ -149,5 +163,7 @@ export {
     setTextObjectFontColor,
     setTextObjectFontSize,
     setTextObjectFontFamily,
+    setSlideObjectsBorderWidth,
+    setSlideObjectsBorderStyle,
     setSlidesOrder,
 }
