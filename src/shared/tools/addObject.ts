@@ -162,7 +162,6 @@ const addObject = ({
     }
     slidesMap.set(currentSlideId, currentSlide)
     setSlides(slidesMap)
-    console.log(currentSlide)
 }
 
 export { addObject }
