@@ -1,6 +1,5 @@
 import styles from './WorkSpaceWidget.module.css'
-import { MouseLocations, MouseStates, ObjectType, Selected } from '../../../shared/types/types'
-import { CurrentSlide } from '../../../features/currentSlide'
+import { MouseLocations, MouseStates, ObjectType } from '../../../shared/types/types'
 import React, { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
@@ -9,6 +8,7 @@ import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { DrawStyle, MoveObj } from '../../../shared/types/devTypes'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
+import { CurrentSlide } from '../../../features/currentSlide'
 
 type WorkSpaceWidgetProps = {
     mouseState: MouseStates
@@ -21,10 +21,8 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
     const slides = Array.from(slidesMap.values())
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
-    const { setSlides, setSelected } = useAppActions()
+    const { setSlides, setSelectedObjectIds } = useAppActions()
     const allSlides = [...slides]
-
-    const selected = useAppSelector((state) => state.selected)
 
     const [currentMouseX, setCurrentMouseX] = useState(0)
     const [currentMouseY, setCurrentMouseY] = useState(0)
@@ -207,16 +205,17 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
                     e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
                     e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
             )
-            if (selected.selectedObjectIds.length !== 0) {
+            let changedSelectedObjectIds = selectedObjectIds
+            if (selectedObjectIds.length !== 0) {
                 if (currObject) {
-                    selected.selectedObjectIds = [currObject.id]
+                    changedSelectedObjectIds = [currObject.id]
                 } else {
-                    selected.selectedObjectIds = []
+                    changedSelectedObjectIds = []
                 }
-                setSelected(selected)
+                setSelectedObjectIds(changedSelectedObjectIds)
             }
             if (currObject) {
-                selected.selectedObjectIds = [currObject.id]
+                changedSelectedObjectIds = [currObject.id]
             }
         }
     }
@@ -244,56 +243,55 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
         setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
     }
 
-    const handleKeyDown = (e: KeyboardEvent, selected: Selected) => {
+    const handleKeyDown = (e: KeyboardEvent, selectedObjectIds: number[]) => {
         if (mouseLocation === 'workSpace') {
             if (e.key === 'Delete') {
                 e.preventDefault()
+                const changedCurrentSlide = { ...currentSlide }
                 const objects: ObjectType[] = []
-                for (const object of currentSlide.objects) {
-                    if (!selected.selectedObjectIds.includes(object.id)) {
+                for (const object of changedCurrentSlide.objects) {
+                    if (!selectedObjectIds.includes(object.id)) {
                         objects.push(object)
                     }
                 }
-                for (const slide of allSlides) {
-                    if (slide.id === currentSlideId) {
-                        slide.objects = objects
-                        slidesMap.set(currentSlideId, slide)
-                    }
-                }
+                changedCurrentSlide.objects = objects
+                slidesMap.set(currentSlideId, changedCurrentSlide)
                 setSlides(slidesMap)
-                setSelected({ ...selected, selectedObjectIds: [] })
+                setSelectedObjectIds([])
             }
         }
     }
 
     useEffect(() => {
-        document.addEventListener('keydown', (e) => handleKeyDown(e, selected))
-        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selected))
-    }, [selected.selectedObjectIds])
+        document.addEventListener('keydown', (e) => handleKeyDown(e, selectedObjectIds))
+        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selectedObjectIds))
+    }, [selectedObjectIds])
 
     return (
-        <div
-            onMouseDown={(e) => handleMouseDown(e)}
-            onMouseMove={(e) => handleMouseMove(e)}
-            onMouseUp={() => handleMouseUp()}
-            onClick={(e) => handleClick(e)}
-        >
-            <CurrentSlide
-                setMouseState={setMouseState}
-                mouseState={mouseState}
-                setMoveObjs={setMoveObjs}
-                moveObjs={moveObjs}
-                setStartMouseX={setStartMouseX}
-                setStartMouseY={setStartMouseY}
-                setCurrentMouseX={setCurrentMouseX}
-                setCurrentMouseY={setCurrentMouseY}
-                handleMouseDownResize={handleMouseDownResize}
-            />
-            <div style={styleObj} className={styles.drawPotentialObject} />
-            {moveObjs.map((object, index) => {
-                return <div style={object.style} className={styles.moveObjs} key={index} />
-            })}
-        </div>
+        <>
+            <div
+                onMouseDown={(e) => handleMouseDown(e)}
+                onMouseMove={(e) => handleMouseMove(e)}
+                onMouseUp={() => handleMouseUp()}
+                onClick={(e) => handleClick(e)}
+            >
+                <CurrentSlide
+                    setMouseState={setMouseState}
+                    mouseState={mouseState}
+                    setMoveObjs={setMoveObjs}
+                    moveObjs={moveObjs}
+                    setStartMouseX={setStartMouseX}
+                    setStartMouseY={setStartMouseY}
+                    setCurrentMouseX={setCurrentMouseX}
+                    setCurrentMouseY={setCurrentMouseY}
+                    handleMouseDownResize={handleMouseDownResize}
+                />
+                <div style={styleObj} className={styles.drawPotentialObject} />
+                {moveObjs.map((object, index) => {
+                    return <div style={object.style} className={styles.moveObjs} key={index} />
+                })}
+            </div>
+        </>
     )
 }
 

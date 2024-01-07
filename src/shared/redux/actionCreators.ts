@@ -154,6 +154,13 @@ const setSlidesOrder = (slidesOrder: string[]) => {
     }
 }
 
+const setSelectImagePopUpState = (state: boolean) => {
+    return {
+        type: PresentationTypes.SET_SELECT_IMAGE_POPUP_STATE,
+        payload: state,
+    }
+}
+
 export {
     setPresentationName,
     addSlide,
@@ -175,4 +182,5 @@ export {
     setSlideObjectsBorderStyle,
     setSlideObjectsBorderColor,
     setSlidesOrder,
+    setSelectImagePopUpState,
 }

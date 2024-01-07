@@ -10,12 +10,12 @@ import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
 import { MouseStates } from '../../../../../shared/types/types'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { AddElementButton } from '../../../../../shared/ui/addElementButton/AddElementButton'
 import { DropdownMenu } from '../../../../../features/dropdownMenu'
-import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../../../shared/defaultCurrentSlide'
+import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 
 type ToolMenuProps = {
     setMouseState: (mouseState: MouseStates) => void
@@ -23,18 +23,9 @@ type ToolMenuProps = {
 
 const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
     const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
-    const { addSlide, setBackground } = useAppActions()
+    const { addSlide, setBackground, setSelectImagePopUpState } = useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
-    const [isPopUpOpen, setPopUpState] = useState(false)
-
-    const openSelectImagePopUp = () => {
-        setPopUpState(() => true)
-    }
-
-    const closeSelectImagePopUp = () => {
-        setPopUpState(() => false)
-    }
 
     const styleDropDownMenu = {
         marginLeft: 200,
@@ -58,7 +49,7 @@ const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
             <AddElementButton icon={returnIcon} onClick={() => console.log()} />
             <AddElementButton icon={pointerIcon} onClick={() => setMouseState('cursor')} />
             <AddElementButton icon={addTextIcon} onClick={() => setMouseState('creatingText')} />
-            <AddElementButton icon={addImageIcon} onClick={() => openSelectImagePopUp()} />
+            <AddElementButton icon={addImageIcon} onClick={() => setSelectImagePopUpState(true)} />
             <AddElementButton icon={addShapeIcon} onClick={() => changePopupMenuShapesVisibility()} />
             <input
                 className={styles.inputColor}
@@ -78,7 +69,7 @@ const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
                     onClicks={onClickFuncs}
                 />
             </div>
-            <SelectImagePopUp isPopUpOpen={isPopUpOpen} closePopUp={closeSelectImagePopUp} />
+            <SelectImagePopUp />
         </div>
     )
 }
