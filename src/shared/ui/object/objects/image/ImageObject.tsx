@@ -1,4 +1,4 @@
-import { ObjectImageType, Selected } from '../../../../types/types'
+import { ObjectImageType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
 import React from 'react'
@@ -10,8 +10,8 @@ type ImageObjProps = ObjectImageType & {
 }
 
 const ImageObject = (props: ImageObjProps) => {
-    const { setSelected } = useAppActions()
-    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const { setSelectedObjectIds } = useAppActions()
+    const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const styleObj = {
         left: props.startX,
         top: props.startY,
@@ -34,12 +34,21 @@ const ImageObject = (props: ImageObjProps) => {
         top: -5,
     }
 
-    const handleClick = () => {
-        const sel: Selected = {
-            selectedSlideIds: [...selectedSlideIds],
-            selectedObjectIds: [props.id],
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!props.isSelected) {
+            let newSelected = selectedObjectIds
+            if (e.ctrlKey) {
+                newSelected.push(props.id)
+            } else {
+                newSelected = [props.id]
+            }
+            setSelectedObjectIds(newSelected)
+        } else {
+            if (e.ctrlKey) {
+                const newSelected = selectedObjectIds.filter((id) => id != props.id)
+                setSelectedObjectIds(newSelected)
+            }
         }
-        setSelected(sel)
     }
 
     return (

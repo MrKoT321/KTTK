@@ -21,8 +21,8 @@ const TextObject = (props: TextObjProps) => {
         top: props.startY,
     }
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
-    const { setSelected, setSlides } = useAppActions()
-    const selected = useAppSelector((state) => state.selected)
+    const { setSlides, setSelectedObjectIds } = useAppActions()
+    const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
 
     const quadStyle = {
@@ -32,12 +32,18 @@ const TextObject = (props: TextObjProps) => {
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!props.isSelected) {
+            let newSelected = selectedObjectIds
             if (e.ctrlKey) {
-                selected.selectedObjectIds.push(props.id)
+                newSelected.push(props.id)
             } else {
-                selected.selectedObjectIds = [props.id]
+                newSelected = [props.id]
             }
-            setSelected(selected)
+            setSelectedObjectIds(newSelected)
+        } else {
+            if (e.ctrlKey) {
+                const newSelected = selectedObjectIds.filter((id) => id != props.id)
+                setSelectedObjectIds(newSelected)
+            }
         }
     }
 

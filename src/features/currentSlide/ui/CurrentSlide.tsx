@@ -41,7 +41,7 @@ const CurrentSlide = ({
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
         //TODO: вынести сотсояния мыши в редюсер
-        if (mouseState === 'cursor' && isSelected) {
+        if (mouseState === 'cursor' && isSelected && !e.ctrlKey) {
             setStartMouseX(e.clientX)
             setStartMouseY(e.clientY)
             setCurrentMouseX(e.clientX)
