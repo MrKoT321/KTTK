@@ -21,7 +21,8 @@ const addSlide = (slidesMap: Map<string, SlideType>, order: string[]) => {
     return {
         type: PresentationTypes.ADD_SLIDE,
         payload: {
-            slidesMap: new Map(slidesMap),
+            // slidesMap: new Map(slidesMap),
+            slidesMap: slidesMap,
             slidesOrder: [...order],
         },
     }
