@@ -44,13 +44,14 @@ const SideSlide = ({
     }
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        let newSelectedSlideIds: string[]
+        let newSelectedSlideIds = selectedSlideIds
         const newCurrentSlideId = slidesOrder[order]
         if (e.ctrlKey) {
-            newSelectedSlideIds = selectedSlideIds.filter(
-                (selectedId) => selectedId !== slidesOrder[slides.indexOf(slide)],
-            )
-            newSelectedSlideIds.push(newCurrentSlideId)
+            if (newSelectedSlideIds.includes(newCurrentSlideId) && newSelectedSlideIds.length > 1) {
+                newSelectedSlideIds.splice(newSelectedSlideIds.indexOf(newCurrentSlideId), 1)
+            } else if (!newSelectedSlideIds.includes(newCurrentSlideId)) {
+                newSelectedSlideIds.push(newCurrentSlideId)
+            }
         } else {
             newSelectedSlideIds = [newCurrentSlideId]
         }
@@ -71,9 +72,9 @@ const SideSlide = ({
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={(e) => handleClick(e)}
-                onDragStart={() => handleDragStart(slides.indexOf(slide))}
+                onDragStart={() => handleDragStart(order)}
                 onDragOver={(e) => handleDragOver(e)}
-                onDrop={(e) => handleDrop(e, slides.indexOf(slide))}
+                onDrop={(e) => handleDrop(e, order)}
                 draggable={true}
             >
                 <div className={styles.container} style={slideContainerStyle}>

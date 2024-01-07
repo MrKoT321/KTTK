@@ -165,7 +165,7 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
         }
         if (mouseState === 'move') {
             setMouseState('cursor')
-            changeObjects({ moveObjs, currentSlide })
+            changeObjects(moveObjs, currentSlide)
             allSlides.map((slide) => {
                 if (slide.id === currentSlide.id) {
                     slide = currentSlide

@@ -2,12 +2,7 @@ import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { SlideType } from '../../../shared/types/types'
 import { MoveObj } from '../../../shared/types/devTypes'
 
-type ChangeObjectParams = {
-    moveObjs: MoveObj[]
-    currentSlide: SlideType
-}
-
-const changeObjects = ({ moveObjs, currentSlide }: ChangeObjectParams) => {
+const changeObjects = (moveObjs: MoveObj[], currentSlide: SlideType) => {
     moveObjs.map((currObject) => {
         currentSlide.objects.map((object) => {
             if (object.id === currObject.id) {

@@ -13,12 +13,7 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const { setSlides, setSelectedSlideIds, setSlidesOrder } = useAppActions()
-    // const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
     const [draggedSlidePos, setDraggedSlidePos] = useState<number | null>(null)
-
-    // const handleDragStart = (slide: SlideType) => {
-    //     setDraggedSlide(slide)
-    // }
 
     const handleDragStart = (pos: number) => {
         setDraggedSlidePos(pos)
