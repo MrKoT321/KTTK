@@ -139,6 +139,13 @@ const setSlideObjectsBorderStyle = (style: string, selectedTextIds: number[]) =>
     }
 }
 
+const setSlideObjectsBorderColor = (color: string, selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_COLOR,
+        payload: { color: color, selectedObjectIds: [...selectedTextIds] },
+    }
+}
+
 const setSlidesOrder = (slidesOrder: string[]) => {
     return {
         type: PresentationTypes.SET_SLIDES_ORDER,
@@ -165,5 +172,6 @@ export {
     setTextObjectFontFamily,
     setSlideObjectsBorderWidth,
     setSlideObjectsBorderStyle,
+    setSlideObjectsBorderColor,
     setSlidesOrder,
 }

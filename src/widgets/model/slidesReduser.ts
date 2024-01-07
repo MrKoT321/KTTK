@@ -27,11 +27,24 @@ type ParamToChangeType =
     | 'fontFamily'
     | 'borderWidth'
     | 'borderStyle'
+    | 'borderColor'
 
 const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     currentSlide.backgroundValue = color
     return slidesMap.set(currentSlideId, currentSlide)
+}
+
+const remapBorderStyle = (style?: string): BorderStyle => {
+    if (style === 'dotted') return 'dotted'
+    if (style === 'dashed') return 'dashed'
+    if (style === 'solid') return 'solid'
+    if (style === 'double') return 'double'
+    if (style === 'groove') return 'groove'
+    if (style === 'ridge') return 'ridge'
+    if (style === 'inset') return 'inset'
+    if (style === 'outset') return 'outset'
+    return 'none'
 }
 
 const setStyleCurrentSlideObjects = (
@@ -66,8 +79,11 @@ const setStyleCurrentSlideObjects = (
             if (paramToChange == 'borderWidth') {
                 object.borderWidth = numberParamToChange || 0
             }
-            if (paramToChange == 'borderStyle' && typeof stringParamToChange != 'string') {
-                object.borderStyle = stringParamToChange || 'none'
+            if (paramToChange == 'borderStyle') {
+                object.borderStyle = remapBorderStyle(stringParamToChange)
+            }
+            if (paramToChange == 'borderColor') {
+                object.borderColor = stringParamToChange || '#000000'
             }
         }
     })
@@ -183,6 +199,17 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
                     action.payload.selectedObjectIds,
                     'borderStyle',
                     action.payload.style,
+                ),
+            }
+        case PresentationTypes.SET_SLIDE_OBJECTS_BORDER_COLOR:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'borderColor',
+                    action.payload.color,
                 ),
             }
         case PresentationTypes.SET_SLIDES_ORDER:

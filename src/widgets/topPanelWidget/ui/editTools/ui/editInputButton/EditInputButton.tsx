@@ -18,6 +18,7 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
     const availableFonts = ['FuturaPT', 'Arial', 'Times New Roman', 'Comic Sans MS']
     const availableFontsSizes = [10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80]
     const availableBorderWidth = [0, 1, 2, 3, 4, 8, 12, 16]
+    const availableBorderStyle = ['none', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset']
 
     const getSelectedObjectsCommonFontFamily = (currentSlide: SlideType, selectedObjectIds: number[]) => {
         const emptyFontFamily = ''
@@ -66,6 +67,21 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
         return commonBorderWidth == emptyBorderWidth ? emptyBorderWidth : commonBorderWidth
     }
 
+    const getSelectedObjectsCommonBorderStyle = (currentSlide: SlideType, selectedObjectIds: number[]) => {
+        const emptyBorderStyle = 'none'
+        let commonBorderStyle = emptyBorderStyle
+        for (const object of currentSlide.objects) {
+            if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
+                if (commonBorderStyle == emptyBorderStyle) {
+                    commonBorderStyle = object.borderStyle
+                } else if (commonBorderStyle != object.borderStyle) {
+                    return emptyBorderStyle
+                }
+            }
+        }
+        return commonBorderStyle == emptyBorderStyle ? emptyBorderStyle : commonBorderStyle
+    }
+
     return (
         <>
             {type === 'font' && (
@@ -107,6 +123,20 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
                     {availableBorderWidth.map((borderWidth, index) => (
                         <option key={index} value={borderWidth}>
                             {borderWidth}
+                        </option>
+                    ))}
+                </select>
+            )}
+
+            {type === 'borderStyle' && (
+                <select
+                    value={getSelectedObjectsCommonBorderStyle(currentSlide, selectedObjectIds)}
+                    className={styles.fontFamily}
+                    onChange={(e) => setSlideObjectsBorderStyle(e.target.value, selectedObjectIds)}
+                >
+                    {availableBorderStyle.map((style, index) => (
+                        <option key={index} value={style}>
+                            {style}
                         </option>
                     ))}
                 </select>

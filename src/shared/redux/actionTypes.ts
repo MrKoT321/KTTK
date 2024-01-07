@@ -13,6 +13,7 @@ enum PresentationTypes {
     SET_SLIDE_OBJECTS_FONT_FAMILY = 'SET_SLIDE_OBJECTS_FONT_FAMILY',
     SET_SLIDE_OBJECTS_BORDER_WIDTH = 'SET_SLIDE_OBJECTS_BORDER_WIDTH',
     SET_SLIDE_OBJECTS_BORDER_STYLE = 'SET_SLIDE_OBJECTS_BORDER_STYLE',
+    SET_SLIDE_OBJECTS_BORDER_COLOR = 'SET_SLIDE_OBJECTS_BORDER_COLOR',
     SET_SELECTED_SLIDE_IDS = 'SET_SELECTED_SLIDE_IDS',
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
@@ -105,6 +106,14 @@ type SetSlideObjectsBorderStyleAction = {
     }
 }
 
+type SetSlideObjectsBorderColorAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_COLOR
+    payload: {
+        color: string
+        selectedObjectIds: number[]
+    }
+}
+
 type SetSelectedSlidesAction = {
     type: PresentationTypes.SET_SELECTED_SLIDE_IDS
     payload: string[]
@@ -153,6 +162,7 @@ type ActionTypes =
     | SetSlideObjectsFontFamilyAction
     | SetSlideObjectsBorderWidthAction
     | SetSlideObjectsBorderStyleAction
+    | SetSlideObjectsBorderColorAction
     | SetSlidesOrderAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }
