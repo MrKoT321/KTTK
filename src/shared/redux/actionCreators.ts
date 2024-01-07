@@ -13,7 +13,7 @@ const addSlide = (slidesMap: Map<string, SlideType>, order: string[]) => {
     const id = uuidV4()
     const newSlide: SlideType = {
         background: 'color',
-        backgroundValue: '#000000',
+        backgroundValue: '#FFFFFF',
         objects: [],
     }
     slidesMap.set(id, newSlide)

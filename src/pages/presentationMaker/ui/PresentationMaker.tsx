@@ -5,21 +5,12 @@ import React, { useState } from 'react'
 import { Editor, MouseLocations, MouseStates } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/testData'
 import { Layout } from '../../../widgets/layoutWidget'
-import { useAppSelector } from '../../../shared/redux/store'
-import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 const PresentationMaker = () => {
-    const { currentSlideId, slidesMap } = useAppSelector((state) => state.slides)
-    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [presentation, setPresentation] = useState<Editor>(minEditor)
     const [mouseState, setMouseState] = useState<MouseStates>('cursor')
     const [mouseLocation, setMouseLocation] = useState<MouseLocations>('workSpace')
-    const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
 
-    const toolMenuTools = {
-        currentSlideBg,
-        setCurrentSlideBg,
-    }
     const presentationsObjTools = {
         setPresentation: setPresentation,
         presentation: presentation,
@@ -31,21 +22,10 @@ const PresentationMaker = () => {
 
     return (
         <Layout
-            topPanel={
-                <TopPanelWidget
-                    toolMenuTools={toolMenuTools}
-                    setMouseState={setMouseState}
-                    presentationsObjTools={presentationsObjTools}
-                />
-            }
-            sideBar={<SideBarWidget setCurrentSlideBg={setCurrentSlideBg} mouseLocation={mouseLocation} />}
+            topPanel={<TopPanelWidget setMouseState={setMouseState} presentationsObjTools={presentationsObjTools} />}
+            sideBar={<SideBarWidget mouseLocation={mouseLocation} />}
             workSpace={
-                <WorkSpaceWidget
-                    mouseState={mouseState}
-                    setMouseState={setMouseState}
-                    currentSlideBg={currentSlideBg}
-                    mouseLocation={mouseLocation}
-                />
+                <WorkSpaceWidget mouseState={mouseState} setMouseState={setMouseState} mouseLocation={mouseLocation} />
             }
             footer={<></>}
             onClick={onClick}

@@ -6,10 +6,6 @@ import { EditTools } from './editTools'
 import styles from './TopPanelWidget.module.css'
 
 type TopPanelWidgetProps = {
-    toolMenuTools: {
-        currentSlideBg: string
-        setCurrentSlideBg: (currentSlideBg: string) => void
-    }
     setMouseState: (mouseState: MouseStates) => void
     presentationsObjTools: {
         setPresentation: (presentation: Editor) => void
@@ -17,18 +13,14 @@ type TopPanelWidgetProps = {
     }
 }
 
-const TopPanelWidget = ({ toolMenuTools, setMouseState, presentationsObjTools }: TopPanelWidgetProps) => (
+const TopPanelWidget = ({ setMouseState, presentationsObjTools }: TopPanelWidgetProps) => (
     <>
         <div className={styles.top}>
             <PresentationName />
             <ToolBar presentationsObjTools={presentationsObjTools} />
         </div>
         <div className={styles.bottom}>
-            <ToolMenu
-                setMouseState={setMouseState}
-                currentSlideBg={toolMenuTools.currentSlideBg}
-                setCurrentSlideBg={toolMenuTools.setCurrentSlideBg}
-            />
+            <ToolMenu setMouseState={setMouseState} />
             <EditTools />
         </div>
     </>

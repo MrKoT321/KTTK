@@ -12,20 +12,10 @@ type SlideProps = {
     handleDrop(e: React.DragEvent<HTMLDivElement>, thisSlidePos: number): void
     handleDragStart(pos: number): void
     handleDragOver(e: React.DragEvent<HTMLDivElement>): void
-    setCurrentSlideBg: (arg: string) => void
 }
 
-const SideSlide = ({
-    slide,
-    order,
-    isSelected,
-    setCurrentSlideBg,
-    handleDragOver,
-    handleDragStart,
-    handleDrop,
-}: SlideProps) => {
-    const { slidesOrder, slidesMap } = useAppSelector((state) => state.slides)
-    const slides = Array.from(slidesMap.values())
+const SideSlide = ({ slide, order, isSelected, handleDragOver, handleDragStart, handleDrop }: SlideProps) => {
+    const slidesOrder = useAppSelector((state) => state.slides.slidesOrder)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const thisSlide: SlideType = { ...slide }
 
@@ -58,7 +48,6 @@ const SideSlide = ({
         setSelectedSlideIds(newSelectedSlideIds)
         setSelectedObjectIds([])
         setCurrentSlide(newCurrentSlideId)
-        setCurrentSlideBg(thisSlide.backgroundValue)
     }
 
     return (

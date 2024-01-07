@@ -19,8 +19,6 @@ import { defaultCurrentSlide } from '../../../../../shared/defaultCurrentSlide'
 
 type ToolMenuProps = {
     setMouseState: (mouseState: MouseStates) => void
-    currentSlideBg: string
-    setCurrentSlideBg(currentSlideBg: string): void
 }
 
 const ToolMenu = ({ setMouseState }: ToolMenuProps) => {

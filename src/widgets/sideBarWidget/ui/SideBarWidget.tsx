@@ -5,11 +5,10 @@ import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
 
 type SlideBarProps = {
-    setCurrentSlideBg: (arg: string) => void
     mouseLocation: MouseLocations
 }
 
-const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
+const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const { setSlides, setSelectedSlideIds, setSlidesOrder } = useAppActions()
@@ -88,7 +87,6 @@ const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
                             handleDrop={handleDrop}
                             handleDragStart={handleDragStart}
                             handleDragOver={handleDragOver}
-                            setCurrentSlideBg={setCurrentSlideBg}
                         />
                     )
                 }

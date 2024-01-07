@@ -13,24 +13,16 @@ import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 type WorkSpaceWidgetProps = {
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
-    currentSlideBg: string
     mouseLocation: MouseLocations
 }
 
-const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocation }: WorkSpaceWidgetProps) => {
+const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpaceWidgetProps) => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const slides = Array.from(slidesMap.values())
-    const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
-    const lastSlideId = selectedSlideIds[selectedSlideIds.length - 1]
+    const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const { setSlides, setSelected } = useAppActions()
-    const allSlides = slides.map((slide) => {
-        const id = lastSlideId || slides[0].id
-        if (slide.id === id) {
-            slide.backgroundValue = currentSlideBg
-        }
-        return slide
-    })
+    const allSlides = [...slides]
 
     const selected = useAppSelector((state) => state.selected)
 
