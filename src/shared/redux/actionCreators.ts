@@ -1,5 +1,5 @@
 import { PresentationTypes } from './actionTypes'
-import { ObjectTextType, Selected, SlideType } from '../types/types'
+import { MouseLocations, MouseStates, ObjectTextType, Selected, SlideType } from '../types/types'
 import { v4 as uuidV4 } from 'uuid'
 import { DrawStyle, MoveObj } from 'shared/types/devTypes'
 
@@ -164,7 +164,7 @@ const setCurrMoveToX = (currMoveToX: number) => {
 
 const setCurrMoveToY = (currMoveToY: number) => {
     return {
-        type: PresentationTypes.SET_CURRENT_MOUSE_Y,
+        type: PresentationTypes.SET_CURR_MOVE_TO_Y,
         payload: currMoveToY,
     }
 }
@@ -197,6 +197,20 @@ const setMoveObjs = (moveObjs: MoveObj[]) => {
     }
 }
 
+const setMouseState = (mouseState: MouseStates) => {
+    return {
+        type: PresentationTypes.SET_MOUSE_STATE,
+        payload: mouseState,
+    }
+}
+
+const setMouseLocation = (mouseLocation: MouseLocations) => {
+    return {
+        type: PresentationTypes.SET_MOUSE_LOCATION,
+        payload: mouseLocation,
+    }
+}
+
 export {
     setPresentationName,
     addSlide,
@@ -224,4 +238,6 @@ export {
     setLineDirection,
     setStyleObj,
     setMoveObjs,
+    setMouseState,
+    setMouseLocation,
 }

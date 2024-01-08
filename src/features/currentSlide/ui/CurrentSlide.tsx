@@ -9,17 +9,17 @@ import { minEditor } from '../../../shared/testData'
 import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 type CurrentSlideProps = {
-    mouseState: MouseStates
-    setMouseState: (mouseState: MouseStates) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     currentSlideBg: string
 }
 
-const CurrentSlide = ({ mouseState, setMouseState, handleMouseDownResize, currentSlideBg }: CurrentSlideProps) => {
+const CurrentSlide = ({ handleMouseDownResize, currentSlideBg }: CurrentSlideProps) => {
     const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
+    const { mouseState } = useAppSelector((state) => state.mouse)
     const { moveObjs } = useAppSelector((state) => state.editObject)
-    const { setStartMouseX, setStartMouseY, setCurrentMouseX, setCurrentMouseY, setMoveObjs } = useAppActions()
+    const { setStartMouseX, setStartMouseY, setCurrentMouseX, setCurrentMouseY, setMoveObjs, setMouseState } =
+        useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const shadowObjs = moveObjs
     const currentSlideStyle = {

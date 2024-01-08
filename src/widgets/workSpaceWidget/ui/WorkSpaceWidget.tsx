@@ -10,16 +10,14 @@ import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 type WorkSpaceWidgetProps = {
-    mouseState: MouseStates
-    setMouseState: (mouseState: MouseStates) => void
     currentSlideBg: string
-    mouseLocation: MouseLocations
 }
 
-const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocation }: WorkSpaceWidgetProps) => {
+const WorkSpaceWidget = ({ currentSlideBg }: WorkSpaceWidgetProps) => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const slides = Array.from(slidesMap.values())
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
+    const { mouseState, mouseLocation } = useAppSelector((state) => state.mouse)
     const selected = useAppSelector((state) => state.selected)
     const {
         currentMouseX,
@@ -54,6 +52,7 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
         setMoveObjs,
         setStartWidth,
         setStartHeight,
+        setMouseState,
     } = useAppActions()
     const allSlides = slides.map((slide) => {
         const id = lastSlideId || slides[0].id
@@ -331,12 +330,7 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, currentSlideBg, mouseLocat
             onMouseUp={() => handleMouseUp()}
             // onClick={(e) => handleClick(e)}
         >
-            <CurrentSlide
-                mouseState={mouseState}
-                setMouseState={setMouseState}
-                handleMouseDownResize={handleMouseDownResize}
-                currentSlideBg={currentSlideBg}
-            />
+            <CurrentSlide handleMouseDownResize={handleMouseDownResize} currentSlideBg={currentSlideBg} />
             {(mouseState === 'creatingCircle' ||
                 mouseState === 'creatingRect' ||
                 mouseState === 'creatingText' ||

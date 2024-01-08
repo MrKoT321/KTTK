@@ -7,12 +7,12 @@ import { getReorderedSlides } from '../tools/getReorderedSlides'
 
 type SlideBarProps = {
     setCurrentSlideBg: (arg: string) => void
-    mouseLocation: MouseLocations
 }
 
-const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
+const SideBarWidget = ({ setCurrentSlideBg }: SlideBarProps) => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selected = useAppSelector((state) => state.selected)
+    const { mouseLocation } = useAppSelector((state) => state.mouse)
     const { selectedSlideIds } = selected
     // const { setSlides, setSelectedSlideIds } = useAppActions()
     // const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)

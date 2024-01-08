@@ -1,5 +1,5 @@
 import { DrawStyle, MoveObj } from 'shared/types/devTypes'
-import { ObjectType, Selected, SlideType } from '../types/types'
+import { MouseLocations, MouseStates, ObjectType, Selected, SlideType } from '../types/types'
 
 enum PresentationTypes {
     SET_PRESENTATION_NAME = 'SET_PRESENTATION_NAME',
@@ -28,6 +28,8 @@ enum PresentationTypes {
     SET_LINE_DIRECTION = 'SET_LINE_DIRECTION',
     SET_STYLE_OBJ = 'SET_STYLE_OBJ',
     SET_MOVE_OBJS = 'SET_MOVE_OBJS',
+    SET_MOUSE_STATE = 'SET_MOUSE_STATE',
+    SET_MOUSE_LOCATION = 'SET_MOUSE_LOCATION',
 }
 
 type SetPresentationNameAction = {
@@ -184,6 +186,16 @@ type SetMoveObjs = {
     payload: MoveObj[]
 }
 
+type SetMouseState = {
+    type: PresentationTypes.SET_MOUSE_STATE
+    payload: MouseStates
+}
+
+type setMouseLocation = {
+    type: PresentationTypes.SET_MOUSE_LOCATION
+    payload: MouseLocations
+}
+
 type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
@@ -211,5 +223,7 @@ type ActionTypes =
     | SetLineDirection
     | SetStyleObj
     | SetMoveObjs
+    | SetMouseState
+    | setMouseLocation
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }

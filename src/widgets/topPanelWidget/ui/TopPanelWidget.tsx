@@ -10,14 +10,13 @@ type TopPanelWidgetProps = {
         currentSlideBg: string
         setCurrentSlideBg: (currentSlideBg: string) => void
     }
-    setMouseState: (mouseState: MouseStates) => void
     presentationsObjTools: {
         setPresentation: (presentation: Editor) => void
         presentation: Editor
     }
 }
 
-const TopPanelWidget = ({ toolMenuTools, setMouseState, presentationsObjTools }: TopPanelWidgetProps) => (
+const TopPanelWidget = ({ toolMenuTools, presentationsObjTools }: TopPanelWidgetProps) => (
     <>
         <div className={styles.top}>
             <PresentationName />
@@ -25,7 +24,6 @@ const TopPanelWidget = ({ toolMenuTools, setMouseState, presentationsObjTools }:
         </div>
         <div className={styles.bottom}>
             <ToolMenu
-                setMouseState={setMouseState}
                 currentSlideBg={toolMenuTools.currentSlideBg}
                 setCurrentSlideBg={toolMenuTools.setCurrentSlideBg}
             />

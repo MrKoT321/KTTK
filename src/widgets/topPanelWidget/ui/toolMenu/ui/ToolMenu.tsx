@@ -18,14 +18,13 @@ import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
 
 type ToolMenuProps = {
-    setMouseState: (mouseState: MouseStates) => void
     currentSlideBg: string
     setCurrentSlideBg(currentSlideBg: string): void
 }
 
-const ToolMenu = ({ setMouseState, currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
+const ToolMenu = ({ currentSlideBg, setCurrentSlideBg }: ToolMenuProps) => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
-    const { addSlide } = useAppActions()
+    const { addSlide, setMouseState } = useAppActions()
     const [isShowShapesPopupMenu, setIsShowShapesPopupMenu] = useState(false)
     const [isPopUpOpen, setPopUpState] = useState(false)
 

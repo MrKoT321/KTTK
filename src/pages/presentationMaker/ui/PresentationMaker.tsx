@@ -2,7 +2,7 @@ import { TopPanelWidget } from '../../../widgets/topPanelWidget'
 import { SideBarWidget } from '../../../widgets/sideBarWidget'
 import { WorkSpaceWidget } from '../../../widgets/workSpaceWidget'
 import React, { useState } from 'react'
-import { Editor, MouseLocations, MouseStates } from '../../../shared/types/types'
+import { Editor } from '../../../shared/types/types'
 import { minEditor } from '../../../shared/testData'
 import { Layout } from '../../../widgets/layoutWidget'
 import { useAppSelector } from '../../../shared/redux/store'
@@ -12,8 +12,6 @@ const PresentationMaker = () => {
     const { currentSlideId, slidesMap } = useAppSelector((state) => state.slides)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [presentation, setPresentation] = useState<Editor>(minEditor)
-    const [mouseState, setMouseState] = useState<MouseStates>('cursor')
-    const [mouseLocation, setMouseLocation] = useState<MouseLocations>('workSpace')
     const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
 
     const toolMenuTools = {
@@ -25,30 +23,12 @@ const PresentationMaker = () => {
         presentation: presentation,
     }
 
-    const onClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, location: MouseLocations) => {
-        setMouseLocation(location)
-    }
-
     return (
         <Layout
-            topPanel={
-                <TopPanelWidget
-                    toolMenuTools={toolMenuTools}
-                    setMouseState={setMouseState}
-                    presentationsObjTools={presentationsObjTools}
-                />
-            }
-            sideBar={<SideBarWidget setCurrentSlideBg={setCurrentSlideBg} mouseLocation={mouseLocation} />}
-            workSpace={
-                <WorkSpaceWidget
-                    mouseState={mouseState}
-                    setMouseState={setMouseState}
-                    currentSlideBg={currentSlideBg}
-                    mouseLocation={mouseLocation}
-                />
-            }
+            topPanel={<TopPanelWidget toolMenuTools={toolMenuTools} presentationsObjTools={presentationsObjTools} />}
+            sideBar={<SideBarWidget setCurrentSlideBg={setCurrentSlideBg} />}
+            workSpace={<WorkSpaceWidget currentSlideBg={currentSlideBg} />}
             footer={<></>}
-            onClick={onClick}
         />
     )
 }
