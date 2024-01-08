@@ -4,7 +4,7 @@ import boldTextIcon from '../../../../../shared/icons/boldTextIcon.svg'
 import italicTextIcon from '../../../../../shared/icons/italicTextIcon.svg'
 import underlineTextIcon from '../../../../../shared/icons/underlineTextIcon.svg'
 import { ChangeTextDecorationSetupButton } from './changeTextDecorationSetupButton'
-import { ChangeTextColorButton } from './changeTextColorButton'
+import { ChangeColorButton } from './changeColorButton'
 import { useAppSelector } from '../../../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../../../shared/tools/defaultCurrentSlide'
 
@@ -58,7 +58,7 @@ const EditTools = () => {
                     <ChangeTextDecorationSetupButton imageSrc={boldTextIcon} type={'bold'} />
                     <ChangeTextDecorationSetupButton imageSrc={italicTextIcon} type={'italic'} />
                     <ChangeTextDecorationSetupButton imageSrc={underlineTextIcon} type={'underline'} />
-                    <ChangeTextColorButton type={'textColor'} />
+                    <ChangeColorButton type={'textColor'} />
                 </>
             )}
             {isLineObjectOnlySelected && (
@@ -70,12 +70,12 @@ const EditTools = () => {
                 <>
                     <EditInputButton type={'borderWidth'} />
                     <EditInputButton type={'borderStyle'} />
-                    <ChangeTextColorButton type={'borderColor'} />
+                    <ChangeColorButton type={'borderColor'} />
                 </>
             )}
             {isShapeObjectSelected && (
                 <>
-                    <ChangeTextColorButton type={'shapeColor'} />
+                    <ChangeColorButton type={'shapeColor'} />
                 </>
             )}
         </div>

@@ -1,4 +1,4 @@
-import styles from './ChangeTextColorButton.module.css'
+import styles from './ChangeColorButton.module.css'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
 import { SlideType } from '../../../../../../shared/types/types'
 import { defaultCurrentSlide } from '../../../../../../shared/tools/defaultCurrentSlide'
@@ -6,7 +6,7 @@ import { defaultCurrentSlide } from '../../../../../../shared/tools/defaultCurre
 type ColorButtonTypes = {
     type: 'textColor' | 'borderColor' | 'shapeColor'
 }
-const ChangeTextColorButton = ({ type }: ColorButtonTypes) => {
+const ChangeColorButton = ({ type }: ColorButtonTypes) => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
 
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
@@ -95,4 +95,4 @@ const ChangeTextColorButton = ({ type }: ColorButtonTypes) => {
     )
 }
 
-export { ChangeTextColorButton }
+export { ChangeColorButton }

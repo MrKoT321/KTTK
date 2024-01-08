@@ -105,7 +105,7 @@ const addObject = ({
                 bold: false,
                 italic: false,
                 underlined: false,
-                highlighter: '#00000000',
+                highlighter: '#000000',
                 underlineColor: '#000000',
                 value: '',
                 oType: 'ObjectTextType',
@@ -121,9 +121,9 @@ const addObject = ({
                 startY: startY,
                 borderStyle: 'solid',
                 borderWidth: borderWidth,
-                borderColor: 'black',
+                borderColor: '#000000',
                 type: 'rect',
-                shapeBgColor: 'yellow',
+                shapeBgColor: '#FFFF00',
                 oType: 'ObjectShapeType',
             }
             currentSlide.objects.push(object)
@@ -137,10 +137,10 @@ const addObject = ({
                 startY: startY,
                 borderStyle: 'solid',
                 borderWidth: borderWidth,
-                borderColor: 'blue',
+                borderColor: '#000000',
                 type: 'circle',
                 radius: Math.abs(currentMouseX - startMouseX / 2),
-                shapeBgColor: 'green',
+                shapeBgColor: '#00FF00',
                 oType: 'ObjectShapeType',
             }
             currentSlide.objects.push(object)
@@ -157,7 +157,7 @@ const addObject = ({
                 borderWidth: borderWidth,
                 borderColor: 'black',
                 type: 'line',
-                shapeBgColor: 'black',
+                shapeBgColor: '#000000',
                 lineWidth: 2,
                 oType: 'ObjectShapeType',
             }
@@ -172,9 +172,9 @@ const addObject = ({
                 startY: startY,
                 borderStyle: 'none',
                 borderWidth: borderWidth,
-                borderColor: 'black',
+                borderColor: '#000000',
                 type: 'triangle',
-                shapeBgColor: 'yellow',
+                shapeBgColor: '#FFFF00',
                 oType: 'ObjectShapeType',
             }
             currentSlide.objects.push(object)
