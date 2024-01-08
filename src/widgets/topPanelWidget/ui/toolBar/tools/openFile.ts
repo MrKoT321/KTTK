@@ -56,6 +56,7 @@ const openFile = (
         false,
     )
     reader.readAsText(file)
+    event.target.value = ''
 }
 
 export { openFile }
