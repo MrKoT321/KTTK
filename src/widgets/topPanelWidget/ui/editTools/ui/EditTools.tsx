@@ -24,21 +24,11 @@ const EditTools = () => {
     }
     const isTextObjectSelected = isSelectedTextObject()
 
-    const isSelectedShapeObject = () => {
-        for (const object of currentSlide.objects) {
-            if (object.oType === 'ObjectShapeType' && selectedObjectIds.includes(object.id)) {
-                return true
-            }
-        }
-        return false
-    }
-    const isShapeObjectSelected = isSelectedShapeObject()
-
     const isSelectedLineObjectOnly = () => {
         let isLineObjectOnly = false
         for (const object of currentSlide.objects) {
             if (selectedObjectIds.includes(object.id)) {
-                if (object.oType === 'ObjectShapeType' && object.type == 'line') {
+                if (object.oType === 'ObjectShapeType' && object.type === 'line') {
                     isLineObjectOnly = true
                 } else {
                     return false
@@ -64,6 +54,7 @@ const EditTools = () => {
             {isLineObjectOnlySelected && (
                 <>
                     <EditInputButton type={'borderWidth'} />
+                    <ChangeColorButton type={'objectColor'} />
                 </>
             )}
             {isObjectSelected && !isLineObjectOnlySelected && (
@@ -71,11 +62,7 @@ const EditTools = () => {
                     <EditInputButton type={'borderWidth'} />
                     <EditInputButton type={'borderStyle'} />
                     <ChangeColorButton type={'borderColor'} />
-                </>
-            )}
-            {isShapeObjectSelected && (
-                <>
-                    <ChangeColorButton type={'shapeColor'} />
+                    <ChangeColorButton type={'objectColor'} />
                 </>
             )}
         </div>

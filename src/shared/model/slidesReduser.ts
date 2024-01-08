@@ -28,7 +28,7 @@ type ParamToChangeType =
     | 'borderWidth'
     | 'borderStyle'
     | 'borderColor'
-    | 'shapeColor'
+    | 'objectColor'
 
 const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
@@ -59,42 +59,45 @@ const setStyleCurrentSlideObjects = (
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     currentSlide.objects.forEach((object) => {
         if (selectedObjectIds.includes(object.id)) {
-            if (object.oType == 'ObjectTextType') {
-                if (paramToChange == 'bold') {
+            if (object.oType === 'ObjectTextType') {
+                if (paramToChange === 'bold') {
                     object.bold = !object.bold
                 }
-                if (paramToChange == 'italic') {
+                if (paramToChange === 'italic') {
                     object.italic = !object.italic
                 }
-                if (paramToChange == 'underlined') {
+                if (paramToChange === 'underlined') {
                     object.underlined = !object.underlined
                 }
-                if (paramToChange == 'fontColor') {
+                if (paramToChange === 'fontColor') {
                     object.fontColor = stringParamToChange || '#000000'
                 }
-                if (paramToChange == 'fontSize') {
+                if (paramToChange === 'fontSize') {
                     object.fontSize = numberParamToChange || 14
                 }
-                if (paramToChange == 'fontFamily') {
+                if (paramToChange === 'fontFamily') {
                     object.fontFamily = stringParamToChange || 'FuturaPT'
                 }
-            }
-            if (object.oType == 'ObjectShapeType') {
-                if (paramToChange == 'shapeColor') {
-                    object.shapeBgColor = stringParamToChange || 'yellow'
+                if (paramToChange === 'objectColor') {
+                    object.highlighter = stringParamToChange || '#00000000'
                 }
-                if (paramToChange == 'borderWidth' && object.type == 'line') {
+            }
+            if (object.oType === 'ObjectShapeType') {
+                if (paramToChange === 'objectColor') {
+                    object.shapeBgColor = stringParamToChange || '#FFFF00'
+                }
+                if (paramToChange === 'borderWidth' && object.type === 'line') {
                     object.lineWidth = numberParamToChange || 1
                 }
             }
-            if (paramToChange == 'borderWidth') {
-                if (object.oType == 'ObjectShapeType' && object.type == 'line') return
+            if (paramToChange === 'borderWidth') {
+                if (object.oType === 'ObjectShapeType' && object.type === 'line') return
                 object.borderWidth = numberParamToChange || 0
             }
-            if (paramToChange == 'borderStyle') {
+            if (paramToChange === 'borderStyle') {
                 object.borderStyle = remapBorderStyle(stringParamToChange)
             }
-            if (paramToChange == 'borderColor') {
+            if (paramToChange === 'borderColor') {
                 object.borderColor = stringParamToChange || '#000000'
             }
         }
@@ -224,14 +227,14 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
                     action.payload.color,
                 ),
             }
-        case PresentationTypes.SET_SLIDE_SHAPE_OBJECTS_COLOR:
+        case PresentationTypes.SET_SLIDE_OBJECTS_COLOR:
             return {
                 ...state,
                 slidesMap: setStyleCurrentSlideObjects(
                     state.currentSlideId,
                     state.slidesMap,
                     action.payload.selectedObjectIds,
-                    'shapeColor',
+                    'objectColor',
                     action.payload.color,
                 ),
             }

@@ -105,7 +105,7 @@ const addObject = ({
                 bold: false,
                 italic: false,
                 underlined: false,
-                highlighter: '#000000',
+                highlighter: '#00000000',
                 underlineColor: '#000000',
                 value: '',
                 oType: 'ObjectTextType',
