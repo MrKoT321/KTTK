@@ -1,8 +1,8 @@
-import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
-import { SlideType } from '../../shared/types/types'
+import { ActionTypes, PresentationTypes } from '../redux/actionTypes'
+import { SlideType } from '../types/types'
 import { v4 as uuidV4 } from 'uuid'
-import { defaultCurrentSlide } from '../../shared/tools/defaultCurrentSlide'
-import { BorderStyle } from '../../shared/types/devTypes'
+import { defaultCurrentSlide } from '../tools/defaultCurrentSlide'
+import { BorderStyle } from '../types/devTypes'
 
 type slidesReducerType = {
     slidesOrder: string[]
