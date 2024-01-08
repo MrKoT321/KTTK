@@ -4,13 +4,13 @@ import { SlideType } from '../../../../../../shared/types/types'
 import { defaultCurrentSlide } from '../../../../../../shared/tools/defaultCurrentSlide'
 
 type ColorButtonTypes = {
-    type: 'textColor' | 'borderColor'
+    type: 'textColor' | 'borderColor' | 'shapeColor'
 }
 const ChangeTextColorButton = ({ type }: ColorButtonTypes) => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
 
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
-    const { setTextObjectFontColor, setSlideObjectsBorderColor } = useAppActions()
+    const { setTextObjectFontColor, setSlideObjectsBorderColor, setSlideShapeObjectsColor } = useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
 
     const getSelectedObjectsCommonFontColor = (currentSlide: SlideType, selectedObjectIds: number[]) => {
@@ -43,6 +43,21 @@ const ChangeTextColorButton = ({ type }: ColorButtonTypes) => {
         return commonBorderColor == defaultBorderColor ? defaultBorderColor : commonBorderColor
     }
 
+    const getSelectedObjectsCommonShapeColor = (currentSlide: SlideType, selectedObjectIds: number[]) => {
+        const defaultShapeColor = '#000000'
+        let commonShapeColor = defaultShapeColor
+        for (const object of currentSlide.objects) {
+            if (object.oType === 'ObjectShapeType' && selectedObjectIds.includes(object.id)) {
+                if (commonShapeColor == defaultShapeColor) {
+                    commonShapeColor = object.shapeBgColor
+                } else if (commonShapeColor != object.shapeBgColor) {
+                    return defaultShapeColor
+                }
+            }
+        }
+        return commonShapeColor == defaultShapeColor ? defaultShapeColor : commonShapeColor
+    }
+
     return (
         <>
             {type === 'textColor' && (
@@ -63,6 +78,17 @@ const ChangeTextColorButton = ({ type }: ColorButtonTypes) => {
                     value={getSelectedObjectsCommonBorderColor(currentSlide, selectedObjectIds)}
                     onChange={(event) => {
                         setSlideObjectsBorderColor(event.target.value, selectedObjectIds)
+                    }}
+                />
+            )}
+
+            {type === 'shapeColor' && (
+                <input
+                    className={styles.button}
+                    type={'color'}
+                    value={getSelectedObjectsCommonShapeColor(currentSlide, selectedObjectIds)}
+                    onChange={(event) => {
+                        setSlideShapeObjectsColor(event.target.value, selectedObjectIds)
                     }}
                 />
             )}

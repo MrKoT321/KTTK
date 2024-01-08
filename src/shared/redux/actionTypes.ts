@@ -14,6 +14,7 @@ enum PresentationTypes {
     SET_SLIDE_OBJECTS_BORDER_WIDTH = 'SET_SLIDE_OBJECTS_BORDER_WIDTH',
     SET_SLIDE_OBJECTS_BORDER_STYLE = 'SET_SLIDE_OBJECTS_BORDER_STYLE',
     SET_SLIDE_OBJECTS_BORDER_COLOR = 'SET_SLIDE_OBJECTS_BORDER_COLOR',
+    SET_SLIDE_SHAPE_OBJECTS_COLOR = 'SET_SLIDE_SHAPE_OBJECTS_COLOR',
     SET_SELECTED_SLIDE_IDS = 'SET_SELECTED_SLIDE_IDS',
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
@@ -116,6 +117,14 @@ type SetSlideObjectsBorderColorAction = {
     }
 }
 
+type SetSlideShapeObjectsColorAction = {
+    type: PresentationTypes.SET_SLIDE_SHAPE_OBJECTS_COLOR
+    payload: {
+        color: string
+        selectedObjectIds: number[]
+    }
+}
+
 type SetSelectedSlidesAction = {
     type: PresentationTypes.SET_SELECTED_SLIDE_IDS
     payload: string[]
@@ -178,6 +187,7 @@ type ActionTypes =
     | SetSlideObjectsBorderWidthAction
     | SetSlideObjectsBorderStyleAction
     | SetSlideObjectsBorderColorAction
+    | SetSlideShapeObjectsColorAction
     | SetSlidesOrderAction
     | SetSelectImagePopUpStateAction
     | openPresentationAction

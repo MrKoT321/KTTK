@@ -28,6 +28,7 @@ type ParamToChangeType =
     | 'borderWidth'
     | 'borderStyle'
     | 'borderColor'
+    | 'shapeColor'
 
 const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
@@ -76,6 +77,11 @@ const setStyleCurrentSlideObjects = (
                 }
                 if (paramToChange == 'fontFamily') {
                     object.fontFamily = stringParamToChange || 'FuturaPT'
+                }
+            }
+            if (object.oType == 'ObjectShapeType') {
+                if (paramToChange == 'shapeColor') {
+                    object.shapeBgColor = stringParamToChange || 'yellow'
                 }
             }
             if (paramToChange == 'borderWidth') {
@@ -216,6 +222,17 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
                     state.slidesMap,
                     action.payload.selectedObjectIds,
                     'borderColor',
+                    action.payload.color,
+                ),
+            }
+        case PresentationTypes.SET_SLIDE_SHAPE_OBJECTS_COLOR:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'shapeColor',
                     action.payload.color,
                 ),
             }
