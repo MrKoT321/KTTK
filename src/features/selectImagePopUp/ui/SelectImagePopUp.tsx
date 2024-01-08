@@ -105,6 +105,7 @@ const SelectImagePopUp = () => {
                 reader.onerror = reject
             }
         })
+        e.target.value = ''
     }
 
     const createLinkImage = () => {
