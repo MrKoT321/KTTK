@@ -1,15 +1,14 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import styles from './Layout.module.css'
 import { layoutParams as lp, widgetsSizeParams as wsp } from '../../../shared/tools/layoutParams'
 import { MouseLocations } from 'shared/types/types'
-import { addSlide, setCurrentSlide } from '../../../shared/redux/actionCreators'
 
 type LayoutProps = {
     topPanel: ReactNode
     sideBar: ReactNode
     workSpace: ReactNode
     footer: ReactNode
-    onClick: (arg1: React.MouseEvent<HTMLDivElement, MouseEvent>, arg2: MouseLocations) => void
+    onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, location: MouseLocations) => void
 }
 
 const Layout = ({ topPanel, sideBar, workSpace, footer, onClick }: LayoutProps) => (

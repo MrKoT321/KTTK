@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react'
 
-const getQuadStyles = (objectWidth: number) => {
+export const getQuadStyles = (objectWidth: number) => {
     const quadStyle: CSSProperties = {
         left: objectWidth - 5,
         top: -5,
@@ -8,5 +8,3 @@ const getQuadStyles = (objectWidth: number) => {
 
     return quadStyle
 }
-
-export { getQuadStyles }

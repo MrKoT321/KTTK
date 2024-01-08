@@ -1,6 +1,6 @@
 import React from 'react'
 
-const handleObjectClick = (
+export const handleObjectClick = (
     e: React.MouseEvent<HTMLDivElement>,
     isObjectSelected: boolean,
     objectId: number,
@@ -22,5 +22,3 @@ const handleObjectClick = (
         }
     }
 }
-
-export { handleObjectClick }

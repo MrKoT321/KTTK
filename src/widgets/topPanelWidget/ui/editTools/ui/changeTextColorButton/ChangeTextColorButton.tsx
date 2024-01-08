@@ -55,7 +55,6 @@ const ChangeTextColorButton = ({ type }: ColorButtonTypes) => {
                     }}
                 />
             )}
-
             {type === 'borderColor' && (
                 <input
                     className={styles.button}

@@ -1,9 +1,9 @@
-import { MouseLocations, SlideType } from '../../../shared/types/types'
-import { SideSlide } from '../../../entity/sideSlide/SideSlide'
+import { MouseLocations } from '../../../shared/types/types'
+import { SideSlide } from '../../../entity/sideSlide/ui/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
-import { handleDeleteSlides } from '../../../shared/tools/handleDeleteSlides'
+import { handleDeleteSlides } from '../tools/handleDeleteSlides'
 
 type SlideBarProps = {
     mouseLocation: MouseLocations

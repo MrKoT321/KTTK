@@ -4,8 +4,7 @@ import { createTextObject } from './tools/createTextObject'
 import React, { CSSProperties } from 'react'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
 import { defaultCurrentSlide } from '../../../../tools/defaultCurrentSlide'
-import { getQuadStyles } from '../../../../tools/getQuadStyles'
-import { handleObjectClick } from '../../../../tools/handleObjectClick'
+import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
@@ -28,29 +27,6 @@ const TextObject = (props: TextObjProps) => {
         top: props.startY,
         boxSizing: `border-box`,
     }
-
-    // const handleClick = (
-    //     e: React.MouseEvent<HTMLDivElement>,
-    //     isObjectSelected: boolean,
-    //     objectId: number,
-    //     selectedObjectIds: number[],
-    //     setSelectedObjectIds: (newSelectedObjectIds: number[]) => void,
-    // ) => {
-    //     if (!isObjectSelected) {
-    //         let newSelected = selectedObjectIds
-    //         if (e.ctrlKey) {
-    //             newSelected.push(objectId)
-    //         } else {
-    //             newSelected = [objectId]
-    //         }
-    //         setSelectedObjectIds(newSelected)
-    //     } else {
-    //         if (e.ctrlKey) {
-    //             const newSelected = selectedObjectIds.filter((id) => id != objectId)
-    //             setSelectedObjectIds(newSelected)
-    //         }
-    //     }
-    // }
 
     return (
         <div

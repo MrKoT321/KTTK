@@ -3,8 +3,7 @@ import styles from '../../Object.module.css'
 import { createShapeObject } from './tools/createShapeObject'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
 import React, { CSSProperties } from 'react'
-import { getQuadStyles } from '../../../../tools/getQuadStyles'
-import { handleObjectClick } from '../../../../tools/handleObjectClick'
+import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type ShapeObjProps = ObjectShapeType & {
     isSelected: boolean

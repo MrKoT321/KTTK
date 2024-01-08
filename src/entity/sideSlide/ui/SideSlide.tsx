@@ -1,9 +1,10 @@
 import styles from './SideSlide.module.css'
-import { SlideType } from '../../shared/types/types'
-import { Object } from '../../shared/ui/object'
+import { SlideType } from '../../../shared/types/types'
+import { Object } from '../../../shared/ui/object'
 import React, { useState } from 'react'
 import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
-import { useAppActions, useAppSelector } from '../../shared/redux/store'
+import { useAppActions, useAppSelector } from '../../../shared/redux/store'
+import { handleSideSlideClick } from '../tools/handleSideSlideClick'
 
 type SlideProps = {
     isSelected: boolean
@@ -17,7 +18,6 @@ const SideSlide = ({ slide, order, isSelected, setDraggedSlidePos, handleDrop }:
     const slidesOrder = useAppSelector((state) => state.slides.slidesOrder)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const thisSlide: SlideType = { ...slide }
-
     const { setSelectedSlideIds, setCurrentSlide, setSelectedObjectIds } = useAppActions()
     const [isHovered, setIsHovered] = useState(false)
 
@@ -32,21 +32,16 @@ const SideSlide = ({ slide, order, isSelected, setDraggedSlidePos, handleDrop }:
         borderStyle: 'solid',
     }
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        let newSelectedSlideIds = selectedSlideIds
-        const newCurrentSlideId = slidesOrder[order]
-        if (e.ctrlKey) {
-            if (newSelectedSlideIds.includes(newCurrentSlideId) && newSelectedSlideIds.length > 1) {
-                newSelectedSlideIds.splice(newSelectedSlideIds.indexOf(newCurrentSlideId), 1)
-            } else if (!newSelectedSlideIds.includes(newCurrentSlideId)) {
-                newSelectedSlideIds.push(newCurrentSlideId)
-            }
-        } else {
-            newSelectedSlideIds = [newCurrentSlideId]
-        }
-        setSelectedSlideIds(newSelectedSlideIds)
-        setSelectedObjectIds([])
-        setCurrentSlide(newCurrentSlideId)
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        handleSideSlideClick(
+            event,
+            order,
+            selectedSlideIds,
+            slidesOrder,
+            setSelectedSlideIds,
+            setSelectedObjectIds,
+            setCurrentSlide,
+        )
     }
 
     return (

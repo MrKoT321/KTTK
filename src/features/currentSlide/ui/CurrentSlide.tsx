@@ -34,6 +34,7 @@ const CurrentSlide = ({
     const { selectedObjectIds } = useAppSelector((state) => state.selected)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const shadowObjs = [...moveObjs]
+
     const currentSlideStyle = {
         ...wsp.currentSlideSizeStyle,
         background: currentSlide.backgroundValue,

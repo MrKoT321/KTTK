@@ -2,8 +2,7 @@ import { ObjectImageType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
 import React, { CSSProperties } from 'react'
-import { getQuadStyles } from '../../../../tools/getQuadStyles'
-import { handleObjectClick } from '../../../../tools/handleObjectClick'
+import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type ImageObjProps = ObjectImageType & {
     isSelected: boolean

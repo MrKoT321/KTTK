@@ -50,8 +50,6 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
     const [currMoveToX, setCurrMoveToX] = useState(0)
     const [currMoveToY, setCurrMoveToY] = useState(0)
 
-    const [isDelete, setIsDelete] = useState(false)
-
     const createMovePosition = (startMousePos: number, currentMousePos: number, currMoveTo: number) => {
         if (startMousePos >= currentMousePos) {
             return currentMousePos - startMousePos - currMoveTo
