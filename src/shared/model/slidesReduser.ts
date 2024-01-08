@@ -83,6 +83,9 @@ const setStyleCurrentSlideObjects = (
                 if (paramToChange == 'shapeColor') {
                     object.shapeBgColor = stringParamToChange || 'yellow'
                 }
+                if (paramToChange == 'borderWidth' && object.type == 'line') {
+                    object.lineWidth = numberParamToChange || 1
+                }
             }
             if (paramToChange == 'borderWidth') {
                 object.borderWidth = numberParamToChange || 0
