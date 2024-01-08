@@ -147,6 +147,13 @@ const setSlideObjectsBorderColor = (color: string, selectedTextIds: number[]) =>
     }
 }
 
+const setSlideShapeObjectsColor = (color: string, selectedObjectIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_SHAPE_OBJECTS_COLOR,
+        payload: { color: color, selectedObjectIds: selectedObjectIds },
+    }
+}
+
 const setSlidesOrder = (slidesOrder: string[]) => {
     return {
         type: PresentationTypes.SET_SLIDES_ORDER,
@@ -188,6 +195,7 @@ export {
     setSlideObjectsBorderWidth,
     setSlideObjectsBorderStyle,
     setSlideObjectsBorderColor,
+    setSlideShapeObjectsColor,
     setSlidesOrder,
     setSelectImagePopUpState,
     openPresentation,

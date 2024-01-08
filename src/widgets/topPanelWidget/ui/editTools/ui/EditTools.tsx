@@ -24,6 +24,16 @@ const EditTools = () => {
     }
     const isTextObjectSelected = isSelectedTextObject()
 
+    const isSelectedShapeObject = () => {
+        for (const object of currentSlide.objects) {
+            if (object.oType === 'ObjectShapeType' && selectedObjectIds.includes(object.id)) {
+                return true
+            }
+        }
+        return false
+    }
+    const isShapeObjectSelected = isSelectedShapeObject()
+
     return (
         <div className={styles.editTools}>
             {isTextObjectSelected && (
@@ -41,6 +51,11 @@ const EditTools = () => {
                     <EditInputButton type={'borderWidth'} />
                     <EditInputButton type={'borderStyle'} />
                     <ChangeTextColorButton type={'borderColor'} />
+                </>
+            )}
+            {isShapeObjectSelected && (
+                <>
+                    <ChangeTextColorButton type={'shapeColor'} />
                 </>
             )}
         </div>
