@@ -1,4 +1,5 @@
 .toolMenu {
+    position: relative;
     width: 300px;
     display: flex;
     gap: 10px;
@@ -13,6 +14,8 @@
 
 .shapeDropDown_visible {
     position: absolute;
+    left: 140px;
+    top: 35px;
 }
 
 .inputColor {

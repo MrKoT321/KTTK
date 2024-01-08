@@ -1,8 +1,9 @@
-import { ObjectShapeType, Selected } from '../../../../types/types'
+import { ObjectShapeType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createShapeObject } from './tools/createShapeObject'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
-import React from 'react'
+import React, { CSSProperties } from 'react'
+import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type ShapeObjProps = ObjectShapeType & {
     isSelected: boolean
@@ -11,30 +12,15 @@ type ShapeObjProps = ObjectShapeType & {
 }
 
 const ShapeObject = (props: ShapeObjProps) => {
-    const { setSelected } = useAppActions()
-    const selected = useAppSelector((state) => state.selected)
+    const { setSelectedObjectIds } = useAppActions()
+    const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const styleChildObj = createShapeObject(props)
-    const styleParentObj = {
+    const styleParentObj: CSSProperties = {
         width: props.width + 2 * props.borderWidth,
         height: props.height + 2 * props.borderWidth,
         left: props.startX,
         top: props.startY,
-    }
-
-    const quadStyle = {
-        left: props.width - 5,
-        top: -5,
-    }
-
-    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (!props.isSelected) {
-            if (e.ctrlKey) {
-                selected.selectedObjectIds.push(props.id)
-            } else {
-                selected.selectedObjectIds = [props.id]
-            }
-            setSelected(selected)
-        }
+        boxSizing: `border-box`,
     }
 
     return (
@@ -45,13 +31,15 @@ const ShapeObject = (props: ShapeObjProps) => {
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={quadStyle}
+                    style={getQuadStyles(props.width)}
                     onMouseDown={(e) => props.handleMouseDownResize(e)}
                 ></div>
             )}
             <div
                 style={styleChildObj}
-                onClick={(e) => handleClick(e)}
+                onClick={(e) =>
+                    handleObjectClick(e, props.isSelected, props.id, selectedObjectIds, setSelectedObjectIds)
+                }
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             ></div>
         </div>

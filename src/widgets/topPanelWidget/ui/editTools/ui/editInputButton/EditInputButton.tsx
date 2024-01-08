@@ -1,9 +1,9 @@
 import styles from './EditInputButton.module.css'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
 import { SlideType } from '../../../../../../shared/types/types'
-import { defaultCurrentSlide } from '../../../../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../../../../shared/tools/defaultCurrentSlide'
 
-type EditInputType = 'font' | 'fontSize'
+type EditInputType = 'font' | 'fontSize' | 'borderWidth' | 'borderStyle'
 
 type EditInputButtonProps = {
     type: EditInputType
@@ -13,9 +13,12 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
-    const { setTextObjectFontSize, setTextObjectFontFamily } = useAppActions()
+    const { setTextObjectFontSize, setTextObjectFontFamily, setSlideObjectsBorderWidth, setSlideObjectsBorderStyle } =
+        useAppActions()
     const availableFonts = ['FuturaPT', 'Arial', 'Times New Roman', 'Comic Sans MS']
     const availableFontsSizes = [10, 12, 14, 16, 18, 20, 24, 28, 32, 40, 48, 56, 64, 72, 80]
+    const availableBorderWidth = [0, 1, 2, 3, 4, 8, 12, 16]
+    const availableBorderStyle = ['none', 'dotted', 'dashed', 'solid', 'double', 'groove', 'ridge', 'inset', 'outset']
 
     const getSelectedObjectsCommonFontFamily = (currentSlide: SlideType, selectedObjectIds: number[]) => {
         const emptyFontFamily = ''
@@ -49,13 +52,43 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
         return commonFontSize == emptyFontSize ? defaultFontSize : commonFontSize
     }
 
+    const getSelectedObjectsCommonBorderWidth = (currentSlide: SlideType, selectedObjectIds: number[]) => {
+        const emptyBorderWidth = 0
+        let commonBorderWidth = emptyBorderWidth
+        for (const object of currentSlide.objects) {
+            if (selectedObjectIds.includes(object.id)) {
+                if (commonBorderWidth == emptyBorderWidth) {
+                    commonBorderWidth = object.borderWidth
+                } else if (commonBorderWidth != object.borderWidth) {
+                    return emptyBorderWidth
+                }
+            }
+        }
+        return commonBorderWidth == emptyBorderWidth ? emptyBorderWidth : commonBorderWidth
+    }
+
+    const getSelectedObjectsCommonBorderStyle = (currentSlide: SlideType, selectedObjectIds: number[]) => {
+        const emptyBorderStyle = 'none'
+        let commonBorderStyle = emptyBorderStyle
+        for (const object of currentSlide.objects) {
+            if (selectedObjectIds.includes(object.id)) {
+                if (commonBorderStyle == emptyBorderStyle) {
+                    commonBorderStyle = object.borderStyle
+                } else if (commonBorderStyle != object.borderStyle) {
+                    return emptyBorderStyle
+                }
+            }
+        }
+        return commonBorderStyle == emptyBorderStyle ? emptyBorderStyle : commonBorderStyle
+    }
+
     return (
-        <div className={styles.editInputButton}>
+        <>
             {type === 'font' && (
                 <select
                     value={getSelectedObjectsCommonFontFamily(currentSlide, selectedObjectIds)}
-                    className={styles.input}
-                    onChange={(e) => setTextObjectFontFamily(e.target.value, selectedObjectIds, currentSlide)}
+                    className={styles.fontFamily}
+                    onChange={(e) => setTextObjectFontFamily(e.target.value, selectedObjectIds)}
                 >
                     {availableFonts.map((font, index) => (
                         <option key={index} value={font}>
@@ -69,8 +102,8 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
             {type === 'fontSize' && (
                 <select
                     value={getSelectedObjectsCommonFontSize(currentSlide, selectedObjectIds)}
-                    className={styles.input}
-                    onChange={(e) => setTextObjectFontSize(parseInt(e.target.value), selectedObjectIds, currentSlide)}
+                    className={styles.fontSize}
+                    onChange={(e) => setTextObjectFontSize(parseInt(e.target.value), selectedObjectIds)}
                 >
                     {availableFontsSizes.map((fontSize, index) => (
                         <option key={index} value={fontSize}>
@@ -80,7 +113,35 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
                     <option key={0} value={0} hidden={true}></option>
                 </select>
             )}
-        </div>
+
+            {type === 'borderWidth' && (
+                <select
+                    value={getSelectedObjectsCommonBorderWidth(currentSlide, selectedObjectIds)}
+                    className={styles.fontSize}
+                    onChange={(e) => setSlideObjectsBorderWidth(parseInt(e.target.value), selectedObjectIds)}
+                >
+                    {availableBorderWidth.map((borderWidth, index) => (
+                        <option key={index} value={borderWidth}>
+                            {borderWidth}
+                        </option>
+                    ))}
+                </select>
+            )}
+
+            {type === 'borderStyle' && (
+                <select
+                    value={getSelectedObjectsCommonBorderStyle(currentSlide, selectedObjectIds)}
+                    className={styles.fontFamily}
+                    onChange={(e) => setSlideObjectsBorderStyle(e.target.value, selectedObjectIds)}
+                >
+                    {availableBorderStyle.map((style, index) => (
+                        <option key={index} value={style}>
+                            {style}
+                        </option>
+                    ))}
+                </select>
+            )}
+        </>
     )
 }
 

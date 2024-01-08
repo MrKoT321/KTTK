@@ -1,4 +1,4 @@
-import styles from './AddElementButton.module.css'
+import styles from './ToolMenuButton.module.css'
 
 type AddElementButtonProps = {
     icon: string
@@ -6,7 +6,7 @@ type AddElementButtonProps = {
     label?: string
 }
 
-const AddElementButton = ({ icon, onClick, label }: AddElementButtonProps) => {
+const ToolMenuButton = ({ icon, onClick, label }: AddElementButtonProps) => {
     return (
         <label
             className={label === undefined ? styles.button_withoutText : styles.button_withText}
@@ -20,4 +20,4 @@ const AddElementButton = ({ icon, onClick, label }: AddElementButtonProps) => {
     )
 }
 
-export { AddElementButton }
+export { ToolMenuButton }

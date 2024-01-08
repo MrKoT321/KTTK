@@ -1,4 +1,4 @@
-import { Editor } from './types/types'
+import { Editor } from '../types/types'
 import { v4 as uuidV4 } from 'uuid'
 
 const id = uuidV4()

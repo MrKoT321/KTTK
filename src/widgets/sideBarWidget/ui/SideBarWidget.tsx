@@ -1,76 +1,62 @@
-import { MouseLocations, SlideType } from '../../../shared/types/types'
-import { SideSlide } from '../../../entity/sideSlide/SideSlide'
+import { SideSlide } from '../../../entity/sideSlide/ui/SideSlide'
 import React, { useEffect, useState } from 'react'
-import { minEditor } from 'shared/testData'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
+import { handleDeleteSlides } from '../tools/handleDeleteSlides'
 
-type SlideBarProps = {
-    setCurrentSlideBg: (arg: string) => void
-}
-
-const SideBarWidget = ({ setCurrentSlideBg }: SlideBarProps) => {
+const SideBarWidget = () => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
-    const selected = useAppSelector((state) => state.selected)
-    const { mouseLocation } = useAppSelector((state) => state.mouse)
-    const { selectedSlideIds } = selected
-    // const { setSlides, setSelectedSlideIds } = useAppActions()
-    // const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
+    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const { addSlide, setSlides, setSelectedSlideIds, setCurrentSlide, setSlidesOrder } = useAppActions()
+    const [draggedSlidePos, setDraggedSlidePos] = useState<number | null>(null)
 
-    // const handleDragStart = (slide: SlideType) => {
-    //     setDraggedSlide(slide)
-    // }
-    //
-    // const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    //     e.preventDefault()
-    // }
-    //
-    // const handleDrop = (e: React.DragEvent<HTMLDivElement>, thisSlide: SlideType) => {
-    //     e.preventDefault()
-    //     setSlides(getReorderedSlides(thisSlide, draggedSlide, slides))
-    // }
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>, thisSlidePos: number) => {
+        e.preventDefault()
+        setSlidesOrder(getReorderedSlides(thisSlidePos, draggedSlidePos, slidesMap, slidesOrder))
+    }
 
-    // const handleKeyDown = (e: KeyboardEvent) => {
-    //     if (mouseLocation === 'sideBar') {
-    //         if (e.key === 'Delete') {
-    //             e.preventDefault()
-    //             let allSlides: SlideType[] = []
-    //             for (const slide of slides) {
-    //                 if (!selected.selectedSlideIds.includes(slide.id)) {
-    //                     allSlides.push(slide)
-    //                 }
-    //             }
-    //             if (allSlides.length === 0) {
-    //                 allSlides = minEditor.document.slides
-    //             }
-    //             setSlides([...allSlides])
-    //             setSelectedSlideIds([allSlides[0].id])
-    //         }
-    //     }
-    // }
+    useEffect(() => {
+        const handleDeleteDown = (event: KeyboardEvent) => {
+            handleDeleteSlides(
+                mouseLocation,
+                event,
+                selectedSlideIds,
+                slidesOrder,
+                setSlidesOrder,
+                slidesMap,
+                setSlides,
+                addSlide,
+                setSelectedSlideIds,
+                setCurrentSlide,
+            )
+        }
+        document.addEventListener('keydown', handleDeleteDown)
+        return () => {
+            document.removeEventListener('keydown', handleDeleteDown)
+        }
+    }, [selectedSlideIds])
 
-    // useEffect(() => {
-    //     document.addEventListener('keydown', (e) => handleKeyDown(e))
-    //     return document.removeEventListener('keydown', (e) => handleKeyDown(e))
-    // }, [selectedSlideIds])
+    useEffect(() => {
+        if (slidesOrder.length === 1) {
+            setSelectedSlideIds(slidesOrder)
+            setCurrentSlide(slidesOrder[0])
+        }
+    }, [slidesOrder])
 
     return (
         <>
             {slidesOrder.map((slideId, index) => {
                 const isSelected = selectedSlideIds.includes(slideId)
                 const slide = slidesMap.get(slideId)
-                // console.log(slideId, '---', slide)
                 if (slide !== undefined) {
                     return (
                         <SideSlide
-                            slide={slide}
-                            order={index}
                             key={slideId}
                             isSelected={isSelected}
-                            // handleDrop={handleDrop}
-                            // handleDragStart={handleDragStart}
-                            // handleDragOver={handleDragOver}
-                            setCurrentSlideBg={setCurrentSlideBg}
+                            order={index}
+                            slide={slide}
+                            handleDrop={handleDrop}
+                            setDraggedSlidePos={setDraggedSlidePos}
                         />
                     )
                 }

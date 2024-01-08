@@ -8,29 +8,15 @@ import { Layout } from '../../../widgets/layoutWidget'
 import { useAppSelector } from '../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
-const PresentationMaker = () => {
-    const { currentSlideId, slidesMap } = useAppSelector((state) => state.slides)
-    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
-    const [presentation, setPresentation] = useState<Editor>(minEditor)
-    const [currentSlideBg, setCurrentSlideBg] = useState(currentSlide.backgroundValue)
-
-    const toolMenuTools = {
-        currentSlideBg,
-        setCurrentSlideBg,
-    }
-    const presentationsObjTools = {
-        setPresentation: setPresentation,
-        presentation: presentation,
-    }
-
-    return (
-        <Layout
-            topPanel={<TopPanelWidget toolMenuTools={toolMenuTools} presentationsObjTools={presentationsObjTools} />}
-            sideBar={<SideBarWidget setCurrentSlideBg={setCurrentSlideBg} />}
-            workSpace={<WorkSpaceWidget currentSlideBg={currentSlideBg} />}
-            footer={<></>}
-        />
-    )
-}
+const PresentationMaker = () => (
+    <Layout
+        topPanel={<TopPanelWidget setMouseState={setMouseState} />}
+        sideBar={<SideBarWidget mouseLocation={mouseLocation} />}
+        workSpace={
+            <WorkSpaceWidget mouseState={mouseState} setMouseState={setMouseState} mouseLocation={mouseLocation} />
+        }
+        footer={<></>}
+    />
+)
 
 export { PresentationMaker }

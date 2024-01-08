@@ -25,4 +25,16 @@ type TextObjProps = ObjectTextType & {
     isSelected?: boolean
 }
 
-export type { DrawStyle, TextObjProps, MoveObj }
+type BorderStyle =
+    | 'none'
+    | 'hidden'
+    | 'dotted'
+    | 'dashed'
+    | 'solid'
+    | 'double'
+    | 'groove'
+    | 'ridge'
+    | 'inset'
+    | 'outset'
+
+export type { DrawStyle, TextObjProps, MoveObj, BorderStyle }

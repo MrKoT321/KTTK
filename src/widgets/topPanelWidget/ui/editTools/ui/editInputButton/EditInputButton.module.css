@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-.input {
+.fontFamily {
     width: 195px;
     height: 25px;
     padding: 0;
@@ -17,7 +17,24 @@
     outline: none;
 }
 
-.input:focus {
+.fontFamily:focus {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid #000000;
+}
+
+.fontSize {
+    width: 100px;
+    height: 25px;
+    padding: 0;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #5e5e5e;
+    outline: none;
+}
+
+.fontSize:focus {
     box-sizing: border-box;
     border-radius: 5px;
     border: 2px solid #000000;

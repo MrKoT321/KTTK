@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import styles from './Layout.module.css'
 import { layoutParams as lp, widgetsSizeParams as wsp } from '../../../shared/tools/layoutParams'
 import { MouseLocations } from 'shared/types/types'
@@ -9,6 +9,7 @@ type LayoutProps = {
     sideBar: ReactNode
     workSpace: ReactNode
     footer: ReactNode
+    onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, location: MouseLocations) => void
 }
 
 const Layout = ({ topPanel, sideBar, workSpace, footer }: LayoutProps) => {

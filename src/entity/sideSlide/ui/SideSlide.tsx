@@ -1,29 +1,23 @@
 import styles from './SideSlide.module.css'
-import { SlideType } from '../../shared/types/types'
-import { Object } from '../../shared/ui/object'
+import { SlideType } from '../../../shared/types/types'
+import { Object } from '../../../shared/ui/object'
 import React, { useState } from 'react'
 import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
-import { useAppActions, useAppSelector } from '../../shared/redux/store'
+import { useAppActions, useAppSelector } from '../../../shared/redux/store'
+import { handleSideSlideClick } from '../tools/handleSideSlideClick'
 
 type SlideProps = {
-    slide: SlideType
-    order: number
     isSelected: boolean
-    // handleDrop(e: React.DragEvent<HTMLDivElement>, currentSlide: SlideType): void
-    // handleDragStart(currentSlide: SlideType): void
-    // handleDragOver(e: React.DragEvent<HTMLDivElement>): void
-    setCurrentSlideBg: (arg: string) => void
+    order: number
+    slide: SlideType
+    handleDrop(e: React.DragEvent<HTMLDivElement>, thisSlidePos: number): void
+    setDraggedSlidePos(pos: number): void
 }
 
-// handleDragOver,
-// handleDragStart,
-// handleDrop,
-// setCurrentSlideBg,
-
-const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) => {
+const SideSlide = ({ slide, order, isSelected, setDraggedSlidePos, handleDrop }: SlideProps) => {
     const slidesOrder = useAppSelector((state) => state.slides.slidesOrder)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
-    const thisSlide = { ...slide }
+    const thisSlide: SlideType = { ...slide }
     const { setSelectedSlideIds, setCurrentSlide, setSelectedObjectIds } = useAppActions()
     const [isHovered, setIsHovered] = useState(false)
 
@@ -38,19 +32,16 @@ const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) 
         borderStyle: 'solid',
     }
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        let newSelectedSlideIds: string[]
-        const newCurrentSlideId = slidesOrder[order]
-        if (e.ctrlKey) {
-            newSelectedSlideIds = selectedSlideIds.filter((selectedId) => selectedId !== thisSlide.id)
-            newSelectedSlideIds.push(newCurrentSlideId)
-        } else {
-            newSelectedSlideIds = [newCurrentSlideId]
-        }
-        setSelectedSlideIds(newSelectedSlideIds)
-        setSelectedObjectIds([])
-        setCurrentSlide(newCurrentSlideId)
-        setCurrentSlideBg(thisSlide.backgroundValue)
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        handleSideSlideClick(
+            event,
+            order,
+            selectedSlideIds,
+            slidesOrder,
+            setSelectedSlideIds,
+            setSelectedObjectIds,
+            setCurrentSlide,
+        )
     }
 
     return (
@@ -58,15 +49,15 @@ const SideSlide = ({ slide, order, isSelected, setCurrentSlideBg }: SlideProps) 
             <span>{order + 1}</span>
             <div
                 className={`${styles.sideSlide}
-            ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
-            ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
+                    ${isSelected ? styles.sideSlideBorderSelected : styles.sideSlideBorder}
+                    ${isHovered ? styles.sideSlideBorderHovered : styles.sideSlideBorder}`}
                 style={{ background: slideStyle.background }}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={(e) => handleClick(e)}
-                // onDragStart={() => handleDragStart(thisSlide)}
-                // onDragOver={(e) => handleDragOver(e)}
-                // onDrop={(e) => handleDrop(e, thisSlide)}
+                onDragStart={() => setDraggedSlidePos(order)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => handleDrop(e, order)}
                 draggable={true}
             >
                 <div className={styles.container} style={slideContainerStyle}>

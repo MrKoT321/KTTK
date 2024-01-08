@@ -1,6 +1,6 @@
 import { MouseStates, ObjectType, SlideType } from '../types/types'
 import { layoutParams as lp } from './layoutParams'
-import { defaultCurrentSlide } from '../defaultCurrentSlide'
+import { defaultCurrentSlide } from './defaultCurrentSlide'
 
 type AddObjectParams = {
     currentSlideId: string
@@ -30,7 +30,6 @@ const addObject = ({
     direction = 'right',
 }: AddObjectParams) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
-    const slides = Array.from(slidesMap.values())
 
     let object: ObjectType
 
@@ -62,13 +61,14 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 0,
+                borderWidth: borderWidth,
                 borderColor: '#000000',
                 caption: '',
                 imageSrcType: 'imageLink',
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingBase64Img':
             if (!imageSrc) break
@@ -95,7 +95,7 @@ const addObject = ({
                 height: height,
                 startX: startX,
                 startY: startY,
-                borderStyle: 'none',
+                borderStyle: 'solid',
                 borderWidth: borderWidth,
                 //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',

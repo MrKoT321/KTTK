@@ -1,5 +1,5 @@
-import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
-import { Selected } from '../../shared/types/types'
+import { ActionTypes, PresentationTypes } from '../redux/actionTypes'
+import { Selected } from '../types/types'
 
 const initialState: Selected = {
     selectedSlideIds: ['1'],

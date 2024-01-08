@@ -5,17 +5,25 @@ enum PresentationTypes {
     SET_PRESENTATION_NAME = 'SET_PRESENTATION_NAME',
     ADD_SLIDE = 'ADD_SLIDE',
     SET_SLIDES = 'SET_SLIDES',
+    SET_BACKGROUND = 'SET_BACKGROUND',
     SET_SLIDE_OBJECTS_BOLDED = 'SET_SLIDE_OBJECTS_BOLDED',
     SET_SLIDE_OBJECTS_ITALIC = 'SET_SLIDE_OBJECTS_ITALIC',
     SET_SLIDE_OBJECTS_UNDERLINED = 'SET_SLIDE_OBJECTS_UNDERLINED',
     SET_SLIDE_OBJECTS_FONT_COLOR = 'SET_SLIDE_OBJECTS_FONT_COLOR',
     SET_SLIDE_OBJECTS_FONT_SIZE = 'SET_SLIDE_OBJECTS_FONT_SIZE',
     SET_SLIDE_OBJECTS_FONT_FAMILY = 'SET_SLIDE_OBJECTS_FONT_FAMILY',
+    SET_SLIDE_OBJECTS_BORDER_WIDTH = 'SET_SLIDE_OBJECTS_BORDER_WIDTH',
+    SET_SLIDE_OBJECTS_BORDER_STYLE = 'SET_SLIDE_OBJECTS_BORDER_STYLE',
+    SET_SLIDE_OBJECTS_BORDER_COLOR = 'SET_SLIDE_OBJECTS_BORDER_COLOR',
+    SET_SLIDE_SHAPE_OBJECTS_COLOR = 'SET_SLIDE_SHAPE_OBJECTS_COLOR',
     SET_SELECTED_SLIDE_IDS = 'SET_SELECTED_SLIDE_IDS',
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
     SET_CURRENT_SLIDE = 'SET_CURRENT_SLIDE',
     SET_TEXT_OBJECTS = 'SET_TEXT_OBJECTS',
+    SET_SLIDES_ORDER = 'SET_SLIDES_ORDER',
+    SET_SELECT_IMAGE_POPUP_STATE = 'SET_SELECT_IMAGE_POPUP_STATE',
+    OPEN_PRESENTATION = 'OPEN_PRESENTATION',
     SET_CURRENT_MOUSE_X = 'SET_CURRENT_MOUSE_X',
     SET_CURRENT_MOUSE_Y = 'SET_CURRENT_MOUSE_Y',
     SET_START_MOUSE_X = 'SET_START_MOUSE_X',
@@ -50,11 +58,15 @@ type SetSlidesAction = {
     payload: Map<string, SlideType>
 }
 
+type SetBackgroundAction = {
+    type: PresentationTypes.SET_BACKGROUND
+    payload: string
+}
+
 type SetSlideObjectsBoldedAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED
     payload: {
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -62,7 +74,6 @@ type SetSlideObjectsItalicAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_ITALIC
     payload: {
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -70,7 +81,6 @@ type SetSlideObjectsUnderlinedAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED
     payload: {
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -79,7 +89,6 @@ type SetSlideObjectsColorAction = {
     payload: {
         color: string
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -88,7 +97,6 @@ type SetSlideObjectsFontSizeAction = {
     payload: {
         size: number
         selectedObjectIds: number[]
-        currentSlide: SlideType
     }
 }
 
@@ -97,7 +105,38 @@ type SetSlideObjectsFontFamilyAction = {
     payload: {
         family: string
         selectedObjectIds: number[]
-        currentSlide: SlideType
+    }
+}
+
+type SetSlideObjectsBorderWidthAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_WIDTH
+    payload: {
+        width: number
+        selectedObjectIds: number[]
+    }
+}
+
+type SetSlideObjectsBorderStyleAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_STYLE
+    payload: {
+        style: string
+        selectedObjectIds: number[]
+    }
+}
+
+type SetSlideObjectsBorderColorAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_COLOR
+    payload: {
+        color: string
+        selectedObjectIds: number[]
+    }
+}
+
+type SetSlideShapeObjectsColorAction = {
+    type: PresentationTypes.SET_SLIDE_SHAPE_OBJECTS_COLOR
+    payload: {
+        color: string
+        selectedObjectIds: number[]
     }
 }
 
@@ -121,9 +160,19 @@ type SetCurrentSlideAction = {
     payload: string
 }
 
-type setTextObjectsAction = {
+type SetTextObjectsAction = {
     type: PresentationTypes.SET_TEXT_OBJECTS
     payload: ObjectType[]
+}
+
+type SetSlidesOrderAction = {
+    type: PresentationTypes.SET_SLIDES_ORDER
+    payload: string[]
+}
+
+type SetSelectImagePopUpStateAction = {
+    type: PresentationTypes.SET_SELECT_IMAGE_POPUP_STATE
+    payload: boolean
 }
 
 type SetCurrentMouseX = {
@@ -200,17 +249,24 @@ type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
     | SetSlidesAction
+    | SetBackgroundAction
     | SetSelectedSlidesAction
     | SetSelectedObjectsAction
     | SetSelectedAction
     | SetCurrentSlideAction
-    | setTextObjectsAction
+    | SetTextObjectsAction
     | SetSlideObjectsBoldedAction
     | SetSlideObjectsItalicAction
     | SetSlideObjectsUnderlinedAction
     | SetSlideObjectsColorAction
     | SetSlideObjectsFontSizeAction
     | SetSlideObjectsFontFamilyAction
+    | SetSlideObjectsBorderWidthAction
+    | SetSlideObjectsBorderStyleAction
+    | SetSlideObjectsBorderColorAction
+    | SetSlideShapeObjectsColorAction
+    | SetSlidesOrderAction
+    | SetSelectImagePopUpStateAction
     | SetCurrentMouseX
     | SetCurrentMouseY
     | SetStartMouseX

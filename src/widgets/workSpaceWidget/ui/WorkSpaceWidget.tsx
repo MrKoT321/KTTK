@@ -1,5 +1,4 @@
 import styles from './WorkSpaceWidget.module.css'
-import { MouseLocations, MouseStates, ObjectType, Selected } from '../../../shared/types/types'
 import { CurrentSlide } from '../../../features/currentSlide'
 import React, { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
@@ -7,15 +6,13 @@ import { addObject } from '../../../shared/tools/addObject'
 import { changeObjects } from '../tools/changeObjects'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
-import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
 
-type WorkSpaceWidgetProps = {
-    currentSlideBg: string
-}
 
-const WorkSpaceWidget = ({ currentSlideBg }: WorkSpaceWidgetProps) => {
+const WorkSpaceWidget = () => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const slides = Array.from(slidesMap.values())
+    const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
     const { mouseState, mouseLocation } = useAppSelector((state) => state.mouse)
     const selected = useAppSelector((state) => state.selected)
@@ -54,13 +51,7 @@ const WorkSpaceWidget = ({ currentSlideBg }: WorkSpaceWidgetProps) => {
         setStartHeight,
         setMouseState,
     } = useAppActions()
-    const allSlides = slides.map((slide) => {
-        const id = lastSlideId || slides[0].id
-        if (slide.id === id) {
-            slide.backgroundValue = currentSlideBg
-        }
-        return slide
-    })
+    const allSlides = [...slides]
 
     const createMovePosition = (startMousePos: number, currentMousePos: number, currMoveTo: number) => {
         if (startMousePos >= currentMousePos) {
@@ -95,7 +86,6 @@ const WorkSpaceWidget = ({ currentSlideBg }: WorkSpaceWidgetProps) => {
         }
     }
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        console.log(mouseState)
         if (
             (mouseState === 'creatingRect' || mouseState === 'creatingText' || mouseState === 'creatingCircle') &&
             isDraw
@@ -129,8 +119,6 @@ const WorkSpaceWidget = ({ currentSlideBg }: WorkSpaceWidgetProps) => {
         }
         if (mouseState === 'move') {
             setCurrentMouseX(e.clientX)
-            console.log('clientY', e.clientY)
-            console.log('currentMouseY', currentMouseY)
             setCurrentMouseY(e.clientY)
             setCurrMoveToX(currMoveToX + createMovePosition(startMouseX, currentMouseX, currMoveToX))
             setCurrMoveToY(currMoveToY + createMovePosition(startMouseY, currentMouseY, currMoveToY))
@@ -250,28 +238,29 @@ const WorkSpaceWidget = ({ currentSlideBg }: WorkSpaceWidgetProps) => {
         }
     }
 
-    // const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    //     if (!e.ctrlKey) {
-    //         const currObject = currentSlide.objects.find(
-    //             (obj) =>
-    //                 e.clientX - lp.sideBarWidth - lp.currentSlideIndentX > obj.startX &&
-    //                 e.clientX - lp.sideBarWidth - lp.currentSlideIndentX < obj.startX + obj.width &&
-    //                 e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
-    //                 e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
-    //         )
-    //         if (selected.selectedObjectIds.length !== 0) {
-    //             if (currObject) {
-    //                 selected.selectedObjectIds = [currObject.id]
-    //             } else {
-    //                 selected.selectedObjectIds = []
-    //             }
-    //             setSelected(selected)
-    //         }
-    //         if (currObject) {
-    //             selected.selectedObjectIds = [currObject.id]
-    //         }
-    //     }
-    // }
+    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!e.ctrlKey) {
+            const currObject = currentSlide.objects.find(
+                (obj) =>
+                    e.clientX - lp.sideBarWidth - lp.currentSlideIndentX > obj.startX &&
+                    e.clientX - lp.sideBarWidth - lp.currentSlideIndentX < obj.startX + obj.width &&
+                    e.clientY - lp.topPanelHeight - lp.currentSlideIndentY > obj.startY &&
+                    e.clientY - lp.topPanelHeight - lp.currentSlideIndentY < obj.startY + obj.height,
+            )
+            let changedSelectedObjectIds = selectedObjectIds
+            if (selectedObjectIds.length !== 0) {
+                if (currObject) {
+                    changedSelectedObjectIds = [currObject.id]
+                } else {
+                    changedSelectedObjectIds = []
+                }
+                setSelectedObjectIds(changedSelectedObjectIds)
+            }
+            if (currObject) {
+                changedSelectedObjectIds = [currObject.id]
+            }
+        }
+    }
 
     const handleMouseDownResize = (e: React.MouseEvent<HTMLDivElement>) => {
         setMouseState('resize')
@@ -296,32 +285,30 @@ const WorkSpaceWidget = ({ currentSlideBg }: WorkSpaceWidgetProps) => {
         setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
     }
 
-    const handleKeyDown = (e: KeyboardEvent, selected: Selected) => {
+    const handleKeyDown = (e: KeyboardEvent, selectedObjectIds: number[]) => {
         if (mouseLocation === 'workSpace') {
             if (e.key === 'Delete') {
                 e.preventDefault()
-                const objects: ObjectType[] = []
-                for (const object of currentSlide.objects) {
-                    if (!selected.selectedObjectIds.includes(object.id)) {
-                        objects.push(object)
-                    }
-                }
-                for (const slide of allSlides) {
-                    if (slide.id === currentSlideId) {
-                        slide.objects = objects
-                        slidesMap.set(currentSlideId, slide)
-                    }
-                }
+                const changedCurrentSlide = { ...currentSlide }
+                changedCurrentSlide.objects = changedCurrentSlide.objects.filter(
+                    (object) => !selectedObjectIds.includes(object.id),
+                )
+                slidesMap.set(currentSlideId, changedCurrentSlide)
                 setSlides(slidesMap)
-                setSelected({ ...selected, selectedObjectIds: [] })
+                setSelectedObjectIds([])
             }
         }
     }
 
     useEffect(() => {
-        document.addEventListener('keydown', (e) => handleKeyDown(e, selected))
-        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selected))
-    }, [selected.selectedObjectIds])
+        const handleDeleteObjects = (e: KeyboardEvent) => {
+            handleKeyDown(e, selectedObjectIds)
+        }
+        document.addEventListener('keydown', handleDeleteObjects)
+        return () => {
+            document.removeEventListener('keydown', handleDeleteObjects)
+        }
+    }, [selectedObjectIds])
 
     return (
         <div
