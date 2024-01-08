@@ -25,11 +25,9 @@ const SelectImagePopUp = () => {
     }
 
     const findImgFromLink = () => {
-        fetch(linkValue)
+        fetch(linkValue, { mode: 'no-cors' })
             .then((res) => {
                 if (res.status != 404) {
-                    setIsLinkUsed(true)
-                    setImageSrc(linkValue)
                     const image = new Image()
                     image.src = linkValue
                     image.onload = () => {
@@ -38,6 +36,8 @@ const SelectImagePopUp = () => {
                         setCurrentMouseX(750 + image.width / 2)
                         setCurrentMouseY(550 + image.height / 2)
                     }
+                    setIsLinkUsed(true)
+                    setImageSrc(linkValue)
                 }
             })
             .catch(() => {
@@ -83,6 +83,7 @@ const SelectImagePopUp = () => {
                 createPosition,
                 imageSrc,
             })
+            setImageSrc('')
         }
     }
 
@@ -119,7 +120,10 @@ const SelectImagePopUp = () => {
                     <img
                         src={closeIcon}
                         className={styles.popUpHeaderCloseBtn}
-                        onClick={() => setSelectImagePopUpState(false)}
+                        onClick={() => {
+                            setSelectImagePopUpState(false)
+                            linkNotUsed()
+                        }}
                         alt={''}
                     />
                 </div>
