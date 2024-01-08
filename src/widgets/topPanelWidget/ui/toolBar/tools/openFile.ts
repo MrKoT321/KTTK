@@ -4,6 +4,7 @@ import { SlideType } from '../../../../../shared/types/types'
 const openFile = (
     event: ChangeEvent<HTMLInputElement>,
     openPresentation: (slidesMap: Map<string, SlideType>, slideOrder: string[]) => void,
+    setPresentationName: (name: string) => void,
 ) => {
     if (!event.target.files) {
         return null
@@ -37,6 +38,7 @@ const openFile = (
                         }
                         openPresentation(newSlidesMap, parsedResult.document.slidesOrder)
                     }
+                    setPresentationName(parsedResult.document.name || '')
                 } else {
                     alert('Невозможно открыть файл')
                 }
