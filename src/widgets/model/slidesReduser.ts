@@ -99,11 +99,6 @@ const setStyleCurrentSlideObjects = (
     return slidesMap
 }
 
-const getNewCurrentSlideOfNewPresentation = (slidesMap: Map<string, SlideType>) => {
-    const slideMapKeys: string[] = Array.from(slidesMap.keys())
-    return slideMapKeys[0] || ''
-}
-
 const slidesReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case PresentationTypes.ADD_SLIDE:
@@ -240,13 +235,6 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
             return {
                 ...state,
                 slidesOrder: action.payload,
-            }
-        case PresentationTypes.OPEN_PRESENTATION:
-            return {
-                ...state,
-                slidesMap: action.payload.slidesMap,
-                slidesOrder: action.payload.slidesOrder,
-                currentSlideId: getNewCurrentSlideOfNewPresentation(action.payload.slidesMap),
             }
         default:
             return state

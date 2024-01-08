@@ -160,14 +160,6 @@ type SetSelectImagePopUpStateAction = {
     payload: boolean
 }
 
-type openPresentationAction = {
-    type: PresentationTypes.OPEN_PRESENTATION
-    payload: {
-        slidesMap: Map<string, SlideType>
-        slidesOrder: string[]
-    }
-}
-
 type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
@@ -190,6 +182,5 @@ type ActionTypes =
     | SetSlideShapeObjectsColorAction
     | SetSlidesOrderAction
     | SetSelectImagePopUpStateAction
-    | openPresentationAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }

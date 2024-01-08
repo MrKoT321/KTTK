@@ -3,7 +3,9 @@ import { SlideType } from '../../../../../shared/types/types'
 
 const openFile = (
     event: ChangeEvent<HTMLInputElement>,
-    openPresentation: (slidesMap: Map<string, SlideType>, slideOrder: string[]) => void,
+    setSlides: (slidesMap: Map<string, SlideType>) => void,
+    setSlidesOrder: (slidesOrder: string[]) => void,
+    setCurrentSlide: (currentSlideId: string) => void,
     setPresentationName: (name: string) => void,
 ) => {
     if (!event.target.files) {
@@ -36,7 +38,10 @@ const openFile = (
                         for (const keyOfSlidesMap in parsedResult.document.slidesMap) {
                             newSlidesMap.set(keyOfSlidesMap, parsedResult.document.slidesMap[keyOfSlidesMap])
                         }
-                        openPresentation(newSlidesMap, parsedResult.document.slidesOrder)
+                        setSlides(newSlidesMap)
+                        const newCurrentSlideId = Array.from(newSlidesMap.keys())[0] || ''
+                        setCurrentSlide(newCurrentSlideId)
+                        setSlidesOrder(parsedResult.document.slidesOrder)
                     }
                     setPresentationName(parsedResult.document.name || '')
                 } else {
