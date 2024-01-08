@@ -9,7 +9,7 @@ const ToolBar = () => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selected = useAppSelector((state) => state.selected)
     const presentationName = useAppSelector((state) => state.presentationName.name)
-    const { openPresentation, setPresentationName } = useAppActions()
+    const { setSlides, setSlidesOrder, setPresentationName, setCurrentSlide } = useAppActions()
 
     return (
         <div className={styles.toolBar}>
@@ -27,7 +27,7 @@ const ToolBar = () => {
                     id={'open'}
                     className={styles.hidden}
                     onInput={(event: ChangeEvent<HTMLInputElement>) =>
-                        openFile(event, openPresentation, setPresentationName)
+                        openFile(event, setSlides, setSlidesOrder, setCurrentSlide, setPresentationName)
                     }
                 />
             </button>
