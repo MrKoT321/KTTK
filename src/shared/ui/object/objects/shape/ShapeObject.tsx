@@ -4,6 +4,7 @@ import { createShapeObject } from './tools/createShapeObject'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
 import React, { CSSProperties } from 'react'
 import { getQuadStyles } from '../../../../tools/getQuadStyles'
+import { handleObjectClick } from '../../../../tools/handleObjectClick'
 
 type ShapeObjProps = ObjectShapeType & {
     isSelected: boolean
@@ -23,23 +24,6 @@ const ShapeObject = (props: ShapeObjProps) => {
         boxSizing: `border-box`,
     }
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!props.isSelected) {
-            let newSelected = selectedObjectIds
-            if (e.ctrlKey) {
-                newSelected.push(props.id)
-            } else {
-                newSelected = [props.id]
-            }
-            setSelectedObjectIds(newSelected)
-        } else {
-            if (e.ctrlKey) {
-                const newSelected = selectedObjectIds.filter((id) => id != props.id)
-                setSelectedObjectIds(newSelected)
-            }
-        }
-    }
-
     return (
         <div
             style={styleParentObj}
@@ -54,7 +38,9 @@ const ShapeObject = (props: ShapeObjProps) => {
             )}
             <div
                 style={styleChildObj}
-                onClick={(e) => handleClick(e)}
+                onClick={(e) =>
+                    handleObjectClick(e, props.isSelected, props.id, selectedObjectIds, setSelectedObjectIds)
+                }
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             ></div>
         </div>

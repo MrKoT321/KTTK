@@ -5,6 +5,7 @@ import React, { CSSProperties } from 'react'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
 import { defaultCurrentSlide } from '../../../../tools/defaultCurrentSlide'
 import { getQuadStyles } from '../../../../tools/getQuadStyles'
+import { handleObjectClick } from '../../../../tools/handleObjectClick'
 
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
@@ -28,22 +29,28 @@ const TextObject = (props: TextObjProps) => {
         boxSizing: `border-box`,
     }
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!props.isSelected) {
-            let newSelected = selectedObjectIds
-            if (e.ctrlKey) {
-                newSelected.push(props.id)
-            } else {
-                newSelected = [props.id]
-            }
-            setSelectedObjectIds(newSelected)
-        } else {
-            if (e.ctrlKey) {
-                const newSelected = selectedObjectIds.filter((id) => id != props.id)
-                setSelectedObjectIds(newSelected)
-            }
-        }
-    }
+    // const handleClick = (
+    //     e: React.MouseEvent<HTMLDivElement>,
+    //     isObjectSelected: boolean,
+    //     objectId: number,
+    //     selectedObjectIds: number[],
+    //     setSelectedObjectIds: (newSelectedObjectIds: number[]) => void,
+    // ) => {
+    //     if (!isObjectSelected) {
+    //         let newSelected = selectedObjectIds
+    //         if (e.ctrlKey) {
+    //             newSelected.push(objectId)
+    //         } else {
+    //             newSelected = [objectId]
+    //         }
+    //         setSelectedObjectIds(newSelected)
+    //     } else {
+    //         if (e.ctrlKey) {
+    //             const newSelected = selectedObjectIds.filter((id) => id != objectId)
+    //             setSelectedObjectIds(newSelected)
+    //         }
+    //     }
+    // }
 
     return (
         <div
@@ -59,7 +66,9 @@ const TextObject = (props: TextObjProps) => {
             )}
             <div
                 style={styleParentObj}
-                onClick={(e) => handleClick(e)}
+                onClick={(e) =>
+                    handleObjectClick(e, props.isSelected, props.id, selectedObjectIds, setSelectedObjectIds)
+                }
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             >
                 {props.isBlocked && (
