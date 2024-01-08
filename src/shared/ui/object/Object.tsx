@@ -13,8 +13,6 @@ type ObjectProps = {
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const scaleSideSlide = lp.sideSlideHeight / lp.currentSlideHeight
-
 const Object = ({
     object,
     isSideSlide,
@@ -38,14 +36,14 @@ const Object = ({
                 return (
                     <TextObject
                         id={object.id}
-                        width={scaleSideSlide * object.width}
-                        height={scaleSideSlide * object.height}
-                        startX={scaleSideSlide * object.startX}
-                        startY={scaleSideSlide * object.startY}
+                        width={lp.sideSlideScale * object.width}
+                        height={lp.sideSlideScale * object.height}
+                        startX={lp.sideSlideScale * object.startX}
+                        startY={lp.sideSlideScale * object.startY}
                         borderStyle={object.borderStyle}
-                        borderWidth={scaleSideSlide * object.borderWidth}
+                        borderWidth={lp.sideSlideScale * object.borderWidth}
                         borderColor={object.borderColor}
-                        fontSize={scaleSideSlide * object.fontSize}
+                        fontSize={lp.sideSlideScale * object.fontSize}
                         fontColor={object.fontColor}
                         fontFamily={object.fontFamily}
                         bold={object.bold}
@@ -72,12 +70,12 @@ const Object = ({
                         return (
                             <ShapeObject
                                 id={object.id}
-                                width={scaleSideSlide * object.width}
-                                height={scaleSideSlide * object.height}
-                                startX={scaleSideSlide * object.startX}
-                                startY={scaleSideSlide * object.startY}
+                                width={lp.sideSlideScale * object.width}
+                                height={lp.sideSlideScale * object.height}
+                                startX={lp.sideSlideScale * object.startX}
+                                startY={lp.sideSlideScale * object.startY}
                                 borderStyle={object.borderStyle}
-                                borderWidth={scaleSideSlide * object.borderWidth}
+                                borderWidth={lp.sideSlideScale * object.borderWidth}
                                 borderColor={object.borderColor}
                                 type={object.type}
                                 radius={object.radius}
@@ -94,12 +92,12 @@ const Object = ({
                         return (
                             <ShapeObject
                                 id={object.id}
-                                width={scaleSideSlide * object.width}
-                                height={scaleSideSlide * object.height}
-                                startX={scaleSideSlide * object.startX}
-                                startY={scaleSideSlide * object.startY}
+                                width={lp.sideSlideScale * object.width}
+                                height={lp.sideSlideScale * object.height}
+                                startX={lp.sideSlideScale * object.startX}
+                                startY={lp.sideSlideScale * object.startY}
                                 borderStyle={object.borderStyle}
-                                borderWidth={scaleSideSlide * object.borderWidth}
+                                borderWidth={lp.sideSlideScale * object.borderWidth}
                                 borderColor={object.borderColor}
                                 type={object.type}
                                 shapeBgColor={object.shapeBgColor}
@@ -161,12 +159,12 @@ const Object = ({
                 return (
                     <ImageObject
                         id={object.id}
-                        width={scaleSideSlide * object.width}
-                        height={scaleSideSlide * object.height}
-                        startX={scaleSideSlide * object.startX}
-                        startY={scaleSideSlide * object.startY}
+                        width={lp.sideSlideScale * object.width}
+                        height={lp.sideSlideScale * object.height}
+                        startX={lp.sideSlideScale * object.startX}
+                        startY={lp.sideSlideScale * object.startY}
                         borderStyle={object.borderStyle}
-                        borderWidth={scaleSideSlide * object.borderWidth}
+                        borderWidth={lp.sideSlideScale * object.borderWidth}
                         borderColor={object.borderColor}
                         caption={object.caption}
                         imageSrc={object.imageSrc}
