@@ -3,6 +3,7 @@ import { SideSlide } from '../../../entity/sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
+import { handleDeleteSlides } from '../../../shared/tools/handleDeleteSlides'
 
 type SlideBarProps = {
     mouseLocation: MouseLocations
@@ -27,42 +28,24 @@ const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
         setSlidesOrder(getReorderedSlides(thisSlidePos, draggedSlidePos, slidesMap, slidesOrder))
     }
 
-    const handleKeyDown = (e: KeyboardEvent, selectedSlideIds: string[]) => {
-        if (mouseLocation === 'sideBar') {
-            if (e.key === 'Delete') {
-                e.preventDefault()
-                const newOrder = slidesOrder.filter((slideId) => !selectedSlideIds.includes(slideId))
-                setSlidesOrder(newOrder)
-                const newSlidesMap: Map<string, SlideType> = new Map()
-                const keys = Array.from(slidesMap.keys())
-                newOrder.map((slideId) => {
-                    keys.map((key) => {
-                        if (key === slideId) {
-                            const newSlide = slidesMap.get(slideId)
-                            if (newSlide) {
-                                newSlidesMap.set(slideId, newSlide)
-                            }
-                        }
-                    })
-                })
-                setSlides(newSlidesMap)
-                if (newOrder.length === 0) {
-                    addSlide(new Map(), [])
-                } else {
-                    setSelectedSlideIds([newOrder[0]])
-                    setCurrentSlide(slidesOrder[0])
-                }
-            }
-        }
-    }
-
     useEffect(() => {
-        const handleDeleteSlides = (e: KeyboardEvent) => {
-            handleKeyDown(e, selectedSlideIds)
+        const handleDeleteDown = (event: KeyboardEvent) => {
+            handleDeleteSlides(
+                mouseLocation,
+                event,
+                selectedSlideIds,
+                slidesOrder,
+                setSlidesOrder,
+                slidesMap,
+                setSlides,
+                addSlide,
+                setSelectedSlideIds,
+                setCurrentSlide,
+            )
         }
-        document.addEventListener('keydown', handleDeleteSlides)
+        document.addEventListener('keydown', handleDeleteDown)
         return () => {
-            document.removeEventListener('keydown', handleDeleteSlides)
+            document.removeEventListener('keydown', handleDeleteDown)
         }
     }, [selectedSlideIds])
 
