@@ -41,6 +41,7 @@ type ShapeTriangleType = {
 type ShapeLineType = {
     type: 'line'
     direction: 'left' | 'right'
+    lineWidth: number
 }
 
 type ShapeType = ShapeRectType | ShapeCircleType | ShapeTriangleType | ShapeLineType
