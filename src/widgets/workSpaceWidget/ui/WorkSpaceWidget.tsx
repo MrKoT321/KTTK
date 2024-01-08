@@ -1,5 +1,5 @@
 import styles from './WorkSpaceWidget.module.css'
-import { MouseLocations, MouseStates, ObjectType } from '../../../shared/types/types'
+import { MouseLocations, MouseStates } from '../../../shared/types/types'
 import React, { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
@@ -248,13 +248,9 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
             if (e.key === 'Delete') {
                 e.preventDefault()
                 const changedCurrentSlide = { ...currentSlide }
-                const objects: ObjectType[] = []
-                for (const object of changedCurrentSlide.objects) {
-                    if (!selectedObjectIds.includes(object.id)) {
-                        objects.push(object)
-                    }
-                }
-                changedCurrentSlide.objects = objects
+                changedCurrentSlide.objects = changedCurrentSlide.objects.filter(
+                    (object) => !selectedObjectIds.includes(object.id),
+                )
                 slidesMap.set(currentSlideId, changedCurrentSlide)
                 setSlides(slidesMap)
                 setSelectedObjectIds([])
