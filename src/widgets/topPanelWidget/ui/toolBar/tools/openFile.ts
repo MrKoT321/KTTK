@@ -7,6 +7,7 @@ const openFile = (
     setSlidesOrder: (slidesOrder: string[]) => void,
     setCurrentSlide: (currentSlideId: string) => void,
     setPresentationName: (name: string) => void,
+    setSelectedSlideIds: (newSelectedSlideIds: string[]) => void,
 ) => {
     if (!event.target.files) {
         return null
@@ -38,10 +39,11 @@ const openFile = (
                         for (const keyOfSlidesMap in parsedResult.document.slidesMap) {
                             newSlidesMap.set(keyOfSlidesMap, parsedResult.document.slidesMap[keyOfSlidesMap])
                         }
+                        const newOrder = parsedResult.document.slidesOrder
                         setSlides(newSlidesMap)
-                        const newCurrentSlideId = Array.from(newSlidesMap.keys())[0] || ''
-                        setCurrentSlide(newCurrentSlideId)
-                        setSlidesOrder(parsedResult.document.slidesOrder)
+                        setCurrentSlide(newOrder[0])
+                        setSelectedSlideIds([newOrder[0]])
+                        setSlidesOrder(newOrder)
                     }
                     setPresentationName(parsedResult.document.name || '')
                 } else {
