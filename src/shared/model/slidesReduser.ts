@@ -88,6 +88,7 @@ const setStyleCurrentSlideObjects = (
                 }
             }
             if (paramToChange == 'borderWidth') {
+                if (object.oType == 'ObjectShapeType' && object.type == 'line') return
                 object.borderWidth = numberParamToChange || 0
             }
             if (paramToChange == 'borderStyle') {
