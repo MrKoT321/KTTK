@@ -30,7 +30,9 @@ function addTextBox(doc: jsPDF, textObject: ObjectTextType) {
             canvas.width = textObject.width
             canvas.height = textObject.height
             ctx.fillStyle = textObject.fontColor
-            ctx.lineWidth = 3
+            if (textObject.borderWidth !== 0) {
+                ctx.lineWidth = textObject.borderWidth
+            }
             CanvasTextWrapper(canvas, value, { font: font })
             const base64 = canvas.toDataURL()
             doc.addImage(base64, 'PNG', textObject.startX, textObject.startY, textObject.width, textObject.height)
@@ -82,6 +84,7 @@ function addTriangle(doc: jsPDF, triangle: ObjectShapeType) {
 
 function addLine(doc: jsPDF, line: ObjectShapeType) {
     doc.setDrawColor(line.shapeBgColor)
+    doc.setLineWidth(line.borderWidth)
     doc.line(line.startX, line.startY, line.width, line.height, 'FD')
 }
 
@@ -134,8 +137,9 @@ async function addSlides(doc: jsPDF, slides: SlideType[], slideSize: number[]) {
     })
 }
 
-async function exportPresentationAsPdf(slides: SlideType[], presentationName: string) {
-    const slideSize = [1218, 716]
+async function exportPresentationAsPdf(slidesMap: Map<string, SlideType>, presentationName: string) {
+    const slides = Array.from(slidesMap.values())
+    const slideSize = [1000, 560]
     const doc = new jsPDF({
         unit: 'px',
         orientation: 'l',

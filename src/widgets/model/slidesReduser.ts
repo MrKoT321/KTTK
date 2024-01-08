@@ -1,100 +1,163 @@
 import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { SlideType } from '../../shared/types/types'
+import { v4 as uuidV4 } from 'uuid'
+import { defaultCurrentSlide } from '../../shared/defaultCurrentSlide'
+import { BorderStyle } from '../../shared/types/devTypes'
 
-type SlidesReducerType = {
-    slides: SlideType[]
-    currentSlide: SlideType
+type slidesReducerType = {
+    slidesOrder: string[]
+    slidesMap: Map<string, SlideType>
+    currentSlideId: string
 }
 
-const initialState: SlidesReducerType = {
-    slides: [{ id: 1, order: 1, background: 'color', backgroundValue: '#FFFFFF', objects: [] }],
-    currentSlide: { id: 1, order: 1, background: 'color', backgroundValue: '#FFFFFF', objects: [] },
+const firstSlideId = uuidV4()
+
+const initialState: slidesReducerType = {
+    slidesOrder: [firstSlideId],
+    slidesMap: new Map([[firstSlideId, { background: 'color', backgroundValue: '#FFFFFF', objects: [] }]]),
+    currentSlideId: firstSlideId,
 }
 
-type ParamToChangeType = 'bold' | 'italic' | 'underlined' | 'fontColor' | 'fontSize' | 'fontFamily'
+type ParamToChangeType =
+    | 'bold'
+    | 'italic'
+    | 'underlined'
+    | 'fontColor'
+    | 'fontSize'
+    | 'fontFamily'
+    | 'borderWidth'
+    | 'borderStyle'
+    | 'borderColor'
+
+const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
+    currentSlide.backgroundValue = color
+    return slidesMap.set(currentSlideId, currentSlide)
+}
+
+const remapBorderStyle = (style?: string): BorderStyle => {
+    if (style === 'dotted') return 'dotted'
+    if (style === 'dashed') return 'dashed'
+    if (style === 'solid') return 'solid'
+    if (style === 'double') return 'double'
+    if (style === 'groove') return 'groove'
+    if (style === 'ridge') return 'ridge'
+    if (style === 'inset') return 'inset'
+    if (style === 'outset') return 'outset'
+    return 'none'
+}
 
 const setStyleCurrentSlideObjects = (
-    currentSlide: SlideType,
+    currentSlideId: string,
+    slidesMap: Map<string, SlideType>,
     selectedObjectIds: number[],
     paramToChange: ParamToChangeType,
-    stringParamToChange?: string,
+    stringParamToChange?: string | BorderStyle,
     numberParamToChange?: number,
-): SlideType => {
+): Map<string, SlideType> => {
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     currentSlide.objects.forEach((object) => {
-        if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
-            if (paramToChange == 'bold') {
-                object.bold = !object.bold
+        if (selectedObjectIds.includes(object.id)) {
+            if (object.oType == 'ObjectTextType') {
+                if (paramToChange == 'bold') {
+                    object.bold = !object.bold
+                }
+                if (paramToChange == 'italic') {
+                    object.italic = !object.italic
+                }
+                if (paramToChange == 'underlined') {
+                    object.underlined = !object.underlined
+                }
+                if (paramToChange == 'fontColor') {
+                    object.fontColor = stringParamToChange || '#000000'
+                }
+                if (paramToChange == 'fontSize') {
+                    object.fontSize = numberParamToChange || 14
+                }
+                if (paramToChange == 'fontFamily') {
+                    object.fontFamily = stringParamToChange || 'FuturaPT'
+                }
             }
-            if (paramToChange == 'italic') {
-                object.italic = !object.italic
+            if (paramToChange == 'borderWidth') {
+                object.borderWidth = numberParamToChange || 0
             }
-            if (paramToChange == 'underlined') {
-                object.underlined = !object.underlined
+            if (paramToChange == 'borderStyle') {
+                object.borderStyle = remapBorderStyle(stringParamToChange)
             }
-            if (paramToChange == 'fontColor') {
-                object.fontColor = stringParamToChange || '#000000'
-            }
-            if (paramToChange == 'fontSize') {
-                object.fontSize = numberParamToChange || 14
-            }
-            if (paramToChange == 'fontFamily') {
-                object.fontFamily = stringParamToChange || 'FuturaPT'
+            if (paramToChange == 'borderColor') {
+                object.borderColor = stringParamToChange || '#000000'
             }
         }
     })
-    return currentSlide
+    slidesMap.set(currentSlideId, currentSlide)
+    return slidesMap
 }
 
-const SlidesReducer = (state = initialState, action: ActionTypes) => {
+const getNewCurrentSlideOfNewPresentation = (slidesMap: Map<string, SlideType>) => {
+    const slideMapKeys: string[] = Array.from(slidesMap.keys())
+    return slideMapKeys[0] || ''
+}
+
+const slidesReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case PresentationTypes.ADD_SLIDE:
             return {
                 ...state,
-                slides: [...action.payload],
+                slidesMap: action.payload.slidesMap,
+                slidesOrder: action.payload.slidesOrder,
             }
         case PresentationTypes.SET_SLIDES:
             return {
                 ...state,
-                slides: [...action.payload],
+                slidesMap: new Map(action.payload),
+            }
+        case PresentationTypes.SET_BACKGROUND:
+            return {
+                ...state,
+                slidesMap: setBackgroundCurrentSlide(action.payload, state.slidesMap, state.currentSlideId),
             }
         case PresentationTypes.SET_CURRENT_SLIDE:
             return {
                 ...state,
-                currentSlide: { ...action.payload },
+                currentSlideId: action.payload,
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_BOLDED:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'bold',
                 ),
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_ITALIC:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'italic',
                 ),
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'underlined',
                 ),
             }
         case PresentationTypes.SET_SLIDE_OBJECTS_FONT_COLOR:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'fontColor',
                     action.payload.color,
                 ),
@@ -102,9 +165,10 @@ const SlidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.SET_SLIDE_OBJECTS_FONT_SIZE:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'fontSize',
                     '',
                     action.payload.size,
@@ -113,15 +177,62 @@ const SlidesReducer = (state = initialState, action: ActionTypes) => {
         case PresentationTypes.SET_SLIDE_OBJECTS_FONT_FAMILY:
             return {
                 ...state,
-                currentSlide: setStyleCurrentSlideObjects(
-                    { ...action.payload.currentSlide },
-                    [...action.payload.selectedObjectIds],
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
                     'fontFamily',
                     action.payload.family,
                 ),
+            }
+        case PresentationTypes.SET_SLIDE_OBJECTS_BORDER_WIDTH:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'borderWidth',
+                    '',
+                    action.payload.width,
+                ),
+            }
+        case PresentationTypes.SET_SLIDE_OBJECTS_BORDER_STYLE:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'borderStyle',
+                    action.payload.style,
+                ),
+            }
+        case PresentationTypes.SET_SLIDE_OBJECTS_BORDER_COLOR:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'borderColor',
+                    action.payload.color,
+                ),
+            }
+        case PresentationTypes.SET_SLIDES_ORDER:
+            return {
+                ...state,
+                slidesOrder: action.payload,
+            }
+        case PresentationTypes.OPEN_PRESENTATION:
+            return {
+                ...state,
+                slidesMap: action.payload.slidesMap,
+                slidesOrder: action.payload.slidesOrder,
+                currentSlideId: getNewCurrentSlideOfNewPresentation(action.payload.slidesMap),
             }
         default:
             return state
     }
 }
-export default SlidesReducer
+export default slidesReducer

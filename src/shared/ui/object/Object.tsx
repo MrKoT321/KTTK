@@ -50,7 +50,6 @@ const Object = ({
                         fontFamily={object.fontFamily}
                         bold={object.bold}
                         highlighter={object.highlighter}
-                        // underlineColor={object.underlineColor}
                         underlineColor={object.fontColor}
                         value={object.value}
                         oType={object.oType}

@@ -10,13 +10,13 @@
     "@types/react": "^18.2.25",
     "@types/react-dom": "^18.2.11",
     "@types/react-redux": "^7.1.33",
-    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "react-scripts": "5.0.1",
     "redux": "^5.0.1",
     "typescript": "^4.9.5",
+    "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -45,11 +45,13 @@
     ]
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.7",
     "canvas-text-wrapper": "^0.10.2",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jspdf": "^2.5.1",
     "prettier": "3.0.3",
     "stylelint": "15.10.3",
     "stylelint-config-standard-scss": "^11.0.0",

@@ -1,28 +1,24 @@
 import { MouseStates, ObjectType, SlideType } from '../types/types'
 import { layoutParams as lp } from './layoutParams'
+import { defaultCurrentSlide } from '../defaultCurrentSlide'
 
 type AddObjectParams = {
-    slides: SlideType[]
-    setSlides: (slides: SlideType[]) => void
-    setCurrentSlide: (currentSlide: SlideType) => void
-    selectedSlideIds: number[]
-    currentSlide: SlideType
+    currentSlideId: string
+    slidesMap: Map<string, SlideType>
+    setSlides: (slidesMap: Map<string, SlideType>) => void
     mouseState: MouseStates
     currentMouseX: number
     currentMouseY: number
     startMouseX: number
     startMouseY: number
-    allSlides: SlideType[]
     createPosition: (startMousePos: number, currentMousePos: number) => number
     imageSrc?: string
 }
 
 const addObject = ({
-    slides,
+    currentSlideId,
+    slidesMap,
     setSlides,
-    setCurrentSlide,
-    selectedSlideIds,
-    currentSlide,
     mouseState,
     currentMouseX,
     startMouseX,
@@ -31,13 +27,15 @@ const addObject = ({
     createPosition,
     imageSrc,
 }: AddObjectParams) => {
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
+
     let object: ObjectType
 
     const borderWidth = 0
-    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX - borderWidth
-    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY - 2 * borderWidth
-    const width = Math.abs(currentMouseX - startMouseX) + borderWidth
-    const height = Math.abs(currentMouseY - startMouseY) + borderWidth
+    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX
+    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY
+    const width = Math.abs(currentMouseX - startMouseX)
+    const height = Math.abs(currentMouseY - startMouseY)
 
     const createObjectId = () => {
         let maxId = 0
@@ -61,13 +59,14 @@ const addObject = ({
                 startX: startX,
                 startY: startY,
                 borderStyle: 'none',
-                borderWidth: 0,
+                borderWidth: borderWidth,
                 borderColor: '#000000',
                 caption: '',
                 imageSrcType: 'imageLink',
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingBase64Img':
             if (!imageSrc) break
@@ -85,6 +84,7 @@ const addObject = ({
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingText':
             object = {
@@ -93,7 +93,7 @@ const addObject = ({
                 height: height,
                 startX: startX,
                 startY: startY,
-                borderStyle: 'none',
+                borderStyle: 'solid',
                 borderWidth: borderWidth,
                 //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
@@ -108,6 +108,7 @@ const addObject = ({
                 value: '',
                 oType: 'ObjectTextType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingRect':
             object = {
@@ -123,6 +124,7 @@ const addObject = ({
                 shapeBgColor: 'yellow',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingCircle':
             object = {
@@ -139,6 +141,7 @@ const addObject = ({
                 shapeBgColor: 'green',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
         case 'creatingTriangle':
             object = {
@@ -154,15 +157,11 @@ const addObject = ({
                 shapeBgColor: 'yellow',
                 oType: 'ObjectShapeType',
             }
+            currentSlide.objects.push(object)
             break
     }
-    slides.forEach((slide) => {
-        if (slide.id === selectedSlideIds[selectedSlideIds.length - 1]) {
-            slide.objects.push(object)
-            setCurrentSlide({ ...slide })
-        }
-    })
-    setSlides(slides)
+    slidesMap.set(currentSlideId, currentSlide)
+    setSlides(slidesMap)
 }
 
 export { addObject }

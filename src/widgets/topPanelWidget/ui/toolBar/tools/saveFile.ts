@@ -1,10 +1,17 @@
-import { Editor, Selected, SlideType } from '../../../../../shared/types/types'
+import { Selected, SlideType } from '../../../../../shared/types/types'
 
-const saveFile = (slides: SlideType[], selected: Selected, presentationName: string) => {
-    const editor: Editor = {
+const saveFile = (
+    slidesMap: Map<string, SlideType>,
+    slidesOrder: string[],
+    selected: Selected,
+    presentationName: string,
+) => {
+    const jsonSlidesMap = Object.fromEntries(slidesMap)
+    const editor = {
         document: {
             name: presentationName,
-            slides: slides,
+            slidesOrder: slidesOrder,
+            slidesMap: jsonSlidesMap,
         },
         selected: selected,
     }

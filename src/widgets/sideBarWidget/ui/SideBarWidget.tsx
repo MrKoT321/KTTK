@@ -1,97 +1,125 @@
 import { MouseLocations, SlideType } from '../../../shared/types/types'
-import { SideSlide } from './sideSlide/SideSlide'
+import { SideSlide } from '../../../entity/sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
-import { minEditor } from 'shared/testData'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
+import { getReorderedSlides } from '../tools/getReorderedSlides'
+import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 type SlideBarProps = {
-    setCurrentSlideBg: (arg: string) => void
     mouseLocation: MouseLocations
 }
 
-const SideBarWidget = ({ setCurrentSlideBg, mouseLocation }: SlideBarProps) => {
-    const slides = useAppSelector((state) => state.slides.slides)
-    const selected = useAppSelector((state) => state.selected)
-    const { selectedSlideIds } = selected
-    const { setSlides, setSelectedSlideIds } = useAppActions()
-    const [draggedSlide, setDraggedSlide] = useState<SlideType | null>(null)
+const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
+    const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
+    const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const { addSlide, setSlides, setSelectedSlideIds, setCurrentSlide, setSlidesOrder } = useAppActions()
+    const [draggedSlidePos, setDraggedSlidePos] = useState<number | null>(null)
 
-    const handleDragStart = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
-        setDraggedSlide(slide)
+    const handleDragStart = (pos: number) => {
+        setDraggedSlidePos(pos)
     }
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault()
     }
 
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>, slide: SlideType) => {
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>, thisSlidePos: number) => {
         e.preventDefault()
-        const editedSlides = [...slides]
-        setSlides(
-            editedSlides
-                .map((s) => {
-                    if (s.id === slide.id) {
-                        if (draggedSlide) {
-                            const r = { ...s, order: draggedSlide.order }
-                            return r
-                        }
-                        return s
-                    }
-                    if (draggedSlide) {
-                        if (s.id === draggedSlide.id) {
-                            const r = { ...s, order: slide.order }
-                            return r
-                        }
-                    }
-                    return s
-                })
-                .sort((x, y) => x.order - y.order),
-        )
+        setSlidesOrder(getReorderedSlides(thisSlidePos, draggedSlidePos, slidesMap, slidesOrder))
     }
+
+    // const handleKeyDown = (e: KeyboardEvent) => {
+    //     if (mouseLocation === 'sideBar') {
+    //         if (e.key === 'Delete') {
+    //             e.preventDefault()
+    //             console.log('1111111111111111111111111111111111111111111111111\n11111111111')
+    //             selectedSlideIds.forEach((slideId) => {
+    //                 slidesMap.delete(slideId)
+    //             })
+    //             setSlidesOrder(Array.from(slidesMap.keys()))
+    //             if (slidesMap.size === 0) {
+    //                 addSlide(slidesMap, [])
+    //             }
+    //         }
+    //     }
+    // }
 
     const handleKeyDown = (e: KeyboardEvent) => {
         if (mouseLocation === 'sideBar') {
             if (e.key === 'Delete') {
                 e.preventDefault()
-                let allSlides: SlideType[] = []
-                for (const slide of slides) {
-                    if (!selected.selectedSlideIds.includes(slide.id)) {
-                        allSlides.push(slide)
-                    }
+                console.log('1111111111111111')
+                const newOrder = slidesOrder.filter((slideId) => !selectedSlideIds.includes(slideId))
+                console.log('newOrder = ', newOrder)
+                setSlidesOrder(newOrder)
+                if (newOrder.length === 0) {
+                    addSlide(new Map(), [])
                 }
-                if (allSlides.length === 0) {
-                    allSlides = minEditor.document.slides
-                }
-                setSlides([...allSlides])
-                setSelectedSlideIds([allSlides[0].id])
             }
         }
     }
+
+    console.log('slidesOrder = ', slidesOrder)
+    // console.log('currentSlideId = ', currentSlideId)
+    console.log('selectedSlideIds = ', selectedSlideIds)
+    console.log('slidesMap = ', slidesMap)
 
     useEffect(() => {
         document.addEventListener('keydown', (e) => handleKeyDown(e))
         return document.removeEventListener('keydown', (e) => handleKeyDown(e))
     }, [selectedSlideIds])
 
+    useEffect(() => {
+        const newSlidesMap: Map<string, SlideType> = new Map()
+        const keys = Array.from(slidesMap.keys())
+        slidesOrder.map((slideId) => {
+            keys.map((key) => {
+                if (key === slideId) {
+                    console.log('2222222222')
+                    newSlidesMap.set(slideId, slidesMap.get(slideId) || defaultCurrentSlide)
+                }
+            })
+            console.log('newSlidesMap = ', newSlidesMap)
+        })
+        setSlides(newSlidesMap)
+        if (slidesOrder.length === 1) {
+            setSelectedSlideIds(Array.from(slidesMap.keys()))
+            setCurrentSlide(slidesOrder[0])
+        }
+    }, [slidesOrder])
+
+    // useEffect(() => {
+    //     const newMap: Map<string, SlideType> = new Map()
+    //     for (const slideId of slidesOrder) {
+    //         const slide = slidesMap.get(slideId)
+    //         if (slide) {
+    //             newMap.set(slideId, slide)
+    //         }
+    //     }
+    //     setSlides(newMap)
+    // }, [slidesOrder])
+
     return (
-        <div>
-            {slides.map((slide, index) => {
-                const isSelected = selectedSlideIds.includes(slide.id)
-                return (
-                    <SideSlide
-                        slide={slide}
-                        order={index}
-                        key={slide.id}
-                        isSelected={isSelected}
-                        isDraggable={true}
-                        handleDrop={handleDrop}
-                        handleDragStart={handleDragStart}
-                        handleDragOver={handleDragOver}
-                        setCurrentSlideBg={setCurrentSlideBg}
-                    />
-                )
+        <>
+            {slidesOrder.map((slideId, index) => {
+                const isSelected = selectedSlideIds.includes(slideId)
+                const slide = slidesMap.get(slideId)
+                // console.log(slideId, '---', slide)
+                if (slide !== undefined) {
+                    return (
+                        <SideSlide
+                            slide={slide}
+                            order={index}
+                            key={slideId}
+                            isSelected={isSelected}
+                            handleDrop={handleDrop}
+                            handleDragStart={handleDragStart}
+                            handleDragOver={handleDragOver}
+                        />
+                    )
+                }
             })}
-        </div>
+        </>
     )
 }
 

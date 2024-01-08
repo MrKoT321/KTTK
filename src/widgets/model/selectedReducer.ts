@@ -2,10 +2,10 @@ import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { Selected } from '../../shared/types/types'
 
 const initialState: Selected = {
-    selectedSlideIds: [1],
+    selectedSlideIds: ['1'],
     selectedObjectIds: [],
 }
-const SelectedReducer = (state = initialState, action: ActionTypes) => {
+const selectedReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case PresentationTypes.SET_SELECTED:
             return {
@@ -26,4 +26,4 @@ const SelectedReducer = (state = initialState, action: ActionTypes) => {
             return state
     }
 }
-export default SelectedReducer
+export default selectedReducer

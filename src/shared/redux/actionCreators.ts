@@ -1,5 +1,6 @@
 import { PresentationTypes } from './actionTypes'
 import { ObjectTextType, Selected, SlideType } from '../types/types'
+import { v4 as uuidV4 } from 'uuid'
 
 const setPresentationName = (name: string) => {
     return {
@@ -8,29 +9,40 @@ const setPresentationName = (name: string) => {
     }
 }
 
-const addSlide = (allSlides: SlideType[]) => {
+const addSlide = (slidesMap: Map<string, SlideType>, order: string[]) => {
+    const id = uuidV4()
     const newSlide: SlideType = {
-        id: allSlides[allSlides.length - 1].id + 1,
-        order: allSlides.length + 1,
         background: 'color',
         backgroundValue: '#FFFFFF',
         objects: [],
     }
-    allSlides.push(newSlide)
+    slidesMap.set(id, newSlide)
+    order.push(id)
     return {
         type: PresentationTypes.ADD_SLIDE,
-        payload: [...allSlides],
+        payload: {
+            // slidesMap: new Map(slidesMap),
+            slidesMap: slidesMap,
+            slidesOrder: [...order],
+        },
     }
 }
 
-const setSlides = (allSlides: SlideType[]) => {
+const setSlides = (slidesMap: Map<string, SlideType>) => {
     return {
         type: PresentationTypes.SET_SLIDES,
-        payload: [...allSlides],
+        payload: slidesMap,
     }
 }
 
-const setSelectedSlideIds = (selectedSlideIds: number[]) => {
+const setBackground = (color: string) => {
+    return {
+        type: PresentationTypes.SET_BACKGROUND,
+        payload: color,
+    }
+}
+
+const setSelectedSlideIds = (selectedSlideIds: string[]) => {
     return {
         type: PresentationTypes.SET_SELECTED_SLIDE_IDS,
         payload: [...selectedSlideIds],
@@ -58,10 +70,10 @@ const setSelected = (selected: Selected) => {
     }
 }
 
-const setCurrentSlide = (currentSlide: SlideType) => {
+const setCurrentSlide = (currentSlideId: string) => {
     return {
         type: PresentationTypes.SET_CURRENT_SLIDE,
-        payload: { ...currentSlide },
+        payload: currentSlideId,
     }
 }
 
@@ -72,45 +84,87 @@ const setTextObjects = (textObject: ObjectTextType[]) => {
     }
 }
 
-const setTextObjectsBolded = (selectedTextIds: number[], currentSlide: SlideType) => {
+const setTextObjectsBolded = (selectedTextIds: number[]) => {
     return {
         type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED,
-        payload: { selectedObjectIds: [...selectedTextIds], currentSlide: { ...currentSlide } },
+        payload: { selectedObjectIds: [...selectedTextIds] },
     }
 }
 
-const setTextObjectsItalic = (selectedTextIds: number[], currentSlide: SlideType) => {
+const setTextObjectsItalic = (selectedTextIds: number[]) => {
     return {
         type: PresentationTypes.SET_SLIDE_OBJECTS_ITALIC,
-        payload: { selectedObjectIds: [...selectedTextIds], currentSlide: { ...currentSlide } },
+        payload: { selectedObjectIds: [...selectedTextIds] },
     }
 }
 
-const setTextObjectsUnderlined = (selectedTextIds: number[], currentSlide: SlideType) => {
+const setTextObjectsUnderlined = (selectedTextIds: number[]) => {
     return {
         type: PresentationTypes.SET_SLIDE_OBJECTS_UNDERLINED,
-        payload: { selectedObjectIds: [...selectedTextIds], currentSlide: { ...currentSlide } },
+        payload: { selectedObjectIds: [...selectedTextIds] },
     }
 }
 
-const setTextObjectFontColor = (color: string, selectedTextIds: number[], currentSlide: SlideType) => {
+const setTextObjectFontColor = (color: string, selectedTextIds: number[]) => {
     return {
         type: PresentationTypes.SET_SLIDE_OBJECTS_FONT_COLOR,
-        payload: { color: color, selectedObjectIds: [...selectedTextIds], currentSlide: { ...currentSlide } },
+        payload: { color: color, selectedObjectIds: [...selectedTextIds] },
     }
 }
 
-const setTextObjectFontSize = (size: number, selectedTextIds: number[], currentSlide: SlideType) => {
+const setTextObjectFontSize = (size: number, selectedTextIds: number[]) => {
     return {
         type: PresentationTypes.SET_SLIDE_OBJECTS_FONT_SIZE,
-        payload: { size: size, selectedObjectIds: [...selectedTextIds], currentSlide: { ...currentSlide } },
+        payload: { size: size, selectedObjectIds: [...selectedTextIds] },
     }
 }
 
-const setTextObjectFontFamily = (family: string, selectedTextIds: number[], currentSlide: SlideType) => {
+const setTextObjectFontFamily = (family: string, selectedTextIds: number[]) => {
     return {
         type: PresentationTypes.SET_SLIDE_OBJECTS_FONT_FAMILY,
-        payload: { family: family, selectedObjectIds: [...selectedTextIds], currentSlide: { ...currentSlide } },
+        payload: { family: family, selectedObjectIds: [...selectedTextIds] },
+    }
+}
+
+const setSlideObjectsBorderWidth = (width: number, selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_WIDTH,
+        payload: { width: width, selectedObjectIds: [...selectedTextIds] },
+    }
+}
+
+const setSlideObjectsBorderStyle = (style: string, selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_STYLE,
+        payload: { style: style, selectedObjectIds: [...selectedTextIds] },
+    }
+}
+
+const setSlideObjectsBorderColor = (color: string, selectedTextIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_BORDER_COLOR,
+        payload: { color: color, selectedObjectIds: [...selectedTextIds] },
+    }
+}
+
+const setSlidesOrder = (slidesOrder: string[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDES_ORDER,
+        payload: [...slidesOrder],
+    }
+}
+
+const setSelectImagePopUpState = (state: boolean) => {
+    return {
+        type: PresentationTypes.SET_SELECT_IMAGE_POPUP_STATE,
+        payload: state,
+    }
+}
+
+const openPresentation = (slidesMap: Map<string, SlideType>, slideOrder: string[]) => {
+    return {
+        type: PresentationTypes.OPEN_PRESENTATION,
+        payload: { slidesMap: slidesMap, slidesOrder: slideOrder },
     }
 }
 
@@ -118,6 +172,7 @@ export {
     setPresentationName,
     addSlide,
     setSlides,
+    setBackground,
     // setSlideObjects,
     setSelectedSlideIds,
     setSelectedObjectIds,
@@ -130,4 +185,10 @@ export {
     setTextObjectFontColor,
     setTextObjectFontSize,
     setTextObjectFontFamily,
+    setSlideObjectsBorderWidth,
+    setSlideObjectsBorderStyle,
+    setSlideObjectsBorderColor,
+    setSlidesOrder,
+    setSelectImagePopUpState,
+    openPresentation,
 }

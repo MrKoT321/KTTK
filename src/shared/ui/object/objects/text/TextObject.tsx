@@ -3,6 +3,7 @@ import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
 import React from 'react'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
+import { defaultCurrentSlide } from '../../../../defaultCurrentSlide'
 
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
@@ -19,10 +20,10 @@ const TextObject = (props: TextObjProps) => {
         left: props.startX,
         top: props.startY,
     }
-
-    const { setSelected, setSlides } = useAppActions()
-    const selected = useAppSelector((state) => state.selected)
-    const slides = useAppSelector((state) => state.slides.slides)
+    const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
+    const { setSlides, setSelectedObjectIds } = useAppActions()
+    const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
+    const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
 
     const quadStyle = {
         left: props.width - 5,
@@ -31,12 +32,18 @@ const TextObject = (props: TextObjProps) => {
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!props.isSelected) {
+            let newSelected = selectedObjectIds
             if (e.ctrlKey) {
-                selected.selectedObjectIds.push(props.id)
+                newSelected.push(props.id)
             } else {
-                selected.selectedObjectIds = [props.id]
+                newSelected = [props.id]
             }
-            setSelected(selected)
+            setSelectedObjectIds(newSelected)
+        } else {
+            if (e.ctrlKey) {
+                const newSelected = selectedObjectIds.filter((id) => id != props.id)
+                setSelectedObjectIds(newSelected)
+            }
         }
     }
 
@@ -61,7 +68,7 @@ const TextObject = (props: TextObjProps) => {
                     <textarea
                         value={props.value}
                         placeholder="Введите текст"
-                        className={`${styles.text} ${props.isBlocked ? styles.textBlocked : styles.textNotBlocked}`}
+                        className={`${styles.text} ${styles.textBlocked}`}
                         readOnly={true}
                         style={createTextObject(props)}
                     ></textarea>
@@ -70,16 +77,16 @@ const TextObject = (props: TextObjProps) => {
                     <textarea
                         value={props.value}
                         placeholder="Введите текст"
-                        className={`${styles.text} ${props.isBlocked ? styles.textBlocked : styles.textNotBlocked}`}
+                        className={`${styles.text} ${styles.textNotBlocked}`}
                         style={createTextObject(props)}
                         onChange={(e) => {
-                            const allSlides = [...slides]
-                            for (const object of allSlides[selected.selectedSlideIds.length - 1].objects) {
+                            for (const object of currentSlide.objects) {
                                 if (object.id === props.id && object.oType === 'ObjectTextType') {
                                     object.value = e.target.value
                                 }
                             }
-                            setSlides(allSlides)
+                            slidesMap.set(currentSlideId, currentSlide)
+                            setSlides(slidesMap)
                         }}
                     ></textarea>
                 )}
