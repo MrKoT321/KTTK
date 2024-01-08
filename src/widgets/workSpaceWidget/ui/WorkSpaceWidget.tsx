@@ -50,6 +50,8 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
     const [currMoveToX, setCurrMoveToX] = useState(0)
     const [currMoveToY, setCurrMoveToY] = useState(0)
 
+    const [isDelete, setIsDelete] = useState(false)
+
     const createMovePosition = (startMousePos: number, currentMousePos: number, currMoveTo: number) => {
         if (startMousePos >= currentMousePos) {
             return currentMousePos - startMousePos - currMoveTo
@@ -259,8 +261,13 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
     }
 
     useEffect(() => {
-        document.addEventListener('keydown', (e) => handleKeyDown(e, selectedObjectIds))
-        return document.removeEventListener('keydown', (e) => handleKeyDown(e, selectedObjectIds))
+        const handleDeleteObject = (e: KeyboardEvent) => {
+            handleKeyDown(e, selectedObjectIds)
+        }
+        document.addEventListener('keydown', handleDeleteObject)
+        return () => {
+            document.removeEventListener('keydown', handleDeleteObject)
+        }
     }, [selectedObjectIds])
 
     return (
