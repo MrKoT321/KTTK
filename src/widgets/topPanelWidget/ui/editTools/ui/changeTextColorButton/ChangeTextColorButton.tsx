@@ -32,7 +32,7 @@ const ChangeTextColorButton = ({ type }: ColorButtonTypes) => {
         const defaultBorderColor = '#000000'
         let commonBorderColor = defaultBorderColor
         for (const object of currentSlide.objects) {
-            if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
+            if (selectedObjectIds.includes(object.id)) {
                 if (commonBorderColor == defaultBorderColor) {
                     commonBorderColor = object.borderColor
                 } else if (commonBorderColor != object.borderColor) {

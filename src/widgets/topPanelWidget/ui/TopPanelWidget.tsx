@@ -1,5 +1,5 @@
 import { PresentationName } from './presentationName'
-import { Editor, MouseStates } from '../../../shared/types/types'
+import { MouseStates } from '../../../shared/types/types'
 import { ToolMenu } from './toolMenu'
 import { ToolBar } from './toolBar'
 import { EditTools } from './editTools'
@@ -8,17 +8,13 @@ import React from 'react'
 
 type TopPanelWidgetProps = {
     setMouseState: (mouseState: MouseStates) => void
-    presentationsObjTools: {
-        setPresentation: (presentation: Editor) => void
-        presentation: Editor
-    }
 }
 
-const TopPanelWidget = ({ setMouseState, presentationsObjTools }: TopPanelWidgetProps) => (
+const TopPanelWidget = ({ setMouseState }: TopPanelWidgetProps) => (
     <>
         <div className={styles.top}>
             <PresentationName />
-            <ToolBar presentationsObjTools={presentationsObjTools} />
+            <ToolBar />
         </div>
         <div className={styles.bottom}>
             <ToolMenu setMouseState={setMouseState} />

@@ -56,7 +56,7 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
         const emptyBorderWidth = 0
         let commonBorderWidth = emptyBorderWidth
         for (const object of currentSlide.objects) {
-            if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
+            if (selectedObjectIds.includes(object.id)) {
                 if (commonBorderWidth == emptyBorderWidth) {
                     commonBorderWidth = object.borderWidth
                 } else if (commonBorderWidth != object.borderWidth) {
@@ -71,7 +71,7 @@ const EditInputButton = ({ type }: EditInputButtonProps) => {
         const emptyBorderStyle = 'none'
         let commonBorderStyle = emptyBorderStyle
         for (const object of currentSlide.objects) {
-            if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
+            if (selectedObjectIds.includes(object.id)) {
                 if (commonBorderStyle == emptyBorderStyle) {
                     commonBorderStyle = object.borderStyle
                 } else if (commonBorderStyle != object.borderStyle) {

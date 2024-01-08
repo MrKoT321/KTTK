@@ -1,15 +1,12 @@
 import { ChangeEvent } from 'react'
-import { Editor } from '../../../../../shared/types/types'
+import { SlideType } from '../../../../../shared/types/types'
 
 type OpenFileParams = {
     event: ChangeEvent<HTMLInputElement>
-    presentationsObjTools: {
-        setPresentation(presentation: Editor): void
-        presentation: Editor
-    }
+    openPresentation: (slidesMap: Map<string, SlideType>, slideOrder: string[]) => void
 }
 
-const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
+const openFile = ({ event, openPresentation }: OpenFileParams) => {
     if (!event.target.files) {
         return null
     }
@@ -26,17 +23,22 @@ const openFile = ({ event, presentationsObjTools }: OpenFileParams) => {
                     alert('Невозможно открыть файл')
                     return
                 }
-                const parsedResult: Editor = JSON.parse(result)
+                const parsedResult = JSON.parse(result)
                 console.log('parsedResult = ', parsedResult)
                 if (
                     'document' in parsedResult &&
                     'selected' in parsedResult &&
                     'name' in parsedResult.document &&
-                    'slides' in parsedResult.document &&
-                    'selectedSlideIds' in parsedResult.selected &&
-                    'selectedObjectIds' in parsedResult.selected
+                    'slidesMap' in parsedResult.document &&
+                    'slidesOrder' in parsedResult.document
                 ) {
-                    presentationsObjTools.setPresentation(parsedResult)
+                    if (parsedResult.document.slidesMap) {
+                        const newSlidesMap = new Map<string, SlideType>()
+                        for (const keyOfSlidesMap in parsedResult.document.slidesMap) {
+                            newSlidesMap.set(keyOfSlidesMap, parsedResult.document.slidesMap[keyOfSlidesMap])
+                        }
+                        openPresentation(newSlidesMap, parsedResult.document.slidesOrder)
+                    }
                 } else {
                     alert('Невозможно открыть файл')
                 }

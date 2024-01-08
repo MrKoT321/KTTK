@@ -21,6 +21,7 @@ enum PresentationTypes {
     SET_TEXT_OBJECTS = 'SET_TEXT_OBJECTS',
     SET_SLIDES_ORDER = 'SET_SLIDES_ORDER',
     SET_SELECT_IMAGE_POPUP_STATE = 'SET_SELECT_IMAGE_POPUP_STATE',
+    OPEN_PRESENTATION = 'OPEN_PRESENTATION',
 }
 
 type SetPresentationNameAction = {
@@ -150,6 +151,14 @@ type SetSelectImagePopUpStateAction = {
     payload: boolean
 }
 
+type openPresentationAction = {
+    type: PresentationTypes.OPEN_PRESENTATION
+    payload: {
+        slidesMap: Map<string, SlideType>
+        slidesOrder: string[]
+    }
+}
+
 type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
@@ -171,5 +180,6 @@ type ActionTypes =
     | SetSlideObjectsBorderColorAction
     | SetSlidesOrderAction
     | SetSelectImagePopUpStateAction
+    | openPresentationAction
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }

@@ -57,24 +57,26 @@ const setStyleCurrentSlideObjects = (
 ): Map<string, SlideType> => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     currentSlide.objects.forEach((object) => {
-        if (object.oType == 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
-            if (paramToChange == 'bold') {
-                object.bold = !object.bold
-            }
-            if (paramToChange == 'italic') {
-                object.italic = !object.italic
-            }
-            if (paramToChange == 'underlined') {
-                object.underlined = !object.underlined
-            }
-            if (paramToChange == 'fontColor') {
-                object.fontColor = stringParamToChange || '#000000'
-            }
-            if (paramToChange == 'fontSize') {
-                object.fontSize = numberParamToChange || 14
-            }
-            if (paramToChange == 'fontFamily') {
-                object.fontFamily = stringParamToChange || 'FuturaPT'
+        if (selectedObjectIds.includes(object.id)) {
+            if (object.oType == 'ObjectTextType') {
+                if (paramToChange == 'bold') {
+                    object.bold = !object.bold
+                }
+                if (paramToChange == 'italic') {
+                    object.italic = !object.italic
+                }
+                if (paramToChange == 'underlined') {
+                    object.underlined = !object.underlined
+                }
+                if (paramToChange == 'fontColor') {
+                    object.fontColor = stringParamToChange || '#000000'
+                }
+                if (paramToChange == 'fontSize') {
+                    object.fontSize = numberParamToChange || 14
+                }
+                if (paramToChange == 'fontFamily') {
+                    object.fontFamily = stringParamToChange || 'FuturaPT'
+                }
             }
             if (paramToChange == 'borderWidth') {
                 object.borderWidth = numberParamToChange || 0
@@ -89,6 +91,11 @@ const setStyleCurrentSlideObjects = (
     })
     slidesMap.set(currentSlideId, currentSlide)
     return slidesMap
+}
+
+const getNewCurrentSlideOfNewPresentation = (slidesMap: Map<string, SlideType>) => {
+    const slideMapKeys: string[] = Array.from(slidesMap.keys())
+    return slideMapKeys[0] || ''
 }
 
 const slidesReducer = (state = initialState, action: ActionTypes) => {
@@ -216,6 +223,13 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
             return {
                 ...state,
                 slidesOrder: action.payload,
+            }
+        case PresentationTypes.OPEN_PRESENTATION:
+            return {
+                ...state,
+                slidesMap: action.payload.slidesMap,
+                slidesOrder: action.payload.slidesOrder,
+                currentSlideId: getNewCurrentSlideOfNewPresentation(action.payload.slidesMap),
             }
         default:
             return state

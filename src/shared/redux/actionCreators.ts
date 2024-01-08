@@ -160,6 +160,13 @@ const setSelectImagePopUpState = (state: boolean) => {
     }
 }
 
+const openPresentation = (slidesMap: Map<string, SlideType>, slideOrder: string[]) => {
+    return {
+        type: PresentationTypes.OPEN_PRESENTATION,
+        payload: { slidesMap: slidesMap, slidesOrder: slideOrder },
+    }
+}
+
 export {
     setPresentationName,
     addSlide,
@@ -182,4 +189,5 @@ export {
     setSlideObjectsBorderColor,
     setSlidesOrder,
     setSelectImagePopUpState,
+    openPresentation,
 }
