@@ -3,6 +3,7 @@ import { SideSlide } from '../../../entity/sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
+import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 
 type SlideBarProps = {
     mouseLocation: MouseLocations
@@ -11,7 +12,7 @@ type SlideBarProps = {
 const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
-    const { setSlides, setSelectedSlideIds, setSlidesOrder } = useAppActions()
+    const { addSlide, setSlides, setSelectedSlideIds, setCurrentSlide, setSlidesOrder } = useAppActions()
     const [draggedSlidePos, setDraggedSlidePos] = useState<number | null>(null)
 
     const handleDragStart = (pos: number) => {
@@ -24,9 +25,6 @@ const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, thisSlidePos: number) => {
         e.preventDefault()
-        // console.log('slidesOrder = ', slidesOrder)
-        // console.log('draggedSlidePos = ', draggedSlidePos)
-        // console.log('thisSlidePos = ', thisSlidePos)
         setSlidesOrder(getReorderedSlides(thisSlidePos, draggedSlidePos, slidesMap, slidesOrder))
     }
 
@@ -34,42 +32,72 @@ const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
     //     if (mouseLocation === 'sideBar') {
     //         if (e.key === 'Delete') {
     //             e.preventDefault()
-    //             let allSlides: SlideType[] = []
-    //             for (const slide of slides) {
-    //                 if (!selected.selectedSlideIds.includes(slide.id)) {
-    //                     allSlides.push(slide)
-    //                 }
+    //             console.log('1111111111111111111111111111111111111111111111111\n11111111111')
+    //             selectedSlideIds.forEach((slideId) => {
+    //                 slidesMap.delete(slideId)
+    //             })
+    //             setSlidesOrder(Array.from(slidesMap.keys()))
+    //             if (slidesMap.size === 0) {
+    //                 addSlide(slidesMap, [])
     //             }
-    //             if (allSlides.length === 0) {
-    //                 allSlides = minEditor.document.slides
-    //             }
-    //             setSlides([...allSlides])
-    //             setSelectedSlideIds([allSlides[0].id])
     //         }
     //     }
     // }
-    //
-    // useEffect(() => {
-    //     document.addEventListener('keydown', (e) => handleKeyDown(e))
-    //     return document.removeEventListener('keydown', (e) => handleKeyDown(e))
-    // }, [selectedSlideIds])
 
-    useEffect(() => {
-        if (slidesOrder.length === 1) {
-            setSelectedSlideIds(Array.from(slidesMap.keys()))
-        }
-    }, [slidesMap])
-
-    useEffect(() => {
-        const newMap: Map<string, SlideType> = new Map()
-        for (const slideId of slidesOrder) {
-            const slide = slidesMap.get(slideId)
-            if (slide) {
-                newMap.set(slideId, slide)
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (mouseLocation === 'sideBar') {
+            if (e.key === 'Delete') {
+                e.preventDefault()
+                console.log('1111111111111111')
+                const newOrder = slidesOrder.filter((slideId) => !selectedSlideIds.includes(slideId))
+                console.log('newOrder = ', newOrder)
+                setSlidesOrder(newOrder)
+                if (newOrder.length === 0) {
+                    addSlide(new Map(), [])
+                }
             }
         }
-        setSlides(newMap)
+    }
+
+    console.log('slidesOrder = ', slidesOrder)
+    // console.log('currentSlideId = ', currentSlideId)
+    console.log('selectedSlideIds = ', selectedSlideIds)
+    console.log('slidesMap = ', slidesMap)
+
+    useEffect(() => {
+        document.addEventListener('keydown', (e) => handleKeyDown(e))
+        return document.removeEventListener('keydown', (e) => handleKeyDown(e))
+    }, [selectedSlideIds])
+
+    useEffect(() => {
+        const newSlidesMap: Map<string, SlideType> = new Map()
+        const keys = Array.from(slidesMap.keys())
+        slidesOrder.map((slideId) => {
+            keys.map((key) => {
+                if (key === slideId) {
+                    console.log('2222222222')
+                    newSlidesMap.set(slideId, slidesMap.get(slideId) || defaultCurrentSlide)
+                }
+            })
+            console.log('newSlidesMap = ', newSlidesMap)
+        })
+        setSlides(newSlidesMap)
+        if (slidesOrder.length === 1) {
+            setSelectedSlideIds(Array.from(slidesMap.keys()))
+            setCurrentSlide(slidesOrder[0])
+        }
     }, [slidesOrder])
+
+    // useEffect(() => {
+    //     const newMap: Map<string, SlideType> = new Map()
+    //     for (const slideId of slidesOrder) {
+    //         const slide = slidesMap.get(slideId)
+    //         if (slide) {
+    //             newMap.set(slideId, slide)
+    //         }
+    //     }
+    //     setSlides(newMap)
+    // }, [slidesOrder])
 
     return (
         <>

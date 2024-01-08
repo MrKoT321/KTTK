@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import styles from './Layout.module.css'
 import { layoutParams as lp, widgetsSizeParams as wsp } from '../../../shared/tools/layoutParams'
 import { MouseLocations } from 'shared/types/types'
+import { addSlide, setCurrentSlide } from '../../../shared/redux/actionCreators'
 
 type LayoutProps = {
     topPanel: ReactNode
