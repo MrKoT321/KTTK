@@ -1,4 +1,4 @@
-import { AddElementButton } from '../../../shared/ui/addElementButton/AddElementButton'
+import { ToolMenuButton } from '../../../shared/ui/toolMenuButton'
 import styles from './DropdownMenu.module.css'
 
 type DropdownMenuProps = {
@@ -12,7 +12,7 @@ const DropdownMenu = ({ icons, onClicks, labels }: DropdownMenuProps) => {
         <div className={styles.dropDownMenu}>
             {icons.map((icon, index) => (
                 <div className={styles.line} key={index}>
-                    <AddElementButton icon={icon} onClick={onClicks[index]} label={labels[index]} />
+                    <ToolMenuButton icon={icon} onClick={onClicks[index]} label={labels[index]} />
                 </div>
             ))}
         </div>
