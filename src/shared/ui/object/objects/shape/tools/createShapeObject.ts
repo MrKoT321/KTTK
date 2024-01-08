@@ -27,9 +27,9 @@ const createShapeObject = (props: ObjectShapeType) => {
                 height: props.height,
                 background: `linear-gradient(to top ${props.direction},
                     rgba(0,0,0,0) 0%,
-                    rgba(0,0,0,0) calc(50% - 0.8px),
+                    rgba(0,0,0,0) calc(50% - ${props.lineWidth / 2}px),
                     ${props.shapeBgColor} 50%,
-                    rgba(0,0,0,0) calc(50% + 0.8px),
+                    rgba(0,0,0,0) calc(50% + ${props.lineWidth / 2}px),
                     rgba(0,0,0,0) 100%)`,
             }
         case 'triangle':

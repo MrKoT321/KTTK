@@ -158,6 +158,7 @@ const addObject = ({
                 borderColor: 'black',
                 type: 'line',
                 shapeBgColor: 'black',
+                lineWidth: 2,
                 oType: 'ObjectShapeType',
             }
             currentSlide.objects.push(object)

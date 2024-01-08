@@ -16,7 +16,6 @@ const ImageObject = (props: ImageObjProps) => {
     const styleObj: CSSProperties = {
         left: props.startX,
         top: props.startY,
-        boxSizing: `border-box`,
     }
     const styleParentObj: CSSProperties = {
         width: props.width + props.borderWidth,
@@ -24,7 +23,6 @@ const ImageObject = (props: ImageObjProps) => {
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
-        boxSizing: `border-box`,
     }
     const styleChildObj: CSSProperties = {
         width: props.width,
