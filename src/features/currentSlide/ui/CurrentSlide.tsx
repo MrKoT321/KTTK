@@ -5,7 +5,7 @@ import styles from './CurrentSlide.module.css'
 import { MoveObj } from '../../../shared/types/devTypes'
 import { useAppSelector } from '../../../shared/redux/store'
 import React from 'react'
-import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
 
 type CurrentSlideProps = {
     mouseState: MouseStates

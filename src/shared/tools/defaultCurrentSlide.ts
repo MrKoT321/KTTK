@@ -1,4 +1,4 @@
-import { SlideType } from './types/types'
+import { SlideType } from '../types/types'
 
 export const defaultCurrentSlide: SlideType = {
     background: 'color',

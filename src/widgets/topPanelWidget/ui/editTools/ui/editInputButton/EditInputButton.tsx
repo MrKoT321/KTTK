@@ -1,7 +1,7 @@
 import styles from './EditInputButton.module.css'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
 import { SlideType } from '../../../../../../shared/types/types'
-import { defaultCurrentSlide } from '../../../../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../../../../shared/tools/defaultCurrentSlide'
 
 type EditInputType = 'font' | 'fontSize' | 'borderWidth' | 'borderStyle'
 

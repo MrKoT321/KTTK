@@ -1,7 +1,7 @@
 import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
 import { SlideType } from '../../shared/types/types'
 import { v4 as uuidV4 } from 'uuid'
-import { defaultCurrentSlide } from '../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../shared/tools/defaultCurrentSlide'
 import { BorderStyle } from '../../shared/types/devTypes'
 
 type slidesReducerType = {

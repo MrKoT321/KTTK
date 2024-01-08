@@ -3,7 +3,7 @@ import { SideSlide } from '../../../entity/sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
-import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
 
 type SlideBarProps = {
     mouseLocation: MouseLocations

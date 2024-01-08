@@ -1,0 +1,3 @@
+const handleObjectClick = () => {}
+
+export { handleObjectClick }

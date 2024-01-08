@@ -6,7 +6,7 @@ import underlineTextIcon from '../../../../../shared/icons/underlineTextIcon.svg
 import { ChangeTextDecorationSetupButton } from './changeTextDecorationSetupButton'
 import { ChangeTextColorButton } from './changeTextColorButton'
 import { useAppSelector } from '../../../../../shared/redux/store'
-import { defaultCurrentSlide } from '../../../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../../../shared/tools/defaultCurrentSlide'
 
 const EditTools = () => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)

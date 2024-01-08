@@ -2,7 +2,8 @@ import { ObjectShapeType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createShapeObject } from './tools/createShapeObject'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
-import React from 'react'
+import React, { CSSProperties } from 'react'
+import { getQuadStyles } from '../../../../tools/getQuadStyles'
 
 type ShapeObjProps = ObjectShapeType & {
     isSelected: boolean
@@ -14,25 +15,13 @@ const ShapeObject = (props: ShapeObjProps) => {
     const { setSelectedObjectIds } = useAppActions()
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const styleChildObj = createShapeObject(props)
-    const styleParentObj = {
+    const styleParentObj: CSSProperties = {
         width: props.width + 2 * props.borderWidth,
         height: props.height + 2 * props.borderWidth,
         left: props.startX,
         top: props.startY,
+        boxSizing: `border-box`,
     }
-
-    const quadStyle = {
-        left: props.width - 5,
-        top: -5,
-    }
-
-    // const handleClick = () => {
-    //     const sel: Selected = {
-    //         selectedSlideIds: [...selectedSlideIds],
-    //         selectedObjectIds: [props.id],
-    //     }
-    //     setSelected(sel)
-    // }
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!props.isSelected) {
@@ -59,7 +48,7 @@ const ShapeObject = (props: ShapeObjProps) => {
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={quadStyle}
+                    style={getQuadStyles(props.width)}
                     onMouseDown={(e) => props.handleMouseDownResize(e)}
                 ></div>
             )}

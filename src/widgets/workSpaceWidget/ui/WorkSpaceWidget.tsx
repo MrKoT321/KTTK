@@ -7,7 +7,7 @@ import { changeObjects } from '../tools/changeObjects'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { DrawStyle, MoveObj } from '../../../shared/types/devTypes'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
-import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
 import { CurrentSlide } from '../../../features/currentSlide'
 
 type WorkSpaceWidgetProps = {

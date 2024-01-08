@@ -1,6 +1,6 @@
 import { MouseStates, ObjectType, SlideType } from '../types/types'
 import { layoutParams as lp } from './layoutParams'
-import { defaultCurrentSlide } from '../defaultCurrentSlide'
+import { defaultCurrentSlide } from './defaultCurrentSlide'
 
 type AddObjectParams = {
     currentSlideId: string

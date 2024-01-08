@@ -14,7 +14,7 @@ import React, { useState } from 'react'
 import { AddElementButton } from '../../../../../shared/ui/addElementButton/AddElementButton'
 import { DropdownMenu } from '../../../../../features/dropdownMenu'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
-import { defaultCurrentSlide } from '../../../../../shared/defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../../../shared/tools/defaultCurrentSlide'
 import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 
 type ToolMenuProps = {
@@ -31,7 +31,7 @@ const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
         marginLeft: 200,
         marginTop: 115,
     }
-    const onClickFuncs = [() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]
+    const onClickFunctionsForDropdownMenu = [() => setMouseState('creatingRect'), () => setMouseState('creatingCircle')]
 
     const changePopupMenuShapesVisibility = () => {
         if (isShowShapesPopupMenu) {
@@ -44,7 +44,6 @@ const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
     return (
         <div className={styles.toolMenu}>
             <AddElementButton icon={addSlideIcon} onClick={() => addSlide(slidesMap, slidesOrder)} />
-            <AddElementButton icon={chooseTemplateIcon} onClick={() => console.log()} />
             <AddElementButton icon={cancelIcon} onClick={() => console.log()} />
             <AddElementButton icon={returnIcon} onClick={() => console.log()} />
             <AddElementButton icon={pointerIcon} onClick={() => setMouseState('cursor')} />
@@ -66,7 +65,7 @@ const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
                 <DropdownMenu
                     icons={[addRectangleIcon, addCircleIcon]}
                     labels={['Rectangle', 'Circle']}
-                    onClicks={onClickFuncs}
+                    onClicks={onClickFunctionsForDropdownMenu}
                 />
             </div>
             <SelectImagePopUp />

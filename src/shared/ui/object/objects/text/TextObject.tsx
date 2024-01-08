@@ -1,9 +1,10 @@
 import { MouseStates, ObjectTextType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { useAppActions, useAppSelector } from '../../../../redux/store'
-import { defaultCurrentSlide } from '../../../../defaultCurrentSlide'
+import { defaultCurrentSlide } from '../../../../tools/defaultCurrentSlide'
+import { getQuadStyles } from '../../../../tools/getQuadStyles'
 
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
@@ -14,20 +15,17 @@ type TextObjProps = ObjectTextType & {
 }
 
 const TextObject = (props: TextObjProps) => {
-    const styleParentObj = {
-        width: props.width + 2 * props.borderWidth,
-        height: props.height + 2 * props.borderWidth,
-        left: props.startX,
-        top: props.startY,
-    }
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const { setSlides, setSelectedObjectIds } = useAppActions()
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
 
-    const quadStyle = {
-        left: props.width - 5,
-        top: -5,
+    const styleParentObj: CSSProperties = {
+        width: props.width + 2 * props.borderWidth,
+        height: props.height + 2 * props.borderWidth,
+        left: props.startX,
+        top: props.startY,
+        boxSizing: `border-box`,
     }
 
     const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -55,7 +53,7 @@ const TextObject = (props: TextObjProps) => {
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={quadStyle}
+                    style={getQuadStyles(props.width)}
                     onMouseDown={(e) => props.handleMouseDownResize(e)}
                 ></div>
             )}

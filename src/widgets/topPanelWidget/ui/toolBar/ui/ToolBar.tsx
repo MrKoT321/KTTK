@@ -25,7 +25,7 @@ const ToolBar = () => {
                     accept={'.json'}
                     id={'open'}
                     className={styles.hidden}
-                    onInput={(event: ChangeEvent<HTMLInputElement>) => openFile({ event, openPresentation })}
+                    onInput={(event: ChangeEvent<HTMLInputElement>) => openFile(event, openPresentation)}
                 />
             </button>
         </div>

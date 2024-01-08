@@ -1,12 +1,10 @@
 import { ChangeEvent } from 'react'
 import { SlideType } from '../../../../../shared/types/types'
 
-type OpenFileParams = {
-    event: ChangeEvent<HTMLInputElement>
-    openPresentation: (slidesMap: Map<string, SlideType>, slideOrder: string[]) => void
-}
-
-const openFile = ({ event, openPresentation }: OpenFileParams) => {
+const openFile = (
+    event: ChangeEvent<HTMLInputElement>,
+    openPresentation: (slidesMap: Map<string, SlideType>, slideOrder: string[]) => void,
+) => {
     if (!event.target.files) {
         return null
     }
