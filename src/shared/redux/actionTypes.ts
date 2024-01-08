@@ -1,3 +1,4 @@
+import { DrawStyle, MoveObj } from 'shared/types/devTypes'
 import { ObjectType, Selected, SlideType } from '../types/types'
 
 enum PresentationTypes {
@@ -15,6 +16,18 @@ enum PresentationTypes {
     SET_SELECTED = 'SET_SELECTED',
     SET_CURRENT_SLIDE = 'SET_CURRENT_SLIDE',
     SET_TEXT_OBJECTS = 'SET_TEXT_OBJECTS',
+    SET_CURRENT_MOUSE_X = 'SET_CURRENT_MOUSE_X',
+    SET_CURRENT_MOUSE_Y = 'SET_CURRENT_MOUSE_Y',
+    SET_START_MOUSE_X = 'SET_START_MOUSE_X',
+    SET_START_MOUSE_Y = 'SET_START_MOUSE_Y',
+    SET_START_WIDTH = 'SET_START_WIDTH',
+    SET_START_HEIGHT = 'SET_START_HEIGHT',
+    SET_CURR_MOVE_TO_X = 'SET_CURR_MOVE_TO_X',
+    SET_CURR_MOVE_TO_Y = 'SET_CURR_MOVE_TO_Y',
+    SET_IS_DRAW = 'SET_IS_DRAW',
+    SET_LINE_DIRECTION = 'SET_LINE_DIRECTION',
+    SET_STYLE_OBJ = 'SET_STYLE_OBJ',
+    SET_MOVE_OBJS = 'SET_MOVE_OBJS',
 }
 
 type SetPresentationNameAction = {
@@ -111,6 +124,66 @@ type setTextObjectsAction = {
     payload: ObjectType[]
 }
 
+type SetCurrentMouseX = {
+    type: PresentationTypes.SET_CURRENT_MOUSE_X
+    payload: number
+}
+
+type SetCurrentMouseY = {
+    type: PresentationTypes.SET_CURRENT_MOUSE_Y
+    payload: number
+}
+
+type SetStartMouseX = {
+    type: PresentationTypes.SET_START_MOUSE_X
+    payload: number
+}
+
+type SetStartMouseY = {
+    type: PresentationTypes.SET_START_MOUSE_Y
+    payload: number
+}
+
+type SetStartWidth = {
+    type: PresentationTypes.SET_START_WIDTH
+    payload: number
+}
+
+type SetStartHeight = {
+    type: PresentationTypes.SET_START_HEIGHT
+    payload: number
+}
+
+type SetCurrMoveToX = {
+    type: PresentationTypes.SET_CURR_MOVE_TO_X
+    payload: number
+}
+
+type SetCurrMoveToY = {
+    type: PresentationTypes.SET_CURR_MOVE_TO_Y
+    payload: number
+}
+
+type SetIsDraw = {
+    type: PresentationTypes.SET_IS_DRAW
+    payload: boolean
+}
+
+type SetLineDirection = {
+    type: PresentationTypes.SET_LINE_DIRECTION
+    payload: 'right' | 'left'
+}
+
+type SetStyleObj = {
+    type: PresentationTypes.SET_STYLE_OBJ
+    payload: DrawStyle
+}
+
+type SetMoveObjs = {
+    type: PresentationTypes.SET_MOVE_OBJS
+    payload: MoveObj[]
+}
+
 type ActionTypes =
     | SetPresentationNameAction
     | AddSlideAction
@@ -126,5 +199,17 @@ type ActionTypes =
     | SetSlideObjectsColorAction
     | SetSlideObjectsFontSizeAction
     | SetSlideObjectsFontFamilyAction
+    | SetCurrentMouseX
+    | SetCurrentMouseY
+    | SetStartMouseX
+    | SetStartMouseY
+    | SetStartWidth
+    | SetStartHeight
+    | SetCurrMoveToX
+    | SetCurrMoveToY
+    | SetIsDraw
+    | SetLineDirection
+    | SetStyleObj
+    | SetMoveObjs
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }

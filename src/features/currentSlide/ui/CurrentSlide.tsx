@@ -3,7 +3,7 @@ import { BackgroundType, MouseStates, ObjectType, SlideType } from '../../../sha
 import { Object } from '../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
 import { MoveObj } from '../../../shared/types/devTypes'
-import { useAppSelector } from '../../../shared/redux/store'
+import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import React from 'react'
 import { minEditor } from '../../../shared/testData'
 import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
@@ -11,40 +11,23 @@ import { defaultCurrentSlide } from '../../../shared/defaultCurrentSlide'
 type CurrentSlideProps = {
     mouseState: MouseStates
     setMouseState: (mouseState: MouseStates) => void
-    setMoveObjs: (moveObjs: MoveObj[]) => void
-    moveObjs: MoveObj[]
-    setStartMouseX: (startMouseX: number) => void
-    setStartMouseY: (startMouseY: number) => void
-    setCurrentMouseX: (currentMouseX: number) => void
-    setCurrentMouseY: (currentMouseY: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     currentSlideBg: string
 }
 
-const CurrentSlide = ({
-    setMouseState,
-    mouseState,
-    setMoveObjs,
-    moveObjs,
-    setStartMouseX,
-    setStartMouseY,
-    setCurrentMouseX,
-    setCurrentMouseY,
-    handleMouseDownResize,
-    currentSlideBg,
-}: CurrentSlideProps) => {
+const CurrentSlide = ({ mouseState, setMouseState, handleMouseDownResize, currentSlideBg }: CurrentSlideProps) => {
     const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
     const { selectedSlideIds, selectedObjectIds } = useAppSelector((state) => state.selected)
-    // const lastSelectedSlideId = selectedSlideIds[selectedSlideIds.length - 1]
+    const { moveObjs } = useAppSelector((state) => state.editObject)
+    const { setStartMouseX, setStartMouseY, setCurrentMouseX, setCurrentMouseY, setMoveObjs } = useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
-    const shadowObjs = [...moveObjs]
+    const shadowObjs = moveObjs
     const currentSlideStyle = {
         ...wsp.currentSlideSizeStyle,
         background: currentSlideBg,
     }
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
-        //TODO: вынести сотсояния мыши в редюсер
         if (mouseState === 'cursor' && isSelected) {
             setStartMouseX(e.clientX)
             setStartMouseY(e.clientY)
@@ -52,6 +35,7 @@ const CurrentSlide = ({
             setCurrentMouseY(e.clientY)
             setMouseState('move')
             selectedObjectIds.map((id) => {
+                console.log(currentSlide)
                 const currMoveObj = currentSlide.objects.find((object) => object.id === id)
                 if (currMoveObj) {
                     const style = {
@@ -80,9 +64,9 @@ const CurrentSlide = ({
                         object={object}
                         isSideSlide={false}
                         isObjectSelected={isSelected}
-                        setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
+                        setMouseState={setMouseState}
                     />
                 )
             })}

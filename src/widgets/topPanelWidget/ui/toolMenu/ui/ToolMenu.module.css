@@ -3,7 +3,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
-    background-color: #E4E2E2;
+    background-color: #e4e2e2;
 }
 
 .shapeDropDown_hidden {
@@ -24,6 +24,6 @@
     outline: none;
     box-shadow: none;
     border-radius: 5px;
-    border: 1px solid #5E5E5E;
+    border: 1px solid #5e5e5e;
     cursor: pointer;
 }
