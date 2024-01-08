@@ -15,14 +15,6 @@ const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
     const { addSlide, setSlides, setSelectedSlideIds, setCurrentSlide, setSlidesOrder } = useAppActions()
     const [draggedSlidePos, setDraggedSlidePos] = useState<number | null>(null)
 
-    const handleDragStart = (pos: number) => {
-        setDraggedSlidePos(pos)
-    }
-
-    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-        e.preventDefault()
-    }
-
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, thisSlidePos: number) => {
         e.preventDefault()
         setSlidesOrder(getReorderedSlides(thisSlidePos, draggedSlidePos, slidesMap, slidesOrder))
@@ -64,13 +56,12 @@ const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
                 if (slide !== undefined) {
                     return (
                         <SideSlide
-                            slide={slide}
-                            order={index}
                             key={slideId}
                             isSelected={isSelected}
+                            order={index}
+                            slide={slide}
                             handleDrop={handleDrop}
-                            handleDragStart={handleDragStart}
-                            handleDragOver={handleDragOver}
+                            setDraggedSlidePos={setDraggedSlidePos}
                         />
                     )
                 }

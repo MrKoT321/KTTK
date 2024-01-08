@@ -6,15 +6,14 @@ import { widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
 import { useAppActions, useAppSelector } from '../../shared/redux/store'
 
 type SlideProps = {
-    slide: SlideType
-    order: number
     isSelected: boolean
+    order: number
+    slide: SlideType
     handleDrop(e: React.DragEvent<HTMLDivElement>, thisSlidePos: number): void
-    handleDragStart(pos: number): void
-    handleDragOver(e: React.DragEvent<HTMLDivElement>): void
+    setDraggedSlidePos(pos: number): void
 }
 
-const SideSlide = ({ slide, order, isSelected, handleDragOver, handleDragStart, handleDrop }: SlideProps) => {
+const SideSlide = ({ slide, order, isSelected, setDraggedSlidePos, handleDrop }: SlideProps) => {
     const slidesOrder = useAppSelector((state) => state.slides.slidesOrder)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
     const thisSlide: SlideType = { ...slide }
@@ -61,8 +60,8 @@ const SideSlide = ({ slide, order, isSelected, handleDragOver, handleDragStart, 
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 onClick={(e) => handleClick(e)}
-                onDragStart={() => handleDragStart(order)}
-                onDragOver={(e) => handleDragOver(e)}
+                onDragStart={() => setDraggedSlidePos(order)}
+                onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => handleDrop(e, order)}
                 draggable={true}
             >
