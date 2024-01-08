@@ -149,6 +149,7 @@ const SelectImagePopUp = () => {
                         </label>
                         <input
                             type={'file'}
+                            accept={'image/png, image/jpeg'}
                             id={'fileLoader'}
                             className={styles.hidden}
                             onChange={handleFileSelected}

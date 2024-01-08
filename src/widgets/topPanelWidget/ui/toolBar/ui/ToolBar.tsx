@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react'
 import { openFile } from '../tools/openFile'
 import { saveFile } from '../tools/saveFile'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
+import { exportPresentationAsPdf } from '../tools/saveFileAsPdf'
 
 const ToolBar = () => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
@@ -29,6 +30,9 @@ const ToolBar = () => {
                         openFile(event, openPresentation, setPresentationName)
                     }
                 />
+            </button>
+            <button className={styles.button} onClick={() => exportPresentationAsPdf(slidesMap, presentationName)}>
+                Скачать как PDF
             </button>
         </div>
     )
