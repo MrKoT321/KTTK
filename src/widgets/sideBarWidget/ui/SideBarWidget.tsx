@@ -3,7 +3,6 @@ import { SideSlide } from '../../../entity/sideSlide/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
-import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
 
 type SlideBarProps = {
     mouseLocation: MouseLocations
@@ -28,83 +27,57 @@ const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
         setSlidesOrder(getReorderedSlides(thisSlidePos, draggedSlidePos, slidesMap, slidesOrder))
     }
 
-    // const handleKeyDown = (e: KeyboardEvent) => {
-    //     if (mouseLocation === 'sideBar') {
-    //         if (e.key === 'Delete') {
-    //             e.preventDefault()
-    //             console.log('1111111111111111111111111111111111111111111111111\n11111111111')
-    //             selectedSlideIds.forEach((slideId) => {
-    //                 slidesMap.delete(slideId)
-    //             })
-    //             setSlidesOrder(Array.from(slidesMap.keys()))
-    //             if (slidesMap.size === 0) {
-    //                 addSlide(slidesMap, [])
-    //             }
-    //         }
-    //     }
-    // }
-
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent, selectedSlideIds: string[]) => {
         if (mouseLocation === 'sideBar') {
             if (e.key === 'Delete') {
                 e.preventDefault()
-                console.log('1111111111111111')
                 const newOrder = slidesOrder.filter((slideId) => !selectedSlideIds.includes(slideId))
-                console.log('newOrder = ', newOrder)
                 setSlidesOrder(newOrder)
+                const newSlidesMap: Map<string, SlideType> = new Map()
+                const keys = Array.from(slidesMap.keys())
+                newOrder.map((slideId) => {
+                    keys.map((key) => {
+                        if (key === slideId) {
+                            const newSlide = slidesMap.get(slideId)
+                            if (newSlide) {
+                                newSlidesMap.set(slideId, newSlide)
+                            }
+                        }
+                    })
+                })
+                setSlides(newSlidesMap)
                 if (newOrder.length === 0) {
                     addSlide(new Map(), [])
+                } else {
+                    setSelectedSlideIds([newOrder[0]])
+                    setCurrentSlide(slidesOrder[0])
                 }
             }
         }
     }
 
-    console.log('slidesOrder = ', slidesOrder)
-    // console.log('currentSlideId = ', currentSlideId)
-    console.log('selectedSlideIds = ', selectedSlideIds)
-    console.log('slidesMap = ', slidesMap)
-
     useEffect(() => {
-        document.addEventListener('keydown', (e) => handleKeyDown(e))
-        return document.removeEventListener('keydown', (e) => handleKeyDown(e))
+        const handleDeleteSlides = (e: KeyboardEvent) => {
+            handleKeyDown(e, selectedSlideIds)
+        }
+        document.addEventListener('keydown', handleDeleteSlides)
+        return () => {
+            document.removeEventListener('keydown', handleDeleteSlides)
+        }
     }, [selectedSlideIds])
 
     useEffect(() => {
-        const newSlidesMap: Map<string, SlideType> = new Map()
-        const keys = Array.from(slidesMap.keys())
-        slidesOrder.map((slideId) => {
-            keys.map((key) => {
-                if (key === slideId) {
-                    console.log('2222222222')
-                    newSlidesMap.set(slideId, slidesMap.get(slideId) || defaultCurrentSlide)
-                }
-            })
-            console.log('newSlidesMap = ', newSlidesMap)
-        })
-        setSlides(newSlidesMap)
         if (slidesOrder.length === 1) {
-            setSelectedSlideIds(Array.from(slidesMap.keys()))
+            setSelectedSlideIds(slidesOrder)
             setCurrentSlide(slidesOrder[0])
         }
     }, [slidesOrder])
-
-    // useEffect(() => {
-    //     const newMap: Map<string, SlideType> = new Map()
-    //     for (const slideId of slidesOrder) {
-    //         const slide = slidesMap.get(slideId)
-    //         if (slide) {
-    //             newMap.set(slideId, slide)
-    //         }
-    //     }
-    //     setSlides(newMap)
-    // }, [slidesOrder])
 
     return (
         <>
             {slidesOrder.map((slideId, index) => {
                 const isSelected = selectedSlideIds.includes(slideId)
                 const slide = slidesMap.get(slideId)
-                // console.log(slideId, '---', slide)
                 if (slide !== undefined) {
                     return (
                         <SideSlide

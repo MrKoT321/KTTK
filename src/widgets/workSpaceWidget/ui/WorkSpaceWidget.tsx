@@ -261,12 +261,12 @@ const WorkSpaceWidget = ({ mouseState, setMouseState, mouseLocation }: WorkSpace
     }
 
     useEffect(() => {
-        const handleDeleteObject = (e: KeyboardEvent) => {
+        const handleDeleteObjects = (e: KeyboardEvent) => {
             handleKeyDown(e, selectedObjectIds)
         }
-        document.addEventListener('keydown', handleDeleteObject)
+        document.addEventListener('keydown', handleDeleteObjects)
         return () => {
-            document.removeEventListener('keydown', handleDeleteObject)
+            document.removeEventListener('keydown', handleDeleteObjects)
         }
     }, [selectedObjectIds])
 
