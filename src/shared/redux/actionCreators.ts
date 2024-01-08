@@ -169,7 +169,6 @@ const setCurrentMouseX = (currentMouseX: number) => {
 }
 
 const setCurrentMouseY = (currentMouseY: number) => {
-    console.log('action', currentMouseY)
     return {
         type: PresentationTypes.SET_CURRENT_MOUSE_Y,
         payload: currentMouseY,

@@ -9,7 +9,6 @@ type LayoutProps = {
     sideBar: ReactNode
     workSpace: ReactNode
     footer: ReactNode
-    onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, location: MouseLocations) => void
 }
 
 const Layout = ({ topPanel, sideBar, workSpace, footer }: LayoutProps) => {

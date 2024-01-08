@@ -62,7 +62,6 @@ const CurrentSlide = ({ handleMouseDownResize }: CurrentSlideProps) => {
                         setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
-                        setMouseState={setMouseState}
                     />
                 )
             })}

@@ -110,13 +110,13 @@ const Object = ({
                         return (
                             <ShapeObject
                                 id={object.id}
-                                width={scaleSideSlide * object.width}
-                                height={scaleSideSlide * object.height}
-                                startX={scaleSideSlide * object.startX}
-                                startY={scaleSideSlide * object.startY}
+                                width={lp.sideSlideScale * object.width}
+                                height={lp.sideSlideScale * object.height}
+                                startX={lp.sideSlideScale * object.startX}
+                                startY={lp.sideSlideScale * object.startY}
                                 direction={object.direction}
                                 borderStyle={object.borderStyle}
-                                borderWidth={scaleSideSlide * object.borderWidth}
+                                borderWidth={lp.sideSlideScale * object.borderWidth}
                                 borderColor={object.borderColor}
                                 type={object.type}
                                 shapeBgColor={object.shapeBgColor}

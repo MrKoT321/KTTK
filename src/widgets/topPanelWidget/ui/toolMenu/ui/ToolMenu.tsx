@@ -8,7 +8,6 @@ import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
 import addLineIcon from '../../../../../shared/icons/addLineIcon.svg'
-import { MouseStates } from '../../../../../shared/types/types'
 import React, { useState } from 'react'
 import { ToolMenuButton } from '../../../../../shared/ui/toolMenuButton'
 import { DropdownMenu } from '../../../../../features/dropdownMenu'
@@ -26,12 +25,8 @@ const ToolMenu = () => {
     const changeDropDownVisibility = () => {
         if (!isDropDownVisible) {
             setIsDropDownVisible(true)
-
-    const onClickFuncs = [
-        () => setMouseState('creatingRect'),
-        () => setMouseState('creatingCircle'),
-        () => setMouseState('creatingLine'),
-    ]
+        }
+    }
 
     return (
         <div className={styles.toolMenu}>
@@ -53,7 +48,7 @@ const ToolMenu = () => {
                 <DropdownMenu
                     icons={[addRectangleIcon, addCircleIcon, addLineIcon]}
                     labels={['Rectangle', 'Circle', 'Line']}
-                    onClicks={onClickFuncs}
+                    onClicks={getFunctionsForDropDownLabels(setMouseState, setIsDropDownVisible)}
                 />
             </div>
             <SelectImagePopUp />

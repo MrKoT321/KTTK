@@ -7,6 +7,7 @@ import { handleDeleteSlides } from '../tools/handleDeleteSlides'
 const SideBarWidget = () => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const mouseLocation = useAppSelector((state) => state.mouse.mouseLocation)
     const { addSlide, setSlides, setSelectedSlideIds, setCurrentSlide, setSlidesOrder } = useAppActions()
     const [draggedSlidePos, setDraggedSlidePos] = useState<number | null>(null)
 
