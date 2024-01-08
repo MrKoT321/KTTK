@@ -14,7 +14,7 @@ const EditTools = () => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
 
     const isObjectSelected = selectedObjectIds.length !== 0
-    const isTextObjectSelected = () => {
+    const isSelectedTextObject = () => {
         for (const object of currentSlide.objects) {
             if (object.oType === 'ObjectTextType' && selectedObjectIds.includes(object.id)) {
                 return true
@@ -22,10 +22,11 @@ const EditTools = () => {
         }
         return false
     }
+    const isTextObjectSelected = isSelectedTextObject()
 
     return (
         <div className={styles.editTools}>
-            {isTextObjectSelected() && (
+            {isTextObjectSelected && (
                 <>
                     <EditInputButton type={'font'} />
                     <EditInputButton type={'fontSize'} />
