@@ -87,7 +87,6 @@ const Object = ({
                             />
                         )
                     case 'rect':
-                    case 'line':
                     case 'triangle':
                         return (
                             <ShapeObject
@@ -107,7 +106,26 @@ const Object = ({
                                 handleMouseDownResize={handleMouseDownResize}
                             />
                         )
-                        break
+                    case 'line':
+                        return (
+                            <ShapeObject
+                                id={object.id}
+                                width={lp.sideSlideScale * object.width}
+                                height={lp.sideSlideScale * object.height}
+                                startX={lp.sideSlideScale * object.startX}
+                                startY={lp.sideSlideScale * object.startY}
+                                direction={object.direction}
+                                borderStyle={object.borderStyle}
+                                borderWidth={lp.sideSlideScale * object.borderWidth}
+                                borderColor={object.borderColor}
+                                type={object.type}
+                                shapeBgColor={object.shapeBgColor}
+                                oType={object.oType}
+                                isSelected={isObjectSelected}
+                                handleMouseDown={handleMouseDown}
+                                handleMouseDownResize={handleMouseDownResize}
+                            />
+                        )
                 }
             }
             switch (object.type) {
@@ -132,7 +150,6 @@ const Object = ({
                         />
                     )
                 case 'rect':
-                case 'line':
                 case 'triangle':
                     return (
                         <ShapeObject
@@ -141,6 +158,26 @@ const Object = ({
                             height={object.height}
                             startX={object.startX}
                             startY={object.startY}
+                            borderStyle={object.borderStyle}
+                            borderWidth={object.borderWidth}
+                            borderColor={object.borderColor}
+                            type={object.type}
+                            shapeBgColor={object.shapeBgColor}
+                            oType={object.oType}
+                            isSelected={isObjectSelected}
+                            handleMouseDown={handleMouseDown}
+                            handleMouseDownResize={handleMouseDownResize}
+                        />
+                    )
+                case 'line':
+                    return (
+                        <ShapeObject
+                            id={object.id}
+                            width={object.width}
+                            height={object.height}
+                            startX={object.startX}
+                            startY={object.startY}
+                            direction={object.direction}
                             borderStyle={object.borderStyle}
                             borderWidth={object.borderWidth}
                             borderColor={object.borderColor}

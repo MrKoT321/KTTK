@@ -9,3 +9,27 @@
     border-width: 2px;
     cursor: move;
 }
+
+.lineTopLeft {
+    position: absolute;
+    background: linear-gradient(
+        to top left,
+        rgb(0 0 0 / 0%) 0%,
+        rgb(0 0 0 / 0%) calc(50% - 0.8px),
+        rgb(0 0 0 / 100%) 50%,
+        rgb(0 0 0 / 0%) calc(50% + 0.8px),
+        rgb(0 0 0 / 0%) 100%
+    );
+}
+
+.lineTopRight {
+    position: absolute;
+    background: linear-gradient(
+        to top right,
+        rgb(0 0 0 / 0%) 0%,
+        rgb(0 0 0 / 0%) calc(50% - 0.8px),
+        rgb(0 0 0 / 100%) 50%,
+        rgb(0 0 0 / 0%) calc(50% + 0.8px),
+        rgb(0 0 0 / 0%) 100%
+    );
+}

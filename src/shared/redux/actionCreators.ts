@@ -1,6 +1,7 @@
 import { PresentationTypes } from './actionTypes'
-import { ObjectTextType, Selected, SlideType } from '../types/types'
+import { MouseLocations, MouseStates, ObjectTextType, Selected, SlideType } from '../types/types'
 import { v4 as uuidV4 } from 'uuid'
+import { DrawStyle, MoveObj } from 'shared/types/devTypes'
 
 const setPresentationName = (name: string) => {
     return {
@@ -21,7 +22,6 @@ const addSlide = (slidesMap: Map<string, SlideType>, order: string[]) => {
     return {
         type: PresentationTypes.ADD_SLIDE,
         payload: {
-            // slidesMap: new Map(slidesMap),
             slidesMap: slidesMap,
             slidesOrder: [...order],
         },
@@ -48,13 +48,6 @@ const setSelectedSlideIds = (selectedSlideIds: string[]) => {
         payload: [...selectedSlideIds],
     }
 }
-
-// const setSlideObjects = (slideObjects: ObjectType[]) => {
-//     return {
-//         type: PresentationTypes.SET_SLIDE_OBJECTS_BOLDED,
-//         payload: [...slideObjects],
-//     }
-// }
 
 const setSelectedObjectIds = (selectedObjectIds: number[]) => {
     return {
@@ -168,12 +161,109 @@ const setSelectImagePopUpState = (state: boolean) => {
     }
 }
 
+const setCurrentMouseX = (currentMouseX: number) => {
+    return {
+        type: PresentationTypes.SET_CURRENT_MOUSE_X,
+        payload: currentMouseX,
+    }
+}
+
+const setCurrentMouseY = (currentMouseY: number) => {
+    return {
+        type: PresentationTypes.SET_CURRENT_MOUSE_Y,
+        payload: currentMouseY,
+    }
+}
+
+const setStartMouseX = (startMouseX: number) => {
+    return {
+        type: PresentationTypes.SET_START_MOUSE_X,
+        payload: startMouseX,
+    }
+}
+
+const setStartMouseY = (startMouseY: number) => {
+    return {
+        type: PresentationTypes.SET_START_MOUSE_Y,
+        payload: startMouseY,
+    }
+}
+
+const setStartWidth = (startWidth: number) => {
+    return {
+        type: PresentationTypes.SET_START_WIDTH,
+        payload: startWidth,
+    }
+}
+
+const setStartHeight = (startHeight: number) => {
+    return {
+        type: PresentationTypes.SET_START_HEIGHT,
+        payload: startHeight,
+    }
+}
+
+const setCurrMoveToX = (currMoveToX: number) => {
+    return {
+        type: PresentationTypes.SET_CURR_MOVE_TO_X,
+        payload: currMoveToX,
+    }
+}
+
+const setCurrMoveToY = (currMoveToY: number) => {
+    return {
+        type: PresentationTypes.SET_CURR_MOVE_TO_Y,
+        payload: currMoveToY,
+    }
+}
+
+const setIsDraw = (isDraw: boolean) => {
+    return {
+        type: PresentationTypes.SET_IS_DRAW,
+        payload: isDraw,
+    }
+}
+
+const setLineDirection = (lineDirection: 'right' | 'left') => {
+    return {
+        type: PresentationTypes.SET_LINE_DIRECTION,
+        payload: lineDirection,
+    }
+}
+
+const setStyleObj = (styleObj: DrawStyle) => {
+    return {
+        type: PresentationTypes.SET_STYLE_OBJ,
+        payload: styleObj,
+    }
+}
+
+const setMoveObjs = (moveObjs: MoveObj[]) => {
+    return {
+        type: PresentationTypes.SET_MOVE_OBJS,
+        payload: moveObjs,
+    }
+}
+
+const setMouseState = (mouseState: MouseStates) => {
+    return {
+        type: PresentationTypes.SET_MOUSE_STATE,
+        payload: mouseState,
+    }
+}
+
+const setMouseLocation = (mouseLocation: MouseLocations) => {
+    return {
+        type: PresentationTypes.SET_MOUSE_LOCATION,
+        payload: mouseLocation,
+    }
+}
+
 export {
     setPresentationName,
     addSlide,
     setSlides,
     setBackground,
-    // setSlideObjects,
     setSelectedSlideIds,
     setSelectedObjectIds,
     setSelected,
@@ -191,4 +281,18 @@ export {
     setSlideShapeObjectsColor,
     setSlidesOrder,
     setSelectImagePopUpState,
+    setCurrentMouseX,
+    setCurrentMouseY,
+    setStartMouseX,
+    setStartMouseY,
+    setStartWidth,
+    setStartHeight,
+    setCurrMoveToX,
+    setCurrMoveToY,
+    setIsDraw,
+    setLineDirection,
+    setStyleObj,
+    setMoveObjs,
+    setMouseState,
+    setMouseLocation,
 }

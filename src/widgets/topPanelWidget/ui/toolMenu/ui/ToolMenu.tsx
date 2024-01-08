@@ -7,7 +7,7 @@ import addImageIcon from '../../../../../shared/icons/addImageIcon.svg'
 import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
-import { MouseStates } from '../../../../../shared/types/types'
+import addLineIcon from '../../../../../shared/icons/addLineIcon.svg'
 import React, { useState } from 'react'
 import { ToolMenuButton } from '../../../../../shared/ui/toolMenuButton'
 import { DropdownMenu } from '../../../../../features/dropdownMenu'
@@ -16,13 +16,9 @@ import { defaultCurrentSlide } from '../../../../../shared/tools/defaultCurrentS
 import { SelectImagePopUp } from '../../../../../features/selectImagePopUp'
 import { getFunctionsForDropDownLabels } from '../../../../../features/dropdownMenu/tools/getFunctionsForDropDownLabels'
 
-type ToolMenuProps = {
-    setMouseState: (mouseState: MouseStates) => void
-}
-
-const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
+const ToolMenu = () => {
     const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
-    const { addSlide, setBackground, setSelectImagePopUpState } = useAppActions()
+    const { addSlide, setBackground, setSelectImagePopUpState, setMouseState } = useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [isDropDownVisible, setIsDropDownVisible] = useState(false)
 
@@ -50,8 +46,8 @@ const ToolMenu = ({ setMouseState }: ToolMenuProps) => {
             />
             <div className={isDropDownVisible ? styles.shapeDropDown_visible : styles.shapeDropDown_hidden}>
                 <DropdownMenu
-                    icons={[addRectangleIcon, addCircleIcon]}
-                    labels={['Rectangle', 'Circle']}
+                    icons={[addRectangleIcon, addCircleIcon, addLineIcon]}
+                    labels={['Rectangle', 'Circle', 'Line']}
                     onClicks={getFunctionsForDropDownLabels(setMouseState, setIsDropDownVisible)}
                 />
             </div>

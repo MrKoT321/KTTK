@@ -13,6 +13,7 @@ type AddObjectParams = {
     startMouseY: number
     createPosition: (startMousePos: number, currentMousePos: number) => number
     imageSrc?: string
+    direction?: 'right' | 'left'
 }
 
 const addObject = ({
@@ -26,16 +27,17 @@ const addObject = ({
     currentMouseY,
     createPosition,
     imageSrc,
+    direction = 'right',
 }: AddObjectParams) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
 
     let object: ObjectType
 
     const borderWidth = 0
-    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX
-    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY
-    const width = Math.abs(currentMouseX - startMouseX)
-    const height = Math.abs(currentMouseY - startMouseY)
+    const startX = createPosition(startMouseX, currentMouseX) - lp.currentSlideIndentX - borderWidth
+    const startY = createPosition(startMouseY, currentMouseY) - lp.currentSlideIndentY - 2 * borderWidth
+    const width = Math.abs(currentMouseX - startMouseX) + borderWidth
+    const height = Math.abs(currentMouseY - startMouseY) + borderWidth
 
     const createObjectId = () => {
         let maxId = 0
@@ -143,6 +145,23 @@ const addObject = ({
             }
             currentSlide.objects.push(object)
             break
+        case 'creatingLine':
+            object = {
+                id: createObjectId(),
+                width: width,
+                height: height,
+                startX: startX,
+                startY: startY,
+                direction,
+                borderStyle: 'none',
+                borderWidth: borderWidth,
+                borderColor: 'black',
+                type: 'line',
+                shapeBgColor: 'black',
+                oType: 'ObjectShapeType',
+            }
+            currentSlide.objects.push(object)
+            break
         case 'creatingTriangle':
             object = {
                 id: createObjectId(),
@@ -153,7 +172,7 @@ const addObject = ({
                 borderStyle: 'none',
                 borderWidth: borderWidth,
                 borderColor: 'black',
-                type: 'line',
+                type: 'triangle',
                 shapeBgColor: 'yellow',
                 oType: 'ObjectShapeType',
             }

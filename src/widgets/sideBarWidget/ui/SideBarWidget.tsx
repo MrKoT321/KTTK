@@ -1,17 +1,13 @@
-import { MouseLocations } from '../../../shared/types/types'
 import { SideSlide } from '../../../entity/sideSlide/ui/SideSlide'
 import React, { useEffect, useState } from 'react'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { getReorderedSlides } from '../tools/getReorderedSlides'
 import { handleDeleteSlides } from '../tools/handleDeleteSlides'
 
-type SlideBarProps = {
-    mouseLocation: MouseLocations
-}
-
-const SideBarWidget = ({ mouseLocation }: SlideBarProps) => {
+const SideBarWidget = () => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selectedSlideIds = useAppSelector((state) => state.selected.selectedSlideIds)
+    const mouseLocation = useAppSelector((state) => state.mouse.mouseLocation)
     const { addSlide, setSlides, setSelectedSlideIds, setCurrentSlide, setSlidesOrder } = useAppActions()
     const [draggedSlidePos, setDraggedSlidePos] = useState<number | null>(null)
 

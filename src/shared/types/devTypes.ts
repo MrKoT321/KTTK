@@ -1,7 +1,6 @@
 import { ObjectTextType } from './types'
 
 type DrawStyle = {
-    opacity: number
     left: number
     top: number
     width: number

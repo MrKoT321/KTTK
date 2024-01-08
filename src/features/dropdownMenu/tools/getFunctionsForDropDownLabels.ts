@@ -12,4 +12,8 @@ export const getFunctionsForDropDownLabels = (
         setMouseState('creatingCircle')
         setIsDropDownVisible(false)
     },
+    () => {
+        setMouseState('creatingLine')
+        setIsDropDownVisible(false)
+    },
 ]

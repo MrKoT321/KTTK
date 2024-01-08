@@ -5,6 +5,7 @@ type MouseStates =
     | 'creatingText'
     | 'creatingRect'
     | 'creatingCircle'
+    | 'creatingLine'
     | 'creatingTriangle'
     | 'creatingBase64Img'
     | 'creatingLinkImg'
@@ -39,6 +40,7 @@ type ShapeTriangleType = {
 
 type ShapeLineType = {
     type: 'line'
+    direction: 'left' | 'right'
 }
 
 type ShapeType = ShapeRectType | ShapeCircleType | ShapeTriangleType | ShapeLineType

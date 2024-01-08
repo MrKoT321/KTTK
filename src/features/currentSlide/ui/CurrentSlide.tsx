@@ -1,47 +1,29 @@
 import { layoutParams as lp, widgetsSizeParams as wsp } from 'shared/tools/layoutParams'
-import { MouseStates } from '../../../shared/types/types'
 import { Object } from '../../../shared/ui/object'
 import styles from './CurrentSlide.module.css'
-import { MoveObj } from '../../../shared/types/devTypes'
-import { useAppSelector } from '../../../shared/redux/store'
+import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import React from 'react'
 import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
 
 type CurrentSlideProps = {
-    mouseState: MouseStates
-    setMouseState: (mouseState: MouseStates) => void
-    setMoveObjs: (moveObjs: MoveObj[]) => void
-    moveObjs: MoveObj[]
-    setStartMouseX: (startMouseX: number) => void
-    setStartMouseY: (startMouseY: number) => void
-    setCurrentMouseX: (currentMouseX: number) => void
-    setCurrentMouseY: (currentMouseY: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const CurrentSlide = ({
-    setMouseState,
-    mouseState,
-    setMoveObjs,
-    moveObjs,
-    setStartMouseX,
-    setStartMouseY,
-    setCurrentMouseX,
-    setCurrentMouseY,
-    handleMouseDownResize,
-}: CurrentSlideProps) => {
+const CurrentSlide = ({ handleMouseDownResize }: CurrentSlideProps) => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const { selectedObjectIds } = useAppSelector((state) => state.selected)
+    const { mouseState } = useAppSelector((state) => state.mouse)
+    const { moveObjs } = useAppSelector((state) => state.editObject)
+    const { setStartMouseX, setStartMouseY, setCurrentMouseX, setCurrentMouseY, setMoveObjs, setMouseState } =
+        useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
-    const shadowObjs = [...moveObjs]
-
+    const shadowObjs = moveObjs
     const currentSlideStyle = {
         ...wsp.currentSlideSizeStyle,
         background: currentSlide.backgroundValue,
     }
 
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
-        //TODO: вынести сотсояния мыши в редюсер
         if (mouseState === 'cursor' && isSelected && !e.ctrlKey) {
             setStartMouseX(e.clientX)
             setStartMouseY(e.clientY)
