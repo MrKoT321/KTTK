@@ -14,10 +14,10 @@ function setBackgroundColor(doc: jsPDF, bgColor: string, slideSize: number[]) {
 }
 
 function convertTextFontToString(textObject: ObjectTextType): string {
-    const fontWeight = textObject.bold ? 'bold' : 'normal'
     const fontStyle = textObject.italic ? 'italic' : 'normal'
     const fontSize = textObject.fontSize
-    return fontStyle + ' ' + fontWeight + ' ' + fontSize
+    const fontFamily = textObject.fontFamily
+    return fontStyle + ' ' + fontSize + 'px ' + fontFamily + ', sans-serif'
 }
 
 function addTextBox(doc: jsPDF, textObject: ObjectTextType) {
@@ -30,9 +30,6 @@ function addTextBox(doc: jsPDF, textObject: ObjectTextType) {
             canvas.width = textObject.width
             canvas.height = textObject.height
             ctx.fillStyle = textObject.fontColor
-            if (textObject.borderWidth !== 0) {
-                ctx.lineWidth = textObject.borderWidth
-            }
             CanvasTextWrapper(canvas, value, { font: font })
             const base64 = canvas.toDataURL()
             doc.addImage(base64, 'PNG', textObject.startX, textObject.startY, textObject.width, textObject.height)
@@ -66,11 +63,13 @@ function addCircle(doc: jsPDF, circle: ObjectShapeType) {
 
 function addRect(doc: jsPDF, rect: ObjectShapeType) {
     doc.setFillColor(rect.shapeBgColor)
+    doc.setLineWidth(rect.borderWidth)
     doc.rect(rect.startX, rect.startY, rect.width, rect.height, 'FD')
 }
 
 function addTriangle(doc: jsPDF, triangle: ObjectShapeType) {
     doc.setFillColor(triangle.shapeBgColor)
+    doc.setLineWidth(triangle.borderWidth)
     doc.triangle(
         triangle.startX + triangle.width / 2,
         triangle.startY,
