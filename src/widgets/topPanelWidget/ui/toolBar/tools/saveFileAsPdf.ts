@@ -30,7 +30,11 @@ function addTextBox(doc: jsPDF, textObject: ObjectTextType) {
             canvas.width = textObject.width
             canvas.height = textObject.height
             ctx.fillStyle = textObject.fontColor
-            CanvasTextWrapper(canvas, value, { font: font })
+            ctx.strokeStyle = textObject.fontColor
+            CanvasTextWrapper(canvas, value, {
+                font: font,
+                textDecoration: textObject.underlined ? 'underline' : 'none',
+            })
             const base64 = canvas.toDataURL()
             doc.addImage(base64, 'PNG', textObject.startX, textObject.startY, textObject.width, textObject.height)
         }
@@ -52,6 +56,8 @@ function addImage(doc: jsPDF, imageObject: ObjectImageType) {
 
 function addCircle(doc: jsPDF, circle: ObjectShapeType) {
     doc.setFillColor(circle.shapeBgColor)
+    doc.setLineWidth(circle.borderWidth)
+    doc.setDrawColor(circle.borderColor)
     doc.ellipse(
         circle.startX + circle.width / 2,
         circle.startY + circle.height / 2,
@@ -64,12 +70,14 @@ function addCircle(doc: jsPDF, circle: ObjectShapeType) {
 function addRect(doc: jsPDF, rect: ObjectShapeType) {
     doc.setFillColor(rect.shapeBgColor)
     doc.setLineWidth(rect.borderWidth)
+    doc.setDrawColor(rect.borderColor)
     doc.rect(rect.startX, rect.startY, rect.width, rect.height, 'FD')
 }
 
 function addTriangle(doc: jsPDF, triangle: ObjectShapeType) {
     doc.setFillColor(triangle.shapeBgColor)
     doc.setLineWidth(triangle.borderWidth)
+    doc.setDrawColor(triangle.borderColor)
     doc.triangle(
         triangle.startX + triangle.width / 2,
         triangle.startY,
