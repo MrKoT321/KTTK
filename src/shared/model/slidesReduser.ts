@@ -102,13 +102,7 @@ const setStyleCurrentSlideObjects = (
                 object.borderColor = stringParamToChange || '#000000'
             }
             if (paramToChange === 'rotation') {
-                if (numberParamToChange && numberParamToChange < 0) {
-                    object.rotate = 0
-                } else if (numberParamToChange && numberParamToChange > 359) {
-                    object.rotate = 359
-                } else {
-                    object.rotate = numberParamToChange || 0
-                }
+                object.rotate = numberParamToChange || 0
             }
         }
     })
