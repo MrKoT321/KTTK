@@ -5,8 +5,6 @@ import { SlideShow } from './widgets/slideShowWidget'
 const App = () => {
     const isSlideShow = useAppSelector((state) => state.slideShow.isSlideShow)
 
-    console.log('isSlideShow = ', isSlideShow)
-
     return (
         <>
             {isSlideShow && <SlideShow />}

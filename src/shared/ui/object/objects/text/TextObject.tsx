@@ -1,4 +1,4 @@
-import { ObjectTextType } from '../../../../types/types'
+import { ObjectLocationType, ObjectTextType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
 import React, { CSSProperties } from 'react'
@@ -8,6 +8,7 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
+    objectLocation: ObjectLocationType
     handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
     handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
     isBlocked?: boolean
@@ -24,7 +25,6 @@ const TextObject = (props: TextObjProps) => {
         height: props.height + 2 * props.borderWidth,
         left: props.startX,
         top: props.startY,
-        boxSizing: `border-box`,
     }
 
     return (
@@ -54,20 +54,29 @@ const TextObject = (props: TextObjProps) => {
                     }
                 }}
             >
-                {props.isBlocked && (
+                {props.isBlocked && props.objectLocation === 'sideSlide' && (
                     <textarea
                         value={props.value}
-                        placeholder="Введите текст"
+                        placeholder=""
+                        className={`${styles.text} ${styles.textGrabbed}`}
+                        readOnly={true}
+                        style={createTextObject(props)}
+                    ></textarea>
+                )}
+                {props.isBlocked && props.objectLocation === 'slideShowSlide' && (
+                    <textarea
+                        value={props.value}
+                        placeholder=""
                         className={`${styles.text} ${styles.textBlocked}`}
                         readOnly={true}
                         style={createTextObject(props)}
                     ></textarea>
                 )}
-                {!props.isBlocked && (
+                {!props.isBlocked && props.isSelected && (
                     <textarea
                         value={props.value}
                         placeholder="Введите текст"
-                        className={`${styles.text} ${styles.textNotBlocked}`}
+                        className={`${styles.text} ${styles.textNotBlocked} ${styles.textSelected}`}
                         style={createTextObject(props)}
                         onChange={(e) => {
                             for (const object of currentSlide.objects) {
@@ -78,6 +87,15 @@ const TextObject = (props: TextObjProps) => {
                             slidesMap.set(currentSlideId, currentSlide)
                             setSlides(slidesMap)
                         }}
+                    ></textarea>
+                )}
+                {!props.isBlocked && !props.isSelected && (
+                    <textarea
+                        value={props.value}
+                        placeholder="Введите текст"
+                        className={`${styles.text} ${styles.textNotBlocked} ${styles.textNonSelected}`}
+                        readOnly={true}
+                        style={createTextObject(props)}
                     ></textarea>
                 )}
             </div>

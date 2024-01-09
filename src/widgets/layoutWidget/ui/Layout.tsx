@@ -1,7 +1,6 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import styles from './Layout.module.css'
 import { layoutParams as lp, widgetsSizeParams as wsp } from '../../../shared/tools/layoutParams'
-import { MouseLocations } from 'shared/types/types'
 import { useAppActions } from 'shared/redux/store'
 
 type LayoutProps = {
@@ -22,14 +21,14 @@ const Layout = ({ topPanel, sideBar, workSpace, footer }: LayoutProps) => {
                 <div
                     className={styles.sideBar}
                     style={wsp.sideBarSizeStyle}
-                    onClick={(e) => setMouseLocation('sideBar')}
+                    onClick={() => setMouseLocation('sideBar')}
                 >
                     {sideBar}
                 </div>
                 <div
                     className={styles.workSpace}
                     style={wsp.workSpaceSizeStyle}
-                    onClick={(e) => setMouseLocation('workSpace')}
+                    onClick={() => setMouseLocation('workSpace')}
                 >
                     {workSpace}
                 </div>
