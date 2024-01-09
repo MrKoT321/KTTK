@@ -6,7 +6,7 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type ImageObjProps = ObjectImageType & {
     isSelected: boolean
-    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
     handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
@@ -52,7 +52,7 @@ const ImageObject = (props: ImageObjProps) => {
                 }
                 onMouseDown={(e) => {
                     if (props.handleMouseDown) {
-                        props.handleMouseDown(e, props.isSelected)
+                        props.handleMouseDown(e, props.isSelected, props.borderWidth)
                     }
                 }}
             >

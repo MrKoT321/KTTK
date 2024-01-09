@@ -9,7 +9,7 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
     objectLocation: ObjectLocationType
-    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
     handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
     isBlocked?: boolean
 }
@@ -50,7 +50,7 @@ const TextObject = (props: TextObjProps) => {
                 }
                 onMouseDown={(e) => {
                     if (props.handleMouseDown) {
-                        props.handleMouseDown(e, props.isSelected)
+                        props.handleMouseDown(e, props.isSelected, props.borderWidth)
                     }
                 }}
             >

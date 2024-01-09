@@ -7,7 +7,7 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type ShapeObjProps = ObjectShapeType & {
     isSelected: boolean
-    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
     handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
@@ -30,7 +30,7 @@ const ShapeObject = (props: ShapeObjProps) => {
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={getQuadStyles(props.width)}
+                    style={getQuadStyles(props.width + 2 * props.borderWidth)}
                     onMouseDown={(e) => {
                         if (props.handleMouseDownResize) {
                             props.handleMouseDownResize(e)
@@ -45,7 +45,7 @@ const ShapeObject = (props: ShapeObjProps) => {
                 }
                 onMouseDown={(e) => {
                     if (props.handleMouseDown) {
-                        props.handleMouseDown(e, props.isSelected)
+                        props.handleMouseDown(e, props.isSelected, props.borderWidth)
                     }
                 }}
             ></div>

@@ -9,7 +9,7 @@ type ObjectProps = {
     isSideSlide?: boolean
     isObjectSelected: boolean
     objectLocation: ObjectLocationType
-    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
     handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
