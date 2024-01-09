@@ -26,7 +26,6 @@ const openFile = (
                     return
                 }
                 const parsedResult = JSON.parse(result)
-                console.log('parsedResult = ', parsedResult)
                 if (
                     'document' in parsedResult &&
                     'selected' in parsedResult &&

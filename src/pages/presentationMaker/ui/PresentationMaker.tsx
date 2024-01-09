@@ -65,11 +65,6 @@ const PresentationMaker = () => {
             )
     }, [historyPosDirection, slidesOrder, presentationName, slidesMap, selected])
 
-    console.log('presentationHistory = ', presentationHistory)
-    console.log('historyPosition = ', historyPosition)
-    console.log('historyPosDirection = ', historyPosDirection)
-    console.log('---------------------------------------------------------------')
-
     return (
         <Layout
             topPanel={<TopPanelWidget />}

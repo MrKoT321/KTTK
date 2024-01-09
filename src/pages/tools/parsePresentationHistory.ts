@@ -14,7 +14,6 @@ export const parsePresentationHistory = (
     addSlide: (newSlidesMap: Map<string, SlideType>, newOrder: string[]) => void,
     setPresentationName: (name: string) => void,
 ) => {
-    console.log('presentationHistory before Parsing = ', presentationHistory)
     const historyLength = presentationHistory.length
     if (presentationHistory.length > 0) {
         try {
@@ -32,30 +31,30 @@ export const parsePresentationHistory = (
             parsedResult = JSON.parse(presentationHistory[historyPosition + 1])
             setHistoryPosition(historyPosition + 1)
         }
-        console.log('parsedHistory = ', parsedResult)
-        if (
-            'selected' in parsedResult &&
-            'name' in parsedResult &&
-            'slidesMap' in parsedResult &&
-            'slidesOrder' in parsedResult &&
-            'currentSlideId' in parsedResult
-        ) {
-            if (parsedResult.slidesMap) {
-                const newSlidesMap = new Map<string, SlideType>()
-                for (const keyOfSlidesMap in parsedResult.slidesMap) {
-                    newSlidesMap.set(keyOfSlidesMap, parsedResult.slidesMap[keyOfSlidesMap])
-                }
-                const newOrder = parsedResult.slidesOrder
-                console.log('newOrder = ', newOrder)
-                setSlides(newSlidesMap)
-                setCurrentSlide(parsedResult.currentSlideId)
-                setSelectedSlideIds([...parsedResult.selected.selectedSlideIds])
-                setSelectedObjectIds([...parsedResult.selected.selectedObjectIds])
-                setSlidesOrder(parsedResult.slidesOrder)
-            } else addSlide(new Map(), [])
-            setPresentationName(parsedResult.name || '')
-        } else {
-            alert('Ошибка декодирования')
+        if (parsedResult) {
+            if (
+                'selected' in parsedResult &&
+                'name' in parsedResult &&
+                'slidesMap' in parsedResult &&
+                'slidesOrder' in parsedResult &&
+                'currentSlideId' in parsedResult
+            ) {
+                if (parsedResult.slidesMap) {
+                    const newSlidesMap = new Map<string, SlideType>()
+                    for (const keyOfSlidesMap in parsedResult.slidesMap) {
+                        newSlidesMap.set(keyOfSlidesMap, parsedResult.slidesMap[keyOfSlidesMap])
+                    }
+                    const newOrder = parsedResult.slidesOrder
+                    setSlides(newSlidesMap)
+                    setCurrentSlide(parsedResult.currentSlideId)
+                    setSelectedSlideIds([...parsedResult.selected.selectedSlideIds])
+                    setSelectedObjectIds([...parsedResult.selected.selectedObjectIds])
+                    setSlidesOrder(parsedResult.slidesOrder)
+                } else addSlide(new Map(), [])
+                setPresentationName(parsedResult.name || '')
+            } else {
+                alert('Ошибка декодирования')
+            }
         }
     }
     setHistoryPosDirection('none')
