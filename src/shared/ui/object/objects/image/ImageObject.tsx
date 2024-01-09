@@ -29,6 +29,7 @@ const ImageObject = (props: ImageObjProps) => {
         height: props.height,
         left: props.startX,
         top: props.startY,
+        transform: `rotate(${props.rotate}deg)`,
     }
 
     return (
