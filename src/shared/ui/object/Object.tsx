@@ -1,10 +1,8 @@
 import { TextObject, ShapeObject, ImageObject } from './objects'
-import { ObjectImageType, ObjectShapeType, ObjectTextType } from '../../types/types'
+import { ObjectImageType, ObjectLocationType, ObjectShapeType, ObjectTextType } from '../../types/types'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { useAppSelector } from '../../redux/store'
 import React from 'react'
-
-type ObjectLocationType = 'sideSlide' | 'currentSlide' | 'slideShowSlide'
 
 type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
@@ -21,6 +19,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
         case 'ObjectTextType': {
             const props = {
                 ...object,
+                objectLocation: objectLocation,
                 selected,
                 isSelected: isObjectSelected,
                 handleMouseDown,
@@ -31,6 +30,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                     return (
                         <TextObject
                             id={object.id}
+                            objectLocation={objectLocation}
                             width={lp.slideShowScale * object.width}
                             height={lp.slideShowScale * object.height}
                             startX={lp.slideShowScale * object.startX}
@@ -58,6 +58,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                     return (
                         <TextObject
                             id={object.id}
+                            objectLocation={objectLocation}
                             width={lp.sideSlideScale * object.width}
                             height={lp.sideSlideScale * object.height}
                             startX={lp.sideSlideScale * object.startX}

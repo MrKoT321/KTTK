@@ -1,5 +1,5 @@
 // import { ActionTypes, PresentationTypes } from '../../shared/redux/actionTypes'
-// import { Editor } from '../../shared/types/types'
+// import { Editor } from '../../shared/types.ts/types.ts'
 //
 // type SlidesReducerType = {
 //     presentation: Editor

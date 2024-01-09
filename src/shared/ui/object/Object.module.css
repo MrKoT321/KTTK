@@ -30,6 +30,10 @@
 }
 
 .textBlocked {
+    cursor: default;
+}
+
+.textGrabbed {
     cursor: grab;
 }
 

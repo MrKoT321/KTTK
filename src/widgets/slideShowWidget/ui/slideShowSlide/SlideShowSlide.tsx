@@ -14,13 +14,11 @@ const SlideShowSlide = ({ slide }: SlideShowSlideType) => {
     }
 
     return (
-        // <div className={styles.slideShowSlide}>
         <div style={slideStyle}>
             {slide.objects.map((object) => (
                 <Object object={object} isObjectSelected={false} objectLocation={'slideShowSlide'} />
             ))}
         </div>
-        // </div>
     )
 }
 
