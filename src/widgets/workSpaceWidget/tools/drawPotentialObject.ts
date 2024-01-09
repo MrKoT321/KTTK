@@ -78,8 +78,6 @@ const drawPotentialObject = ({
                 borderStyle: 'none',
             })
             break
-        case 'creatingTriangle':
-            break
     }
 }
 

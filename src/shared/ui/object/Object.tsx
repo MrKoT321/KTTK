@@ -9,8 +9,11 @@ type ObjectProps = {
     isSideSlide?: boolean
     isObjectSelected: boolean
     objectLocation: ObjectLocationType
-    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
-    handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
+    handleMouseDownResize?: (
+        e: React.MouseEvent<HTMLDivElement>,
+        quadPos: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight',
+    ) => void
 }
 
 const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, handleMouseDownResize }: ObjectProps) => {
@@ -149,7 +152,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     shapeBgColor={object.shapeBgColor}
                                     oType={object.oType}
                                     direction={object.direction}
-                                    lineWidth={object.lineWidth}
+                                    lineWidth={lp.slideShowScale * object.lineWidth}
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
@@ -216,7 +219,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     shapeBgColor={object.shapeBgColor}
                                     oType={object.oType}
                                     direction={object.direction}
-                                    lineWidth={object.lineWidth}
+                                    lineWidth={lp.sideSlideScale * object.lineWidth}
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}

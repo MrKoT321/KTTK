@@ -34,6 +34,7 @@ type ParamToChangeType =
 const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     currentSlide.backgroundValue = color
+    slidesMap.set(currentSlideId, currentSlide)
     return slidesMap.set(currentSlideId, currentSlide)
 }
 

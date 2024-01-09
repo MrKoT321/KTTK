@@ -9,8 +9,11 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
     objectLocation: ObjectLocationType
-    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
-    handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
+    handleMouseDownResize?: (
+        e: React.MouseEvent<HTMLDivElement>,
+        quadPos: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight',
+    ) => void
     isBlocked?: boolean
 }
 
@@ -21,36 +24,76 @@ const TextObject = (props: TextObjProps) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
 
     const styleParentObj: CSSProperties = {
-        width: props.width + 2 * props.borderWidth,
-        height: props.height + 2 * props.borderWidth,
+        width: props.width + 2 * props.borderWidth + 4,
+        height: props.height + 2 * props.borderWidth + 4,
         left: props.startX,
         top: props.startY,
     }
 
+    const styleChildObj: CSSProperties = {
+        width: props.width,
+        height: props.height,
+    }
+
     return (
         <div
+            style={styleParentObj}
             className={`${styles.object} ${props.isSelected ? styles.selected : styles.nonSelected}`}
-            style={{ left: props.startX, top: props.startY }}
         >
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={getQuadStyles(props.width)}
+                    style={getQuadStyles(props.width + 2 * props.borderWidth + 4, 0)}
                     onMouseDown={(e) => {
                         if (props.handleMouseDownResize) {
-                            props.handleMouseDownResize(e)
+                            props.handleMouseDownResize(e, 'topRight')
+                        }
+                    }}
+                ></div>
+            )}
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={getQuadStyles(0, 0)}
+                    onMouseDown={(e) => {
+                        if (props.handleMouseDownResize) {
+                            props.handleMouseDownResize(e, 'topLeft')
+                        }
+                    }}
+                ></div>
+            )}
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={getQuadStyles(0, props.height + 2 * props.borderWidth + 4)}
+                    onMouseDown={(e) => {
+                        if (props.handleMouseDownResize) {
+                            props.handleMouseDownResize(e, 'bottomLeft')
+                        }
+                    }}
+                ></div>
+            )}
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={getQuadStyles(
+                        props.width + 2 * props.borderWidth + 4,
+                        props.height + 2 * props.borderWidth + 4,
+                    )}
+                    onMouseDown={(e) => {
+                        if (props.handleMouseDownResize) {
+                            props.handleMouseDownResize(e, 'bottomRight')
                         }
                     }}
                 ></div>
             )}
             <div
-                style={styleParentObj}
                 onClick={(e) =>
                     handleObjectClick(e, props.isSelected, props.id, selectedObjectIds, setSelectedObjectIds)
                 }
                 onMouseDown={(e) => {
                     if (props.handleMouseDown) {
-                        props.handleMouseDown(e, props.isSelected)
+                        props.handleMouseDown(e, props.isSelected, props.borderWidth)
                     }
                 }}
             >

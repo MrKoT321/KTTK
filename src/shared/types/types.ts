@@ -2,6 +2,8 @@ type BackgroundType = 'color' | 'imageLink' | 'imageBase64'
 
 type ObjectLocationType = 'sideSlide' | 'currentSlide' | 'slideShowSlide'
 
+type HistoryPosDirectionType = 'up' | 'down' | 'none'
+
 type MouseStates =
     | 'cursor'
     | 'creatingText'
@@ -118,4 +120,5 @@ export type {
     MouseStates,
     MouseLocations,
     ObjectLocationType,
+    HistoryPosDirectionType,
 }

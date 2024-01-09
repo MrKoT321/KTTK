@@ -7,8 +7,11 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type ShapeObjProps = ObjectShapeType & {
     isSelected: boolean
-    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
-    handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
+    handleMouseDownResize?: (
+        e: React.MouseEvent<HTMLDivElement>,
+        quadPos: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight',
+    ) => void
 }
 
 const ShapeObject = (props: ShapeObjProps) => {
@@ -30,10 +33,43 @@ const ShapeObject = (props: ShapeObjProps) => {
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={getQuadStyles(props.width)}
+                    style={getQuadStyles(props.width + 2 * props.borderWidth, 0)}
                     onMouseDown={(e) => {
                         if (props.handleMouseDownResize) {
-                            props.handleMouseDownResize(e)
+                            props.handleMouseDownResize(e, 'topRight')
+                        }
+                    }}
+                ></div>
+            )}
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={getQuadStyles(0, 0)}
+                    onMouseDown={(e) => {
+                        if (props.handleMouseDownResize) {
+                            props.handleMouseDownResize(e, 'topLeft')
+                        }
+                    }}
+                ></div>
+            )}
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={getQuadStyles(0, props.height + 2 * props.borderWidth)}
+                    onMouseDown={(e) => {
+                        if (props.handleMouseDownResize) {
+                            props.handleMouseDownResize(e, 'bottomLeft')
+                        }
+                    }}
+                ></div>
+            )}
+            {props.isSelected && (
+                <div
+                    className={styles.quad}
+                    style={getQuadStyles(props.width + 2 * props.borderWidth, props.height + 2 * props.borderWidth)}
+                    onMouseDown={(e) => {
+                        if (props.handleMouseDownResize) {
+                            props.handleMouseDownResize(e, 'bottomRight')
                         }
                     }}
                 ></div>
@@ -45,7 +81,7 @@ const ShapeObject = (props: ShapeObjProps) => {
                 }
                 onMouseDown={(e) => {
                     if (props.handleMouseDown) {
-                        props.handleMouseDown(e, props.isSelected)
+                        props.handleMouseDown(e, props.isSelected, props.borderWidth)
                     }
                 }}
             ></div>
