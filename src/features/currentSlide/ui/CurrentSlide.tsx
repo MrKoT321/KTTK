@@ -6,7 +6,10 @@ import React from 'react'
 import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
 
 type CurrentSlideProps = {
-    handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
+    handleMouseDownResize: (
+        e: React.MouseEvent<HTMLDivElement>,
+        quadPos: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight',
+    ) => void
 }
 
 const CurrentSlide = ({ handleMouseDownResize }: CurrentSlideProps) => {

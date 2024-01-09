@@ -4,7 +4,7 @@
     gap: 5px;
     padding: 5px;
     box-sizing: border-box;
-    background: #ffb6b6;
+    background: #FFB6B6;
     border-radius: 10px;
 }
 
@@ -17,5 +17,5 @@
 
 .line:hover {
     border-radius: 5px;
-    background: #fa7f7f;
+    background: #FA7F7F;
 }

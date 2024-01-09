@@ -2,8 +2,8 @@ import { TextObjProps } from '../../../../../types/devTypes'
 
 const createTextObject = (props: TextObjProps) => {
     return {
-        width: props.width + props.borderWidth,
-        height: props.height + props.borderWidth,
+        width: props.width,
+        height: props.height,
         borderStyle: props.borderStyle,
         borderWidth: props.borderWidth,
         borderColor: props.borderColor,
