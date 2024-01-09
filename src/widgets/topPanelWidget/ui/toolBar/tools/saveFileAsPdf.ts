@@ -74,25 +74,16 @@ function addRect(doc: jsPDF, rect: ObjectShapeType) {
     doc.rect(rect.startX, rect.startY, rect.width, rect.height, 'FD')
 }
 
-// function addTriangle(doc: jsPDF, triangle: ObjectShapeType) {
-//     doc.setFillColor(triangle.shapeBgColor)
-//     doc.setLineWidth(triangle.borderWidth)
-//     doc.setDrawColor(triangle.borderColor)
-//     doc.triangle(
-//         triangle.startX + triangle.width / 2,
-//         triangle.startY,
-//         triangle.width,
-//         triangle.height,
-//         triangle.startX,
-//         triangle.height,
-//         'FD',
-//     )
-// }
-
 function addLine(doc: jsPDF, line: ObjectShapeType) {
-    doc.setDrawColor(line.shapeBgColor)
-    doc.setLineWidth(line.borderWidth)
-    doc.line(line.startX, line.startY, line.width, line.height, 'FD')
+    if (line.type == 'line') {
+        doc.setDrawColor(line.shapeBgColor)
+        doc.setLineWidth(line.lineWidth)
+        if (line.direction === 'right') {
+            doc.line(line.startX, line.startY, line.startX + line.width, line.startY + line.height, 'FD')
+        } else {
+            doc.line(line.startX, line.startY, line.startX - line.width, line.startY + line.height, 'FD')
+        }
+    }
 }
 
 function addShape(doc: jsPDF, shapeObject: ObjectShapeType) {
@@ -102,9 +93,6 @@ function addShape(doc: jsPDF, shapeObject: ObjectShapeType) {
     if (shapeObject.type === 'rect') {
         addRect(doc, shapeObject)
     }
-    // if (shapeObject.type === 'triangle') {
-    //     addTriangle(doc, shapeObject)
-    // }
     if (shapeObject.type === 'line') {
         addLine(doc, shapeObject)
     }
