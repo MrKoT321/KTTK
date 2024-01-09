@@ -23,7 +23,7 @@ const CurrentSlide = ({ handleMouseDownResize }: CurrentSlideProps) => {
         background: currentSlide.backgroundValue,
     }
 
-    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => {
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => {
         if (mouseState === 'cursor' && isSelected && !e.ctrlKey) {
             setStartMouseX(e.clientX)
             setStartMouseY(e.clientY)
@@ -34,8 +34,8 @@ const CurrentSlide = ({ handleMouseDownResize }: CurrentSlideProps) => {
                 const currMoveObj = currentSlide.objects.find((object) => object.id === id)
                 if (currMoveObj) {
                     const style = {
-                        width: currMoveObj.width,
-                        height: currMoveObj.height,
+                        width: currMoveObj.width + 2 * borderWidth,
+                        height: currMoveObj.height + 2 * borderWidth,
                         left: currMoveObj.startX + lp.currentSlideIndentX,
                         top: currMoveObj.startY + lp.currentSlideIndentY,
                     }

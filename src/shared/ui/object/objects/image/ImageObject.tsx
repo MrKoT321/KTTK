@@ -6,7 +6,7 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type ImageObjProps = ObjectImageType & {
     isSelected: boolean
-    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
@@ -36,7 +36,7 @@ const ImageObject = (props: ImageObjProps) => {
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={getQuadStyles(props.width)}
+                    style={getQuadStyles(props.width + 2 * props.borderWidth)}
                     onMouseDown={(e) => props.handleMouseDownResize(e)}
                 ></div>
             )}
@@ -45,7 +45,7 @@ const ImageObject = (props: ImageObjProps) => {
                 onClick={(e) =>
                     handleObjectClick(e, props.isSelected, props.id, selectedObjectIds, setSelectedObjectIds)
                 }
-                onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
+                onMouseDown={(e) => props.handleMouseDown(e, props.isSelected, props.borderWidth)}
             >
                 <img style={styleChildObj} alt={props.caption} src={props.imageSrc} draggable="false" />
             </div>

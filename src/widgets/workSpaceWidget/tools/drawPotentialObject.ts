@@ -31,7 +31,7 @@ const drawPotentialObject = ({
                 top: createPosition(startMouseY, currentMouseY) + 2,
                 left: createPosition(startMouseX, currentMouseX) + 2,
                 width: Math.abs(currentMouseX - startMouseX) - 4,
-                height: Math.abs(currentMouseY - startMouseY) - 4,
+                height: Math.abs(currentMouseY - startMouseY) - 2,
                 borderColor: 'gray',
                 borderRadius: 0,
                 borderWidth: 2,
@@ -77,8 +77,6 @@ const drawPotentialObject = ({
                 borderWidth: 0,
                 borderStyle: 'none',
             })
-            break
-        case 'creatingTriangle':
             break
     }
 }

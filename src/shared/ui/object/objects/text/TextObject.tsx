@@ -8,7 +8,7 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
-    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
     isBlocked?: boolean
 }
@@ -34,7 +34,7 @@ const TextObject = (props: TextObjProps) => {
             {props.isSelected && (
                 <div
                     className={styles.quad}
-                    style={getQuadStyles(props.width)}
+                    style={getQuadStyles(props.width + 2 * props.borderWidth)}
                     onMouseDown={(e) => props.handleMouseDownResize(e)}
                 ></div>
             )}
@@ -43,7 +43,7 @@ const TextObject = (props: TextObjProps) => {
                 onClick={(e) =>
                     handleObjectClick(e, props.isSelected, props.id, selectedObjectIds, setSelectedObjectIds)
                 }
-                onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
+                onMouseDown={(e) => props.handleMouseDown(e, props.isSelected, props.borderWidth)}
             >
                 {props.isBlocked && (
                     <textarea
