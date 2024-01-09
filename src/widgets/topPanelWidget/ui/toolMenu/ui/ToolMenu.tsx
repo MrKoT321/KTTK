@@ -23,7 +23,9 @@ const ToolMenu = () => {
     const [isDropDownVisible, setIsDropDownVisible] = useState(false)
 
     const changeDropDownVisibility = () => {
-        if (!isDropDownVisible) {
+        if (isDropDownVisible) {
+            setIsDropDownVisible(false)
+        } else {
             setIsDropDownVisible(true)
         }
     }

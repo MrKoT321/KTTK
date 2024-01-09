@@ -1,4 +1,4 @@
-import { MouseStates, ObjectTextType } from '../../../../types/types'
+import { ObjectTextType } from '../../../../types/types'
 import styles from '../../Object.module.css'
 import { createTextObject } from './tools/createTextObject'
 import React, { CSSProperties } from 'react'
@@ -8,9 +8,8 @@ import { handleObjectClick, getQuadStyles } from '../../tools'
 
 type TextObjProps = ObjectTextType & {
     isSelected: boolean
-    setMouseState: (mouseState: MouseStates) => void
-    handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
-    handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
+    handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
+    handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
     isBlocked?: boolean
 }
 
@@ -37,7 +36,11 @@ const TextObject = (props: TextObjProps) => {
                 <div
                     className={styles.quad}
                     style={getQuadStyles(props.width)}
-                    onMouseDown={(e) => props.handleMouseDownResize(e)}
+                    onMouseDown={(e) => {
+                        if (props.handleMouseDownResize) {
+                            props.handleMouseDownResize(e)
+                        }
+                    }}
                 ></div>
             )}
             <div
@@ -45,7 +48,11 @@ const TextObject = (props: TextObjProps) => {
                 onClick={(e) =>
                     handleObjectClick(e, props.isSelected, props.id, selectedObjectIds, setSelectedObjectIds)
                 }
-                onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
+                onMouseDown={(e) => {
+                    if (props.handleMouseDown) {
+                        props.handleMouseDown(e, props.isSelected)
+                    }
+                }}
             >
                 {props.isBlocked && (
                     <textarea

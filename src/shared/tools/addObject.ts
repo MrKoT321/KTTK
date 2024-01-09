@@ -97,7 +97,6 @@ const addObject = ({
                 startY: startY,
                 borderStyle: 'solid',
                 borderWidth: borderWidth,
-                //TODO: бордер не отображается поэтому нужно починить
                 borderColor: '#000000',
                 fontSize: 20,
                 fontColor: '#000000',
@@ -159,22 +158,6 @@ const addObject = ({
                 type: 'line',
                 shapeBgColor: '#000000',
                 lineWidth: 2,
-                oType: 'ObjectShapeType',
-            }
-            currentSlide.objects.push(object)
-            break
-        case 'creatingTriangle':
-            object = {
-                id: createObjectId(),
-                width: width,
-                height: height,
-                startX: startX,
-                startY: startY,
-                borderStyle: 'none',
-                borderWidth: borderWidth,
-                borderColor: '#000000',
-                type: 'triangle',
-                shapeBgColor: '#FFFF00',
                 oType: 'ObjectShapeType',
             }
             currentSlide.objects.push(object)

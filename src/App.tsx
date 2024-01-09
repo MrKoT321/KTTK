@@ -1,11 +1,18 @@
+import { useAppSelector } from './shared/redux/store'
 import { PresentationMaker } from './pages/presentationMaker'
-import { Provider } from 'react-redux'
-import { store } from './shared/redux/store'
+import { SlideShow } from './widgets/slideShowWidget'
 
-const App = () => (
-    <Provider store={store}>
-        <PresentationMaker />
-    </Provider>
-)
+const App = () => {
+    const isSlideShow = useAppSelector((state) => state.slideShow.isSlideShow)
+
+    console.log('isSlideShow = ', isSlideShow)
+
+    return (
+        <>
+            {isSlideShow && <SlideShow />}
+            {!isSlideShow && <PresentationMaker />}
+        </>
+    )
+}
 
 export default App

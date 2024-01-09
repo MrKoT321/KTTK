@@ -57,9 +57,8 @@ const CurrentSlide = ({ handleMouseDownResize }: CurrentSlideProps) => {
                     <Object
                         key={index}
                         object={object}
-                        isSideSlide={false}
                         isObjectSelected={isSelected}
-                        setMouseState={setMouseState}
+                        objectLocation={'currentSlide'}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
                     />

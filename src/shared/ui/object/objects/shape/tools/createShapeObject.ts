@@ -32,8 +32,6 @@ const createShapeObject = (props: ObjectShapeType) => {
                     rgba(0,0,0,0) calc(50% + ${props.lineWidth / 2}px),
                     rgba(0,0,0,0) 100%)`,
             }
-        case 'triangle':
-            break
     }
 }
 

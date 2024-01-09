@@ -1,5 +1,5 @@
 import { DrawStyle, MoveObj } from 'shared/types/devTypes'
-import { MouseLocations, MouseStates, ObjectType, Selected, SlideType } from '../types/types'
+import { MouseLocations, MouseStates, Selected, SlideType } from '../types/types'
 
 enum PresentationTypes {
     SET_PRESENTATION_NAME = 'SET_PRESENTATION_NAME',
@@ -20,10 +20,11 @@ enum PresentationTypes {
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
     SET_CURRENT_SLIDE = 'SET_CURRENT_SLIDE',
-    SET_TEXT_OBJECTS = 'SET_TEXT_OBJECTS',
     SET_SLIDES_ORDER = 'SET_SLIDES_ORDER',
     SET_SELECT_IMAGE_POPUP_STATE = 'SET_SELECT_IMAGE_POPUP_STATE',
-    OPEN_PRESENTATION = 'OPEN_PRESENTATION',
+    SET_IS_SLIDE_SHOW = 'SET_IS_SLIDE_SHOW',
+    SET_CURRENT_SLIDE_NUMBER = 'SET_CURRENT_SLIDE_NUMBER',
+    SET_IS_FULLSCREEN = 'SET_IS_FULLSCREEN',
     SET_CURRENT_MOUSE_X = 'SET_CURRENT_MOUSE_X',
     SET_CURRENT_MOUSE_Y = 'SET_CURRENT_MOUSE_Y',
     SET_START_MOUSE_X = 'SET_START_MOUSE_X',
@@ -160,11 +161,6 @@ type SetCurrentSlideAction = {
     payload: string
 }
 
-type SetTextObjectsAction = {
-    type: PresentationTypes.SET_TEXT_OBJECTS
-    payload: ObjectType[]
-}
-
 type SetSlidesOrderAction = {
     type: PresentationTypes.SET_SLIDES_ORDER
     payload: string[]
@@ -172,6 +168,21 @@ type SetSlidesOrderAction = {
 
 type SetSelectImagePopUpStateAction = {
     type: PresentationTypes.SET_SELECT_IMAGE_POPUP_STATE
+    payload: boolean
+}
+
+type SetIsSlideShow = {
+    type: PresentationTypes.SET_IS_SLIDE_SHOW
+    payload: boolean
+}
+
+type SetCurrentSlideNumber = {
+    type: PresentationTypes.SET_CURRENT_SLIDE_NUMBER
+    payload: number
+}
+
+type SetIsFullscreen = {
+    type: PresentationTypes.SET_IS_FULLSCREEN
     payload: boolean
 }
 
@@ -254,7 +265,6 @@ type ActionTypes =
     | SetSelectedObjectsAction
     | SetSelectedAction
     | SetCurrentSlideAction
-    | SetTextObjectsAction
     | SetSlideObjectsBoldedAction
     | SetSlideObjectsItalicAction
     | SetSlideObjectsUnderlinedAction
@@ -267,6 +277,9 @@ type ActionTypes =
     | SetSlideShapeObjectsColorAction
     | SetSlidesOrderAction
     | SetSelectImagePopUpStateAction
+    | SetIsSlideShow
+    | SetCurrentSlideNumber
+    | SetIsFullscreen
     | SetCurrentMouseX
     | SetCurrentMouseY
     | SetStartMouseX

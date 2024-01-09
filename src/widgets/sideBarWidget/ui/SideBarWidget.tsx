@@ -17,7 +17,7 @@ const SideBarWidget = () => {
     }
 
     useEffect(() => {
-        const handleDeleteDown = (event: KeyboardEvent) => {
+        const handleDeletePressed = (event: KeyboardEvent) => {
             handleDeleteSlides(
                 mouseLocation,
                 event,
@@ -31,9 +31,9 @@ const SideBarWidget = () => {
                 setCurrentSlide,
             )
         }
-        document.addEventListener('keydown', handleDeleteDown)
+        document.addEventListener('keydown', handleDeletePressed)
         return () => {
-            document.removeEventListener('keydown', handleDeleteDown)
+            document.removeEventListener('keydown', handleDeletePressed)
         }
     }, [selectedSlideIds])
 

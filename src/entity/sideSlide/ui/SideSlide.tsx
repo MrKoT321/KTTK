@@ -63,21 +63,7 @@ const SideSlide = ({ slide, order, isSelected, setDraggedSlidePos, handleDrop }:
                 <div className={styles.container} style={slideContainerStyle}>
                     <div className={styles.content} style={slideStyle}>
                         {thisSlide.objects.map((object, index) => (
-                            <Object
-                                key={index}
-                                object={object}
-                                isSideSlide={true}
-                                isObjectSelected={false}
-                                setMouseState={() => {
-                                    console.log()
-                                }}
-                                handleMouseDown={() => {
-                                    console.log()
-                                }}
-                                handleMouseDownResize={() => {
-                                    console.log()
-                                }}
-                            />
+                            <Object key={index} object={object} isObjectSelected={false} objectLocation={'sideSlide'} />
                         ))}
                     </div>
                 </div>

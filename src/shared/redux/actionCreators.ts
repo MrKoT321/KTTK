@@ -1,5 +1,5 @@
 import { PresentationTypes } from './actionTypes'
-import { MouseLocations, MouseStates, ObjectTextType, Selected, SlideType } from '../types/types'
+import { MouseLocations, MouseStates, Selected, SlideType } from '../types/types'
 import { v4 as uuidV4 } from 'uuid'
 import { DrawStyle, MoveObj } from 'shared/types/devTypes'
 
@@ -67,13 +67,6 @@ const setCurrentSlide = (currentSlideId: string) => {
     return {
         type: PresentationTypes.SET_CURRENT_SLIDE,
         payload: currentSlideId,
-    }
-}
-
-const setTextObjects = (textObject: ObjectTextType[]) => {
-    return {
-        type: PresentationTypes.SET_TEXT_OBJECTS,
-        payload: [...textObject],
     }
 }
 
@@ -154,10 +147,31 @@ const setSlidesOrder = (slidesOrder: string[]) => {
     }
 }
 
-const setSelectImagePopUpState = (state: boolean) => {
+const setSelectImagePopUpState = (isPopIpOpen: boolean) => {
     return {
         type: PresentationTypes.SET_SELECT_IMAGE_POPUP_STATE,
-        payload: state,
+        payload: isPopIpOpen,
+    }
+}
+
+const setIsSlideShow = (isSlideShow: boolean) => {
+    return {
+        type: PresentationTypes.SET_IS_SLIDE_SHOW,
+        payload: isSlideShow,
+    }
+}
+
+const setCurrentSlideNumber = (newCurrentSlideNumber: number) => {
+    return {
+        type: PresentationTypes.SET_CURRENT_SLIDE_NUMBER,
+        payload: newCurrentSlideNumber,
+    }
+}
+
+const setIsFullscreen = (isFullscreen: boolean) => {
+    return {
+        type: PresentationTypes.SET_IS_FULLSCREEN,
+        payload: isFullscreen,
     }
 }
 
@@ -268,7 +282,6 @@ export {
     setSelectedObjectIds,
     setSelected,
     setCurrentSlide,
-    setTextObjects,
     setTextObjectsBolded,
     setTextObjectsItalic,
     setTextObjectsUnderlined,
@@ -281,6 +294,9 @@ export {
     setSlideObjectsColor,
     setSlidesOrder,
     setSelectImagePopUpState,
+    setIsSlideShow,
+    setCurrentSlideNumber,
+    setIsFullscreen,
     setCurrentMouseX,
     setCurrentMouseY,
     setStartMouseX,

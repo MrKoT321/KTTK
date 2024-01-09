@@ -9,7 +9,15 @@ const ToolBar = () => {
     const { slidesMap, slidesOrder } = useAppSelector((state) => state.slides)
     const selected = useAppSelector((state) => state.selected)
     const presentationName = useAppSelector((state) => state.presentationName.name)
-    const { setSlides, setSlidesOrder, setPresentationName, setCurrentSlide, setSelectedSlideIds } = useAppActions()
+    const {
+        setSlides,
+        setSlidesOrder,
+        setPresentationName,
+        setCurrentSlide,
+        setSelectedSlideIds,
+        setIsSlideShow,
+        setIsFullscreen,
+    } = useAppActions()
 
     return (
         <div className={styles.toolBar}>
@@ -18,6 +26,9 @@ const ToolBar = () => {
                 onClick={() => saveFile(slidesMap, slidesOrder, selected, presentationName)}
             >
                 Скачать
+            </button>
+            <button className={styles.button} onClick={() => exportPresentationAsPdf(slidesMap, presentationName)}>
+                Скачать как PDF
             </button>
             <button className={styles.button}>
                 <label htmlFor={'open'}>Открыть</label>
@@ -38,8 +49,14 @@ const ToolBar = () => {
                     }
                 />
             </button>
-            <button className={styles.button} onClick={() => exportPresentationAsPdf(slidesMap, presentationName)}>
-                Скачать как PDF
+            <button
+                className={styles.button}
+                onClick={() => {
+                    setIsSlideShow(true)
+                    setIsFullscreen(true)
+                }}
+            >
+                Начать слайд-шоу
             </button>
         </div>
     )
