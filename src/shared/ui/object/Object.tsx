@@ -52,6 +52,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                             italic={object.italic}
                             underlined={object.underlined}
                             isBlocked={true}
+                            rotate={object.rotate}
                         />
                     )
                 case 'sideSlide':
@@ -79,6 +80,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                             italic={object.italic}
                             underlined={object.underlined}
                             isBlocked={true}
+                            rotate={object.rotate}
                         />
                     )
                 case 'currentSlide':
@@ -108,6 +110,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                         case 'rect':
@@ -127,6 +130,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                         case 'line':
@@ -148,6 +152,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                     }
@@ -172,6 +177,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                         case 'rect':
@@ -191,6 +197,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                         case 'line':
@@ -212,6 +219,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                     }
@@ -236,6 +244,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                         case 'rect':
@@ -255,6 +264,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                         case 'line':
@@ -276,6 +286,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                                     isSelected={isObjectSelected}
                                     handleMouseDown={handleMouseDown}
                                     handleMouseDownResize={handleMouseDownResize}
+                                    rotate={object.rotate}
                                 />
                             )
                     }
@@ -301,6 +312,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                             isSelected={isObjectSelected}
                             handleMouseDown={handleMouseDown}
                             handleMouseDownResize={handleMouseDownResize}
+                            rotate={object.rotate}
                         />
                     )
                 case 'sideSlide':
@@ -321,6 +333,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                             isSelected={isObjectSelected}
                             handleMouseDown={handleMouseDown}
                             handleMouseDownResize={handleMouseDownResize}
+                            rotate={object.rotate}
                         />
                     )
                 case 'currentSlide':
@@ -341,6 +354,7 @@ const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, han
                             isSelected={isObjectSelected}
                             handleMouseDown={handleMouseDown}
                             handleMouseDownResize={handleMouseDownResize}
+                            rotate={object.rotate}
                         />
                     )
             }

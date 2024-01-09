@@ -15,6 +15,7 @@ const createTextObject = (props: TextObjProps) => {
         textDecorationLine: props.underlined ? 'underline' : 'none',
         background: props.highlighter,
         textDecorationColor: props.fontColor,
+        transform: `rotate(${props.rotate}deg)`,
     }
 }
 

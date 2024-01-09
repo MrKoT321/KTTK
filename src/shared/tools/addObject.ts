@@ -67,6 +67,7 @@ const addObject = ({
                 imageSrcType: 'imageLink',
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
+                rotate: 0,
             }
             currentSlide.objects.push(object)
             break
@@ -85,6 +86,7 @@ const addObject = ({
                 imageSrcType: 'imageBase64',
                 imageSrc: imageSrc,
                 oType: 'ObjectImageType',
+                rotate: 0,
             }
             currentSlide.objects.push(object)
             break
@@ -108,6 +110,7 @@ const addObject = ({
                 underlineColor: '#000000',
                 value: '',
                 oType: 'ObjectTextType',
+                rotate: 0,
             }
             currentSlide.objects.push(object)
             break
@@ -124,6 +127,7 @@ const addObject = ({
                 type: 'rect',
                 shapeBgColor: '#FFFF00',
                 oType: 'ObjectShapeType',
+                rotate: 0,
             }
             currentSlide.objects.push(object)
             break
@@ -141,6 +145,7 @@ const addObject = ({
                 radius: Math.abs(currentMouseX - startMouseX / 2),
                 shapeBgColor: '#00FF00',
                 oType: 'ObjectShapeType',
+                rotate: 0,
             }
             currentSlide.objects.push(object)
             break
@@ -159,6 +164,7 @@ const addObject = ({
                 shapeBgColor: '#000000',
                 lineWidth: 2,
                 oType: 'ObjectShapeType',
+                rotate: 0,
             }
             currentSlide.objects.push(object)
             break

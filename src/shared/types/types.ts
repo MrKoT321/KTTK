@@ -23,6 +23,7 @@ type GeneralObjectType = {
     borderStyle: 'none' | 'hidden' | 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset'
     borderWidth: number
     borderColor: string
+    rotate: number
 }
 
 type ShapeRectType = {

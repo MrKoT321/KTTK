@@ -23,6 +23,7 @@ export const defaultCurrentSlide: SlideType = {
             underlineColor: '#000000',
             value: 'wefewfewfewffewwe',
             oType: 'ObjectTextType',
+            rotate: 0,
         },
     ],
 }

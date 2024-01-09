@@ -10,6 +10,7 @@ const createShapeObject = (props: ObjectShapeType) => {
                 borderStyle: props.borderStyle,
                 borderWidth: props.borderWidth,
                 borderColor: props.borderColor,
+                transform: `rotate(${props.rotate}deg)`,
             }
         case 'circle':
             return {
@@ -20,6 +21,7 @@ const createShapeObject = (props: ObjectShapeType) => {
                 borderWidth: props.borderWidth,
                 borderColor: props.borderColor,
                 borderRadius: props.radius,
+                transform: `rotate(${props.rotate}deg)`,
             }
         case 'line':
             return {
@@ -31,6 +33,7 @@ const createShapeObject = (props: ObjectShapeType) => {
                     ${props.shapeBgColor} 50%,
                     rgba(0,0,0,0) calc(50% + ${props.lineWidth / 2}px),
                     rgba(0,0,0,0) 100%)`,
+                transform: `rotate(${props.rotate}deg)`,
             }
     }
 }

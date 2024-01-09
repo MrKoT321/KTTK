@@ -7,6 +7,7 @@ import { ChangeTextDecorationSetupButton } from './changeTextDecorationSetupButt
 import { ChangeColorButton } from './changeColorButton'
 import { useAppSelector } from '../../../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../../../shared/tools/defaultCurrentSlide'
+import { InputField } from './inputField/InputField'
 
 const EditTools = () => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
@@ -55,6 +56,7 @@ const EditTools = () => {
                 <>
                     <EditInputButton type={'borderWidth'} />
                     <ChangeColorButton type={'objectColor'} />
+                    <InputField />
                 </>
             )}
             {isObjectSelected && !isLineObjectOnlySelected && (
@@ -63,6 +65,7 @@ const EditTools = () => {
                     <EditInputButton type={'borderStyle'} />
                     <ChangeColorButton type={'borderColor'} />
                     <ChangeColorButton type={'objectColor'} />
+                    <InputField />
                 </>
             )}
         </div>

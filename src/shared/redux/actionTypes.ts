@@ -16,6 +16,7 @@ enum PresentationTypes {
     SET_SLIDE_OBJECTS_BORDER_STYLE = 'SET_SLIDE_OBJECTS_BORDER_STYLE',
     SET_SLIDE_OBJECTS_BORDER_COLOR = 'SET_SLIDE_OBJECTS_BORDER_COLOR',
     SET_SLIDE_OBJECTS_COLOR = 'SET_SLIDE_OBJECTS_COLOR',
+    SET_SLIDE_OBJECTS_ROTATION = 'SET_SLIDE_OBJECTS_ROTATION',
     SET_SELECTED_SLIDE_IDS = 'SET_SELECTED_SLIDE_IDS',
     SET_SELECTED_OBJECT_IDS = 'SET_SELECTED_OBJECT_IDS',
     SET_SELECTED = 'SET_SELECTED',
@@ -85,7 +86,7 @@ type SetSlideObjectsUnderlinedAction = {
     }
 }
 
-type SetSlideObjectsColorAction = {
+type SetSlideObjectsFontColorAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_FONT_COLOR
     payload: {
         color: string
@@ -133,10 +134,18 @@ type SetSlideObjectsBorderColorAction = {
     }
 }
 
-type SetSlideShapeObjectsColorAction = {
+type SetSlideObjectsColorAction = {
     type: PresentationTypes.SET_SLIDE_OBJECTS_COLOR
     payload: {
         color: string
+        selectedObjectIds: number[]
+    }
+}
+
+type SetSlideObjectsRotationAction = {
+    type: PresentationTypes.SET_SLIDE_OBJECTS_ROTATION
+    payload: {
+        degrees: number
         selectedObjectIds: number[]
     }
 }
@@ -268,13 +277,14 @@ type ActionTypes =
     | SetSlideObjectsBoldedAction
     | SetSlideObjectsItalicAction
     | SetSlideObjectsUnderlinedAction
-    | SetSlideObjectsColorAction
+    | SetSlideObjectsFontColorAction
     | SetSlideObjectsFontSizeAction
     | SetSlideObjectsFontFamilyAction
     | SetSlideObjectsBorderWidthAction
     | SetSlideObjectsBorderStyleAction
     | SetSlideObjectsBorderColorAction
-    | SetSlideShapeObjectsColorAction
+    | SetSlideObjectsColorAction
+    | SetSlideObjectsRotationAction
     | SetSlidesOrderAction
     | SetSelectImagePopUpStateAction
     | SetIsSlideShow

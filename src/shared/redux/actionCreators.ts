@@ -140,6 +140,13 @@ const setSlideObjectsColor = (color: string, selectedObjectIds: number[]) => {
     }
 }
 
+const setSlideObjectsRotation = (degrees: number, selectedObjectIds: number[]) => {
+    return {
+        type: PresentationTypes.SET_SLIDE_OBJECTS_ROTATION,
+        payload: { degrees: degrees, selectedObjectIds: selectedObjectIds },
+    }
+}
+
 const setSlidesOrder = (slidesOrder: string[]) => {
     return {
         type: PresentationTypes.SET_SLIDES_ORDER,
@@ -292,6 +299,7 @@ export {
     setSlideObjectsBorderStyle,
     setSlideObjectsBorderColor,
     setSlideObjectsColor,
+    setSlideObjectsRotation,
     setSlidesOrder,
     setSelectImagePopUpState,
     setIsSlideShow,

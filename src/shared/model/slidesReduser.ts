@@ -29,6 +29,7 @@ type ParamToChangeType =
     | 'borderStyle'
     | 'borderColor'
     | 'objectColor'
+    | 'rotation'
 
 const setBackgroundCurrentSlide = (color: string, slidesMap: Map<string, SlideType>, currentSlideId: string) => {
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
@@ -99,6 +100,15 @@ const setStyleCurrentSlideObjects = (
             }
             if (paramToChange === 'borderColor') {
                 object.borderColor = stringParamToChange || '#000000'
+            }
+            if (paramToChange === 'rotation') {
+                if (numberParamToChange && numberParamToChange < 0) {
+                    object.rotate = 0
+                } else if (numberParamToChange && numberParamToChange > 359) {
+                    object.rotate = 359
+                } else {
+                    object.rotate = numberParamToChange || 0
+                }
             }
         }
     })
@@ -236,6 +246,18 @@ const slidesReducer = (state = initialState, action: ActionTypes) => {
                     action.payload.selectedObjectIds,
                     'objectColor',
                     action.payload.color,
+                ),
+            }
+        case PresentationTypes.SET_SLIDE_OBJECTS_ROTATION:
+            return {
+                ...state,
+                slidesMap: setStyleCurrentSlideObjects(
+                    state.currentSlideId,
+                    state.slidesMap,
+                    action.payload.selectedObjectIds,
+                    'rotation',
+                    '',
+                    action.payload.degrees,
                 ),
             }
         case PresentationTypes.SET_SLIDES_ORDER:
