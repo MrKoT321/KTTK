@@ -1,14 +1,16 @@
 import styles from './WorkSpaceWidget.module.css'
 import { CurrentSlide } from '../../../features/currentSlide'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { drawPotentialObject } from '../tools/drawPotentialObject'
 import { addObject } from '../../../shared/tools/addObject'
 import { changeObjects } from '../tools/changeObjects'
 import { layoutParams as lp } from 'shared/tools/layoutParams'
 import { useAppActions, useAppSelector } from '../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../shared/tools/defaultCurrentSlide'
+import { ObjectType } from 'shared/types/types'
 
 const WorkSpaceWidget = () => {
+    const [currQuadPos, setCurrQuadPos] = useState<'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'>('topRight')
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
     const { mouseState, mouseLocation } = useAppSelector((state) => state.mouse)
@@ -203,22 +205,78 @@ const WorkSpaceWidget = () => {
             setMoveObjs([])
         }
         if (mouseState === 'resize') {
-            if (styleObj.width !== 0 || styleObj.width) {
-                const newObjects = currentSlide.objects.map((object) => {
-                    if (selectedObjectIds.includes(object.id)) {
-                        if (startMouseX >= currentMouseX) {
-                            object.startX -= startMouseX - currentMouseX
-                        }
-                        if (startMouseY >= currentMouseY) {
-                            object.startY += startHeight - styleObj.height
-                        } else {
-                            object.startY = startMouseY - lp.currentSlideIndentY
-                        }
-                        object.width += styleObj.width - startWidth
-                        object.height += styleObj.height - startHeight
-                    }
-                    return object
-                })
+            if (styleObj.width !== 0 || styleObj.height !== 0) {
+                let newObjects: ObjectType[] = []
+                switch (currQuadPos) {
+                    case 'topRight':
+                        newObjects = currentSlide.objects.map((object) => {
+                            if (selectedObjectIds.includes(object.id)) {
+                                if (startMouseX >= currentMouseX) {
+                                    object.startX -= startMouseX - currentMouseX
+                                }
+                                if (startMouseY >= currentMouseY) {
+                                    object.startY += startHeight - styleObj.height
+                                } else {
+                                    object.startY = startMouseY - lp.currentSlideIndentY
+                                }
+                                object.width += styleObj.width - startWidth
+                                object.height += styleObj.height - startHeight
+                            }
+                            return object
+                        })
+                        break
+                    case 'topLeft':
+                        newObjects = currentSlide.objects.map((object) => {
+                            if (selectedObjectIds.includes(object.id)) {
+                                if (startMouseX >= currentMouseX) {
+                                    object.startX += startWidth - styleObj.width
+                                } else {
+                                    object.startX += startWidth
+                                }
+                                if (startMouseY >= currentMouseY) {
+                                    object.startY += startHeight - styleObj.height
+                                } else {
+                                    object.startY = startMouseY - lp.currentSlideIndentY
+                                }
+                                object.width += styleObj.width - startWidth
+                                object.height += styleObj.height - startHeight
+                            }
+                            return object
+                        })
+                        break
+                    case 'bottomRight':
+                        newObjects = currentSlide.objects.map((object) => {
+                            if (selectedObjectIds.includes(object.id)) {
+                                if (startMouseX >= currentMouseX) {
+                                    object.startX -= startMouseX - currentMouseX
+                                }
+                                if (startMouseY >= currentMouseY) {
+                                    object.startY -= styleObj.height
+                                }
+                                object.width += styleObj.width - startWidth
+                                object.height -= object.height - styleObj.height
+                            }
+                            return object
+                        })
+                        break
+                    case 'bottomLeft':
+                        newObjects = currentSlide.objects.map((object) => {
+                            if (selectedObjectIds.includes(object.id)) {
+                                if (startMouseX >= currentMouseX) {
+                                    object.startX += startWidth - styleObj.width
+                                } else {
+                                    object.startX += startWidth
+                                }
+                                if (startMouseY >= currentMouseY) {
+                                    object.startY -= styleObj.height
+                                }
+                                object.width += styleObj.width - startWidth
+                                object.height -= object.height - styleObj.height
+                            }
+                            return object
+                        })
+                        break
+                }
                 const newCurrentSlide = { ...currentSlide, objects: newObjects }
                 slidesMap.set(currentSlideId, newCurrentSlide)
                 setSlides(slidesMap)
@@ -258,27 +316,58 @@ const WorkSpaceWidget = () => {
         }
     }
 
-    const handleMouseDownResize = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleMouseDownResize = (
+        e: React.MouseEvent<HTMLDivElement>,
+        quadPos: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight',
+    ) => {
         setMouseState('resize')
         let minX = 1920
         let maxY = 0
+        let objWidth = 0
+        let objHeight = 0
         selectedObjectIds.map((id) => {
-            const currobj = currentSlide.objects.find((object) => object.id === id) ?? {
+            const currObj = currentSlide.objects.find((object) => object.id === id) ?? {
                 startX: minX,
                 startY: maxY,
+                width: 0,
                 height: 0,
             }
-            if (minX > currobj.startX) {
-                minX = currobj.startX
+            if (minX > currObj.startX) {
+                minX = currObj.startX
             }
-            if (maxY < currobj.startY + currobj.height) {
-                maxY = currobj.startY + currobj.height
+            if (maxY < currObj.startY + currObj.height) {
+                maxY = currObj.startY + currObj.height
             }
+            objWidth = currObj.width
+            objHeight = currObj.height
         })
-        setStartMouseX(minX + lp.currentSlideIndentX)
-        setStartMouseY(maxY + lp.currentSlideIndentY)
-        setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX)
-        setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
+        setCurrQuadPos(quadPos)
+        switch (quadPos) {
+            case 'topRight':
+                setStartMouseX(minX + lp.currentSlideIndentX)
+                setStartMouseY(maxY + lp.currentSlideIndentY)
+                setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX)
+                setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
+                break
+            case 'topLeft':
+                setStartMouseX(minX + lp.currentSlideIndentX + objWidth)
+                setStartMouseY(maxY + lp.currentSlideIndentY)
+                setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX + objWidth)
+                setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY)
+                break
+            case 'bottomRight':
+                setStartMouseX(minX + lp.currentSlideIndentX)
+                setStartMouseY(maxY + lp.currentSlideIndentY - objHeight)
+                setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX)
+                setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY - objHeight)
+                break
+            case 'bottomLeft':
+                setStartMouseX(minX + lp.currentSlideIndentX + objWidth)
+                setStartMouseY(maxY + lp.currentSlideIndentY - objHeight)
+                setStartWidth(e.clientX - lp.sideBarWidth - lp.currentSlideIndentX - minX + objWidth)
+                setStartHeight(maxY - e.clientY + lp.topPanelHeight + lp.currentSlideIndentY - objHeight)
+                break
+        }
     }
 
     const handleKeyDown = (e: KeyboardEvent, selectedObjectIds: number[]) => {

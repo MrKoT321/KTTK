@@ -10,7 +10,10 @@ type ObjectProps = {
     isObjectSelected: boolean
     objectLocation: ObjectLocationType
     handleMouseDown?: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean, borderWidth: number) => void
-    handleMouseDownResize?: (arg: React.MouseEvent<HTMLDivElement>) => void
+    handleMouseDownResize?: (
+        e: React.MouseEvent<HTMLDivElement>,
+        quadPos: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight',
+    ) => void
 }
 
 const Object = ({ object, isObjectSelected, objectLocation, handleMouseDown, handleMouseDownResize }: ObjectProps) => {
