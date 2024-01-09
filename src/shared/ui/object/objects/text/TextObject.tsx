@@ -24,7 +24,6 @@ const TextObject = (props: TextObjProps) => {
         height: props.height + 2 * props.borderWidth,
         left: props.startX,
         top: props.startY,
-        boxSizing: `border-box`,
     }
 
     return (
@@ -63,11 +62,11 @@ const TextObject = (props: TextObjProps) => {
                         style={createTextObject(props)}
                     ></textarea>
                 )}
-                {!props.isBlocked && (
+                {!props.isBlocked && props.isSelected && (
                     <textarea
                         value={props.value}
                         placeholder="Введите текст"
-                        className={`${styles.text} ${styles.textNotBlocked}`}
+                        className={`${styles.text} ${styles.textNotBlocked} ${styles.textSelected}`}
                         style={createTextObject(props)}
                         onChange={(e) => {
                             for (const object of currentSlide.objects) {
@@ -78,6 +77,15 @@ const TextObject = (props: TextObjProps) => {
                             slidesMap.set(currentSlideId, currentSlide)
                             setSlides(slidesMap)
                         }}
+                    ></textarea>
+                )}
+                {!props.isBlocked && !props.isSelected && (
+                    <textarea
+                        value={props.value}
+                        placeholder="Введите текст"
+                        className={`${styles.text} ${styles.textNotBlocked} ${styles.textNonSelected}`}
+                        readOnly={true}
+                        style={createTextObject(props)}
                     ></textarea>
                 )}
             </div>

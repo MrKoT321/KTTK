@@ -30,8 +30,8 @@ const drawPotentialObject = ({
             setStyleObj({
                 top: createPosition(startMouseY, currentMouseY) + 2,
                 left: createPosition(startMouseX, currentMouseX) + 2,
-                width: Math.abs(currentMouseX - startMouseX),
-                height: Math.abs(currentMouseY - startMouseY),
+                width: Math.abs(currentMouseX - startMouseX) - 4,
+                height: Math.abs(currentMouseY - startMouseY) - 4,
                 borderColor: 'gray',
                 borderRadius: 0,
                 borderWidth: 2,
@@ -42,8 +42,8 @@ const drawPotentialObject = ({
             setStyleObj({
                 top: createPosition(startMouseY, currentMouseY) + 2,
                 left: createPosition(startMouseX, currentMouseX) + 2,
-                width: Math.abs(currentMouseX - startMouseX),
-                height: Math.abs(currentMouseY - startMouseY),
+                width: Math.abs(currentMouseX - startMouseX) - 4,
+                height: Math.abs(currentMouseY - startMouseY) - 4,
                 borderColor: 'gray',
                 borderRadius: Math.abs(currentMouseX - startMouseX / 2),
                 borderWidth: 2,

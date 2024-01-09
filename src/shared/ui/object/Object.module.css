@@ -1,9 +1,12 @@
 .object {
     position: absolute;
+    padding-top: 4px;
+    padding-left: 4px;
 }
 
 .selected {
-    border: 4px solid #ff0000;
+    border: 4px solid #FF0000;
+    padding: 0;
 }
 
 .nonSelected {
@@ -32,4 +35,13 @@
 
 .textNotBlocked {
     cursor: text;
+}
+
+.textSelected {
+    cursor: text;
+}
+
+.textNonSelected {
+    user-select: none;
+    cursor: default;
 }

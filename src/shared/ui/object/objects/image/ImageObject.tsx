@@ -55,7 +55,7 @@ const ImageObject = (props: ImageObjProps) => {
                     }
                 }}
             >
-                <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />
+                <img style={styleChildObj} alt={props.caption} src={props.imageSrc} draggable="false" />
             </div>
         </div>
     )
