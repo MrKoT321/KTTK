@@ -6,6 +6,7 @@ import selectedReducer from '../model/selectedReducer'
 import slideShowReduser from '../model/slideShowReduser'
 import editObjectReducer from '../model/editObjectReduser'
 import mouseReducer from '../model/mouseReducer'
+import presentationHistoryReduser from '../../pages/model/presentationHistoryReduser'
 
 const rootReducer = combineReducers({
     presentationName: presentationNameReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     slideShow: slideShowReduser,
     editObject: editObjectReducer,
     mouse: mouseReducer,
+    history: presentationHistoryReduser,
 })
 
 export { rootReducer }

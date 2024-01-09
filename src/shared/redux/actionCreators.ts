@@ -1,7 +1,28 @@
 import { PresentationTypes } from './actionTypes'
-import { MouseLocations, MouseStates, Selected, SlideType } from '../types/types'
+import { HistoryPosDirectionType, MouseLocations, MouseStates, Selected, SlideType } from '../types/types'
 import { v4 as uuidV4 } from 'uuid'
 import { DrawStyle, MoveObj } from 'shared/types/devTypes'
+
+const setPresentationHistory = (newPresentationHistory: string[]) => {
+    return {
+        type: PresentationTypes.SET_PRESENTATION_HISTORY,
+        payload: [...newPresentationHistory],
+    }
+}
+
+const setHistoryPosition = (newHistoryPosition: number) => {
+    return {
+        type: PresentationTypes.SET_HISTORY_POSITION,
+        payload: newHistoryPosition,
+    }
+}
+
+const setHistoryPosDirection = (newHistoryPosDirection: HistoryPosDirectionType) => {
+    return {
+        type: PresentationTypes.SET_HISTORY_POS_DIRECTION,
+        payload: newHistoryPosDirection,
+    }
+}
 
 const setPresentationName = (name: string) => {
     return {
@@ -319,4 +340,7 @@ export {
     setMoveObjs,
     setMouseState,
     setMouseLocation,
+    setPresentationHistory,
+    setHistoryPosition,
+    setHistoryPosDirection,
 }

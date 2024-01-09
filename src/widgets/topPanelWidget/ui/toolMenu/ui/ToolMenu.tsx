@@ -8,7 +8,7 @@ import addShapeIcon from '../../../../../shared/icons/addShapeIcon.svg'
 import addRectangleIcon from '../../../../../shared/icons/addRectangleIcon.svg'
 import addCircleIcon from '../../../../../shared/icons/addCircleIcon.svg'
 import addLineIcon from '../../../../../shared/icons/addLineIcon.svg'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ToolMenuButton } from '../../../../../shared/ui/toolMenuButton'
 import { DropdownMenu } from '../../../../../features/dropdownMenu'
 import { useAppActions, useAppSelector } from '../../../../../shared/redux/store'
@@ -18,7 +18,7 @@ import { getFunctionsForDropDownLabels } from '../../../../../features/dropdownM
 
 const ToolMenu = () => {
     const { slidesMap, slidesOrder, currentSlideId } = useAppSelector((state) => state.slides)
-    const { addSlide, setBackground, setSelectImagePopUpState, setMouseState } = useAppActions()
+    const { addSlide, setBackground, setSelectImagePopUpState, setMouseState, setHistoryPosDirection } = useAppActions()
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const [isDropDownVisible, setIsDropDownVisible] = useState(false)
 
@@ -33,8 +33,8 @@ const ToolMenu = () => {
     return (
         <div className={styles.toolMenu}>
             <ToolMenuButton icon={addSlideIcon} onClick={() => addSlide(slidesMap, slidesOrder)} />
-            <ToolMenuButton icon={cancelIcon} onClick={() => console.log()} />
-            <ToolMenuButton icon={returnIcon} onClick={() => console.log()} />
+            <ToolMenuButton icon={cancelIcon} onClick={() => setHistoryPosDirection('down')} />
+            <ToolMenuButton icon={returnIcon} onClick={() => setHistoryPosDirection('up')} />
             <ToolMenuButton icon={addTextIcon} onClick={() => setMouseState('creatingText')} />
             <ToolMenuButton icon={addImageIcon} onClick={() => setSelectImagePopUpState(true)} />
             <ToolMenuButton icon={addShapeIcon} onClick={() => changeDropDownVisibility()} />
