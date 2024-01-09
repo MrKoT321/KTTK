@@ -27,7 +27,7 @@ const SelectImagePopUp = () => {
     const findImgFromLink = () => {
         fetch(linkValue, { mode: 'no-cors' })
             .then((res) => {
-                if (res.status != 404) {
+                if (res.status !== 404) {
                     const image = new Image()
                     image.src = linkValue
                     image.onload = () => {
