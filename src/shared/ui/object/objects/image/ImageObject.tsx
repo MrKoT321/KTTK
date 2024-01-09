@@ -47,7 +47,7 @@ const ImageObject = (props: ImageObjProps) => {
                 }
                 onMouseDown={(e) => props.handleMouseDown(e, props.isSelected)}
             >
-                <img style={styleChildObj} alt={props.caption} src={props.imageSrc} />
+                <img style={styleChildObj} alt={props.caption} src={props.imageSrc} draggable="false" />
             </div>
         </div>
     )

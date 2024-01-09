@@ -68,9 +68,6 @@ const SideSlide = ({ slide, order, isSelected, setDraggedSlidePos, handleDrop }:
                                 object={object}
                                 isSideSlide={true}
                                 isObjectSelected={false}
-                                setMouseState={() => {
-                                    console.log()
-                                }}
                                 handleMouseDown={() => {
                                     console.log()
                                 }}

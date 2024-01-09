@@ -20,7 +20,6 @@ const ShapeObject = (props: ShapeObjProps) => {
         height: props.height + 2 * props.borderWidth,
         left: props.startX,
         top: props.startY,
-        boxSizing: `border-box`,
     }
 
     return (

@@ -8,19 +8,11 @@ type ObjectProps = {
     object: ObjectImageType | ObjectTextType | ObjectShapeType
     isSideSlide?: boolean
     isObjectSelected: boolean
-    setMouseState: (mouseState: MouseStates) => void
     handleMouseDown: (e: React.MouseEvent<HTMLDivElement>, isSelected: boolean) => void
     handleMouseDownResize: (arg: React.MouseEvent<HTMLDivElement>) => void
 }
 
-const Object = ({
-    object,
-    isSideSlide,
-    isObjectSelected,
-    setMouseState,
-    handleMouseDown,
-    handleMouseDownResize,
-}: ObjectProps) => {
+const Object = ({ object, isSideSlide, isObjectSelected, handleMouseDown, handleMouseDownResize }: ObjectProps) => {
     const selected = useAppSelector((state) => state.selected)
     switch (object.oType) {
         case 'ObjectTextType': {
@@ -28,7 +20,6 @@ const Object = ({
                 ...object,
                 selected,
                 isSelected: isObjectSelected,
-                setMouseState,
                 handleMouseDown,
                 handleMouseDownResize,
             }
@@ -52,7 +43,6 @@ const Object = ({
                         value={object.value}
                         oType={object.oType}
                         isSelected={isObjectSelected}
-                        setMouseState={setMouseState}
                         handleMouseDown={handleMouseDown}
                         handleMouseDownResize={handleMouseDownResize}
                         italic={object.italic}

@@ -203,19 +203,27 @@ const WorkSpaceWidget = () => {
             setMoveObjs([])
         }
         if (mouseState === 'resize') {
+            if (styleObj.width !== 0 || styleObj.width) {
+                const newObjects = currentSlide.objects.map((object) => {
+                    if (selectedObjectIds.includes(object.id)) {
+                        if (startMouseX >= currentMouseX) {
+                            object.startX -= startMouseX - currentMouseX
+                        }
+                        if (startMouseY >= currentMouseY) {
+                            object.startY += startHeight - styleObj.height
+                        } else {
+                            object.startY = startMouseY - lp.currentSlideIndentY
+                        }
+                        object.width += styleObj.width - startWidth
+                        object.height += styleObj.height - startHeight
+                    }
+                    return object
+                })
+                const newCurrentSlide = { ...currentSlide, objects: newObjects }
+                slidesMap.set(currentSlideId, newCurrentSlide)
+                setSlides(slidesMap)
+            }
             setMouseState('cursor')
-            const newObjects = currentSlide.objects.map((object) => {
-                if (selectedObjectIds.includes(object.id)) {
-                    object.width = object.width * (styleObj.width / startWidth)
-                    object.height = object.height * (styleObj.height / startHeight)
-                    object.startX = startMouseX - lp.currentSlideIndentX
-                    object.startY = startMouseY - styleObj.height - lp.currentSlideIndentY
-                }
-                return object
-            })
-            const newCurrentSlide = { ...currentSlide, objects: newObjects }
-            slidesMap.set(currentSlideId, newCurrentSlide)
-            setSlides(slidesMap)
             setStyleObj({
                 left: 0,
                 top: 0,
