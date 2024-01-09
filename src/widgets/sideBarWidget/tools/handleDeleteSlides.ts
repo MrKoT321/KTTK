@@ -13,7 +13,6 @@ export const handleDeleteSlides = (
     setCurrentSlide: (id: string) => void,
 ) => {
     if (e.key === 'Delete' && mouseLocation === 'sideBar') {
-        e.preventDefault()
         const newOrder = slidesOrder.filter((slideId) => !selectedSlideIds.includes(slideId))
         setSlidesOrder(newOrder)
         const newSlidesMap: Map<string, SlideType> = new Map()
