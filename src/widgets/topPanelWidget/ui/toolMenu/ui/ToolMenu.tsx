@@ -35,17 +35,23 @@ const ToolMenu = () => {
             <ToolMenuButton icon={addSlideIcon} onClick={() => addSlide(slidesMap, slidesOrder)} />
             <ToolMenuButton icon={cancelIcon} onClick={() => console.log()} />
             <ToolMenuButton icon={returnIcon} onClick={() => console.log()} />
+            <div className={styles.bgColor}>
+                <label htmlFor={'bgColor'} className={styles.bgColorLabel}>
+                    Фон
+                </label>
+                <input
+                    className={styles.inputColor}
+                    id={'bgColor'}
+                    type={'color'}
+                    value={currentSlide.backgroundValue}
+                    onChange={(event) => {
+                        setBackground(event.target.value)
+                    }}
+                />
+            </div>
             <ToolMenuButton icon={addTextIcon} onClick={() => setMouseState('creatingText')} />
             <ToolMenuButton icon={addImageIcon} onClick={() => setSelectImagePopUpState(true)} />
             <ToolMenuButton icon={addShapeIcon} onClick={() => changeDropDownVisibility()} />
-            <input
-                className={styles.inputColor}
-                type={'color'}
-                value={currentSlide.backgroundValue}
-                onChange={(event) => {
-                    setBackground(event.target.value)
-                }}
-            />
             <div className={isDropDownVisible ? styles.shapeDropDown_visible : styles.shapeDropDown_hidden}>
                 <DropdownMenu
                     icons={[addRectangleIcon, addCircleIcon, addLineIcon]}

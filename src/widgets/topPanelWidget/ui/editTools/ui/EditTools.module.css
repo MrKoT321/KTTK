@@ -1,4 +1,10 @@
 .editTools {
     display: flex;
-    gap: 10px;
+    gap: 25px;
+}
+
+.separator {
+    width: 4px;
+    height: 45px;
+    background-color: #444746;
 }

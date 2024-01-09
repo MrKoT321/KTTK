@@ -1,6 +1,5 @@
 .toolMenu {
     position: relative;
-    width: 300px;
     display: flex;
     gap: 10px;
     align-items: center;
@@ -14,19 +13,37 @@
 
 .shapeDropDown_visible {
     position: absolute;
-    left: 140px;
-    top: 35px;
+    left: 330px;
+    top: 50px;
 }
 
 .inputColor {
-    width: 30px;
-    height: 30px;
-    padding: 0 2px;
-    appearance: none;
-    background-color: transparent;
+    width: 0;
+    height: 0;
+    padding: 0;
+    border: 0;
     outline: none;
     box-shadow: none;
-    border-radius: 5px;
-    border: 1px solid #5e5e5e;
+    appearance: none;
+    inline-size: 0;
+    block-size: 0;
+    box-sizing: unset;
+}
+
+.bgColor {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EDF2FA;
+    color: #444746;
+    font-size: 20px;
+}
+
+.bgColorLabel {
+    width: 45px;
+    background-color: #EDF2FA;
+    text-align: center;
     cursor: pointer;
 }

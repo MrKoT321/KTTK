@@ -44,6 +44,7 @@ const EditTools = () => {
         <div className={styles.editTools}>
             {isTextObjectSelected && (
                 <>
+                    <div className={styles.separator}></div>
                     <EditInputButton type={'font'} />
                     <EditInputButton type={'fontSize'} />
                     <ChangeTextDecorationSetupButton imageSrc={boldTextIcon} type={'bold'} />
@@ -54,18 +55,22 @@ const EditTools = () => {
             )}
             {isLineObjectOnlySelected && (
                 <>
+                    <div className={styles.separator}></div>
                     <EditInputButton type={'borderWidth'} />
+                    <div className={styles.separator}></div>
                     <ChangeColorButton type={'objectColor'} />
-                    <InputField />
+                    <InputField type={'rotation'} />
                 </>
             )}
             {isObjectSelected && !isLineObjectOnlySelected && (
                 <>
+                    <div className={styles.separator}></div>
                     <EditInputButton type={'borderWidth'} />
                     <EditInputButton type={'borderStyle'} />
                     <ChangeColorButton type={'borderColor'} />
+                    <div className={styles.separator}></div>
                     <ChangeColorButton type={'objectColor'} />
-                    <InputField />
+                    <InputField type={'rotation'} />
                 </>
             )}
         </div>

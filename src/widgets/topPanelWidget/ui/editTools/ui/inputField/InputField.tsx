@@ -3,7 +3,11 @@ import { SlideType } from '../../../../../../shared/types/types'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
 import { defaultCurrentSlide } from '../../../../../../shared/tools/defaultCurrentSlide'
 
-const InputField = () => {
+type InputFieldType = {
+    type: 'rotation'
+}
+
+const InputField = ({ type }: InputFieldType) => {
     const { slidesMap, currentSlideId } = useAppSelector((state) => state.slides)
     const currentSlide = slidesMap.get(currentSlideId) || defaultCurrentSlide
     const selectedObjectIds = useAppSelector((state) => state.selected.selectedObjectIds)
@@ -25,12 +29,14 @@ const InputField = () => {
 
     return (
         <div>
-            <input
-                className={styles.rotationInput}
-                type={'text'}
-                value={getSelectedObjectsCommonRotation(currentSlide, selectedObjectIds)}
-                onChange={(e) => setSlideObjectsRotation(Number(e.target.value), selectedObjectIds)}
-            />
+            {type === 'rotation' && (
+                <input
+                    className={styles.rotationInput}
+                    type={'text'}
+                    value={getSelectedObjectsCommonRotation(currentSlide, selectedObjectIds)}
+                    onChange={(e) => setSlideObjectsRotation(Number(e.target.value), selectedObjectIds)}
+                />
+            )}
         </div>
     )
 }

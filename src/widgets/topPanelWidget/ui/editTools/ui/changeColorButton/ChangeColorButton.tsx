@@ -2,6 +2,7 @@ import styles from './ChangeColorButton.module.css'
 import { useAppActions, useAppSelector } from '../../../../../../shared/redux/store'
 import { SlideType } from '../../../../../../shared/types/types'
 import { defaultCurrentSlide } from '../../../../../../shared/tools/defaultCurrentSlide'
+import fillColorIcon from '../../../../../../shared/icons/fillColorIcon.svg'
 
 type ColorButtonTypes = {
     type: 'textColor' | 'borderColor' | 'objectColor'
@@ -70,14 +71,20 @@ const ChangeColorButton = ({ type }: ColorButtonTypes) => {
     return (
         <>
             {type === 'textColor' && (
-                <input
-                    className={styles.button}
-                    type={'color'}
-                    value={getSelectedObjectsCommonFontColor(currentSlide, selectedObjectIds)}
-                    onChange={(event) => {
-                        setTextObjectFontColor(event.target.value, selectedObjectIds)
-                    }}
-                />
+                <div className={styles.colorPicker}>
+                    <label htmlFor={'textColor'} className={styles.fontColorPickerLabel}>
+                        A
+                    </label>
+                    <input
+                        className={styles.fontColorPickerButton}
+                        type={'color'}
+                        id={'textColor'}
+                        value={getSelectedObjectsCommonFontColor(currentSlide, selectedObjectIds)}
+                        onChange={(event) => {
+                            setTextObjectFontColor(event.target.value, selectedObjectIds)
+                        }}
+                    />
+                </div>
             )}
             {type === 'borderColor' && (
                 <input
@@ -91,14 +98,20 @@ const ChangeColorButton = ({ type }: ColorButtonTypes) => {
             )}
 
             {type === 'objectColor' && (
-                <input
-                    className={styles.button}
-                    type={'color'}
-                    value={getSelectedObjectsCommonColor(currentSlide, selectedObjectIds)}
-                    onChange={(event) => {
-                        setSlideObjectsColor(event.target.value, selectedObjectIds)
-                    }}
-                />
+                <div className={styles.colorPicker}>
+                    <label htmlFor={'objectColor'}>
+                        <img src={fillColorIcon} alt={'Заливка'} className={styles.objectColorPickerLabel} />
+                    </label>
+                    <input
+                        className={styles.objectColorPickerButton}
+                        type={'color'}
+                        id={'objectColor'}
+                        value={getSelectedObjectsCommonColor(currentSlide, selectedObjectIds)}
+                        onChange={(event) => {
+                            setSlideObjectsColor(event.target.value, selectedObjectIds)
+                        }}
+                    />
+                </div>
             )}
         </>
     )

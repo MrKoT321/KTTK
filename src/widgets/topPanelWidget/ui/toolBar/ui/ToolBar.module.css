@@ -10,5 +10,13 @@
 
 .button {
     padding: 2px 10px;
-    background-color: #ff603d;
+    border: 0;
+    background-color: #E4E2E2;
+    font-size: 22px;
+    color: #444746;
+    cursor: pointer;
+}
+
+.label {
+    cursor: pointer;
 }

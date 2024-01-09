@@ -6,36 +6,63 @@
     align-items: center;
 }
 
+.option {
+    margin: 5px;
+}
+
+.option:focus {
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
 .fontFamily {
-    width: 195px;
-    height: 25px;
+    width: 180px;
+    height: 45px;
     padding: 0;
+    font-size: 20px;
     text-align: center;
     box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #5e5e5e;
+    border: 0;
     outline: none;
+    background-color: #EDF2FA;
 }
 
 .fontFamily:focus {
     box-sizing: border-box;
-    border-radius: 5px;
-    border: 2px solid #000000;
+    border: 0;
 }
 
+
 .fontSize {
-    width: 100px;
-    height: 25px;
+    width: 60px;
+    height: 45px;
     padding: 0;
+    font-size: 20px;
     text-align: center;
     box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid #5e5e5e;
+    background-color: #EDF2FA;
+    border: 0;
     outline: none;
 }
 
 .fontSize:focus {
     box-sizing: border-box;
-    border-radius: 5px;
-    border: 2px solid #000000;
+    border: 0;
+}
+
+.borderStyle {
+    width: 100px;
+    height: 45px;
+    padding: 0;
+    font-size: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 0;
+    outline: none;
+    background-color: #EDF2FA;
+}
+
+.borderStyle:focus {
+    box-sizing: border-box;
+    border: 0;
 }

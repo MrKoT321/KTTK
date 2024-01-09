@@ -1,5 +1,5 @@
-import { ToolMenuButton } from '../../../shared/ui/toolMenuButton'
 import styles from './DropdownMenu.module.css'
+import { ToolMenuButton } from '../../../shared/ui/toolMenuButton'
 
 type DropdownMenuProps = {
     icons: string[]

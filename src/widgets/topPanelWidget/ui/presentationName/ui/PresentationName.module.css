@@ -1,19 +1,19 @@
 .presentationNameInput {
-    width: 300px;
-    height: 30px;
-    border-radius: 10px;
-    padding: 0 20px;
+    width: 280px;
+    height: 48px;
+    border-radius: 20px;
     box-sizing: border-box;
-    font-size: 16px;
-    color: #5e5e5e;
-    border: 2px solid #5e5e5e;
+    padding-left: 10px;
+    font-size: 22px;
+    color: #444746;
+    border: 3px solid #444746;
     background-color: #e4e2e2;
 }
 
 .presentationNameInput:focus {
-    font-size: 16px;
+    font-size: 22px;
     margin: 0;
     box-shadow: none;
-    border: 2px solid #000000;
+    border: 3px solid #444746;
     outline: none;
 }

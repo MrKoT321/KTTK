@@ -2,9 +2,9 @@ const windowScreenHeight = window.screen.height
 const windowScreenWidth = window.screen.width
 const slideSizeRatio = windowScreenWidth / windowScreenHeight
 
-const topPanelHeight = 80
+const topPanelHeight = 180
 const footerHeight = 0
-const sideBarWidth = 280
+const sideBarWidth = 350
 const layoutHeight = window.innerHeight
 const layoutWidth = window.innerWidth
 

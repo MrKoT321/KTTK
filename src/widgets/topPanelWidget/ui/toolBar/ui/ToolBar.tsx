@@ -31,7 +31,9 @@ const ToolBar = () => {
                 Скачать как PDF
             </button>
             <button className={styles.button}>
-                <label htmlFor={'open'}>Открыть</label>
+                <label htmlFor={'open'} className={styles.label}>
+                    Открыть
+                </label>
                 <input
                     type={'file'}
                     accept={'.json'}
@@ -56,7 +58,7 @@ const ToolBar = () => {
                     setIsFullscreen(true)
                 }}
             >
-                Начать слайд-шоу
+                Слайд-шоу
             </button>
         </div>
     )
