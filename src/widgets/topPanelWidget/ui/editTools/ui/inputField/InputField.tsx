@@ -27,9 +27,7 @@ const InputField = () => {
         <div>
             <input
                 className={styles.rotationInput}
-                type={'number'}
-                min={0}
-                max={359}
+                type={'text'}
                 value={getSelectedObjectsCommonRotation(currentSlide, selectedObjectIds)}
                 onChange={(e) => setSlideObjectsRotation(Number(e.target.value), selectedObjectIds)}
             />
