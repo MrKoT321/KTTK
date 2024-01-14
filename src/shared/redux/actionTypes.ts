@@ -43,6 +43,7 @@ enum PresentationTypes {
     SET_PRESENTATION_HISTORY = 'SET_PRESENTATION_HISTORY',
     SET_HISTORY_POSITION = 'SET_HISTORY_POSITION',
     SET_HISTORY_POS_DIRECTION = 'SET_HISTORY_POS_DIRECTION',
+    SET_IS_TEST = 'SET_IS_TEST',
 }
 
 type SetPresentationNameAction = {
@@ -283,6 +284,11 @@ type SetHistoryPosDirection = {
     payload: HistoryPosDirectionType
 }
 
+type SetIsTest = {
+    type: PresentationTypes.SET_IS_TEST
+    payload: boolean
+}
+
 type ActionTypes =
     | SetPresentationHistory
     | SetHistoryPosition
@@ -325,5 +331,6 @@ type ActionTypes =
     | SetMoveObjs
     | SetMouseState
     | SetMouseLocation
+    | SetIsTest
 
 export { PresentationTypes, type ActionTypes, type SetSlidesAction }

@@ -17,6 +17,7 @@ const ToolBar = () => {
         setSelectedSlideIds,
         setIsSlideShow,
         setIsFullscreen,
+        setIsTest,
     } = useAppActions()
 
     return (
@@ -59,6 +60,9 @@ const ToolBar = () => {
                 }}
             >
                 Слайд-шоу
+            </button>
+            <button className={styles.button} onClick={() => setIsTest(true)}>
+                Тестовый режим
             </button>
         </div>
     )

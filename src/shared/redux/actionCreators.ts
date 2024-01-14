@@ -203,6 +203,13 @@ const setIsFullscreen = (isFullscreen: boolean) => {
     }
 }
 
+const setIsTest = (isTest: boolean) => {
+    return {
+        type: PresentationTypes.SET_IS_TEST,
+        payload: isTest,
+    }
+}
+
 const setCurrentMouseX = (currentMouseX: number) => {
     return {
         type: PresentationTypes.SET_CURRENT_MOUSE_X,
@@ -326,6 +333,7 @@ export {
     setIsSlideShow,
     setCurrentSlideNumber,
     setIsFullscreen,
+    setIsTest,
     setCurrentMouseX,
     setCurrentMouseY,
     setStartMouseX,
